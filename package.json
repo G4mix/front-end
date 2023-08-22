@@ -5,7 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "commit": "git cz",
+    "commit": "./node_modules/cz-customizable/standalone.js",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -14,21 +14,22 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@types/node": "^20.5.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "eslint": "^8.47.0",
-    "eslint-config-next": "^13.4.19",
-    "typescript": "^5.1.6",
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3"
+    "cz-customizable": "^7.0.0",
+    "eslint": "^8.47.0",
+    "eslint-config-next": "^13.4.19",
+    "husky": "^8.0.3",
+    "typescript": "^5.1.6"
   },
   "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "cz-customizable": {
+      "config": "./cz-config.js"
     }
   }
 }
