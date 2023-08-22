@@ -16,7 +16,7 @@ A plataforma Gamix é um ambiente colaborativo que une pessoas com paixão por j
 
 ## Como Contribuir
 
-Se você deseja contribuir com o desenvolvimento do Front-end da plataforma Gamix, fique à vontade para explorar o código, enviar pull requests e colaborar com ideias e melhorias. Consulte as [diretrizes de contribuição](CONTRIBUTING.md) para obter mais informações sobre como se envolver.
+Se você deseja contribuir com o desenvolvimento do Front-end da plataforma Gamix, fique à vontade para explorar o código, enviar pull requests e colaborar com ideias e melhorias. Consulte as [diretrizes de contribuição](docs/CONTRIBUTING.md) para obter mais informações sobre como se envolver.
 
 ## Contato
 
