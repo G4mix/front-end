@@ -38,7 +38,7 @@ Certifique-se de escolher a categoria adequada ao fazer um commit e fornecer det
 
 Se você tiver dúvidas ou precisar de ajuda com os padrões de commits, entre em contato com o time de desenvolvimento responsável pelo Front-end:
 
-- [Vinicius Moreira - Nome do Desenvolvedor](https://github.com/ViniMS05)
+- [Vinicius Moreira - Sênior Front-end](https://github.com/ViniMS05)
 - [Lucas Christian - Engenheiro de Software](https://github.com/Lucas-Christian)
 
 Obrigado por contribuir para a plataforma Gamix e ajudar a criar jogos incríveis para nossa comunidade!
