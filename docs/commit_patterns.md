@@ -10,27 +10,29 @@ Isso abrirá um assistente interativo onde você poderá escolher uma categoria 
 
 Os commits seguem as seguintes categorias:
 
-I. `chore`: Atualização de tarefas que não afetam o código de produção, como mudanças de ferramentas, configurações e bibliotecas.
+I. `chore`: Atualização de tarefas que não afetam o código de produção, como mudanças de ferramentas, configurações e bibliotecas;
 
-II. `feat`: Adição de novas funcionalidades ou implantações ao código.
+II. `feat`: Adição de novas funcionalidades ou implantações ao código;
 
-III. `fix`: Correção de bugs ou erros no código.
+III. `fix`: Correção de bugs ou erros no código;
 
-IV. `refactor`: Mudanças no código que não afetam a funcionalidade final, como refatorações.
+IV. `refactor`: Mudanças no código que não afetam a funcionalidade final, como refatorações;
 
-V. `docs`: Alterações em arquivos de documentação.
+V. `docs`: Alterações em arquivos de documentação;
 
-VI. `perf`: Alterações de código que melhoram o desempenho.
+VI. `perf`: Alterações de código que melhoram o desempenho;
 
-VII. `style`: Alterações de formatação que não afetam o significado do código.
+VII. `style`: Alterações de formatação que não afetam o significado do código;
 
-VIII. `test`: Adição ou correção de testes automatizados.
+VIII. `test`: Adição ou correção de testes automatizados;
 
-IX. `build`: Mudanças que afetam o sistema de construção ou dependências externas.
+IX. `build`: Mudanças que afetam o sistema de construção ou dependências externas;
 
-X. `ci`: Alterações em arquivos de configuração de integração contínua.
+X. `ci`: Alterações em arquivos de configuração de integração contínua;
 
-XI. `env`: Modificações em arquivos de configuração relacionados à integração contínua.
+XI. `env`: Modificações em arquivos de configuração relacionados à integração contínua;
+
+XII. `fit`: Pequenos ajustes no código;
 
 Certifique-se de escolher a categoria adequada ao fazer um commit e fornecer detalhes claros sobre as alterações realizadas.
 
