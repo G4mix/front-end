@@ -25,7 +25,7 @@ Obrigado por considerar contribuir para o desenvolvimento do Front-end da plataf
 
 Se você tiver dúvidas, sugestões ou precisar de assistência durante o processo de contribuição, entre em contato com o time de desenvolvimento responsável pelo Front-end:
 
-- [Vinicius Moreira - Nome do Desenvolvedor](https://github.com/ViniMS05)
+- [Vinicius Moreira - Sênior Front-end](https://github.com/ViniMS05)
 - [Lucas Christian - Engenheiro de Software](https://github.com/Lucas-Christian)
 
 Obrigado por contribuir para a plataforma Gamix e ajudar a criar jogos incríveis para nossa comunidade!
