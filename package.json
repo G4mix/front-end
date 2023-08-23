@@ -6,8 +6,10 @@
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open",
-    "commit": "./node_modules/cz-customizable/standalone.js",
-    "prepare": "husky install"
+    "commit": "node node_modules/cz-customizable/standalone.js",
+    "prepare": "husky install",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "next": "13.4.19",
@@ -15,8 +17,16 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@storybook/addon-essentials": "^7.3.2",
+    "@storybook/addon-interactions": "^7.3.2",
+    "@storybook/addon-links": "^7.3.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.3.2",
+    "@storybook/nextjs": "^7.3.2",
+    "@storybook/react": "^7.3.2",
+    "@storybook/testing-library": "^0.2.0",
     "@types/node": "^20.5.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
@@ -29,7 +39,9 @@
     "eslint": "^8.47.0",
     "eslint-config-next": "^13.4.19",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
+    "storybook": "^7.3.2",
     "typescript": "^5.1.6"
   },
   "config": {
