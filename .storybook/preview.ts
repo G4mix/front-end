@@ -9,6 +9,15 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    backgrounds: {
+      default: "gamix",
+      values: [
+        {
+          name: 'gamix',
+          value: '#1C2034',
+        }
+      ],
+    },
   },
 };
 

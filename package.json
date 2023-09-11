@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix && npx eslint --fix",
     "cypress": "cypress open",
     "commit": "node node_modules/cz-customizable/standalone.js",
     "prepare": "husky install",

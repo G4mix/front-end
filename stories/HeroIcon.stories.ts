@@ -29,7 +29,8 @@ export const LockClosedIcon: Story = {
   args: {
     icon: "LockClosedIcon",
     width: 64,
-    height: 64
+    height: 64,
+    style: { "color": "#FFFFFF" }
   }
 }
 
@@ -37,7 +38,8 @@ export const UserIcon: Story = {
   args: {
     icon: "UserIcon",
     width: 64,
-    height: 64
+    height: 64,
+    style: { "color": "#FFFFFF" }
   }
 }
 
@@ -45,6 +47,7 @@ export const CheckIcon: Story = {
   args: {
     icon: "CheckIcon",
     width: 64,
-    height: 64
+    height: 64,
+    style: { "color": "#FFFFFF" }
   }
 }

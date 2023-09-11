@@ -1,6 +1,7 @@
 :root {
   --white: #FFFFFF;
   --black: #000000;
+  --delft_blue_bg: #1C2034;
 
   --font_default: 16px;
 }
@@ -18,6 +19,7 @@
 }
 
 body {
+  background-color: var(--delft_blue_bg);
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
