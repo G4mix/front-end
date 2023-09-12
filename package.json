@@ -16,7 +16,6 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@heroicons/react": "^2.0.18",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -35,8 +34,8 @@
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
-    "@typescript-eslint/parser": "^6.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
     "commitizen": "^4.3.0",
     "cypress": "^13.1.0",
     "cz-conventional-changelog": "^3.3.0",
