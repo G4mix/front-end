@@ -1,12 +1,17 @@
+import styles from "./Button.module.css";
 import React from "react";
 
-interface ButtonProps {
-  backgroundColor?: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-}
+};
 
-export function Button({ children }: ButtonProps) {
+export function Button({ children, ...props }: ButtonProps) {
   return (
-    <button>{children}</button>
+    <button
+      className={styles.button}
+      {...props}
+    >
+      {children}
+    </button>
   );
 }

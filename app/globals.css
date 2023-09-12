@@ -1,8 +1,19 @@
 :root {
   --white: #FFFFFF;
   --black: #000000;
-  --delft_blue_bg: #1C2034;
 
+  
+  --ultra-violet: #68589D;
+  
+  --jet: #333333;
+
+  --saffron: #F9C536;
+  
+  --savoy-blue: #626CA7;
+  --carolina-blue: #89BDDF;
+  --delft_blue: #343A5B;
+  
+  --delft_blue_bg: #1C2034;
   --font_default: 16px;
 }
 
