@@ -13,3 +13,9 @@
   cursor: default!important;
   opacity: 0.6!important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
+}

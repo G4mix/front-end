@@ -1,0 +1,57 @@
+.root {
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.indicatorContainer {
+  background-color: none;
+  justify-content: center;
+  border-radius: 8px;
+  align-items: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s;
+  position: absolute;
+  display: flex;
+  border: 2px solid var(--carolina-blue);
+  bottom: 0;
+  height: 24px;
+  width: 24px;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+.input {
+  display: none;
+}
+
+.indicator {
+  display: none;
+}
+
+.input:checked + .indicatorContainer {
+  background-color: var(--carolina-blue);
+}
+
+.input:checked + .indicatorContainer .indicator {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.input:disabled ~ .indicatorContainer {
+  pointer-events: none;
+  transition: none;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicatorContainer {
+    transition: none;
+  }
+}
