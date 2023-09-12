@@ -14,8 +14,8 @@ const preview: Preview = {
       default: "gamix",
       values: [
         {
-          name: 'gamix',
-          value: '#1C2034',
+          name: "gamix",
+          value: "#1C2034",
         }
       ],
     },
