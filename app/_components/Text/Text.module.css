@@ -23,6 +23,30 @@
   color: var(--white);
 }
 
+.thin {
+  font-weight: 100!important;
+}
+
+.light {
+  font-weight: 300!important;
+}
+
+.regular {
+  font-weight: 400!important;
+}
+
+.medium {
+  font-weight: 500!important;
+}
+
+.bold {
+  font-weight: 700!important;
+}
+
+.black {
+  font-weight: 900!important;
+}
+
 @media (min-width: 640px) {
   .lg {
     font-size: var(--font-xl);
