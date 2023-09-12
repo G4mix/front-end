@@ -1,5 +1,5 @@
 .icon {
-  color: #FFFFFF;
+  color: var(--white);
 }
 .icon:hover {
   opacity: 0.7;

@@ -27,47 +27,41 @@ type Story = StoryObj<typeof meta>;
 export const GoogleIcon: Story = {
   args: {
     icon: "google",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
 
 export const GithubIcon: Story = {
   args: {
     icon: "github",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
 
 export const LinkedinIcon: Story = {
   args: {
     icon: "linkedin",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
 
 export const LockIcon: Story = {
   args: {
     icon: "lock",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
 
 export const UserIcon: Story = {
   args: {
     icon: "user",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
 
 export const CheckIcon: Story = {
   args: {
     icon: "check",
-    size: "2xl",
-    style: { "color": "#FFFFFF" }
+    size: "2xl"
   }
 }
