@@ -5,10 +5,11 @@ import React from "react";
 
 type IconProps = {
   className?: FontAwesomeIconProps["className"];
+  disabled?: boolean;
   icon: "google" | "github" | "linkedin" | "user" | "check" | "lock";
 }
 
-export function Icon({ icon, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
+export function Icon({ icon, disabled=false, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
   const IconToRender = icons[icon as keyof typeof icons];
-  return <FontAwesomeIcon {...props} icon={IconToRender} className={styles.icon} />;
+  return <FontAwesomeIcon {...props} icon={IconToRender} className={`${styles.icon} ${disabled ? styles.disabled : ""}`} />;
 }

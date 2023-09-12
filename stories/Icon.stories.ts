@@ -17,7 +17,8 @@ const meta = {
         type: "select",
       },
       options: ["2xs", "xs", "sm", "lg", "xl", "2xl"], 
-    }
+    },
+    disabled: { control: "boolean" }
   }
 } satisfies Meta<typeof Icon>;
 
