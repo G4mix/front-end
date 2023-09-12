@@ -3,7 +3,7 @@ import React from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gamix - Home",
+  title: "Gamix · Home",
   description: "Bem-vindo ao ....."
 };
 

@@ -6,7 +6,6 @@ import React from "react";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <p>Teste</p>
       <Button>Testando</Button>
       <Icon icon="google" height={24}/>
     </main>
