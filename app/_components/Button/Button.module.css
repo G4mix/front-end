@@ -10,6 +10,7 @@
   display: flex;
   width: 260px;
   height: 45px;
+  gap: 10px;
 }
 
 .button:hover {
