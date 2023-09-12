@@ -18,7 +18,7 @@ const preview: Preview = {
           value: "#1C2034",
         }
       ],
-    },
+    }
   },
 };
 
