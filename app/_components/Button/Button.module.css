@@ -1,20 +1,21 @@
 .button {
   background-color: var(--ultra-violet);
-  transition: box-shadow 0.3s;
   justify-content: center;
-  align-items: center;
-  color: var(--white);
   border-radius: 8px;
-  padding: 14px 16px;
+  align-items: center;
   flex-shrink: 0;
+  transition: box-shadow 0.3s;
+  padding: 14px 16px;
   display: flex;
-  width: 260px;
+  box-shadow: var(--shadow);
   height: 45px;
+  width: 260px;
+  color: var(--white);
   gap: 10px;
 }
 
 .button:hover {
-  box-shadow: 0px 0px 20px 0px var(--savoy-blue);
+  box-shadow: 0px 0px 20px 0px var(--savoy-blue)!important;
   cursor: pointer;
 }
 
