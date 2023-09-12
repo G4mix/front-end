@@ -1,0 +1,78 @@
+.lg {
+  font-size: var(--font-lg);
+  color: var(--white);
+}
+
+.md {
+  font-size: var(--font-md);
+  color: var(--white);
+}
+
+.default {
+  font-size: var(--font-default);
+  color: var(--white);
+}
+
+.sm {
+  font-size: var(--font-sm);
+  color: var(--white);
+}
+
+.xs {
+  font-size: var(--font-xs);
+  color: var(--white);
+}
+
+@media (min-width: 640px) {
+  .lg {
+    font-size: var(--font-xl);
+  }
+  .md {
+    font-size: var(--font-lg);
+  }
+  .default {
+    font-size: var(--font-md);
+  }
+  .sm {
+    font-size: var(--font-default);
+  }
+  .xs {
+    font-size: var(--font-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg {
+    font-size: var(--font-2xl);
+  }
+  .md {
+    font-size: var(--font-xl);
+  }
+  .default {
+    font-size: var(--font-lg);
+  }
+  .sm {
+    font-size: var(--font-md);
+  }
+  .xs {
+    font-size: var(--font-default);
+  }
+}
+
+@media (min-width: 1536px) {
+  .lg {
+    font-size: var(--font-3xl);
+  }
+  .md {
+    font-size: var(--font-2xl);
+  }
+  .default {
+    font-size: var(--font-xl);
+  }
+  .sm {
+    font-size: var(--font-lg);
+  }
+  .xs {
+    font-size: var(--font-md);
+  }
+}

@@ -1,25 +1,27 @@
 :root {
   --white: #FFFFFF;
   --black: #000000;
-
-  
   --ultra-violet: #68589D;
-  
   --jet: #333333;
-
   --saffron: #F9C536;
-  
   --savoy-blue: #626CA7;
   --carolina-blue: #89BDDF;
-  --delft_blue: #343A5B;
-  
-  --delft_blue_bg: #1C2034;
-  --font_default: 16px;
+  --delft-blue: #343A5B;
+  --delft-blue-bg: #1C2034;
+
+  --font-3xl: 39.81px;
+  --font-2xl: 33.18px;
+  --font-xl: 27.65px;
+  --font-lg: 23.04px;
+  --font-md: 19.20px;
+  --font-default: 16px;
+  --font-sm: 13.33px;
+  --font-xs: 11.11px;
 }
 
 * {
   font-family: Roboto, sans-serif;
-  font-size: var(--font_default);
+  font-size: var(--font-default);
   box-sizing: border-box;
   text-decoration: none;
   user-select: none;
@@ -30,7 +32,7 @@
 }
 
 body {
-  background-color: var(--delft_blue_bg);
+  background-color: var(--delft-blue-bg);
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
