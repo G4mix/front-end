@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { icons } from "@constants/icons";
 import { Icon } from "@components/Icon";
 
 const meta = {
@@ -10,7 +11,7 @@ const meta = {
       control: {
         type: "select",
       },
-      options: ["google", "github", "linkedin", "user", "check", "lock"], 
+      options: Object.keys(icons), 
     },
     size: {
       control: {
@@ -63,6 +64,34 @@ export const UserIcon: Story = {
 export const CheckIcon: Story = {
   args: {
     icon: "check",
+    size: "2xl"
+  }
+}
+
+export const UsersIcon: Story = {
+  args: {
+    icon: "users",
+    size: "2xl"
+  }
+}
+
+export const PlusIcon: Story = {
+  args: {
+    icon: "plus",
+    size: "2xl"
+  }
+}
+
+export const HouseIcon: Story = {
+  args: {
+    icon: "house",
+    size: "2xl"
+  }
+}
+
+export const SearchIcon: Story = {
+  args: {
+    icon: "search",
     size: "2xl"
   }
 }

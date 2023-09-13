@@ -1,0 +1,16 @@
+.nav {
+  width: 360px;
+  height: 50px;
+  position: fixed;
+  background-color: var(--jet);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  bottom: 0;
+  z-index: 9999;
+}
+.img {
+  border-radius: 9999px;
+}

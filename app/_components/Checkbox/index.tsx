@@ -8,4 +8,4 @@ export const Checkbox = {
   Input: CheckboxInput,
   IndicatorContainer: CheckboxIndicatorContainer,
   Indicator: CheckboxIndicator
-}
+};

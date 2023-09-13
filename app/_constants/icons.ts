@@ -1,5 +1,5 @@
+import { faUser, faLock, faCheck, faUsers, faPlus, faHouse, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faUser, faLock, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export const icons = {
   "google": faGoogle,
@@ -7,5 +7,9 @@ export const icons = {
   "linkedin": faLinkedin,
   "user": faUser,
   "check": faCheck,
-  "lock": faLock
+  "lock": faLock,
+  "users": faUsers,
+  "plus": faPlus,
+  "house": faHouse,
+  "search": faMagnifyingGlass
 };

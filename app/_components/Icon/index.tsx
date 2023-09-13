@@ -6,7 +6,7 @@ import React from "react";
 type IconProps = {
   className?: FontAwesomeIconProps["className"];
   disabled?: boolean;
-  icon: "google" | "github" | "linkedin" | "user" | "check" | "lock";
+  icon: keyof typeof icons;
 }
 
 export function Icon({ icon, disabled=false, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {

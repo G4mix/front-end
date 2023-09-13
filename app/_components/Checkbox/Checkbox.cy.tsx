@@ -1,5 +1,6 @@
 import { Checkbox } from "./index";
 import { Icon } from "../Icon";
+import React from "react";
 
 describe("<Checkbox />", () => {
   it("Should be checked.", () => {
