@@ -95,3 +95,10 @@ export const SearchIcon: Story = {
     size: "2xl"
   }
 }
+
+export const EnvelopeIcon: Story = {
+  args: {
+    icon: "envelope",
+    size: "2xl"
+  }
+}

@@ -2,15 +2,21 @@ import { Input } from "@components/Input";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 
-export function InputExample() {
+interface InputExampleProps {
+  label: string;
+  icon: "envelope" | "lock" | "user";
+  type: "password" | "email" | "text";
+}
+
+export function InputExample({ label, icon, type }: InputExampleProps) {
   return (
     <Input.Root>
       <Text size="xs">
-        Senha
+        {label}
       </Text>
       <Input.Field>
-        <Icon icon="lock" />
-        <Input.Input type="password" />
+        <Icon icon={icon} />
+        <Input.Input type={type} />
       </Input.Field>
     </Input.Root>
   );

@@ -1,4 +1,4 @@
-import { faUser, faLock, faCheck, faUsers, faPlus, faHouse, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faCheck, faUsers, faPlus, faHouse, faMagnifyingGlass, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export const icons = {
@@ -11,5 +11,6 @@ export const icons = {
   "users": faUsers,
   "plus": faPlus,
   "house": faHouse,
-  "search": faMagnifyingGlass
+  "search": faMagnifyingGlass,
+  "envelope": faEnvelope
 };
