@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { MountedCheckbox } from "./MountedCheckbox";
+import { CheckboxExample } from "./CheckboxExample";
 
 const meta = {
   title: "components/Checkbox",
-  component: MountedCheckbox,
+  component: CheckboxExample,
   parameters: {
     layout: "centered",
   },
@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     checked: { control: "boolean" }
   }
-} satisfies Meta<typeof MountedCheckbox>;
+} satisfies Meta<typeof CheckboxExample>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

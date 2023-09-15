@@ -1,7 +1,7 @@
 import { Checkbox } from "@components/Checkbox";
 import { Icon } from "@components/Icon";
 
-export function MountedCheckbox({ checked, disabled }: React.InputHTMLAttributes<HTMLInputElement>) {
+export function CheckboxExample({ checked, disabled }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <Checkbox.Root disabled={disabled}>
       <Checkbox.Input checked={checked} />
