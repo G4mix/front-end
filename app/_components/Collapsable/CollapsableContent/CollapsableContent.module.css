@@ -5,6 +5,7 @@
   align-items: flex-start;
   overflow: hidden;
   display: flex;
+  color: var(--white);
   gap: 10px;
 }
 .content[data-state="open"] {

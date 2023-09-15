@@ -1,12 +1,14 @@
 import styles from "./CollapsableItem.module.css";
 import React from "react";
 
-interface CollapsableItemsProps {
+interface CollapsableItemsProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export function CollapsableItem({ children }: CollapsableItemsProps) {
+export function CollapsableItem({ children, ...props }: CollapsableItemsProps) {
   return (
-    <div className={styles.item}>{children}</div>
+    <div {...props} className={styles.item}>
+      {children}
+    </div>
   );
 }
