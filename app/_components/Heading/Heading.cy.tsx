@@ -1,7 +1,7 @@
 import { Heading } from "./index";
 import React from "react";
 
-const sizes = ["xs", "sm", "default", "md", "lg"];
+const sizes = ["xxs", "xs", "sm", "default", "md", "lg"];
 
 describe("<Heading />", () => {
   it("It is expected to render all heading types.", () => {

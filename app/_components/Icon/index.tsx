@@ -9,7 +9,7 @@ type IconProps = {
   icon: keyof typeof icons;
 }
 
-export function Icon({ icon, disabled=false, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
+export function Icon({ icon, disabled=false, style, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
   const IconToRender = icons[icon as keyof typeof icons];
-  return <FontAwesomeIcon {...props} icon={IconToRender} className={`${styles.icon} ${disabled ? styles.disabled : ""}`} />;
+  return <FontAwesomeIcon {...props} icon={IconToRender} className={`${styles.icon} ${disabled ? styles.disabled : ""}`} style={style}/>;
 }

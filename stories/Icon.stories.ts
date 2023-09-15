@@ -102,3 +102,10 @@ export const EnvelopeIcon: Story = {
     size: "2xl"
   }
 }
+
+export const XIcon: Story = {
+  args: {
+    icon: "x",
+    size: "2xl"
+  }
+}

@@ -6,7 +6,7 @@ interface HeadingProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
   asChild?: boolean;
   weight?: "thin" | "light" | "regular" | "medium" | "bold" | "black";
-  size?: "xs" | "sm" | "default" | "md" | "lg";
+  size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
 }
 
 export function Heading({ children, asChild=false, size="default", weight="regular", ...props }: HeadingProps) {

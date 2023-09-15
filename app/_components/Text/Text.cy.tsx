@@ -1,7 +1,7 @@
 import { Text } from "./index";
 import React from "react";
 
-const sizes = ["xs", "sm", "default", "md", "lg"];
+const sizes = ["xxs", "xs", "sm", "default", "md", "lg"];
 
 describe("<Text />", () => {
   it("It is expected to render all text types.", () => {

@@ -23,6 +23,11 @@
   color: var(--white);
 }
 
+.xxs {
+  font-size: var(--font-2xs);
+  color: var(--white);
+}
+
 .thin {
   font-weight: 100!important;
 }
@@ -63,6 +68,9 @@
   .xs {
     font-size: var(--font-sm);
   }
+  .xxs {
+    font-size: var(--font-xs);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -81,6 +89,9 @@
   .xs {
     font-size: var(--font-default);
   }
+  .xxs {
+    font-size: var(--font-sm);
+  }
 }
 
 @media (min-width: 1536px) {
@@ -98,5 +109,8 @@
   }
   .xs {
     font-size: var(--font-md);
+  }
+  .xxs {
+    font-size: var(--font-default);
   }
 }

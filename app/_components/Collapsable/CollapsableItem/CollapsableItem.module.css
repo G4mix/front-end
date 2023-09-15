@@ -1,0 +1,7 @@
+.item {
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}

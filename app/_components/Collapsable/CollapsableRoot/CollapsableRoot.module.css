@@ -1,0 +1,16 @@
+.root {
+  height: max-content;
+  width: 260px;
+}
+
+@media (min-width: 640px) {
+  .root {
+    width: 314px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    width: 350px;
+  }
+}
