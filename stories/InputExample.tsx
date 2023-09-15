@@ -3,20 +3,30 @@ import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 
 interface InputExampleProps {
-  label: string;
-  icon: "envelope" | "lock" | "user";
+  placeholder: string;
+  label?: string;
+  icon?: "envelope" | "lock" | "user";
   type: "password" | "email" | "text";
+  name: "password" | "email" | "username";
 }
 
-export function InputExample({ label, icon, type }: InputExampleProps) {
+export function InputExample({ label, icon, type, placeholder, name }: InputExampleProps) {
   return (
     <Input.Root>
-      <Text size="xs">
-        {label}
-      </Text>
+      {
+        label && (
+          <Text size="xs">
+            {label}
+          </Text>
+        )
+      }
       <Input.Field>
-        <Icon icon={icon} />
-        <Input.Input type={type} />
+        {
+          icon && (
+            <Icon icon={icon} />
+          )
+        }
+        <Input.Input type={type} placeholder={placeholder} name={name} />
       </Input.Field>
     </Input.Root>
   );

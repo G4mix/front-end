@@ -1,12 +1,12 @@
 import styles from "./InputField.module.css";
 import React from "react";
 
-interface InputFieldProps {
+interface InputFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export function InputField({ children }: InputFieldProps) {
+export function InputField({ children, ...props }: InputFieldProps) {
   return (
-    <div className={styles.field}>{children}</div>
+    <div {...props} className={styles.field}>{children}</div>
   );
 }

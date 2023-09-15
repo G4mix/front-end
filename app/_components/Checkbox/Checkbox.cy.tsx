@@ -6,7 +6,7 @@ describe("<Checkbox />", () => {
   it("Should be checked.", () => {
     cy.mount(
       <Checkbox.Root>
-        <Checkbox.Input checked />
+        <Checkbox.Input checked id="input" />
         <Checkbox.IndicatorContainer>
           <Checkbox.Indicator>
             <Icon icon="check" height={16} />
@@ -14,13 +14,13 @@ describe("<Checkbox />", () => {
         </Checkbox.IndicatorContainer>
       </Checkbox.Root>
     );
-    cy.get("input[type='checkbox']").should("be.checked");
+    cy.get("#input").should("be.checked");
   });
 
   it("Should not be checked.", () => {
     cy.mount(
       <Checkbox.Root>
-        <Checkbox.Input />
+        <Checkbox.Input id="input" />
         <Checkbox.IndicatorContainer>
           <Checkbox.Indicator>
             <Icon icon="check" height={16} />
@@ -28,11 +28,11 @@ describe("<Checkbox />", () => {
         </Checkbox.IndicatorContainer>
       </Checkbox.Root>
     );
-    cy.get("input[type='checkbox']").should("not.be.checked");
+    cy.get("#input").should("not.be.checked");
   });
   it("Should be disabled.", () => {
     cy.mount(
-      <Checkbox.Root disabled>
+      <Checkbox.Root id="root" disabled>
         <Checkbox.Input />
         <Checkbox.IndicatorContainer>
           <Checkbox.Indicator>
@@ -41,12 +41,17 @@ describe("<Checkbox />", () => {
         </Checkbox.IndicatorContainer>
       </Checkbox.Root>
     );
-    cy.get("input[type='checkbox']").should("be.disabled");
+    cy.get("#root").should(($el) => {
+      const styles = window.getComputedStyle($el[0]);
+  
+      expect(styles.getPropertyValue("pointer-events")).to.equal("none");
+      expect(styles.getPropertyValue("opacity")).to.equal("0.6");
+    });
   });
   
   it("Should not be disabled.", () => {
     cy.mount(
-      <Checkbox.Root>
+      <Checkbox.Root id="root">
         <Checkbox.Input />
         <Checkbox.IndicatorContainer>
           <Checkbox.Indicator>
@@ -55,6 +60,11 @@ describe("<Checkbox />", () => {
         </Checkbox.IndicatorContainer>
       </Checkbox.Root>
     );
-    cy.get("input[type='checkbox']").should("not.be.disabled");
+    cy.get("#root").should(($el) => {
+      const styles = window.getComputedStyle($el[0]);
+  
+      expect(styles.getPropertyValue("cursor")).to.equal("pointer");
+      expect(styles.getPropertyValue("opacity")).to.equal("1");
+    });
   });
 });
