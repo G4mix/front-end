@@ -7,7 +7,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:@next/next/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -36,5 +37,5 @@
       "always"
     ],
     "no-duplicate-imports": 2
-  }
+  }  
 }

@@ -8,4 +8,4 @@ export const Collapsable = {
   Trigger: CollapsableTrigger,
   Content: CollapsableContent,
   Item: CollapsableItem
-}
+};

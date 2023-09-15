@@ -21,7 +21,7 @@ const variations: React.FC<React.ComponentProps<typeof InputInput>>["defaultProp
 
 describe("<InputInput />", () => {
   for (const variation in variations) {
-    it(`renders text input correctly`, () => {
+    it("renders text input correctly", () => {
       const { placeholder, type, name } = variations[variation]!;
     
       cy.mount(<InputInput type={type!} placeholder={placeholder!} name={name!} id="input" />);
