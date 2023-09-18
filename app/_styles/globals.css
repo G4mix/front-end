@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 :root {
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
-  --ultra-violet: #68589D;
+  --ultra-violet: #68589d;
   --jet: #333333;
-  --saffron: #F9C536;
-  --savoy-blue: #626CA7;
-  --carolina-blue: #89BDDF;
-  --delft-blue: #343A5B;
-  --delft-blue-bg: #1C2034;
+  --saffron: #f9c536;
+  --savoy-blue: #626ca7;
+  --carolina-blue: #89bddf;
+  --delft-blue: #343a5b;
+  --delft-blue-bg: #1c2034;
 
   --font-3xl: 39.81px;
   --font-2xl: 33.18px;
   --font-xl: 27.65px;
   --font-lg: 23.04px;
-  --font-md: 19.20px;
+  --font-md: 19.2px;
   --font-default: 16px;
   --font-sm: 13.33px;
   --font-xs: 11.11px;
@@ -26,6 +26,7 @@
 
 * {
   font-family: Roboto, sans-serif;
+  color: var(--white);
   font-size: var(--font-default);
   box-sizing: border-box;
   text-decoration: none;
@@ -45,8 +46,13 @@ body {
   display: flex;
 }
 
+button {
+  border: none;
+  background: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
-    transition: none!important;
+    transition: none !important;
   }
 }

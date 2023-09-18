@@ -1,12 +1,17 @@
 .field {
   background-color: var(--jet);
-  border-radius: 8px;
+  border-radius: 6px;
   align-items: center;
-  padding: 8px 22px;
+  padding: 10px 22px;
   display: flex;
-  height: 45px;
-  width: 260px;
+  /* height: 45px; */
+  width: 100%;
+  max-width: 500px;
   gap: 10px;
+}
+
+.field svg {
+  width: 1rem;
 }
 
 @media (min-width: 640px) {

@@ -1,7 +1,10 @@
 import React from "react";
-import { Input } from "./index";
+
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
+import { InputInput } from "./InputInput";
+import { InputField } from "./InputField";
+import { InputRoot } from "./InputRoot";
 
 interface ExampleVariations {
   placeholder: string;
@@ -17,39 +20,39 @@ const variations: ExampleVariations[] = [
     icon: "user",
     type: "text",
     placeholder: "Digite um nome de usuário válido",
-    name: "username"
+    name: "username",
   },
   {
     label: "Password",
     icon: "lock",
     type: "password",
     placeholder: "Digite uma senha forte",
-    name: "password"
+    name: "password",
   },
   {
     label: "Email",
     icon: "envelope",
     type: "email",
     placeholder: "Digite o seu e-mail",
-    name: "email"
+    name: "email",
   },
   {
     label: "Username",
     type: "text",
     placeholder: "Digite um nome de usuário válido",
-    name: "username"
+    name: "username",
   },
   {
     icon: "user",
     type: "text",
     placeholder: "Digite um nome de usuário válido",
-    name: "username"
+    name: "username",
   },
   {
     type: "text",
     placeholder: "Digite um nome de usuário válido",
-    name: "username"
-  }
+    name: "username",
+  },
 ];
 
 describe("<Input />", () => {
@@ -58,13 +61,22 @@ describe("<Input />", () => {
 
     it(`renders input correctly for ${type} type`, () => {
       cy.mount(
-        <Input.Root>
-          {label && <Text size="xs" id="label">{label}</Text>}
-          <Input.Field>
+        <InputRoot>
+          {label && (
+            <Text size="xs" id="label">
+              {label}
+            </Text>
+          )}
+          <InputField>
             {icon && <Icon icon={icon} id={`icon-${icon}`} />}
-            <Input.Input type={type} placeholder={placeholder} name={name} id="input" />
-          </Input.Field>
-        </Input.Root>
+            <InputInput
+              type={type}
+              placeholder={placeholder}
+              name={name}
+              id="input"
+            />
+          </InputField>
+        </InputRoot>
       );
 
       if (label) {

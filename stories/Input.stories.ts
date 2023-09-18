@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { InputExample } from "./InputExample";
+import { Input } from "@components/Input";
 
 const meta = {
   title: "components/Input",
-  component: InputExample,
+  component: Input,
   parameters: {
     layout: "centered",
   },
@@ -24,16 +24,16 @@ const meta = {
       control: {
         type: "select",
       },
-      options: ["password", "email", "text"], 
+      options: ["password", "email", "text"],
     },
     icon: {
       control: {
         type: "select",
       },
-      options: ["envelope", "lock", "user"], 
+      options: ["envelope", "lock", "user"],
     },
   },
-} satisfies Meta<typeof InputExample>;
+} satisfies Meta<typeof Input>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -44,7 +44,7 @@ export const UsernameInput: Story = {
     label: "Username",
     type: "text",
     icon: "user",
-    name: "username"
+    name: "username",
   },
 };
 
@@ -54,7 +54,7 @@ export const EmailInput: Story = {
     label: "E-mail",
     type: "email",
     icon: "envelope",
-    name: "email"
+    name: "email",
   },
 };
 
@@ -64,7 +64,7 @@ export const PasswordInput: Story = {
     label: "Senha",
     type: "password",
     icon: "lock",
-    name: "password"
+    name: "password",
   },
 };
 
@@ -73,7 +73,7 @@ export const InputWithoutIcon: Story = {
     placeholder: "Digite seu nome de usuário",
     label: "Username",
     type: "text",
-    name: "username"
+    name: "username",
   },
 };
 
@@ -82,7 +82,7 @@ export const InputWithoutLabel: Story = {
     placeholder: "Digite seu nome de usuário",
     type: "text",
     icon: "user",
-    name: "username"
+    name: "username",
   },
 };
 
@@ -90,6 +90,6 @@ export const InputWithoutLabelAndIcon: Story = {
   args: {
     placeholder: "Digite seu nome de usuário",
     type: "text",
-    name: "username"
+    name: "username",
   },
 };

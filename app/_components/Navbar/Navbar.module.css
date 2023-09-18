@@ -1,16 +1,30 @@
 .nav {
-  width: 360px;
-  height: 50px;
+  width: 100%;
+  min-height: 50px;
   position: fixed;
   background-color: var(--jet);
+
+  padding: 15px;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.navItems {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  bottom: 0;
-  z-index: 9999;
+
+  width: 100%;
+  max-width: 500px;
 }
-.img {
+
+.imgRounded {
   border-radius: 9999px;
 }

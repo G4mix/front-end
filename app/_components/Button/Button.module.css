@@ -12,6 +12,9 @@
   width: 260px;
   color: var(--white);
   gap: 10px;
+
+  font-size: var(font-md);
+  font-weight: 500;
 }
 
 .button:hover {
