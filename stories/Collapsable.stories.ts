@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CollapsableExample } from "./CollapsableExample";
+import { Collapsable } from "@components/Collapsable";
 
 const meta = {
   title: "components/Collapsable",
-  component: CollapsableExample,
+  component: Collapsable,
   parameters: {
     layout: "centered",
   },
@@ -14,15 +14,33 @@ const meta = {
       control: {
         type: "boolean",
       },
-    }
+    },
   },
-} satisfies Meta<typeof CollapsableExample>;
+} satisfies Meta<typeof Collapsable>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const CommonCollapsable: Story = {
   args: {
-    open: true
+    open: true,
+    items: [
+      {
+        icon: "x",
+        text: "Um caractere maiúsculo",
+      },
+      {
+        icon: "check",
+        text: "Um número",
+      },
+      {
+        icon: "x",
+        text: "Um caractere especial",
+      },
+      {
+        icon: "x",
+        text: "No mínimo 8 caracteres",
+      },
+    ],
   },
 };

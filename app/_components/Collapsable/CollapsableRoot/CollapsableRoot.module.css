@@ -1,6 +1,6 @@
 .root {
   height: max-content;
-  width: 260px;
+  width: 100%;
 }
 
 @media (min-width: 640px) {

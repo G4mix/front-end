@@ -4,22 +4,45 @@ import { InputRoot } from "./InputRoot";
 
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
+import { ChangeEvent } from "react";
 
 interface InputProps {
   placeholder: string;
   label?: string;
   icon?: "envelope" | "lock" | "user";
   type: "password" | "email" | "text";
-  name: "password" | "email" | "username";
+  name: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-export function Input({ label, icon, type, placeholder, name }: InputProps) {
+export function Input({
+  label,
+  icon,
+  type,
+  placeholder,
+  name,
+  value,
+  onChange,
+  onBlur,
+  onFocus,
+}: InputProps) {
   return (
     <InputRoot>
       {label && <Text size="default">{label}</Text>}
       <InputField>
         {icon && <Icon icon={icon} />}
-        <InputInput type={type} placeholder={placeholder} name={name} />
+        <InputInput
+          type={type}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
       </InputField>
     </InputRoot>
   );

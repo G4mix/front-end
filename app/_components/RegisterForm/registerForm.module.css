@@ -1,0 +1,32 @@
+.form p a {
+  font-size: var(--font-sm);
+  font-weight: lighter;
+  opacity: 80%;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: var(--font-xs);
+
+  margin-top: 1.125rem;
+}
+
+.rememberMe p {
+  font-size: var(--font-xs);
+
+  font-weight: lighter;
+}
+
+.rememberMe a {
+  color: var(--carolina-blue);
+  text-decoration: underline;
+}

@@ -1,0 +1,28 @@
+.wrapper {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+
+  margin-bottom: 2.25rem;
+}
+.logoWrap h1 {
+  font-size: var(--font-xl);
+}
+
+.haveAccount {
+  font-size: var(--font-sm);
+  font-weight: lighter;
+  opacity: 80%;
+
+  text-align: center;
+}

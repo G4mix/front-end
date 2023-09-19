@@ -1,12 +1,13 @@
-import { Button } from "@components/Button";
 import React from "react";
 import Image from "next/image";
 
 import loginStyles from "./login.module.css";
 
 import { Input } from "@components/Input";
-import { Checkbox } from "@/app/_components/Checkbox";
-import { Text } from "@/app/_components/Text";
+import { Button } from "@components/Button";
+import { Checkbox } from "@components/Checkbox";
+
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -42,7 +43,7 @@ export default function Login() {
           </div>
 
           <p>
-            <a href="">Esqueceu sua senha?</a>{" "}
+            <Link href="">Esqueceu sua senha?</Link>{" "}
           </p>
         </div>
 
@@ -73,7 +74,7 @@ export default function Login() {
           <Button>Conectar-se</Button>
         </div>
         <p className={loginStyles.createAccount}>
-          <a href="">Ainda não tem uma conta?</a>
+          <Link href="/register">Ainda não tem uma conta?</Link>
         </p>
       </div>
     </main>
