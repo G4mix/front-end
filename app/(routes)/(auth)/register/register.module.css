@@ -1,6 +1,6 @@
 .wrapper {
   width: 100%;
-  height: 100vh;
+  max-height: 100vh;
 
   display: flex;
   align-items: center;
@@ -13,8 +13,9 @@
   align-items: center;
   gap: 0.625rem;
 
-  margin-bottom: 2.25rem;
+  padding: 0, 2.25rem;
 }
+
 .logoWrap h1 {
   font-size: var(--font-xl);
 }

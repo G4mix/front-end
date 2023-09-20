@@ -1,12 +1,12 @@
-import styles from "./Navbar.module.css";
 import { Icon } from "@components/Icon";
+import styles from "./Navbar.module.css";
 import React from "react";
 
 interface NavbarProps {
-  user: { name: string; email: string; icon: string };
+  session: { username: string | null; email: string | null; icon: string | null };
 }
 
-export function Navbar({ user }: NavbarProps) {
+export function Navbar({ session }: NavbarProps) {
   return (
     <nav className={styles.nav}>
       <div className={styles.navItems}>
@@ -14,12 +14,12 @@ export function Navbar({ user }: NavbarProps) {
         <Icon icon="search" width={20} height={20} disabled />
         <Icon icon="plus" width={20} height={20} disabled />
         <Icon icon="users" width={20} height={20} disabled />
-        {user ? (
+        {session && session.icon ? (
           <img
-            src={user.icon}
+            src={session.icon || ""}
             width={24}
             height={24}
-            alt={`Imagem do ${user.name}`}
+            alt={`Imagem do ${session.username}`}
             className={styles.imgRounded}
           />
         ) : (

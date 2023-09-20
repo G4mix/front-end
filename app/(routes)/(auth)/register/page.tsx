@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import registerStyles from "./register.module.css";
 import { RegisterForm } from "@/app/_components/RegisterForm";
+import registerStyles from "./register.module.css";
 import Link from "next/link";
 
 export default function Register() {

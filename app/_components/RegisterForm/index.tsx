@@ -6,13 +6,17 @@ import registerFormStyles from "./registerForm.module.css";
 
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { Input } from "../Input";
-import { Button } from "../Button";
-import { Checkbox } from "../Checkbox";
-import { Collapsable } from "../Collapsable";
+import { fetchAPIBase } from "@functions/fetchAPI/fetchAPIBase";
+import { Collapsable } from "@components/Collapsable";
+import { useRouter } from "next/navigation";
+import { Checkbox } from "@components/Checkbox";
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
 
 export const RegisterForm = () => {
-  const [userName, setUserName] = useState("");
+  const router = useRouter();
+
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfimPassword] = useState("");
@@ -33,7 +37,9 @@ export const RegisterForm = () => {
       hasEightOrMoreChars(password) &&
       hasNumber(password) &&
       hasSpecialChar(password) &&
-      hasOneUppercaseChar(password)
+      hasOneUppercaseChar(password) &&
+      email &&
+      password === confirmPassword
     ) {
       setReadyToRegister(true);
     } else {
@@ -43,17 +49,33 @@ export const RegisterForm = () => {
 
   useEffect(() => {
     isReadyToRegister();
-  }, [password, userName]);
+  }, [password, username, email, confirmPassword]);
+
+  async function register(e?: any) {
+    e?.preventDefault();
+    const { accessToken, refreshToken } = await fetchAPIBase("/auth/signup", {
+      body: {
+        username: username,
+        password: password,
+        email: email
+      }
+    });
+
+    document.cookie = accessToken!;
+    document.cookie = refreshToken!;
+    
+    router.push("/");
+  }
 
   return (
-    <form className={registerFormStyles.form}>
+    <form className={registerFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
       <div className={registerFormStyles.fields}>
         <Input
           icon="user"
           label="Username"
           name="username"
           placeholder="Digite um nome de usuário válido"
-          value={userName}
+          value={username}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setUserName(e.target.value)
           }
