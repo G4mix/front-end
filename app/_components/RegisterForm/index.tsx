@@ -4,8 +4,7 @@ import Link from "next/link";
 
 import registerFormStyles from "./registerForm.module.css";
 
-import { ChangeEvent, useEffect, useState } from "react";
-
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { fetchAPIBase } from "@functions/fetchAPI/fetchAPIBase";
 import { Collapsable } from "@components/Collapsable";
 import { useRouter } from "next/navigation";

@@ -6,4 +6,4 @@ export const fetchAPI = {
   mount: fetchAPIMount,
   execute: fetchAPIExecute,
   refreshToken: fetchAPIRefreshToken
-}
+};
