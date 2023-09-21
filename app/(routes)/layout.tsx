@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SessionProvider } from "@components/SessionProvider";
 import React from "react";
 import "../_styles/globals.css";
 
@@ -7,14 +8,16 @@ export const metadata: Metadata = {
   description: "Bem-vindo ao ....."
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <body>{children}</body>
-    </html>
+    <SessionProvider>
+      <html lang="pt-BR">
+        <body>{children}</body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -3,11 +3,11 @@ import React from "react";
 import "../../../_styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Gamix · Registro",
+  title: "Gamix · Login",
   description: "Bem-vindo ao ....."
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode

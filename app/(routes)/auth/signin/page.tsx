@@ -9,7 +9,7 @@ import { Checkbox } from "@components/Checkbox";
 
 import Link from "next/link";
 
-export default function Login() {
+export default function SignIn() {
   return (
     <main className={loginStyles.wrapper}>
       <div className={loginStyles.container}>

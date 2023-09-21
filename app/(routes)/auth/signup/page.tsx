@@ -5,7 +5,7 @@ import { RegisterForm } from "@/app/_components/RegisterForm";
 import registerStyles from "./register.module.css";
 import Link from "next/link";
 
-export default function Register() {
+export default function SignUp() {
   return (
     <main className={registerStyles.wrapper}>
       <div className={registerStyles.container}>

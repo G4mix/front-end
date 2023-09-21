@@ -19,6 +19,7 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfimPassword] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
 
   const [isCollapsableOpen, setIsCollapsableOpen] = useState<boolean>(false);
   const [readyToRegister, setReadyToRegister] = useState<boolean>(false);
@@ -31,13 +32,15 @@ export const RegisterForm = () => {
 
   const hasEightOrMoreChars = (text: string) => text.length >= 8;
 
+  const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
+
   const isReadyToRegister = () => {
     if (
       hasEightOrMoreChars(password) &&
       hasNumber(password) &&
       hasSpecialChar(password) &&
       hasOneUppercaseChar(password) &&
-      email &&
+      hasGmailDomain(email) &&
       password === confirmPassword
     ) {
       setReadyToRegister(true);
@@ -48,9 +51,9 @@ export const RegisterForm = () => {
 
   useEffect(() => {
     isReadyToRegister();
-  }, [password, username, email, confirmPassword]);
+  }, [password, username, email, confirmPassword, acceptedTerms]);
 
-  async function register(e?: any) {
+  async function register(e?: React.FormEvent<HTMLFormElement>) {
     e?.preventDefault();
     const { accessToken, refreshToken } = await fetchAPIBase("/auth/signup", {
       body: {
@@ -141,7 +144,7 @@ export const RegisterForm = () => {
       </div>
 
       <div className={registerFormStyles.rememberMe}>
-        <Checkbox />
+        <Checkbox checked={acceptedTerms} onClick={() => setAcceptedTerms(!acceptedTerms)} />
         <p>
           Eu li e concordo com os{" "}
           <Link href={""}>termos e políticas de privacidade</Link>
