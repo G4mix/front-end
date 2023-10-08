@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import loginStyles from "./login.module.css";
+import loginStyles from "./signin.module.css";
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
@@ -74,7 +74,7 @@ export default function SignIn() {
           <Button>Conectar-se</Button>
         </div>
         <p className={loginStyles.createAccount}>
-          <Link href="/register">Ainda não tem uma conta?</Link>
+          <Link href="/auth/signup">Ainda não tem uma conta?</Link>
         </p>
       </div>
     </main>

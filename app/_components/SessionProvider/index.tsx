@@ -38,7 +38,16 @@ export function SessionProvider({ children }: SessionProviderProps) {
   }
 
   async function fetchData() {
+    function setUnauthenticated() {
+      setSession(null);
+      setStatus("unauthenticated");
+    }
     setStatus("loading");
+
+    if (!getCookie("accessToken")) {
+      setUnauthenticated();
+      return;
+    }
 
     const toFetch = fetchAPI.mount("/graphql", {
       body: {
@@ -49,10 +58,6 @@ export function SessionProvider({ children }: SessionProviderProps) {
       }        
     });
 
-    function setUnauthenticated() {
-      setSession(null);
-      setStatus("unauthenticated");
-    }
 
     const response = await fetchAPI.execute(toFetch);
     console.log(response);
@@ -75,9 +80,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
 
   React.useEffect(() => {
     fetchData();
-    return () => {
-      
-    };
+    return () => {};
   }, []);
 
   return (

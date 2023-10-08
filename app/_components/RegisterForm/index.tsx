@@ -40,6 +40,8 @@ export const RegisterForm = () => {
       hasNumber(password) &&
       hasSpecialChar(password) &&
       hasOneUppercaseChar(password) &&
+      !hasSpecialChar(username) &&
+      username.length > 5 && 
       hasGmailDomain(email) &&
       password === confirmPassword
     ) {
@@ -144,7 +146,7 @@ export const RegisterForm = () => {
       </div>
 
       <div className={registerFormStyles.rememberMe}>
-        <Checkbox checked={acceptedTerms} onClick={() => setAcceptedTerms(!acceptedTerms)} />
+        <Checkbox defaultChecked={acceptedTerms} onChange={() => setAcceptedTerms(!acceptedTerms)} />
         <p>
           Eu li e concordo com os{" "}
           <Link href={""}>termos e políticas de privacidade</Link>

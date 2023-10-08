@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import { RegisterForm } from "@/app/_components/RegisterForm";
-import registerStyles from "./register.module.css";
+import registerStyles from "./signup.module.css";
 import Link from "next/link";
 
 export default function SignUp() {
@@ -23,7 +23,7 @@ export default function SignUp() {
         <RegisterForm />
 
         <p className={registerStyles.haveAccount}>
-          <Link href="/login">Já tem uma conta?</Link>
+          <Link href="/auth/signin">Já tem uma conta?</Link>
         </p>
       </div>
     </main>
