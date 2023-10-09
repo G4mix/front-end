@@ -2,6 +2,9 @@
 const nextConfig = {
   typescript: {
     tsconfigPath: "./tsconfig.next.json"
+  },
+  experimental: {
+    serverActions: true,
   }
 }
 

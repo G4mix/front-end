@@ -43,7 +43,7 @@ export default function SignIn() {
           </div>
 
           <p>
-            <Link href="">Esqueceu sua senha?</Link>{" "}
+            <Link href="/auth/forgotpassword">Esqueceu sua senha?</Link>{" "}
           </p>
         </div>
 

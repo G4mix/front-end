@@ -1,7 +1,6 @@
 "use client";
 
-import { getCookie } from "@functions/getCookie";
-import { fetchAPI } from "@functions/fetchAPI";
+import { getClientSideCookies } from "@/app/_functions/getClientSideCookies";
 import React from "react";
 
 interface Session {
@@ -38,38 +37,35 @@ export function SessionProvider({ children }: SessionProviderProps) {
   }
 
   async function fetchData() {
+    setStatus("loading");
+
     function setUnauthenticated() {
       setSession(null);
       setStatus("unauthenticated");
     }
-    setStatus("loading");
+    const cookieManager = getClientSideCookies();
+    const accessTokenFromCookie = cookieManager.get("accessToken");
+    const refreshTokenFromCookie = cookieManager.get("refreshToken");
 
-    if (!getCookie("accessToken")) {
+    if (!accessTokenFromCookie || !refreshTokenFromCookie) {
       setUnauthenticated();
       return;
     }
 
-    const toFetch = fetchAPI.mount("/graphql", {
-      body: {
-        "query": "query ($accessToken: String!) { findUserByToken(accessToken: $accessToken) { username email icon } }",
-        "variables": {
-          "accessToken": getCookie("accessToken")
-        }
-      }        
-    });
+    const response = await fetch("/api/getSession");
 
+    const data = await response.json();
 
-    const response = await fetchAPI.execute(toFetch);
-    console.log(response);
-    if (!response || response!.message === "INVALID_ACCESS_TOKEN") {
+    console.log(data);
+    if (!data || data!.message === "INVALID_REFRESH_TOKEN") {
       setUnauthenticated();
       return;
     }
 
-    const { username, email, icon } = response.data!.findUserByToken!;
+    const { username, email, icon } = data!.findUserByToken!;
 
     setSession({
-      accessToken: getCookie("accessToken"),
+      accessToken: accessTokenFromCookie,
       username: username!,
       email: email!,
       icon: icon!

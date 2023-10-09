@@ -20,8 +20,9 @@
     "paths": {
       "@/*": ["./*"],
       "@components/*": ["./app/_components/*"],
-      "@functions/*": ["./app/_functions/*"],
       "@constants/*": ["./app/_constants/*"],
+      "@functions/*": ["./app/_functions/*"],
+      "@classes/*": ["./app/_classes/*"],
       "@styles/*": ["./app/_styles/*"]
     }
   },

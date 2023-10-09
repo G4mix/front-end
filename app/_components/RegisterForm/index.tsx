@@ -5,7 +5,7 @@ import Link from "next/link";
 import registerFormStyles from "./registerForm.module.css";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { fetchAPIBase } from "@functions/fetchAPI/fetchAPIBase";
+import { APIManagerClientSide } from "@classes/APIManagerClientSide";
 import { Collapsable } from "@components/Collapsable";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
@@ -57,16 +57,8 @@ export const RegisterForm = () => {
 
   async function register(e?: React.FormEvent<HTMLFormElement>) {
     e?.preventDefault();
-    const { accessToken, refreshToken } = await fetchAPIBase("/auth/signup", {
-      body: {
-        username: username,
-        password: password,
-        email: email
-      }
-    });
 
-    document.cookie = accessToken!;
-    document.cookie = refreshToken!;
+    await APIManagerClientSide.signUp({ username, email, password });
     
     router.push("/");
   }
@@ -149,7 +141,7 @@ export const RegisterForm = () => {
         <Checkbox defaultChecked={acceptedTerms} onChange={() => setAcceptedTerms(!acceptedTerms)} />
         <p>
           Eu li e concordo com os{" "}
-          <Link href={""}>termos e políticas de privacidade</Link>
+          <Link href={"/terms"}>termos e políticas de privacidade</Link>
         </p>
       </div>
 
