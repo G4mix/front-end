@@ -62,7 +62,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
       return;
     }
 
-    const { username, email, icon } = data!.findUserByToken!;
+    const { username, email, icon } = data!.data!.findUserByToken!;
 
     setSession({
       accessToken: accessTokenFromCookie,
