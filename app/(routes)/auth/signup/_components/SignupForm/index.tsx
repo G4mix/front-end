@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import registerFormStyles from "./registerForm.module.css";
+import signupFormStyles from "./signupForm.module.css";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { APIManagerClientSide } from "@classes/APIManagerClientSide";
+import { APIManager } from "@classes/APIManager";
 import { Collapsable } from "@components/Collapsable";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
@@ -43,7 +43,8 @@ export const RegisterForm = () => {
       !hasSpecialChar(username) &&
       username.length > 5 && 
       hasGmailDomain(email) &&
-      password === confirmPassword
+      password === confirmPassword &&
+      acceptedTerms
     ) {
       setReadyToRegister(true);
     } else {
@@ -51,21 +52,23 @@ export const RegisterForm = () => {
     }
   };
 
-  useEffect(() => {
-    isReadyToRegister();
-  }, [password, username, email, confirmPassword, acceptedTerms]);
-
   async function register(e?: React.FormEvent<HTMLFormElement>) {
     e?.preventDefault();
 
-    await APIManagerClientSide.signUp({ username, email, password });
+    await APIManager.signUp({ username, email, password });
     
     router.push("/");
   }
+  
+  useEffect(() => {
+    isReadyToRegister();
+    return () => {};
+  }, [password, username, email, confirmPassword, acceptedTerms]);
+
 
   return (
-    <form className={registerFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
-      <div className={registerFormStyles.fields}>
+    <form className={signupFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
+      <div className={signupFormStyles.fields}>
         <Input
           icon="user"
           label="Username"
@@ -130,15 +133,13 @@ export const RegisterForm = () => {
           name="password"
           placeholder="Digite sua senha novamente"
           value={confirmPassword}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setConfimPassword(e.target.value)
-          }
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setConfimPassword(e.target.value)}
           type="password"
         />
       </div>
 
-      <div className={registerFormStyles.rememberMe}>
-        <Checkbox defaultChecked={acceptedTerms} onChange={() => setAcceptedTerms(!acceptedTerms)} />
+      <div className={signupFormStyles.rememberMe}>
+        <Checkbox defaultChecked={acceptedTerms} onChange={(e: ChangeEvent<HTMLInputElement>) => setAcceptedTerms(e.target.checked)} />
         <p>
           Eu li e concordo com os{" "}
           <Link href={"/terms"}>termos e políticas de privacidade</Link>

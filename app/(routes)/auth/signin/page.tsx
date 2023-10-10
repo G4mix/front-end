@@ -1,12 +1,7 @@
-import React from "react";
-import Image from "next/image";
-
+import { LoginForm } from "./_components/SigninForm";
 import loginStyles from "./signin.module.css";
-
-import { Input } from "@components/Input";
-import { Button } from "@components/Button";
-import { Checkbox } from "@components/Checkbox";
-
+import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 
 export default function SignIn() {
@@ -24,55 +19,29 @@ export default function SignIn() {
           <h1>Acesse sua conta</h1>
         </div>
 
-        <div className={loginStyles.form}>
-          <div className={loginStyles.fields}>
-            <Input
-              icon="user"
-              label="Username"
-              name="username"
-              placeholder="Digite um nome de usuário válido"
-              type="text"
-            />
-            <Input
-              icon="lock"
-              label="Senha"
-              name="password"
-              placeholder="Digite uma senha"
-              type="password"
-            />
+        <LoginForm>
+          <div className={loginStyles.loginOptions}>
+            <h3>Você também pode entrar com:</h3>
+            <ul>
+              <li>
+                <button>
+                  <img src="/icons/google.svg" alt="" />
+                </button>
+              </li>
+              <li>
+                <button>
+                  <img src="/icons/linkedin.svg" alt="" />
+                </button>
+              </li>
+              <li>
+                <button>
+                  {" "}
+                  <img src="/icons/github.svg" alt="" />
+                </button>
+              </li>
+            </ul>
           </div>
-
-          <p>
-            <Link href="/auth/forgotpassword">Esqueceu sua senha?</Link>{" "}
-          </p>
-        </div>
-
-        <div className={loginStyles.loginOptions}>
-          <h3>Você também pode entrar com:</h3>
-          <ul>
-            <li>
-              <button>
-                <img src="/icons/google.svg" alt="" />
-              </button>
-            </li>
-            <li>
-              <button>
-                <img src="/icons/linkedin.svg" alt="" />
-              </button>
-            </li>
-            <li>
-              <button>
-                {" "}
-                <img src="/icons/github.svg" alt="" />
-              </button>
-            </li>
-          </ul>
-          <div className={loginStyles.rememberMe}>
-            <Checkbox />
-            <p>Lembrar de mim por 30 dias</p>
-          </div>
-          <Button>Conectar-se</Button>
-        </div>
+        </LoginForm>
         <p className={loginStyles.createAccount}>
           <Link href="/auth/signup">Ainda não tem uma conta?</Link>
         </p>

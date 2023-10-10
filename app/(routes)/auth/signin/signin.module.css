@@ -19,17 +19,6 @@
   font-size: var(--font-xl);
 }
 
-.form p a {
-  font-size: var(--font-sm);
-  font-weight: lighter;
-  opacity: 80%;
-}
-
-.fields {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
 
 .loginOptions {
   display: flex;
@@ -54,12 +43,6 @@
 }
 .loginOptions ul li {
   cursor: pointer;
-}
-
-.rememberMe {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .createAccount {

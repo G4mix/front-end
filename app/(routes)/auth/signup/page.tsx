@@ -1,8 +1,7 @@
-import React from "react";
-import Image from "next/image";
-
-import { RegisterForm } from "@/app/_components/RegisterForm";
+import { RegisterForm } from "./_components/SignupForm";
 import registerStyles from "./signup.module.css";
+import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 
 export default function SignUp() {
