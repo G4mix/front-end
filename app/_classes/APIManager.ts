@@ -5,7 +5,7 @@ export class APIManager {
     url: string,
     body: object = {},
     headers: HeadersInit = {}
-  ): Promise<any> {
+  ): Promise<Response> {
     const response = await fetch(`/api/backend?url=${url}`, {
       method: "POST",
       headers: {
@@ -20,22 +20,7 @@ export class APIManager {
       return await APIManager.request(url, body, headers);
     }
 
-    return await response.json();
-  }
-
-  private static async refreshTokens() {
-    const cookieStore = getClientSideCookies();
-    const response = await APIManager.request(
-      "/auth/refreshtoken", { refreshToken: cookieStore.get("refreshToken") }
-    );
-
-    if (response.accessToken && response.refreshToken) {
-      cookieStore.set(response.accessToken);
-      cookieStore.set(response.refreshToken);
-      return response;
-    }
-
-    throw new Error("Error refreshing tokens");
+    return response;
   }
 
   private static setCookies({ accessToken, refreshToken }: { accessToken: string; refreshToken: string; }) {
@@ -44,15 +29,33 @@ export class APIManager {
     cookieStore.set(refreshToken);
   }
 
+  private static async refreshTokens() {
+    const cookieStore = getClientSideCookies();
+    const response = await APIManager.request(
+      "/auth/refreshtoken", { refreshToken: cookieStore.get("refreshToken") }
+    );
+
+    const { accessToken, refreshToken } = await response.json();
+
+    if (accessToken && refreshToken) {
+      this.setCookies({ accessToken, refreshToken });
+      return response;
+    }
+
+    throw new Error("Error refreshing tokens");
+  }
+
   public static async signUp(signUpBody: { username?: string, email?: string, password: string }) {
     const response = await APIManager.request("/auth/signup", signUpBody);
-    APIManager.setCookies(response);
+    const { accessToken, refreshToken } = await response.json();
+    APIManager.setCookies({ accessToken, refreshToken });
     return response;
   }
 
   public static async signIn(signInBody: { username?: string, email?: string, password: string, rememberMe: boolean }) {
     const response = await APIManager.request("/auth/signin", signInBody);
-    APIManager.setCookies(response);
+    const { accessToken, refreshToken } = await response.json();
+    APIManager.setCookies({ accessToken, refreshToken });
     return response;
   }
 
@@ -65,10 +68,26 @@ export class APIManager {
   public static async findUserByToken(): Promise<{username?: string; icon?: string; email?: string; message?: string;}> {
     const accessToken = getClientSideCookies().get("accessToken");
     
+    const cachedUserDataEtag = JSON.parse(localStorage.getItem("cachedUserDataEtag")!);
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+    if (cachedUserDataEtag) headers["If-None-Match"] = cachedUserDataEtag;
+
     const response = await APIManager.request("/graphql", {
       query: "query { findUserByToken { username email icon } }"
-    }, { Authorization: `Bearer ${accessToken}` });
+    }, headers);
 
-    return response.data.findUserByToken;
+    const data = await response.json();
+    const userData =  data.data.findUserByToken;
+    const headerEtag = response.headers.get("ETag");
+
+    if (userData === null && cachedUserDataEtag === headerEtag) {
+      const cachedData = JSON.parse(localStorage.getItem("cachedUserData") || "{}");
+      if (cachedData) return cachedData;
+    }
+
+    localStorage.setItem("cachedUserDataEtag", JSON.stringify(headerEtag));
+    localStorage.setItem("cachedUserData", JSON.stringify(userData));
+    return userData;
   }
 }
