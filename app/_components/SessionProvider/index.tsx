@@ -1,26 +1,14 @@
 "use client";
 
-import { getClientSideCookies } from "@functions/getClientSideCookies";
-import { APIManager } from "@classes/APIManager";
+import type { Session, SessionContextProps } from "./Session.types";
 import React, { useState, useEffect, createContext } from "react";
-
-interface Session {
-  accessToken: string | null;
-  username: string | null;
-  email: string | null;
-  icon: string | null;
-}
-
-interface SessionContextProps {
-  session: Session | null;
-  status: "unauthenticated" | "authenticated" | "loading";
-  update: () => void;
-}
+import { CookieManager } from "@classes/CookieManager";
+import { APIManager } from "@classes/APIManager";
 
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
-  status: "unauthenticated",
-  update: () => {} 
+  status: "loading",
+  update: () => {}
 });
 
 interface SessionProviderProps {
@@ -29,7 +17,7 @@ interface SessionProviderProps {
 
 export function SessionProvider({ children }: SessionProviderProps) {
   const [session, setSession] = useState<SessionContextProps["session"]>({ username: null, email: null, icon: null, accessToken: null });
-  const [status, setStatus] = useState<SessionContextProps["status"]>("unauthenticated");
+  const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
 
   function update(newData?: Partial<Session>) {
     setSession((prevSession) => 
@@ -40,21 +28,20 @@ export function SessionProvider({ children }: SessionProviderProps) {
   async function fetchData() {
     setStatus("loading");
 
-    const cookieManager = getClientSideCookies();
-    const accessTokenFromCookie = cookieManager.get("accessToken");
-    const refreshTokenFromCookie = cookieManager.get("refreshToken");
-
     function setUnauthenticated() {
       setSession(null);
       setStatus("unauthenticated");
       APIManager.signOut();
     }
 
+    const accessTokenFromCookie = CookieManager.get("accessToken");
+    const refreshTokenFromCookie = CookieManager.get("refreshToken");
+
     if (!accessTokenFromCookie || !refreshTokenFromCookie) return setUnauthenticated();
 
     const data = await APIManager.findUserByToken()!;
 
-    if (!data || data.message === "INVALID_REFRESH_TOKEN") return setUnauthenticated();
+    if (!data) return setUnauthenticated();
 
     const { username, email, icon } = data;
 

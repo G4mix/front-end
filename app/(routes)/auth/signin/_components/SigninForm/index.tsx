@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { APIManager } from "@classes/APIManager";
+import { APIManager } from "@/app/_classes/APIManager";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";

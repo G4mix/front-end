@@ -5,7 +5,7 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { APIManager } from "@classes/APIManager";
+import { APIManager } from "@/app/_classes/APIManager";
 import { Collapsable } from "@components/Collapsable";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";

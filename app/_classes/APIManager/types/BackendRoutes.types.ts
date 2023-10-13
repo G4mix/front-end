@@ -1,0 +1,1 @@
+export type BackendRoutes = "/auth/signup" | "/auth/signin" | "/auth/signout" | "/auth/refreshtoken" | "/graphql";

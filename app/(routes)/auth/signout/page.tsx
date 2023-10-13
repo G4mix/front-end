@@ -1,4 +1,4 @@
-import { APIManager } from "@classes/APIManager";
+import { APIManager } from "@/app/_classes/APIManager";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 

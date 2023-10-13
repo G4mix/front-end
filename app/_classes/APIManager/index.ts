@@ -1,9 +1,14 @@
-import { getClientSideCookies } from "@functions/getClientSideCookies";
+import type { RequestBody, SignUpBody, SignInBody } from "./types/RequestBody.types";
+import type { GenericQueryRequest } from "../GraphQLQueryBuilder/GraphQLRequest.types";
+import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
+import type { BackendRoutes } from "./types/BackendRoutes.types";
+import type { JwtTokens } from "./types/JwtTokens.types";
+import { CookieManager } from "@classes/CookieManager";
 
 export class APIManager {
-  private static async request(
-    url: string,
-    body: object = {},
+  private static async request<U extends BackendRoutes>(
+    url: U,
+    body: RequestBody<U>,
     headers: HeadersInit = {}
   ): Promise<Response> {
     const response = await fetch(`/api/backend?url=${url}`, {
@@ -25,16 +30,14 @@ export class APIManager {
     return response;
   }
 
-  private static setCookies({ accessToken, refreshToken }: { accessToken: string; refreshToken: string; }) {
-    const cookieStore = getClientSideCookies();
-    cookieStore.set(accessToken);
-    cookieStore.set(refreshToken);
+  private static setCookies({ accessToken, refreshToken }: JwtTokens): void {
+    CookieManager.set(accessToken);
+    CookieManager.set(refreshToken);
   }
 
   private static async refreshTokens() {
-    const cookieStore = getClientSideCookies();
     const response = await APIManager.request(
-      "/auth/refreshtoken", { refreshToken: cookieStore.get("refreshToken") }
+      "/auth/refreshtoken", { refreshToken: CookieManager.get("refreshToken") }
     );
   
     if (response.status !== 200) return "INVALID_REFRESH_TOKEN";
@@ -43,12 +46,11 @@ export class APIManager {
   
     if (accessToken && refreshToken) {
       this.setCookies({ accessToken, refreshToken });
-      return getClientSideCookies().get("accessToken");
+      return CookieManager.get("accessToken");
     }
   }
-  
 
-  public static async signUp(signUpBody: { username?: string, email?: string, password: string }) {
+  public static async signUp(signUpBody: SignUpBody): Promise<boolean> {
     const response = await APIManager.request("/auth/signup", signUpBody);
     if (response.status !== 200) return false;
     const { accessToken, refreshToken } = await response.json();
@@ -56,7 +58,7 @@ export class APIManager {
     return true;
   }
 
-  public static async signIn(signInBody: { username?: string, email?: string, password: string, rememberMe: boolean }) {
+  public static async signIn(signInBody: SignInBody): Promise<boolean> {
     const response = await APIManager.request("/auth/signin", signInBody);
     if (response.status !== 200) return false;
     const { accessToken, refreshToken } = await response.json();
@@ -64,28 +66,26 @@ export class APIManager {
     return true;
   }
 
-  public static signOut() {
-    const cookieStore = getClientSideCookies();
-    if (cookieStore.get("accessToken")) cookieStore.delete("accessToken");
-    if (cookieStore.get("refreshToken")) cookieStore.delete("refreshToken");
+  public static signOut(): void {
+    if (CookieManager.get("accessToken")) CookieManager.delete("accessToken");
+    if (CookieManager.get("refreshToken")) CookieManager.delete("refreshToken");
   }
 
-  public static async findUserByToken(): Promise<{username?: string; icon?: string; email?: string; message?: string;} | undefined> {
-    const accessToken = getClientSideCookies().get("accessToken");
+  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
     
     const cachedUserDataEtag = JSON.parse(localStorage.getItem("cachedUserDataEtag")!);
 
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+    const headers: HeadersInit = { Authorization: `Bearer ${CookieManager.get("accessToken")}` };
     if (cachedUserDataEtag) headers["If-None-Match"] = cachedUserDataEtag;
 
-    const response = await APIManager.request("/graphql", {
-      query: "query { findUserByToken { username email icon } }"
-    }, headers);
+    const wantedUserData = ["username", "email", "icon"].join(" ");
+    const query: GenericQueryRequest<"findUserByToken", {}> = { query: `query { findUserByToken { ${wantedUserData} } }` };
+    const response = await APIManager.request("/graphql", query, headers);
 
     if (response.status === 401) return;
 
-    const data = await response.json();
-    const userData =  data.data.findUserByToken;
+    const data: GenericQueryResponse<"findUserByToken"> = await response.json();
+    const userData =  data["data"]["findUserByToken"];
     const headerEtag = response.headers.get("ETag");
 
     if (userData === null && cachedUserDataEtag === headerEtag) {
