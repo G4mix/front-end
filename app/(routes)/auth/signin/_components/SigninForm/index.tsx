@@ -1,19 +1,20 @@
 "use client";
 
 import React, { ChangeEvent, useState, useEffect } from "react";
+import { APIManager } from "@classes/APIManager";
+import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import Link from "next/link";
 import signinStyles from "./signinForm.module.css";
-import { APIManager } from "@/app/_classes/APIManager";
-import { useRouter } from "next/navigation";
 
 export function LoginForm({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [tryingToLogIn, setTryingToLogIn] = useState(false);
 
   const [readyToLogin, setReadyToLogin] = useState<boolean>(false);
 
@@ -32,12 +33,20 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
 
   async function login(e?: React.FormEvent<HTMLFormElement>) {
     e?.preventDefault();
+    if (tryingToLogIn) return;
+    setTryingToLogIn(true);
 
     const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = { password, rememberMe };
 
     signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
     
-    await APIManager.signIn(signInBody);
+    const result = await APIManager.signIn(signInBody);
+    if(!result) {
+      setTryingToLogIn(false);
+      return;
+    }
+
+    router.push("/");
   }
 
   useEffect(() => {

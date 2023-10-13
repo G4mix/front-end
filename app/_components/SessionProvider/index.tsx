@@ -2,7 +2,7 @@
 
 import { getClientSideCookies } from "@functions/getClientSideCookies";
 import { APIManager } from "@classes/APIManager";
-import React from "react";
+import React, { useState, useEffect, createContext } from "react";
 
 interface Session {
   accessToken: string | null;
@@ -17,7 +17,7 @@ interface SessionContextProps {
   update: () => void;
 }
 
-export const SessionContext = React.createContext<SessionContextProps>({
+export const SessionContext = createContext<SessionContextProps>({
   session: null, 
   status: "unauthenticated",
   update: () => {} 
@@ -28,8 +28,8 @@ interface SessionProviderProps {
 }
 
 export function SessionProvider({ children }: SessionProviderProps) {
-  const [session, setSession] = React.useState<SessionContextProps["session"]>({ username: null, email: null, icon: null, accessToken: null });
-  const [status, setStatus] = React.useState<SessionContextProps["status"]>("unauthenticated");
+  const [session, setSession] = useState<SessionContextProps["session"]>({ username: null, email: null, icon: null, accessToken: null });
+  const [status, setStatus] = useState<SessionContextProps["status"]>("unauthenticated");
 
   function update(newData?: Partial<Session>) {
     setSession((prevSession) => 
@@ -56,7 +56,6 @@ export function SessionProvider({ children }: SessionProviderProps) {
 
     if (!data || data.message === "INVALID_REFRESH_TOKEN") return setUnauthenticated();
 
-
     const { username, email, icon } = data;
 
     setSession({
@@ -69,7 +68,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
     setStatus("authenticated");
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchData();
     return () => {};
   }, []);

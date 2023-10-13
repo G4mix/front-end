@@ -29,9 +29,7 @@ export async function POST(req: NextRequest) {
   });
 
   const data = await response.json();
-  const responseHeaders: HeadersInit = {
-    "Content-Type": "application/json"
-  }
+  const responseHeaders: HeadersInit = { "Content-Type": "application/json" };
   const etagHeader = response.headers.get("ETag");
   if (etagHeader) responseHeaders["ETag"] = etagHeader;
 

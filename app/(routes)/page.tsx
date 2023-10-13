@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "@functions/useSession";
-import { Heading } from "../_components/Heading";
+import { Heading } from "@components/Heading";
 import { Navbar } from "@components/Navbar";
 import styles from "./page.module.css";
 import React from "react";

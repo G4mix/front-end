@@ -10,6 +10,7 @@ import { Collapsable } from "@components/Collapsable";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [username, setUserName] = useState("");
@@ -20,6 +21,9 @@ export const RegisterForm = () => {
 
   const [isCollapsableOpen, setIsCollapsableOpen] = useState<boolean>(false);
   const [readyToRegister, setReadyToRegister] = useState<boolean>(false);
+
+  const [tryingToRegister, setTryingToRegister] = useState(false);
+  const router = useRouter();
 
   const hasOneUppercaseChar = (text: string) => /[A-Z]/.test(text);
 
@@ -51,8 +55,16 @@ export const RegisterForm = () => {
 
   async function register(e?: React.FormEvent<HTMLFormElement>) {
     e?.preventDefault();
+    if (tryingToRegister) return;
+    setTryingToRegister(true);
 
-    await APIManager.signUp({ username, email, password });
+    const result = await APIManager.signUp({ username, email, password });
+    if(!result) {
+      setTryingToRegister(false);
+      return;
+    }
+
+    router.push("/");
   }
   
   useEffect(() => {
