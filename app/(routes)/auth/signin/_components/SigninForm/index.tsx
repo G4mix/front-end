@@ -38,8 +38,6 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
     signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
     
     await APIManager.signIn(signInBody);
-
-    router.push("/");
   }
 
   useEffect(() => {

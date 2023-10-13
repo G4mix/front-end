@@ -7,14 +7,11 @@ import signupFormStyles from "./signupForm.module.css";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { APIManager } from "@classes/APIManager";
 import { Collapsable } from "@components/Collapsable";
-import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 
 export const RegisterForm = () => {
-  const router = useRouter();
-
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,8 +53,6 @@ export const RegisterForm = () => {
     e?.preventDefault();
 
     await APIManager.signUp({ username, email, password });
-    
-    router.push("/");
   }
   
   useEffect(() => {

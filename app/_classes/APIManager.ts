@@ -1,4 +1,6 @@
 import { getClientSideCookies } from "@functions/getClientSideCookies";
+import { RedirectType } from "next/dist/client/components/redirect";
+import { redirect } from "next/navigation";
 
 export class APIManager {
   private static async request(
@@ -16,7 +18,9 @@ export class APIManager {
     });
 
     if (response.status === 401) {
-      await APIManager.refreshTokens();
+      const refreshTokenData = await APIManager.refreshTokens();
+      if (refreshTokenData === "INVALID_REFRESH_TOKEN") return redirect("/auth/signin", RedirectType.push);
+      headers["Authorization" as keyof HeadersInit] = `Bearer ${refreshTokenData}`;
       return await APIManager.request(url, body, headers);
     }
 
@@ -39,30 +43,31 @@ export class APIManager {
 
     if (accessToken && refreshToken) {
       this.setCookies({ accessToken, refreshToken });
-      return response;
+      return accessToken;
     }
 
-    throw new Error("Error refreshing tokens");
+    return "INVALID_REFRESH_TOKEN";
   }
 
   public static async signUp(signUpBody: { username?: string, email?: string, password: string }) {
     const response = await APIManager.request("/auth/signup", signUpBody);
     const { accessToken, refreshToken } = await response.json();
     APIManager.setCookies({ accessToken, refreshToken });
-    return response;
+    redirect("/", RedirectType.push);
   }
 
   public static async signIn(signInBody: { username?: string, email?: string, password: string, rememberMe: boolean }) {
     const response = await APIManager.request("/auth/signin", signInBody);
     const { accessToken, refreshToken } = await response.json();
     APIManager.setCookies({ accessToken, refreshToken });
-    return response;
+    redirect("/", RedirectType.push);
   }
 
   public static signOut() {
     const cookieStore = getClientSideCookies();
     if (cookieStore.get("accessToken")) cookieStore.delete("accessToken");
     if (cookieStore.get("refreshToken")) cookieStore.delete("refreshToken");
+    redirect("/auth/signin", RedirectType.push);
   }
 
   public static async findUserByToken(): Promise<{username?: string; icon?: string; email?: string; message?: string;}> {

@@ -2,7 +2,6 @@
 
 import { getClientSideCookies } from "@functions/getClientSideCookies";
 import { APIManager } from "@classes/APIManager";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 interface Session {
@@ -31,7 +30,6 @@ interface SessionProviderProps {
 export function SessionProvider({ children }: SessionProviderProps) {
   const [session, setSession] = React.useState<SessionContextProps["session"]>({ username: null, email: null, icon: null, accessToken: null });
   const [status, setStatus] = React.useState<SessionContextProps["status"]>("unauthenticated");
-  const router = useRouter();
 
   function update(newData?: Partial<Session>) {
     setSession((prevSession) => 
@@ -50,20 +48,14 @@ export function SessionProvider({ children }: SessionProviderProps) {
       setSession(null);
       setStatus("unauthenticated");
       APIManager.signOut();
-      router.push("/auth/signin");
     }
 
-    if (!accessTokenFromCookie || !refreshTokenFromCookie) {
-      setUnauthenticated();
-      return;
-    }
+    if (!accessTokenFromCookie || !refreshTokenFromCookie) return setUnauthenticated();
 
     const data = await APIManager.findUserByToken()!;
 
-    if (!data || data.message === "INVALID_REFRESH_TOKEN") {
-      setUnauthenticated();
-      return;
-    }
+    if (!data || data.message === "INVALID_REFRESH_TOKEN") return setUnauthenticated();
+
 
     const { username, email, icon } = data;
 
