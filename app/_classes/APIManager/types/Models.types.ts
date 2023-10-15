@@ -3,17 +3,10 @@ export type User = {
   username: string;
   email: string;
   icon: string;
-  socialAccounts: SocialAccount
-  passwordUser: PasswordUser
+  passwordUser: PasswordUser;
 }
 
 export type PasswordUser = {
   id: number;
   verifiedEmail: boolean;
-}
-
-export type SocialAccount = {
-  id: number;
-  provider: string;
-  socialAccountId: string;
 }

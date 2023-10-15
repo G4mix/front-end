@@ -1,5 +1,5 @@
 import type { RequestBody, SignUpBody, SignInBody } from "./types/RequestBody.types";
-import type { GenericQueryRequest } from "../GraphQLQueryBuilder/GraphQLRequest.types";
+import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
 import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
@@ -78,8 +78,7 @@ export class APIManager {
     const headers: HeadersInit = { Authorization: `Bearer ${CookieManager.get("accessToken")}` };
     if (cachedUserDataEtag) headers["If-None-Match"] = cachedUserDataEtag;
 
-    const wantedUserData = ["username", "email", "icon"].join(" ");
-    const query: GenericQueryRequest<"findUserByToken", {}> = { query: `query { findUserByToken { ${wantedUserData} } }` };
+    const query: GenericQueryRequest<"findUserByToken", {}> = { query: `query { findUserByToken { username email icon } }` };
     const response = await APIManager.request("/graphql", query, headers);
 
     if (response.status === 401) return;
