@@ -93,24 +93,3 @@
     font-size: var(--font-sm);
   }
 }
-
-@media (min-width: 1536px) {
-  .lg {
-    font-size: var(--font-3xl);
-  }
-  .md {
-    font-size: var(--font-2xl);
-  }
-  .default {
-    font-size: var(--font-xl);
-  }
-  .sm {
-    font-size: var(--font-lg);
-  }
-  .xs {
-    font-size: var(--font-md);
-  }
-  .xxs {
-    font-size: var(--font-default);
-  }
-}

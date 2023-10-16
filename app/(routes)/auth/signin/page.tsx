@@ -1,4 +1,5 @@
 import { LoginForm } from "./_components/SigninForm";
+import { Icon } from "@components/Icon";
 import loginStyles from "./signin.module.css";
 import Image from "next/image";
 import React from "react";
@@ -24,20 +25,13 @@ export default function SignIn() {
             <h3>Você também pode entrar com:</h3>
             <ul>
               <li>
-                <button>
-                  <img src="/icons/google.svg" alt="" />
-                </button>
+                <Icon icon="google" size="2xl" disabled />
               </li>
               <li>
-                <button>
-                  <img src="/icons/linkedin.svg" alt="" />
-                </button>
+                <Icon icon="linkedin" size="2xl" disabled />
               </li>
               <li>
-                <button>
-                  {" "}
-                  <img src="/icons/github.svg" alt="" />
-                </button>
+                <Icon icon="github" size="2xl" disabled />
               </li>
             </ul>
           </div>

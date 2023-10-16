@@ -87,7 +87,17 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
         <Checkbox defaultChecked={rememberMe} onChange={(e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)} />
         <p>Lembrar de mim por 30 dias</p>
       </div>
-      <Button disabled={!readyToLogin} type="submit">Conectar-se</Button>
+      <Button
+        style={{
+          width: "100%",
+          marginTop: "1.5rem",
+          marginBottom: "0.625rem",
+        }}
+        disabled={!readyToLogin} 
+        type="submit"
+      >
+        Conectar-se
+      </Button>
     </form>
   );
 }
