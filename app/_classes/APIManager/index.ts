@@ -71,11 +71,11 @@ export class APIManager {
     if (CookieManager.get("refreshToken")) CookieManager.delete("refreshToken");
   }
 
-  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
-    
+  public static async findUserByToken(): Promise<{ data: GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"]; accessToken: string;}  | undefined> {
     const cachedUserDataEtag = JSON.parse(localStorage.getItem("cachedUserDataEtag")!);
+    const accessToken = CookieManager.get("accessToken");
 
-    const headers: HeadersInit = { Authorization: `Bearer ${CookieManager.get("accessToken")}` };
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
     if (cachedUserDataEtag) headers["If-None-Match"] = cachedUserDataEtag;
 
     const query: GenericQueryRequest<"findUserByToken", {}> = { query: `query { findUserByToken { username email icon } }` };
@@ -94,6 +94,6 @@ export class APIManager {
 
     localStorage.setItem("cachedUserDataEtag", JSON.stringify(headerEtag));
     localStorage.setItem("cachedUserData", JSON.stringify(userData));
-    return userData;
+    return { data: userData, accessToken: accessToken! };
   }
 }

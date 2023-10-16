@@ -2,8 +2,8 @@
 
 import type { Session, SessionContextProps } from "./Session.types";
 import React, { useState, useEffect, createContext } from "react";
-import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager";
+import { usePathname } from "next/navigation";
 
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
@@ -16,8 +16,10 @@ interface SessionProviderProps {
 }
 
 export function SessionProvider({ children }: SessionProviderProps) {
-  const [session, setSession] = useState<SessionContextProps["session"]>({ username: null, email: null, icon: null, accessToken: null });
+  const [session, setSession] = useState<SessionContextProps["session"]>(null);
   const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
+  const toIgnoreRoutes = ["/auth/signin", "/auth/signup", "/auth/signout"];
+  const pathname = usePathname();  
 
   function update(newData?: Partial<Session>) {
     setSession((prevSession) => 
@@ -25,28 +27,31 @@ export function SessionProvider({ children }: SessionProviderProps) {
     );
   }
 
+  function setUnauthenticated() {
+    setSession(null);
+    setStatus("unauthenticated");
+    APIManager.signOut();
+  }
+  
   async function fetchData() {
-    setStatus("loading");
-
-    function setUnauthenticated() {
-      setSession(null);
-      setStatus("unauthenticated");
-      APIManager.signOut();
+    if (toIgnoreRoutes.includes(pathname)) {
+      setUnauthenticated();
+      return <>{children}</>;
     }
 
-    const accessTokenFromCookie = CookieManager.get("accessToken");
-    const refreshTokenFromCookie = CookieManager.get("refreshToken");
+    setStatus("loading");
 
-    if (!accessTokenFromCookie || !refreshTokenFromCookie) return setUnauthenticated();
+    const allData = await APIManager.findUserByToken()!;
+    if (!allData) return setUnauthenticated();
 
-    const data = await APIManager.findUserByToken()!;
-
+    const { data, accessToken } = allData!;
+    
     if (!data) return setUnauthenticated();
 
     const { username, email, icon } = data;
 
     setSession({
-      accessToken: accessTokenFromCookie,
+      accessToken: accessToken,
       username: username!,
       email: email!,
       icon: icon!
@@ -58,7 +63,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
   useEffect(() => {
     fetchData();
     return () => {};
-  }, []);
+  }, [pathname]);
 
   return (
     <SessionContext.Provider value={{ session, status, update }}>
