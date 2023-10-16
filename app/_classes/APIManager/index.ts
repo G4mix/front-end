@@ -71,29 +71,19 @@ export class APIManager {
     if (CookieManager.get("refreshToken")) CookieManager.delete("refreshToken");
   }
 
-  public static async findUserByToken(): Promise<{ data: GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"]; accessToken: string;}  | undefined> {
-    const cachedUserDataEtag = JSON.parse(localStorage.getItem("cachedUserDataEtag")!);
+  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"]  | undefined> {
     const accessToken = CookieManager.get("accessToken");
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
-    if (cachedUserDataEtag) headers["If-None-Match"] = cachedUserDataEtag;
 
     const query: GenericQueryRequest<"findUserByToken", {}> = { query: `query { findUserByToken { username email icon } }` };
     const response = await APIManager.request("/graphql", query, headers);
 
-    if (response.status === 401) return;
+    if (response.status === 401 || response.status >= 500) return;
 
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();
-    const userData =  data["data"]["findUserByToken"];
-    const headerEtag = response.headers.get("ETag");
+    const userData = data["data"]["findUserByToken"];
 
-    if (userData === null && cachedUserDataEtag === headerEtag) {
-      const cachedData = JSON.parse(localStorage.getItem("cachedUserData") || "{}");
-      if (cachedData) return cachedData;
-    }
-
-    localStorage.setItem("cachedUserDataEtag", JSON.stringify(headerEtag));
-    localStorage.setItem("cachedUserData", JSON.stringify(userData));
-    return { data: userData, accessToken: accessToken! };
+    return userData;
   }
 }

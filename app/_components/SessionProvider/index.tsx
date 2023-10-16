@@ -4,6 +4,7 @@ import type { Session, SessionContextProps } from "./Session.types";
 import React, { useState, useEffect, createContext } from "react";
 import { APIManager } from "@classes/APIManager";
 import { usePathname } from "next/navigation";
+import { CookieManager } from "@/app/_classes/CookieManager";
 
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
@@ -35,23 +36,19 @@ export function SessionProvider({ children }: SessionProviderProps) {
   
   async function fetchData() {
     if (toIgnoreRoutes.includes(pathname)) {
-      setUnauthenticated();
+      setSession(null);
+      setStatus("unauthenticated");
       return <>{children}</>;
     }
 
     setStatus("loading");
 
-    const allData = await APIManager.findUserByToken()!;
-    if (!allData) return setUnauthenticated();
-
-    const { data, accessToken } = allData!;
-    
+    const data = await APIManager.findUserByToken()!;
     if (!data) return setUnauthenticated();
-
     const { username, email, icon } = data;
 
     setSession({
-      accessToken: accessToken,
+      accessToken: CookieManager.get("accessToken")!,
       username: username!,
       email: email!,
       icon: icon!

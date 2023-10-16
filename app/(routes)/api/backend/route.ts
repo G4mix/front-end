@@ -3,7 +3,7 @@ import { type NextRequest } from 'next/server'
 export async function POST(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
   
-  const supportedHeaders = ["Authorization", "If-None-Match"] as const;
+  const supportedHeaders = ["Authorization"] as const;
 
   type SupportedHeaders = typeof supportedHeaders[number];
   
@@ -30,8 +30,6 @@ export async function POST(req: NextRequest) {
 
   const data = await response.json();
   const responseHeaders: HeadersInit = { "Content-Type": "application/json" };
-  const etagHeader = response.headers.get("ETag");
-  if (etagHeader) responseHeaders["ETag"] = etagHeader;
 
   return new Response(JSON.stringify(data), { status: response.status, headers: responseHeaders });
 }
