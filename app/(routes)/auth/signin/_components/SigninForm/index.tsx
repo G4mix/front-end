@@ -19,10 +19,12 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
   const [readyToLogin, setReadyToLogin] = useState<boolean>(false);
 
   const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
+  const isValidUsername = (username: string) => /^[A-Za-z0-9_]+$/.test(username);
 
   const isReadyToLogin = () => {
     if (
-      usernameOrEmail.length > 5 && 
+      (isValidUsername(usernameOrEmail) || hasGmailDomain(usernameOrEmail)) &&
+      usernameOrEmail.length > 2 &&
       password
     ) {
       setReadyToLogin(true);

@@ -29,7 +29,7 @@ export const RegisterForm = () => {
 
   const hasNumber = (text: string) => /\d/.test(text);
 
-  const hasSpecialChar = (text: string) => /[^A-Za-z0-9]/.test(text);
+  const hasSpecialChar = (text: string) => /[^A-Za-z0-9_]/.test(text);
 
   const hasEightOrMoreChars = (text: string) => text.length >= 8;
 
@@ -42,7 +42,7 @@ export const RegisterForm = () => {
       hasSpecialChar(password) &&
       hasOneUppercaseChar(password) &&
       !hasSpecialChar(username) &&
-      username.length > 5 && 
+      username.length > 2 && 
       hasGmailDomain(email) &&
       password === confirmPassword &&
       acceptedTerms
