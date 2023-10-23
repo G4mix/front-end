@@ -4,6 +4,7 @@ import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
 import { CookieManager } from "@classes/CookieManager";
+import { apiErrors } from "@/app/_constants/apiErrors";
 
 export class APIManager {
   private static async request<U extends BackendRoutes>(
@@ -22,7 +23,9 @@ export class APIManager {
 
     if (response.status === 401 && url !== "/auth/refreshtoken") {
       const refreshTokenData = await APIManager.refreshTokens();
-      if (refreshTokenData === "INVALID_REFRESH_TOKEN") return new Response(undefined, { status: 401, statusText: refreshTokenData });
+      if (apiErrors[refreshTokenData as keyof typeof apiErrors]) {
+        return new Response(undefined, { status: 401, statusText: apiErrors[refreshTokenData as keyof typeof apiErrors] });
+      }
       const newHeaders = { ...headers, Authorization: `Bearer ${refreshTokenData}` };
       return await APIManager.request(url, body, newHeaders);
     }
@@ -40,9 +43,9 @@ export class APIManager {
       "/auth/refreshtoken", { refreshToken: CookieManager.get("refreshToken") }
     );
   
-    if (response.status !== 200) return "INVALID_REFRESH_TOKEN";
-  
-    const { accessToken, refreshToken } = await response.json();
+    const { accessToken, refreshToken, error } = await response.json();
+
+    if (apiErrors[error as keyof typeof apiErrors]) return error;
   
     if (accessToken && refreshToken) {
       this.setCookies({ accessToken, refreshToken });
