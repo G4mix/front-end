@@ -4,6 +4,7 @@
   --white: #ffffff;
   --black: #000000;
   --ultra-violet: #68589d;
+  --veronica: #9747FF;
   --jet: #333333;
   --saffron: #f9c536;
   --savoy-blue: #626ca7;
@@ -26,7 +27,6 @@
 
 * {
   font-family: Roboto, sans-serif;
-  color: var(--white);
   font-size: var(--font-default);
   box-sizing: border-box;
   text-decoration: none;

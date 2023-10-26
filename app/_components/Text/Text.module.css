@@ -1,31 +1,42 @@
+.center {
+  text-align: center;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.left {
+  text-align: left;
+}
+
+.white {
+  color: var(--white);
+}
+
 .lg {
   font-size: var(--font-lg);
-  color: var(--white);
 }
 
 .md {
   font-size: var(--font-md);
-  color: var(--white);
 }
 
 .default {
   font-size: var(--font-default);
-  color: var(--white);
 }
 
 .sm {
   font-size: var(--font-sm);
-  color: var(--white);
 }
 
 .xs {
   font-size: var(--font-xs);
-  color: var(--white);
+
 }
 
 .xxs {
   font-size: var(--font-2xs);
-  color: var(--white);
 }
 
 .thin {

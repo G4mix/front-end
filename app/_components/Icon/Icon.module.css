@@ -13,3 +13,9 @@
   cursor: default!important;
   opacity: 0.6!important;
 }
+
+.withoutClick {
+  transition: none!important;
+  opacity: 1!important;
+  cursor: default!important;
+}
