@@ -1,10 +1,10 @@
+import React, { ChangeEvent } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";
 import { InputRoot } from "./InputRoot";
 
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
-import { ChangeEvent } from "react";
 
 interface InputProps {
   placeholder: string;

@@ -1,45 +1,48 @@
-import { Checkbox } from "./index";
+import { CheckboxIndicatorContainer } from "./CheckboxIndicatorContainer";
+import { CheckboxIndicator } from "./CheckboxIndicator";
+import { CheckboxInput } from "./CheckboxInput";
+import { CheckboxRoot } from "./CheckboxRoot";
 import { Icon } from "../Icon";
 import React from "react";
 
 describe("<Checkbox />", () => {
   it("Should be checked.", () => {
     cy.mount(
-      <Checkbox.Root>
-        <Checkbox.Input checked id="input" />
-        <Checkbox.IndicatorContainer>
-          <Checkbox.Indicator>
+      <CheckboxRoot>
+        <CheckboxInput checked id="input" />
+        <CheckboxIndicatorContainer>
+          <CheckboxIndicator>
             <Icon icon="check" height={16} />
-          </Checkbox.Indicator>
-        </Checkbox.IndicatorContainer>
-      </Checkbox.Root>
+          </CheckboxIndicator>
+        </CheckboxIndicatorContainer>
+      </CheckboxRoot>
     );
     cy.get("#input").should("be.checked");
   });
 
   it("Should not be checked.", () => {
     cy.mount(
-      <Checkbox.Root>
-        <Checkbox.Input id="input" />
-        <Checkbox.IndicatorContainer>
-          <Checkbox.Indicator>
+      <CheckboxRoot>
+        <CheckboxInput id="input" />
+        <CheckboxIndicatorContainer>
+          <CheckboxIndicator>
             <Icon icon="check" height={16} />
-          </Checkbox.Indicator>
-        </Checkbox.IndicatorContainer>
-      </Checkbox.Root>
+          </CheckboxIndicator>
+        </CheckboxIndicatorContainer>
+      </CheckboxRoot>
     );
     cy.get("#input").should("not.be.checked");
   });
   it("Should be disabled.", () => {
     cy.mount(
-      <Checkbox.Root id="root" disabled>
-        <Checkbox.Input />
-        <Checkbox.IndicatorContainer>
-          <Checkbox.Indicator>
+      <CheckboxRoot id="root" disabled>
+        <CheckboxInput />
+        <CheckboxIndicatorContainer>
+          <CheckboxIndicator>
             <Icon icon="check" height={16} />
-          </Checkbox.Indicator>
-        </Checkbox.IndicatorContainer>
-      </Checkbox.Root>
+          </CheckboxIndicator>
+        </CheckboxIndicatorContainer>
+      </CheckboxRoot>
     );
     cy.get("#root").should(($el) => {
       const styles = window.getComputedStyle($el[0]);
@@ -51,14 +54,14 @@ describe("<Checkbox />", () => {
   
   it("Should not be disabled.", () => {
     cy.mount(
-      <Checkbox.Root id="root">
-        <Checkbox.Input />
-        <Checkbox.IndicatorContainer>
-          <Checkbox.Indicator>
+      <CheckboxRoot id="root">
+        <CheckboxInput />
+        <CheckboxIndicatorContainer>
+          <CheckboxIndicator>
             <Icon icon="check" height={16} />
-          </Checkbox.Indicator>
-        </Checkbox.IndicatorContainer>
-      </Checkbox.Root>
+          </CheckboxIndicator>
+        </CheckboxIndicatorContainer>
+      </CheckboxRoot>
     );
     cy.get("#root").should(($el) => {
       const styles = window.getComputedStyle($el[0]);

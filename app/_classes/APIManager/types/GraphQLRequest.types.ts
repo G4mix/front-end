@@ -25,8 +25,8 @@ type PasswordFields =
 
 type Fields = UserFields | `${UserFields} passwordUser { ${PasswordFields} }`;
 
-export type GenericQueryRequest<Query extends QueryType, Variables = {}> = 
-  { query: `query { ${Query} { ${Fields} } }`, variables?: Variables };
+export type GenericQueryRequest<Query extends QueryType> = 
+  { query: `query { ${Query} { ${Fields} } }` };
 
-  // export type GenericMutationRequest<Mutation extends MutationType, Variables = {}> = 
+// export type GenericMutationRequest<Mutation extends MutationType, Variables = {}> = 
 //   { query: `query { ${Mutation} { ${string} } }`, variables?: Variables };

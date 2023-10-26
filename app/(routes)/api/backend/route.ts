@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");

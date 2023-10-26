@@ -1,6 +1,8 @@
-import { Icon } from "../Icon";
+import { CollapsableContent } from "./CollapsableContent";
 import { CollapsableTrigger } from "./CollapsableTrigger";
-import { Collapsable } from "./index";
+import { CollapsableItem } from "./CollapsableItem";
+import { CollapsableRoot } from "./CollapsableRoot";
+import { Icon } from "../Icon";
 import React from "react";
 
 describe("<Collapsable />", () => {
@@ -13,14 +15,14 @@ describe("<Collapsable />", () => {
     };
 
     cy.mount(
-      <Collapsable.Root defaultOpen open={open} onOpenChange={setOpen} id="root">
+      <CollapsableRoot defaultOpen open={open} onOpenChange={setOpen} id="root">
         <CollapsableTrigger id="trigger" asChild><Icon icon="plus" /></CollapsableTrigger>
-        <Collapsable.Content id="content">
-          <Collapsable.Item>
+        <CollapsableContent id="content">
+          <CollapsableItem>
             Hello world!
-          </Collapsable.Item>
-        </Collapsable.Content>
-      </Collapsable.Root>
+          </CollapsableItem>
+        </CollapsableContent>
+      </CollapsableRoot>
     );
     cy.get("#content").should("have.attr", "data-state", "open");
     cy.get("#trigger").click();

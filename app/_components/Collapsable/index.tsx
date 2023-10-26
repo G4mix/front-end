@@ -1,10 +1,11 @@
 import { CollapsableContent } from "./CollapsableContent";
-import { CollapsableTrigger } from "./CollapsableTrigger";
 import { CollapsableItem } from "./CollapsableItem";
 import { CollapsableRoot } from "./CollapsableRoot";
 
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
+
+import React from "react";
 
 interface CollapsableProps {
   open: boolean;

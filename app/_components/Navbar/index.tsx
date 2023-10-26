@@ -1,6 +1,7 @@
 import { Icon } from "@components/Icon";
 import styles from "./Navbar.module.css";
 import React from "react";
+import Image from "next/image";
 
 interface NavbarProps {
   session: { username: string | null; email: string | null; icon: string | null };
@@ -15,7 +16,7 @@ export function Navbar({ session }: NavbarProps) {
         <Icon icon="plus" width={20} height={20} disabled />
         <Icon icon="users" width={20} height={20} disabled />
         {session && session.icon ? (
-          <img
+          <Image
             src={session.icon || ""}
             width={24}
             height={24}

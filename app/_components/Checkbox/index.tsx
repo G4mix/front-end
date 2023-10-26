@@ -4,13 +4,16 @@ import { CheckboxInput } from "./CheckboxInput";
 import { CheckboxRoot } from "./CheckboxRoot";
 
 import { Icon } from "@components/Icon";
+import React from "react";
 
-export function Checkbox({
-  checked,
-  disabled,
-  defaultChecked,
-  onChange
-}: React.InputHTMLAttributes<HTMLInputElement>) {
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  checked?: boolean;
+  disabled?: boolean;
+  default?: boolean;
+  onChange?: React.InputHTMLAttributes<HTMLInputElement>["onChange"];
+}
+
+export function Checkbox({checked=false, disabled=false, defaultChecked=false, onChange }: CheckboxProps) {
   return (
     <CheckboxRoot disabled={disabled}>
       <CheckboxInput checked={checked} onChange={onChange} defaultChecked={defaultChecked} />
