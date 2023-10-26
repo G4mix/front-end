@@ -13,8 +13,6 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <body>{children}</body>
-    </html>
+    <>{children}</>
   );
 }

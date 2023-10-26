@@ -5,12 +5,15 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { APIManager } from "@/app/_classes/APIManager";
 import { Collapsable } from "@components/Collapsable";
+import { ErrorsToast } from "@components/ErrorsToast";
+import { APIManager } from "@classes/APIManager";
+import { useRouter } from "next/navigation";
+import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
-import { useRouter } from "next/navigation";
+import { Text } from "@components/Text";
 
 export const RegisterForm = () => {
   const [username, setUserName] = useState("");
@@ -23,6 +26,10 @@ export const RegisterForm = () => {
   const [readyToRegister, setReadyToRegister] = useState<boolean>(false);
 
   const [tryingToRegister, setTryingToRegister] = useState(false);
+
+  const [error, setError] = useState<keyof typeof apiErrors | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  
   const router = useRouter();
 
   const hasOneUppercaseChar = (text: string) => /[A-Z]/.test(text);
@@ -59,8 +66,10 @@ export const RegisterForm = () => {
     setTryingToRegister(true);
 
     const result = await APIManager.signUp({ username, email, password });
-    if(!result) {
+    if (apiErrors[result!]) {
       setTryingToRegister(false);
+      setError(result!);
+      setOpen(true);
       return;
     }
 
@@ -75,6 +84,7 @@ export const RegisterForm = () => {
 
   return (
     <form className={signupFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
+      <ErrorsToast error={error!} open={open} setOpen={setOpen}/>
       <div className={signupFormStyles.fields}>
         <Input
           icon="user"
@@ -147,17 +157,17 @@ export const RegisterForm = () => {
 
       <div className={signupFormStyles.rememberMe}>
         <Checkbox defaultChecked={acceptedTerms} onChange={(e: ChangeEvent<HTMLInputElement>) => setAcceptedTerms(e.target.checked)} />
-        <p>
+        <Text size="xxs">
           Eu li e concordo com os{" "}
           <Link href={"/terms"}>termos e políticas de privacidade</Link>
-        </p>
+        </Text>
       </div>
 
       <Button
         style={{
           width: "100%",
-          marginTop: "1.5rem",
-          marginBottom: "0.625rem",
+          marginTop: "1rem",
+          marginBottom: "0.1rem",
         }}
         type="submit"
         disabled={!readyToRegister}

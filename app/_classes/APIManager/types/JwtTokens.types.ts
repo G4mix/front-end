@@ -1,1 +1,1 @@
-export type JwtTokens = { accessToken: string; refreshToken: string; };
+export type JwtTokens = { accessToken: string; refreshToken: string; error?: string; };

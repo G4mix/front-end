@@ -4,15 +4,24 @@ import React from "react";
 
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
+  className?: string;
   asChild?: boolean;
+  align?: "left" | "center" | "justify";
   weight?: "thin" | "light" | "regular" | "medium" | "bold" | "black";
   size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
 }
 
-export function Text({ children, asChild=false, size="default", weight="regular", ...props }: TextProps) {
+export function Text({ children, asChild=false, size="default", weight="regular", align="left", className, ...props }: TextProps) {
   const Component = asChild ? Slot : "p";
 
   return (
-    <Component {...props} className={`${styles[size as keyof typeof styles]} ${styles[weight as keyof typeof styles]}`}>{children}</Component>
+    <Component 
+      {...props}
+      className={
+        `${styles[size as keyof typeof styles]} ${styles[weight as keyof typeof styles]} ${styles[align as keyof typeof styles]} ${styles.white} ${className}`
+      }
+    >
+      {children}
+    </Component>
   );
 }

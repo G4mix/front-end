@@ -31,9 +31,9 @@ export function Input({
 }: InputProps) {
   return (
     <InputRoot>
-      {label && <Text size="default">{label}</Text>}
+      {label && <Text size="sm">{label}</Text>}
       <InputField>
-        {icon && <Icon icon={icon} />}
+        {icon && <Icon icon={icon} withoutClick />}
         <InputInput
           type={type}
           placeholder={placeholder}

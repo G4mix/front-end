@@ -14,13 +14,13 @@ export const apiErrors = {
   USERNAME_NULL: "O nome de usuário não pode ser nulo.",
   USERNAME_TOO_LONG: "O nome de usuário é muito grande (No máximo de 50 caracteres).",
   USERNAME_TOO_SHORT: "O nome de usuário é muito curto (No mínimo de 3 caracteres).",
-  USERNAME_INVALID_FORMAT: "O nome de usuário tem um formato inválido.Pode conter apenas caracteres alfanuméricos e o underline(_).",
+  USERNAME_INVALID_FORMAT: "O nome de usuário pode conter apenas caracteres alfanuméricos e o underline(_).",
   
   EMAIL_NULL: "O email não pode ser nulo.",
   EMAIL_EMPTY: "O email não pode ser vazio.",
   EMAIL_TOO_SHORT: "O email é muito curto.",
   EMAIL_TOO_LONG: "O email é muito longo (No máximo 320 caracteres).",
-  EMAIL_INVALID_FORMAT: "O email tem um formato inválido. Ele deve estar no seguinte formato: 'name@gmail.com'.",
+  EMAIL_INVALID_FORMAT: "O email deve estar no seguinte formato: 'name@gmail.com'.",
   EMAIL_ALREADY_VERIFIED: "Email já verificado.",
   
   PASSWORD_WRONG: "Senha incorreta.",
