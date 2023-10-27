@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import signupFormStyles from "./signupForm.module.css";
+import textStyles from "@components/Text/Text.module.css";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Collapsable } from "@components/Collapsable";
@@ -157,9 +158,9 @@ export const RegisterForm = () => {
 
       <div className={signupFormStyles.rememberMe}>
         <Checkbox defaultChecked={acceptedTerms} onChange={(e: ChangeEvent<HTMLInputElement>) => setAcceptedTerms(e.target.checked)} />
-        <Text size="xxs">
+        <Text size="xs">
           Eu li e concordo com os{" "}
-          <Link href={"/terms"}>termos e políticas de privacidade</Link>
+          <Link className={textStyles.xs} href={"/terms"}>termos e políticas de privacidade</Link>
         </Text>
       </div>
 
