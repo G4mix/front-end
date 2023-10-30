@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button } from "../app/_components/Button";
+import { Button } from "@components/Button";
 
 const meta = {
   title: "components/Button",
@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    backgroundColor: { control: "color" },
+    disabled: { control: "boolean" },
   },
 } satisfies Meta<typeof Button>;
 
@@ -19,13 +19,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    children: "Button"
+    children: "I'm a Button"
   },
 };
 
-export const Warning: Story = {
+export const Disabled: Story = {
   args: {
-    children: "Delete now",
-    backgroundColor: "red",
+    children: "Disabled button",
+    disabled: true
   }
 };

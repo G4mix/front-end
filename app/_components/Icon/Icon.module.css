@@ -1,0 +1,21 @@
+.icon {
+  transition: opacity 0.3s;
+  color: var(--white);
+}
+
+.icon:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.disabled {
+  transition: none!important;
+  cursor: default!important;
+  opacity: 0.6!important;
+}
+
+.withoutClick {
+  transition: none!important;
+  opacity: 1!important;
+  cursor: default!important;
+}

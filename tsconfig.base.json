@@ -19,9 +19,11 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./components/*"],
-      "@functions/*": ["./functions/*"],
-      "@constants/*": ["./constants/*"]
+      "@components/*": ["./app/_components/*"],
+      "@constants/*": ["./app/_constants/*"],
+      "@functions/*": ["./app/_functions/*"],
+      "@classes/*": ["./app/_classes/*"],
+      "@styles/*": ["./app/_styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

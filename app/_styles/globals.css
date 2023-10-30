@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --ultra-violet: #68589d;
+  --veronica: #9747FF;
+  --jet: #333333;
+  --saffron: #f9c536;
+  --savoy-blue: #626ca7;
+  --carolina-blue: #89bddf;
+  --delft-blue: #343a5b;
+  --delft-blue-bg: #1c2034;
+
+  --font-3xl: 39.81px;
+  --font-2xl: 33.18px;
+  --font-xl: 27.65px;
+  --font-lg: 23.04px;
+  --font-md: 19.2px;
+  --font-default: 16px;
+  --font-sm: 13.33px;
+  --font-xs: 11.11px;
+  --font-2xs: 9.26px;
+
+  --shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--font-default);
+  box-sizing: border-box;
+  text-decoration: none;
+  user-select: none;
+  border-width: 0;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--delft-blue-bg);
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+}
+
+button {
+  border: none;
+  background: none;
+
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
