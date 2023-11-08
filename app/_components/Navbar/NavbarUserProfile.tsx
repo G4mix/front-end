@@ -21,7 +21,7 @@ export function NavbarUserProfile({ session }: NavbarUserProfileProps) {
             className={styles.imgRounded}
           />
         ) : (
-          <Icon icon="user-circle" size="3x" width={24} height={24} />
+          <Icon icon="user-circle" size="3x" width={24} height={24} style={{color: "#626ca7"}} />
         )
       }
     </>
