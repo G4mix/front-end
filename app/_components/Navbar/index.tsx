@@ -1,22 +1,23 @@
+import type { Session } from "@components/SessionProvider/Session.types";
+import { NavbarUserProfile } from "./NavbarUserProfile";
 import { Icon } from "@components/Icon";
+import { Text } from "@components/Text";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styles from "./Navbar.module.css";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface NavbarProps {
-  session: {
-    username: string | null;
-    email: string | null;
-    icon: string | null;
-  };
+  session: Omit<Session, "accessToken">;
 }
 
 export function Navbar({ session }: NavbarProps) {
   return (
     <nav className={styles.nav}>
       <div className={styles.navItems}>
-        <Icon icon="house" width={20} height={20} />
-        <Icon icon="search" width={20} height={20} disabled />
+        <Icon icon="house" size="3x" width={24} height={24} />
+        <Icon icon="search" size="3x" width={24} height={24} disabled />
         <div className={styles.createCenter}>
           <Image
             src={"/logo.svg"}
@@ -25,18 +26,23 @@ export function Navbar({ session }: NavbarProps) {
             alt="Gamix logo image"
           />
         </div>
-        <Icon icon="users" width={20} height={20} disabled />
-        {session && session.icon ? (
-          <Image
-            src={session.icon || ""}
-            width={24}
-            height={24}
-            alt={`Imagem do ${session.username}`}
-            className={styles.imgRounded}
-          />
-        ) : (
-          <Icon icon="user-circle" width={20} height={20} />
-        )}
+        <Icon icon="users" size="3x" width={24} height={24} disabled />
+        <DropdownMenu.Root modal={false}>
+          <DropdownMenu.Trigger>
+            <NavbarUserProfile session={session} />
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content className={styles.dropdownMenuContent} sideOffset={5} side="top" align="end">
+              <DropdownMenu.Item className={styles.dropdownMenuItem} asChild>
+                <Link href="/auth/signout">
+                  <Icon icon="logout" size="2x" width={24} height={24} style={{opacity: "1"}} />
+                  <Text size="xxs">Logout</Text>
+                </Link>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Root>
       </div>
     </nav>
   );

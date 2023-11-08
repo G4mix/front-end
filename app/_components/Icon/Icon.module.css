@@ -11,7 +11,7 @@
 .disabled {
   transition: none!important;
   cursor: default!important;
-  opacity: 0.6!important;
+  opacity: 0.4!important;
 }
 
 .withoutClick {
