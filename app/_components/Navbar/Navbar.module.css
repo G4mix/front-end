@@ -1,8 +1,8 @@
 .nav {
   width: 100%;
-  min-height: 50px;
+  height: 50px;
   position: fixed;
-  background-color: var(--jet);
+  background-color: var(--delft-blue);
 
   padding: 15px;
   bottom: 0;
@@ -27,4 +27,17 @@
 
 .imgRounded {
   border-radius: 9999px;
+}
+
+.createCenter {
+  position: relative;
+  top: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px; 
+  background-color: var(--delft-blue-bg); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 0, 0, 0.3);
 }
