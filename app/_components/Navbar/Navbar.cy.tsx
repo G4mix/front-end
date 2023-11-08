@@ -9,7 +9,7 @@ describe("<Navbar />", () => {
         session={{
           username: "Test",
           email: "Test@gmail.com",
-          icon: null,
+          icon: null
         }}
       />
     );
