@@ -4,7 +4,11 @@ import React from "react";
 import Image from "next/image";
 
 interface NavbarProps {
-  session: { username: string | null; email: string | null; icon: string | null };
+  session: {
+    username: string | null;
+    email: string | null;
+    icon: string | null;
+  };
 }
 
 export function Navbar({ session }: NavbarProps) {
@@ -13,13 +17,13 @@ export function Navbar({ session }: NavbarProps) {
       <div className={styles.navItems}>
         <Icon icon="house" width={20} height={20} />
         <Icon icon="search" width={20} height={20} disabled />
-        <div className= {styles.createCenter}>
+        <div className={styles.createCenter}>
           <Image
             src={"/logo.svg"}
             width={50}
             height={50}
             alt="Gamix logo image"
-            />
+          />
         </div>
         <Icon icon="users" width={20} height={20} disabled />
         {session && session.icon ? (
