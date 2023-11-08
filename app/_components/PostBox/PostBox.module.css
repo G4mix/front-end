@@ -6,9 +6,11 @@
 .bgPostBox{
   width: 90vh;
   height: 100%;
-  background-color: var(--delft-blue);
-  border-radius: 10px;
+  background: linear-gradient(to bottom, var(--delft-blue), rgba(52, 58, 91, 0.10) 100%);
+  border-radius: 12px;
+  border: 3px solid var(--delft-blue);
 }
+
 .PostBoxItems{
   display: flex;
   justify-content: space-around;
@@ -57,4 +59,5 @@
   justify-content: center;
   align-items: center;
   padding-top: 10px;
+  border-radius: 12px;
 }
