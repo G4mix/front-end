@@ -10,7 +10,7 @@
   --savoy-blue: #626ca7;
   --carolina-blue: #89bddf;
   --delft-blue: #343a5b;
-  --delft-blue-bg: #1c2034;
+  --delft-blue-bg: #1C2034;
 
   --font-3xl: 39.81px;
   --font-2xl: 33.18px;
@@ -38,7 +38,8 @@
 }
 
 body {
-  background-color: var(--delft-blue-bg);
+  background: linear-gradient(180deg, #1C2034 0%, rgba(28, 32, 52, 0.6) 100%);
+  background-color: #1C2034;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;

@@ -15,8 +15,8 @@ export function Navbar({ session }: NavbarProps) {
   return (
     <nav className={styles.nav}>
       <div className={styles.navItems}>
-        <Icon icon="house" width={20} height={20} />
-        <Icon icon="search" width={20} height={20} disabled />
+        <Icon icon="house" size="3x" width={24} height={24} />
+        <Icon icon="search" size="3x" width={24} height={24} disabled />
         <div className={styles.createCenter}>
           <Image
             src={"/logo.svg"}
@@ -25,7 +25,7 @@ export function Navbar({ session }: NavbarProps) {
             alt="Gamix logo image"
           />
         </div>
-        <Icon icon="users" width={20} height={20} disabled />
+        <Icon icon="users" size="3x" width={24} height={24} disabled />
         {session && session.icon ? (
           <Image
             src={session.icon || ""}
@@ -35,7 +35,7 @@ export function Navbar({ session }: NavbarProps) {
             className={styles.imgRounded}
           />
         ) : (
-          <Icon icon="user-circle" width={20} height={20} />
+          <Icon icon="user-circle" size="3x" width={24} height={24} />
         )}
       </div>
     </nav>
