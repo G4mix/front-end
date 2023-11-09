@@ -12,17 +12,17 @@
   --delft-blue: #343a5b;
   --delft-blue-bg: #1C2034;
 
-  --font-3xl: 39.81px;
-  --font-2xl: 33.18px;
-  --font-xl: 27.65px;
-  --font-lg: 23.04px;
-  --font-md: 19.2px;
-  --font-default: 16px;
-  --font-sm: 13.33px;
-  --font-xs: 11.11px;
-  --font-2xs: 9.26px;
+  --font-3xl: 2.488125rem;
+  --font-2xl: 2.07375rem;
+  --font-xl: 1.728125rem;
+  --font-lg: 1.44rem;
+  --font-md: 1.2rem;
+  --font-default: 1rem;
+  --font-sm: 0.833125rem;
+  --font-xs: 0.694375rem;
+  --font-2xs: 0.57875rem;
 
-  --shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
+  --shadow: 0.3125rem 0.3125rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
 * {
