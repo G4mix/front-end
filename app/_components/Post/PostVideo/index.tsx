@@ -4,7 +4,7 @@ interface VideoProps {
   src: string;
 }
 
-function Video({ src }: VideoProps) {
+export function PostVideo({ src }: VideoProps) {
   return (
     <video width="380" height="200" controls>
       <source src={src} type="video/mp4" />
@@ -12,5 +12,3 @@ function Video({ src }: VideoProps) {
     </video>
   );
 }
-
-export default Video;

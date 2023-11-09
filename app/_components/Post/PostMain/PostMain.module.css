@@ -1,0 +1,5 @@
+.postMain {
+  flex-direction: column;
+  display: flex;
+  gap: 0.375rem;
+}

@@ -1,0 +1,13 @@
+.postCommands {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postCommand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.125rem;
+}

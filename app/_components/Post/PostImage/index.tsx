@@ -1,17 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import styles from "./PostBox.module.css";
+import styles from "./PostImage.module.css";
 
 interface PostImageProps {
   image: string | null;
 }
 
-function PostImage({ image }: PostImageProps) {
+export function PostImage({ image }: PostImageProps) {
   return (
     <div className={styles.postBoxImage}>
       <Image src={image || ""} width={380} height={200} alt="" />
     </div>
   );
 }
-
-export default PostImage;

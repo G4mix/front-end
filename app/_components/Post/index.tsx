@@ -1,19 +1,21 @@
-import { Icon } from "@components/Icon";
-import styles from "./PostBox.module.css";
-import React, { useState } from "react";
-import PostImage from "./PostImage";
-import PostVideo from "./PostVideo";
+import { PostCommands } from "./PostCommands";
+import { PostHeader } from "./PostHeader";
+import { PostImage } from "./PostImage";
+import { PostVideo } from "./PostVideo";
+import { PostMain } from "./PostMain";
+import { PostRoot } from "./PostRoot";
+import React from "react";
 
 interface PostProps {
-  PostSession: {
+  postSession: {
     username: string | null;
     date: string | null;
     icon: string | null;
     like: string | null;
     comment: string | null;
-    chart: string | null;
+    views: string | null;
   };
-  PostContent: {
+  postContent: {
     title: string | null;
     text: string | null;
     image: string | null;
@@ -21,59 +23,14 @@ interface PostProps {
   };
 }
 
-export function Post({ PostSession, PostContent }: PostProps) {
-  const [ isLiked, setIsliked ] = useState(false);
-
-  const HandleLikeClick = () => {
-    setIsliked(!isLiked);
-  };
-
+export function Post({ postSession, postContent }: PostProps) {
   return (
-    <div className={styles.postBox}>
-      <div className={styles.bgPostBox}>
-        <div className={styles.postBoxHead}>
-          <div className={styles.postBoxUser}>
-            <Icon icon="user-circle" width={25} height={25} style={{color: "#000000",}}/>
-            <h5>{PostSession.username}</h5>
-            <div className={styles.verticalLine}>
-              <Icon icon="minus" width={6} height={6} />
-            </div>
-            <div className={styles.date}>{PostSession.date}</div>
-          </div>
-          <div className={styles.ellipsis}>
-            <Icon icon="ellipsis-h" width={16} height={16} />
-          </div>
-        </div>
-        <div className={styles.postBoxImage}>
-          {PostContent.image !== null ? (
-            <PostImage image={PostContent.image} />
-          ) : null}
-          {PostContent.video !== null ? (
-            <PostVideo src={PostContent.image ?? ""} />
-          ) : null}
-        </div>
-        <div className={styles.postTitle}>{PostContent.title}</div>
-        <div className={styles.postText}>{PostContent.text}</div>
-        <div className={styles.postBoxItems}>
-          <div className={styles.postBoxItemsChildren}>
-            <div onClick={HandleLikeClick}>
-              <Icon icon={isLiked ? "liked" : "like"} width={20} height={20} />
-            </div>
-            <div className={styles.postBoxItemsChildrenText}>{PostSession.like}</div>
-          </div>
-          <div className={styles.postBoxItemsChildren}>
-            <Icon icon="comments" width={20} height={20} />
-            <div className="PostBoxItemsChildrenText">{PostSession.comment}</div>
-          </div>
-          <div className={styles.postBoxItemsChildren}>
-            <Icon icon="chart" width={20} height={20} />
-            <div className="PostBoxItemsChildrenText">{PostSession.chart}</div>
-          </div>
-          <div className={styles.postBoxItemsChildren}>
-            <Icon icon="share" width={20} height={20} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <PostRoot>
+      <PostHeader date={postSession.date} username={postSession.username} />
+      { postContent.image && (<PostImage image={postContent.image} />) }
+      { postContent.video && (<PostVideo src={postContent.image ?? ""} />) }
+      <PostMain title={postContent.title} text={postContent.text} />
+      <PostCommands like={postSession.like} comment={postSession.comment} views={postSession.views} />
+    </PostRoot>
   );
 }

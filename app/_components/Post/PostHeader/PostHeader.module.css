@@ -1,0 +1,13 @@
+.postHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postUser {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3125rem;
+}
