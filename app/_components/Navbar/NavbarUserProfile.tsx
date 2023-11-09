@@ -1,29 +1,25 @@
-import type { Session } from "@components/SessionProvider/Session.types";
+"use client";
+
+import { NavbarUserProfileDropdown } from "@components/Navbar/NavbarUserProfileDropdown";
+import { NavbarUserProfileIcon } from "@components/Navbar/NavbarUserProfileIcon";
+import { useSession } from "@functions/useSession";
 import { Icon } from "@components/Icon";
-import styles from "./Navbar.module.css";
-import Image from "next/image";
 import React from "react";
 
-type NavbarUserProfileProps = {
-  session?: Omit<Session, "accessToken">;
-}
+export function NavbarUserProfile(): JSX.Element {
+  const { session, status } = useSession();
 
-export function NavbarUserProfile({ session }: NavbarUserProfileProps) {
+  if (status !== "authenticated") {
+    return (
+      <NavbarUserProfileDropdown>
+        <Icon icon="user-circle" size="3x" width={24} height={24} style={{color: "#626ca7"}} />
+      </NavbarUserProfileDropdown>
+    );
+  }
+
   return (
-    <>
-      {
-        session && session!.icon ? (
-          <Image
-            src={session!.icon || ""}
-            width={24}
-            height={24}
-            alt={`Imagem do ${session!.username}`}
-            className={styles.imgRounded}
-          />
-        ) : (
-          <Icon icon="user-circle" size="3x" width={24} height={24} style={{color: "#626ca7"}} />
-        )
-      }
-    </>
+    <NavbarUserProfileDropdown>
+      <NavbarUserProfileIcon session={session!} />
+    </NavbarUserProfileDropdown>
   );
 }
