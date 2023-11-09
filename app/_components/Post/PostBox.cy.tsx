@@ -1,10 +1,10 @@
 import React from "react";
-import { PostBox } from "./index";
+import { Post } from "./index";
 
 describe("<PostBox />", () => {
   it("Should be able to render the PostBox with an image.", () => {
     cy.mount(
-      <PostBox
+      <Post
         PostSession={{
           username: "JohnDoe",
           date: "11 Out 23",

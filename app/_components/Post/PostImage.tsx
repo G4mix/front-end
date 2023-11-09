@@ -8,7 +8,7 @@ interface PostImageProps {
 
 function PostImage({ image }: PostImageProps) {
   return (
-    <div className={styles.PostBoxImage}>
+    <div className={styles.postBoxImage}>
       <Image src={image || ""} width={380} height={200} alt="" />
     </div>
   );
