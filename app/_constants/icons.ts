@@ -1,12 +1,13 @@
 import {
   faUser, faLock, faCheck, faUsers, faPlus,
   faHouse, faMagnifyingGlass, faEnvelope, faX, faFaceFrown,
-  faShareNodes, faThumbsUp, faChartSimple, faUserCircle,
-  faMinus, faEllipsisH, faRightFromBracket, faCircle 
+  faShareNodes, faThumbsUp, faChartSimple, faUserCircle, faBoltLightning,
+  faMinus, faEllipsisH, faRightFromBracket, faCircle, faChevronDown, faUserGroup
+  
 } from "@fortawesome/free-solid-svg-icons";
 
 import { 
-  faThumbsUp as faThumbsUpRegular, faCommentDots as faCommentDotsRegular, faImage as faImageRegular 
+  faThumbsUp as faThumbsUpRegular, faCommentDots as faCommentDotsRegular, faImage as faImageRegular, faClock
 } from "@fortawesome/free-regular-svg-icons";
 
 import { faGoogle, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
@@ -35,5 +36,9 @@ export const icons = {
   "ellipsis-h": faEllipsisH,
   "like": faThumbsUpRegular,
   "image": faImageRegular,
-  "logout": faRightFromBracket
+  "logout": faRightFromBracket,
+  "down": faChevronDown,
+  "bolt-lightning": faBoltLightning,
+  "clock": faClock,
+  "user-group": faUserGroup
 };

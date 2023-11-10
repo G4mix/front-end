@@ -35,10 +35,13 @@ function buildIconStory(name: keyof typeof icons): Story {
   });
 }
 
+export const BoltLightningIcon: Story = buildIconStory("bolt-lightning"); 
 export const ChartIcon: Story = buildIconStory("chart");
 export const CheckIcon: Story = buildIconStory("check");
 export const CircleIcon: Story = buildIconStory("circle");
+export const ClockIcon: Story = buildIconStory("clock");
 export const CommentIcon: Story = buildIconStory("comments");
+export const DownIcon: Story = buildIconStory("down");
 export const EllipsisHIcon: Story = buildIconStory("ellipsis-h");
 export const EnvelopeIcon: Story = buildIconStory("envelope");
 export const GithubIcon: Story = buildIconStory("github");
@@ -55,5 +58,6 @@ export const SearchIcon: Story = buildIconStory("search");
 export const ShareIcon: Story = buildIconStory("share");
 export const UserIcon: Story = buildIconStory("user");
 export const UserCircleIcon: Story = buildIconStory("user-circle");
+export const UserGroupIcon: Story = buildIconStory("user-group");
 export const UsersIcon: Story = buildIconStory("users");
 export const XIcon: Story = buildIconStory("x");
