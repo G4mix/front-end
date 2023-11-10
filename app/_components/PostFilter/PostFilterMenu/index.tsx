@@ -27,16 +27,16 @@ export function PostFilterDropdown({ children, options, filterBy, setFilterBy}: 
           <DropdownMenu.RadioGroup className={styles.dropdownFilters} value={filterBy} onValueChange={setFilterBy}>
             {
               Object.keys(options)
-              .filter(option => option !== filterBy)
-              .map((option: string) => (
-                <DropdownMenu.RadioItem value={option} key={`option:${option}`} className={styles.dropdownItem} onSelect={e => e.preventDefault()}>
-                  <Text size="sm">{options[option as keyof typeof options].name}</Text>
-                  <Icon
-                    icon={options[option as keyof typeof options].icon as keyof typeof icons}
-                    className={postFilterStyles.dropdownIcon}
-                  />
-                </DropdownMenu.RadioItem>
-              ))
+                .filter(option => option !== filterBy)
+                .map((option: string) => (
+                  <DropdownMenu.RadioItem value={option} key={`option:${option}`} className={styles.dropdownItem} onSelect={e => e.preventDefault()}>
+                    <Text size="sm">{options[option as keyof typeof options].name}</Text>
+                    <Icon
+                      icon={options[option as keyof typeof options].icon as keyof typeof icons}
+                      className={postFilterStyles.dropdownIcon}
+                    />
+                  </DropdownMenu.RadioItem>
+                ))
             }
           </DropdownMenu.RadioGroup>
         </DropdownMenu.Content>
