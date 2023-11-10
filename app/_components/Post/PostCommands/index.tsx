@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import styles from "./PostCommands.module.css";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
+import React, { useState } from "react";
+import styles from "./PostCommands.module.css";
 
 type PostCommandsProps = {
   like: string | null;
