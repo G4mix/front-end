@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
