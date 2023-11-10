@@ -10,13 +10,13 @@ type IconProps = {
   icon: keyof typeof icons;
 }
 
-export function Icon({ icon, disabled=false, style, withoutClick=false, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
+export function Icon({ icon, disabled=false, style, withoutClick=false, className=undefined, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
   const IconToRender = icons[icon as keyof typeof icons];
   return (
     <FontAwesomeIcon
       {...props}
       icon={IconToRender}
-      className={`${styles.icon} ${disabled ? styles.disabled : ""} ${withoutClick ? styles.withoutClick : ""}`}
+      className={`${styles.icon} ${disabled ? styles.disabled : ""} ${withoutClick ? styles.withoutClick : ""} ${className ? className : ""}`}
       style={style}
     />
   );

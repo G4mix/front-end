@@ -1,7 +1,7 @@
 import { Heading } from "@components/Heading";
 import { Comment } from "@components/Comment";
+import { Filter } from "@components/Filter";
 import { Navbar } from "@components/Navbar";
-import { Icon } from "@components/Icon";
 import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
@@ -19,9 +19,7 @@ export default function Comments() {
           <Heading size="default">
             Comentários
           </Heading>
-          <div className={styles.filter}>
-            <Icon icon="chart" size="1x" style={{opacity: "1"}} />
-          </div>
+          <Filter />
         </div>
         <Comment
           content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it..."
