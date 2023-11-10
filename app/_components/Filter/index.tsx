@@ -1,11 +1,15 @@
-import { FilterDropdown } from "./FilterDropdown/FilterDropdown";
+import { FilterDropdown } from "./FilterDropdown";
 import { Icon } from "@components/Icon";
 import styles from "./Filter.module.css";
 import React from "react";
 
-export function Filter() {
+type FilterProps = {
+  options: { [option: string]: string };
+};
+
+export function Filter({ options }: FilterProps) {
   return (
-    <FilterDropdown>
+    <FilterDropdown options={options}>
       <div className={styles.filter}>
         <Icon icon="chart" className={styles.iconFilter} />
       </div>
