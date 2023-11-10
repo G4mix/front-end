@@ -39,7 +39,7 @@
 
 body {
   background: linear-gradient(180deg, #1C2034 0%, rgba(28, 32, 52, 0.6) 100%);
-  background-color: #1C2034;
+  background-color: #000000;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;

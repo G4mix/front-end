@@ -37,7 +37,8 @@ function buildIconStory(name: keyof typeof icons): Story {
 
 export const ChartIcon: Story = buildIconStory("chart");
 export const CheckIcon: Story = buildIconStory("check");
-export const CommentIcon: Story = buildIconStory("comment");
+export const CircleIcon: Story = buildIconStory("circle");
+export const CommentIcon: Story = buildIconStory("comments");
 export const EllipsisHIcon: Story = buildIconStory("ellipsis-h");
 export const EnvelopeIcon: Story = buildIconStory("envelope");
 export const GithubIcon: Story = buildIconStory("github");

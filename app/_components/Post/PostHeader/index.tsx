@@ -1,3 +1,4 @@
+import { DuotoneUserIcon } from "@components/Icon/DuotoneUserIcon";
 import { Heading } from "@components/Heading";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -13,7 +14,7 @@ export function PostHeader({ username, date }: PostHeaderProps) {
   return(
     <div className={styles.postHeader}>
       <div className={styles.postUser}>
-        <Icon icon="user-circle" size="2x" style={{color: "#000000"}} />
+        <DuotoneUserIcon />
         <Heading size="sm" asChild>
           <h5>{username}</h5>
         </Heading>

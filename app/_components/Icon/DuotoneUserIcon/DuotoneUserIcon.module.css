@@ -1,0 +1,41 @@
+.duotoneUserIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circleIcon {
+  color: var(--white);
+  width: 21.6px;
+  height: 21.6px;
+}
+
+.userCircleIcon {
+  color: var(--jet);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (min-width: 640px) {
+  .duotoneUserIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .circleIcon {
+    width: 32.4px;
+    height: 32.4px;
+  }
+
+  .userCircleIcon {
+    width: 36px;
+    height: 36px;
+  }
+}

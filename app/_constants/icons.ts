@@ -2,7 +2,7 @@ import {
   faUser, faLock, faCheck, faUsers, faPlus,
   faHouse, faMagnifyingGlass, faEnvelope, faX, faFaceFrown,
   faShareNodes, faThumbsUp, faChartSimple, faUserCircle,
-  faMinus, faEllipsisH, faRightFromBracket 
+  faMinus, faEllipsisH, faRightFromBracket, faCircle 
 } from "@fortawesome/free-solid-svg-icons";
 
 import { 
@@ -17,6 +17,7 @@ export const icons = {
   "linkedin": faLinkedin,
   "user": faUser,
   "check": faCheck,
+  "circle": faCircle,
   "lock": faLock,
   "users": faUsers,
   "plus": faPlus,

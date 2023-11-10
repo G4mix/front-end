@@ -1,5 +1,5 @@
 .postRoot {
-  width: 100%;
+  width: 90vw;
   min-height: 100%;
   background: linear-gradient(to bottom, var(--delft-blue), rgba(52, 58, 91, 0.10) 100%);
   border-radius: 12px;
