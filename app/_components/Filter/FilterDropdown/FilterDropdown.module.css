@@ -25,10 +25,25 @@
   color: transparent;
   border: 3px solid var(--delft-blue);
   border-radius: 9999px;
+  width: 14px;
+  height: 14px;
 }
 
 .dropdownSelectedCircleIcon {
   color: var(--savoy-blue);
   border: 3px solid var(--delft-blue);
   border-radius: 9999px;
+  width: 14px;
+  height: 14px;
+}
+
+@media (min-width: 640px) {
+  .dropdownCircleIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .dropdownSelectedCircleIcon {
+    width: 20px;
+    height: 20px;
+  }  
 }

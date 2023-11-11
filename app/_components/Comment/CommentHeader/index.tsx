@@ -8,7 +8,7 @@ export function CommentHeader() {
     <div className={styles.header}>
       <DuotoneUserIcon />
       <Text size="xs" weight="medium">displayName</Text>
-      <Text size="xs" weight="thin">· 15 out. 23</Text>
+      <Text size="xs" className={styles.date}>· 15 out. 23</Text>
     </div>
   );
 }

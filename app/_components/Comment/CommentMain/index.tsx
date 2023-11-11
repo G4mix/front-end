@@ -9,7 +9,7 @@ type CommentMainProps = {
 export function CommentMain({ children }: CommentMainProps) {
   return (
     <div className={styles.main}>
-      <Text size="sm" weight="light" align="justify">{children}</Text>
+      <Text size="xs" align="justify">{children}</Text>
     </div>
   );
 }

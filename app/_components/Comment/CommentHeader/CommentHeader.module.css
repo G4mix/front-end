@@ -5,3 +5,7 @@
   justify-content: flex-start;
   gap: 0.3125rem;
 }
+
+.date {
+  opacity: 0.5;
+}

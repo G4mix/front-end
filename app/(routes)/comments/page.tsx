@@ -9,8 +9,6 @@ import Link from "next/link";
 export default function Comments() {
   return (
     <main className={styles.main}>
-      <Navbar />
-
       <div className={styles.comments}>
         <Link href="/">
           <div className={styles.closeComments} />
