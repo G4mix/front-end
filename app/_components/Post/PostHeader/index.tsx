@@ -1,4 +1,4 @@
-import { DuotoneUserIcon } from "@components/Icon/DuotoneUserIcon";
+import { DuotoneUserIcon } from "@components/Post/DuotoneUserIcon";
 import { Heading } from "@components/Heading";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";

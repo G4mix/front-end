@@ -12,11 +12,11 @@ type PostCommandsProps = {
 };
 
 export function PostCommands({ like, comment, views }: PostCommandsProps) {
-  const [isLiked, setIsliked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   
   return (
     <div className={styles.postCommands}>
-      <div className={styles.postCommand} onClick={() => setIsliked(!isLiked)}>
+      <div className={styles.postCommand} onClick={() => setIsLiked(!isLiked)}>
         <Icon icon={isLiked ? "liked" : "like"} size="lg" />
         <Text size="xs" weight="regular">{like}</Text>
       </div>

@@ -1,4 +1,4 @@
-import { DuotoneUserIcon } from "@components/Icon/DuotoneUserIcon";
+import { DuotoneUserIcon } from "@components/Comment/DuotoneUserIcon";
 import { Text } from "@components/Text";
 import styles from "./CommentHeader.module.css";
 import React from "react";

@@ -1,7 +1,7 @@
 .duotoneUserIcon {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 1rem;
+  height: 1rem;
 
   display: flex;
   justify-content: center;
@@ -9,15 +9,17 @@
 }
 
 .circleIcon {
+  opacity: 1!important;
   color: var(--white);
-  width: 21.6px;
-  height: 21.6px;
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .userCircleIcon {
+  opacity: 1!important;
   color: var(--jet);
-  width: 24px;
-  height: 24px;
+  width: 1rem;
+  height: 1rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -25,17 +27,17 @@
 
 @media (min-width: 640px) {
   .duotoneUserIcon {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
   }
 
   .circleIcon {
-    width: 32.4px;
-    height: 32.4px;
+    width: 25.2px;
+    height: 25.2px;
   }
 
   .userCircleIcon {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
   }
 }

@@ -1,0 +1,25 @@
+.commands {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.likeZone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.likeIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (min-width: 640px) {
+  .likeIcon {
+    width: 20px;
+    height: 20px;
+  }
+}

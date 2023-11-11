@@ -7,14 +7,15 @@ import React from "react";
 type CommentProps = {
   isReply?: boolean;
   content: string;
+  like: number;
 }
 
-export function Comment({ isReply, content }: CommentProps) {
+export function Comment({ isReply, content, like }: CommentProps) {
   return (
     <CommentRoot isReply={isReply}>
       <CommentHeader />
       <CommentMain>{content}</CommentMain>
-      <CommentCommands />
+      <CommentCommands like={like} />
     </CommentRoot>
   );
 }

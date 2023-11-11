@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Comments() {
   return (
     <main className={styles.main}>
-      <div className={styles.comments}>
+      <div className={styles.commentsZone}>
         <Link href="/">
           <div className={styles.closeComments} />
         </Link>
@@ -25,9 +25,17 @@ export default function Comments() {
             }}
           />
         </div>
-        <Comment
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it..."
-        />
+        <div className={styles.comments}>
+          <Comment
+            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it..."
+            like={300}
+          />
+          <Comment
+            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it..."
+            like={300}
+            isReply
+          />
+        </div>
       </div>
     </main>
   );
