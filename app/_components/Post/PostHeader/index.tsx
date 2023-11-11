@@ -20,7 +20,7 @@ export function PostHeader({ username, date }: PostHeaderProps) {
         </Heading>
         <Text size="xs" weight="thin">· {date}</Text>
       </div>
-      <Icon icon="ellipsis-h" width={16} height={16} />
+      <Icon icon="ellipsis-h" width={16} height={16} disabled />
     </div>
   );
 }

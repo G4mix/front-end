@@ -10,21 +10,28 @@ type CommentsProps = {
 }
 
 export function Comments({ comments }: CommentsProps) {
+  if (!comments || comments.length === 0) {
+    return (
+      <div className={styles.withoutComments}>
+        <Text size="xs" weight="medium">Ninguém comentou ainda...</Text>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.comments}>
       {
-        comments.map((comment: CommentType) =>
-          <div className={styles.commentZone}>
+        comments.map((comment: CommentType, index: number) =>
+          <div className={styles.commentZone} key={`commentZone:number:${index}`}>
             <div className={styles.comments}>
               <Comment
-                content={comment.content}
-                likes={comment.likes}
+                comment={comment}
               />
               {
-                comment.replies && comment.replies.map((reply: CommentType) =>
+                comment.replies && comment.replies.map((reply: CommentType, i: number) =>
                   <Comment
-                    content={reply.content}
-                    likes={reply.likes}
+                    key={`commentZone:number:${index}reply:number:${i}`}
+                    comment={reply}
                     isReply
                   />
                 )

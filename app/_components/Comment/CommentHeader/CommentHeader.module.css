@@ -2,10 +2,29 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+}
+
+.userZone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: flex-start;
   gap: 0.3125rem;
 }
 
 .date {
   opacity: 0.5;
+}
+
+.reportIcon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (min-width: 640px) {
+  .reportIcon {
+    width: 24.5px;
+    height: 24.5px;
+  }  
 }

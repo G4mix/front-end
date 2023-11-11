@@ -1,3 +1,4 @@
+import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { CommentCommands } from "./CommentCommands";
 import { CommentHeader } from "./CommentHeader";
 import { CommentMain } from "./CommentMain";
@@ -6,16 +7,20 @@ import React from "react";
 
 type CommentProps = {
   isReply?: boolean;
-  content: string;
-  likes: number;
-}
+  comment: CommentType;
+};
 
-export function Comment({ isReply, content, likes }: CommentProps) {
+export function Comment({ isReply, comment }: CommentProps) {
   return (
     <CommentRoot isReply={isReply}>
-      <CommentHeader />
-      <CommentMain>{content}</CommentMain>
-      <CommentCommands likes={likes} />
+      <CommentHeader
+        displayName={comment.author!.displayName}
+        user={comment.author!.user}
+        createdAt={comment.createdAt}
+        updatedAt={comment.updatedAt}
+      />
+      <CommentMain>{comment.content}</CommentMain>
+      <CommentCommands likes={comment.likes} />
     </CommentRoot>
   );
 }

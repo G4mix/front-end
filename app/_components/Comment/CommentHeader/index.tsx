@@ -1,14 +1,22 @@
+import type { CommentType, UserProfileType } from "@classes/APIManager/types/Models.types";
 import { DuotoneUserIcon } from "@components/Comment/DuotoneUserIcon";
+import { formatDate } from "@functions/formatDate";
 import { Text } from "@components/Text";
+import { Icon } from "@components/Icon";
 import styles from "./CommentHeader.module.css";
 import React from "react";
 
-export function CommentHeader() {
+type CommentHeaderProps = Pick<UserProfileType, "displayName" | "user"> & Pick<CommentType, "createdAt" | "updatedAt">;
+
+export function CommentHeader({ displayName, user, createdAt, updatedAt }: CommentHeaderProps) {
   return (
     <div className={styles.header}>
-      <DuotoneUserIcon />
-      <Text size="xs" weight="medium">displayName</Text>
-      <Text size="xs" className={styles.date}>· 15 out. 23</Text>
+      <div className={styles.userZone}>
+        <DuotoneUserIcon />
+        <Text size="xs" weight="medium">{displayName! || user!.username}</Text>
+        <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>
+      </div>
+      <Icon icon="ellipsis-h" className={styles.reportIcon} disabled />
     </div>
   );
 }
