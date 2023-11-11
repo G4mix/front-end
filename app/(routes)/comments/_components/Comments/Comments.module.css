@@ -1,24 +1,28 @@
-.commands {
+.comments {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
 }
 
-.likeZone {
+.commentZone {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.moreAwsners {
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: 4px;
 }
 
-.likeIcon {
+.showMoreIcon {
   width: 1rem;
   height: 1rem;
 }
 
 @media (min-width: 640px) {
-  .likeIcon {
+  .showMoreIcon {
     width: 1.25rem;
     height: 1.25rem;
   }
