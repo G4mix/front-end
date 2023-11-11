@@ -1,5 +1,5 @@
 import type { CommentType } from "@classes/APIManager/types/Models.types";
-import { Comment } from "@components/Comment";
+import { Comment } from "../Comment";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 import styles from "./Comments.module.css";

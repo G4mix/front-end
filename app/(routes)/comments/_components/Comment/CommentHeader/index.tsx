@@ -1,5 +1,5 @@
 import type { CommentType, UserProfileType } from "@classes/APIManager/types/Models.types";
-import { DuotoneUserIcon } from "@components/Comment/DuotoneUserIcon";
+import { DuotoneUserIcon } from "../DuotoneUserIcon";
 import { formatDate } from "@functions/formatDate";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";

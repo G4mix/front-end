@@ -31,7 +31,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
   function setUnauthenticated() {
     setSession(null);
     setStatus("unauthenticated");
-    APIManager.signOut();
+    APIManager.signOut( );
   }
   
   async function fetchData() {
