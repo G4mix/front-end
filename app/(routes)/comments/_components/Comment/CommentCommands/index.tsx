@@ -7,18 +7,22 @@ import { Text } from "@components/Text";
 import React, { useState } from "react";
 import styles from "./CommentCommands.module.css";
 
-type CommentCommandsProps = Pick<CommentType, "likes">;
+type CommentCommandsProps = {
+  handleWantToRespond: () => void;
+} & Pick<CommentType, "likes">;
 
-export const CommentCommands = ({ likes }: CommentCommandsProps) => {
+export const CommentCommands = ({ likes, handleWantToRespond }: CommentCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = () => setIsLiked(!isLiked);
 
   return (
     <div className={styles.commands}>
-      <div className={styles.likeZone} onClick={() => setIsLiked(!isLiked)}>
+      <div className={styles.likeZone} onClick={handleLikeClick}>
         <Icon icon={isLiked ? "liked" : "like"} className={styles.likeIcon} />
         <Text size="xs">{formatNumberWithSuffix(likes || 0)}</Text>
       </div>
-      <Text size="xs" weight="bold">Responder</Text>
+      <Text size="xs" weight="bold" onClick={handleWantToRespond}>Responder</Text>
     </div>
   );
 };

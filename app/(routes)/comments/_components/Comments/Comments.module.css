@@ -32,6 +32,16 @@
   height: 1rem;
 }
 
+.answerZone {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  width: 100%;
+  min-height: 50px;
+  bottom: 0;
+  left: 0;
+}
+
 @media (min-width: 640px) {
   .showMoreIcon {
     width: 1.25rem;

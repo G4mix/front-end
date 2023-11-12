@@ -1,11 +1,8 @@
 .answer {
   width: 100%;
   min-height: 50px;
-  position: sticky;
 
   background: var(--delft-blue-bg, linear-gradient(0deg, #1C2034 0%, #1C2034 100%), linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%));
-  bottom: 0;
-  left: 0;
 
   display: flex;
   flex-direction: row;

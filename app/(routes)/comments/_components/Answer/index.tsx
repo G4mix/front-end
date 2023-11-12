@@ -4,33 +4,59 @@ import { EmojiPicker } from "@components/EmojiPicker";
 import { useSession } from "@functions/useSession";
 import { TextArea } from "@components/TextArea";
 import { Icon } from "@components/Icon";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
 import styles from "./Answer.module.css";
 
-export const Answer = () => {
+export type AnswerMethods = {
+  handleUserToMark: (username: string) => void;
+  handleAnswerFocus: () => void;
+};
+
+const Answer = forwardRef<AnswerMethods>((_props, ref) => {
   const { session } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleAnswerFocus = useCallback(() => {
+    textAreaRef.current?.focus();
+  }, []);
+
+  const handleUserToMark = useCallback((username: string) => {
+    if (textAreaRef.current) {
+      textAreaRef.current.value = `@${username} ${textAreaRef.current.value}`;
+    }
+  }, []);
+
+  useImperativeHandle(ref, () => {
+    return {
+      handleAnswerFocus,
+      handleUserToMark
+    }
+  });
 
   const handleOnSelect = useCallback((emoji: string) => {
     if (textAreaRef.current) {
       textAreaRef.current.value = `${textAreaRef.current.value}${emoji}`;
-      textAreaRef.current.focus();
+      handleAnswerFocus();
     }
   }, []);
 
   const handlePostComment = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
-    if (textAreaRef.current) {
-      console.log(`O usuário: "${session!.username}", postou o comentário:\n${textAreaRef.current.value}`);
-      textAreaRef.current.value = "";
+    if (!textAreaRef.current) {
+      console.log("Você precisa digitar algo.");
+      return;
     }
+    console.log(`O usuário: "${session!.username}", postou o comentário:\n${textAreaRef.current.value}`);
+    textAreaRef.current.value = "";
+    textAreaRef.current.style.height = "auto";
+    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
   }, [session]);
 
   useEffect(() => {
     if (textAreaRef.current) {
-      textAreaRef.current.focus();
+      handleAnswerFocus();
     }
-  }, []); 
+  }, []);
 
   return (
     <div className={styles.answer}>
@@ -41,7 +67,8 @@ export const Answer = () => {
         <TextArea
           name="answer input" placeholder="Responder"
           rows={1} className={styles.answerArea}
-          ref={textAreaRef} autoResize
+          maxLength={200} ref={textAreaRef}
+          autoResize
         />
       </div>
       <div className={styles.sendIconBox} onClick={handlePostComment}>
@@ -49,4 +76,8 @@ export const Answer = () => {
       </div>
     </div>
   );
-};
+});
+
+Answer.displayName = "Answer";
+
+export { Answer };
