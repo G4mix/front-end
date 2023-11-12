@@ -10,18 +10,16 @@ interface InputInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function InputInput({
-  name,
-  type,
-  onChange,
-  value,
-  placeholder,
+  name, type,
+  onChange, value,
+  placeholder, className,
   ...props
 }: InputInputProps) {
   return (
     <input
       {...props}
       type={type}
-      className={styles.input}
+      className={`${styles.input} ${className ? className : ""}`}
       autoComplete="off"
       placeholder={placeholder}
       name={name}

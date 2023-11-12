@@ -54,6 +54,12 @@ button {
   cursor: pointer;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-reveal,
+input[type="password"]::-webkit-eye {
+    color: var(--white);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
