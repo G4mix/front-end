@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
 import { exampleComments } from "@constants/exampleComments";
+import { Answer } from "./_components/Answer";
 
 
 export default function CommentsPage() {
@@ -28,6 +29,7 @@ export default function CommentsPage() {
         </div>
         <Comments comments={exampleComments} />
       </div>
+      <Answer />
     </main>
   );
 }

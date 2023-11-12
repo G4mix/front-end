@@ -2,17 +2,20 @@ import {
   faUser, faLock, faCheck, faUsers, faPlus,
   faHouse, faMagnifyingGlass, faEnvelope, faX, faFaceFrown,
   faShareNodes, faThumbsUp, faChartSimple, faUserCircle, faBoltLightning,
-  faMinus, faEllipsisH, faRightFromBracket, faCircle, faChevronDown, faUserGroup
-  
+  faMinus, faEllipsisH, faRightFromBracket, faCircle, faChevronDown,
+  faUserGroup, faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 
 import { 
-  faThumbsUp as faThumbsUpRegular, faCommentDots as faCommentDotsRegular, faImage as faImageRegular, faClock
+  faThumbsUp as faThumbsUpRegular, faCommentDots as faCommentDotsRegular, faImage as faImageRegular,
+  faClock, faFaceSmile
 } from "@fortawesome/free-regular-svg-icons";
 
 import { faGoogle, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 export const icons = {
+  "paper-plane": faPaperPlane,
+  "smile": faFaceSmile,
   "google": faGoogle,
   "github": faGithub,
   "linkedin": faLinkedin,

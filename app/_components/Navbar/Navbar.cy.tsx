@@ -5,13 +5,7 @@ describe("<Navbar />", () => {
   it("Should be able to render the navbar.", () => {
 
     cy.mount(
-      <Navbar
-        session={{
-          username: "Test",
-          email: "Test@gmail.com",
-          icon: null
-        }}
-      />
+      <Navbar />
     );
 
     cy.get("nav").should("be.visible");
