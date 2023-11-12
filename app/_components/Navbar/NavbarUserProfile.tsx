@@ -22,4 +22,4 @@ export const NavbarUserProfile = () => {
       <NavbarUserProfileIcon session={session!} />
     </NavbarUserProfileDropdown>
   );
-}
+};

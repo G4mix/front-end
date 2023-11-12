@@ -12,4 +12,4 @@ export const CommentRoot = ({ children, isReply=false }: CommentRootProps) => {
       {children}
     </div>
   );
-}
+};

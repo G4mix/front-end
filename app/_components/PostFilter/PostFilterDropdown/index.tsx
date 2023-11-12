@@ -43,4 +43,4 @@ export const PostFilterDropdown = ({ children, options, filterBy, setFilterBy}: 
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
-}
+};

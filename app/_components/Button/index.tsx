@@ -11,4 +11,4 @@ export const Button = ({ children, ...props }: ButtonProps) => {
       {children}
     </button>
   );
-}
+};

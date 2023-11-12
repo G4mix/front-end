@@ -14,4 +14,4 @@ export const PostMain = ({ title, text }: PostMainProps) => {
       <Text size="xs" weight="light">{text}</Text>
     </div>
   );
-}
+};

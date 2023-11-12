@@ -21,4 +21,4 @@ export const Heading = ({ children, asChild=false, size="default", weight="regul
       {children}
     </Component>
   );
-}
+};

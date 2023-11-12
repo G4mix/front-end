@@ -39,4 +39,4 @@ export const FilterDropdown = ({ children, options }: FilterDropdownProps) => {
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
-}
+};

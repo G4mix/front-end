@@ -22,4 +22,4 @@ export const PostFilter = ({ options }: PostFilterProps) => {
       </div>
     </PostFilterDropdown>
   );
-}
+};

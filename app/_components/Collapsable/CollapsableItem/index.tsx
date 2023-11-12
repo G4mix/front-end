@@ -11,4 +11,4 @@ export const CollapsableItem = ({ children, ...props }: CollapsableItemsProps) =
       {children}
     </div>
   );
-}
+};

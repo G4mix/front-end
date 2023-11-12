@@ -4,4 +4,4 @@ import React from "react";
 
 export const CollapsableRoot = ({ ...props }: CollapsibleProps) => {
   return <Root {...props} className={styles.root} />;
-}
+};

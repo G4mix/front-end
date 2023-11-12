@@ -23,4 +23,4 @@ export const Comment = ({ isReply, comment }: CommentProps) => {
       <CommentCommands likes={comment.likes} />
     </CommentRoot>
   );
-}
+};

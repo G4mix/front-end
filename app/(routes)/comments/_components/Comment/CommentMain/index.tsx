@@ -12,4 +12,4 @@ export const CommentMain = ({ children }: CommentMainProps) => {
       <Text size="xs" align="justify">{children}</Text>
     </div>
   );
-}
+};

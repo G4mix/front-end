@@ -9,4 +9,4 @@ export const InputRoot = ({ children, ...props }: InputRootProps) => {
   return (
     <div {...props} className={styles.root}>{children}</div>
   );
-}
+};

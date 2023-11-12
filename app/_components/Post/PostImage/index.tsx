@@ -12,4 +12,4 @@ export const PostImage = ({ image }: PostImageProps) => {
       <Image src={image || ""} width={380} height={200} alt="" />
     </div>
   );
-}
+};

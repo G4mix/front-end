@@ -30,4 +30,4 @@ export const NavbarUserProfileDropdown = ({ children }: NavbarUserProfileDropdow
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
-}
+};

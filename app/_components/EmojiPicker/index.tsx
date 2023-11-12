@@ -3,7 +3,7 @@ import { Icon } from "@components/Icon";
 import React from "react";
 
 type EmojiPickerProps = {
-  onSelect: (emoji: any) => void;
+  onSelect: (emoji: string) => void;
 };
 
 export const EmojiPicker = ({ onSelect }: EmojiPickerProps) => {
@@ -12,4 +12,4 @@ export const EmojiPicker = ({ onSelect }: EmojiPickerProps) => {
       <Icon icon="smile" />
     </EmojiPickerDropdown>
   );
-}
+};

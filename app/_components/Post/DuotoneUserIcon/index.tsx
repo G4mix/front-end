@@ -9,4 +9,4 @@ export const DuotoneUserIcon = () => {
       <Icon icon="user-circle" className={styles.userCircleIcon} />
     </div>
   );
-}
+};

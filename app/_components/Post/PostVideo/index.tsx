@@ -11,4 +11,4 @@ export const PostVideo = ({ src }: VideoProps) => {
       Seu navegador não suporta o elemento de vídeo.
     </video>
   );
-}
+};

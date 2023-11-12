@@ -21,4 +21,4 @@ export const CommentCommands = ({ likes }: CommentCommandsProps) => {
       <Text size="xs" weight="bold">Responder</Text>
     </div>
   );
-}
+};

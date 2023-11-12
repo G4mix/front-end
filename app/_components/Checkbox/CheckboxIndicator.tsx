@@ -4,4 +4,4 @@ interface CheckboxIndicatorProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 export const CheckboxIndicator = ({ children }: CheckboxIndicatorProps) => {
   return <span className={styles.indicator}>{children}</span>;
-}
+};

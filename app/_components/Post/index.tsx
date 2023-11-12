@@ -33,4 +33,4 @@ export const Post = ({ postSession, postContent }: PostProps) => {
       <PostCommands like={postSession.like} comment={postSession.comment} views={postSession.views} />
     </PostRoot>
   );
-}
+};

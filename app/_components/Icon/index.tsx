@@ -12,7 +12,7 @@ type IconProps = {
 
 export const Icon = ({
   icon, disabled=false, style,
-   withoutClick=false, className=undefined, ...props
+  withoutClick=false, className=undefined, ...props
 }: Omit<FontAwesomeIconProps, "icon"> & IconProps) => {
   const IconToRender = icons[icon as keyof typeof icons];
   return (
@@ -23,4 +23,4 @@ export const Icon = ({
       style={style}
     />
   );
-}
+};

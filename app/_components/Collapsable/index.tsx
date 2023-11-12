@@ -32,4 +32,4 @@ export const Collapsable = ({ open, items }: CollapsableProps) => {
       </CollapsableContent>
     </CollapsableRoot>
   );
-}
+};

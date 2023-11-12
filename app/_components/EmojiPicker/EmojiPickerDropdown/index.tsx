@@ -6,7 +6,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 
 type EmojiPickerDropdownProps = {
-  onSelect: (emoji: any) => void;
+  onSelect: (emoji: string) => void;
   children: ReactNode;
 }
 
@@ -27,7 +27,7 @@ export const EmojiPickerDropdown = ({ children, onSelect }: EmojiPickerDropdownP
             skinTonePosition="search"
             maxFrequentRows={1}
             data={data}
-            onEmojiSelect={(emoji: any) => {
+            onEmojiSelect={(emoji: { native: string; }) => {
               if (!emoji?.native) return;
               onSelect(emoji.native);
               setOpen(false);
@@ -37,4 +37,4 @@ export const EmojiPickerDropdown = ({ children, onSelect }: EmojiPickerDropdownP
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
-}
+};

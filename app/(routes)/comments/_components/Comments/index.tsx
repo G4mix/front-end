@@ -46,4 +46,4 @@ export const Comments = ({ comments }: CommentsProps) => {
       }
     </div>
   );
-}
+};

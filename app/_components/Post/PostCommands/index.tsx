@@ -31,4 +31,4 @@ export const PostCommands = ({ like, comment, views }: PostCommandsProps) => {
       <Icon icon="share" size="lg" />
     </div>
   );
-}
+};

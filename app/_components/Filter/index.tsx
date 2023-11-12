@@ -15,4 +15,4 @@ export const Filter = ({ options }: FilterProps) => {
       </div>
     </FilterDropdown>
   );
-}
+};

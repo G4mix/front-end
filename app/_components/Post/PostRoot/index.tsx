@@ -11,4 +11,4 @@ export const PostRoot = ({ children }: PostRootProps) => {
       {children}
     </div>
   );
-}
+};

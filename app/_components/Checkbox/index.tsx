@@ -23,4 +23,4 @@ export const Checkbox = ({disabled=false, defaultChecked=false, onChange }: Chec
       </CheckboxIndicatorContainer>
     </CheckboxRoot>
   );
-}
+};

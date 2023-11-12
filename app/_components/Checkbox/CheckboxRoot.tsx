@@ -11,4 +11,4 @@ export const CheckboxRoot = ({ children, disabled=false, ...props }: CheckboxRoo
       {children}
     </label>
   );
-}
+};

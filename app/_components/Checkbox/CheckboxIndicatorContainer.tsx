@@ -5,4 +5,4 @@ interface CheckboxIndicatorContainerProps extends React.HTMLAttributes<HTMLDivEl
 
 export const CheckboxIndicatorContainer = ({ children }: CheckboxIndicatorContainerProps) => {
   return <div className={styles.indicatorContainer}>{children}</div>;
-}
+};

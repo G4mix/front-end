@@ -23,4 +23,4 @@ export const PostHeader = ({ username, date }: PostHeaderProps) => {
       <Icon icon="ellipsis-h" width={16} height={16} disabled />
     </div>
   );
-}
+};

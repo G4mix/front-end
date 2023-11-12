@@ -4,4 +4,4 @@ import React from "react";
 
 export const CollapsableContent = ({ ...props }: CollapsibleContentProps) => {
   return <Content {...props} className={styles.content} />;
-}
+};

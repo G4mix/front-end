@@ -33,4 +33,4 @@ export const ErrorsToast = ({ error, open, setOpen }: ErrorsToastProps) => {
       <Toast.Viewport className={styles.ToastViewport} />
     </Toast.Provider>
   );
-}
+};

@@ -9,4 +9,4 @@ export const InputField = ({ children, ...props }: InputFieldProps) => {
   return (
     <div {...props} className={styles.field}>{children}</div>
   );
-}
+};

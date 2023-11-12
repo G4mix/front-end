@@ -11,9 +11,9 @@ export const Answer = () => {
   const { session } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleOnSelect = useCallback((emoji: any) => {
+  const handleOnSelect = useCallback((emoji: string) => {
     if (textAreaRef.current) {
-      textAreaRef.current.value = `${textAreaRef.current.value}${emoji}`
+      textAreaRef.current.value = `${textAreaRef.current.value}${emoji}`;
     }
   }, []);
 
@@ -47,4 +47,4 @@ export const Answer = () => {
       </div>
     </div>
   );
-}
+};

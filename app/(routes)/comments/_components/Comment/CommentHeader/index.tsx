@@ -19,6 +19,6 @@ export const CommentHeader = ({ displayName, user, createdAt, updatedAt }: Comme
       <Icon icon="ellipsis-h" className={styles.reportIcon} disabled />
     </div>
   );
-}
+};
 
 

@@ -5,10 +5,11 @@ import styles from "./TextArea.module.css";
 
 type TextAreaProps = {
   autoResize?: boolean;
+  className?: string;
   maxSize?: number;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
   autoResize, maxSize, className, children, ...props
 }, ref) => {
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -34,3 +35,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
     </textarea>
   );
 });
+
+TextArea.displayName = "TextArea";
+
+export { TextArea };

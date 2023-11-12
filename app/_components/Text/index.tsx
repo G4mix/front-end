@@ -24,4 +24,4 @@ export const Text = ({ children, asChild=false, size="default", weight="regular"
       {children}
     </Component>
   );
-}
+};
