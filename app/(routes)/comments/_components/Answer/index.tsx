@@ -14,6 +14,7 @@ export const Answer = () => {
   const handleOnSelect = useCallback((emoji: string) => {
     if (textAreaRef.current) {
       textAreaRef.current.value = `${textAreaRef.current.value}${emoji}`;
+      textAreaRef.current.focus();
     }
   }, []);
 
@@ -21,6 +22,7 @@ export const Answer = () => {
     e.preventDefault();
     if (textAreaRef.current) {
       console.log(`O usuário: "${session!.username}", postou o comentário:\n${textAreaRef.current.value}`);
+      textAreaRef.current.value = "";
     }
   }, [session]);
 
