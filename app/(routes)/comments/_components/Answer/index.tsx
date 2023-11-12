@@ -30,7 +30,7 @@ const Answer = forwardRef<AnswerMethods>((_props, ref) => {
     return {
       handleAnswerFocus,
       handleUserToMark
-    }
+    };
   });
 
   const handleOnSelect = useCallback((emoji: string) => {
