@@ -7,7 +7,7 @@ import { Icon } from "@components/Icon";
 import React, { useCallback, useEffect, useRef } from "react";
 import styles from "./Answer.module.css";
 
-export function Answer() {
+export const Answer = () => {
   const { session } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 

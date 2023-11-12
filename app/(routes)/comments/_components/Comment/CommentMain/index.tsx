@@ -6,7 +6,7 @@ type CommentMainProps = {
   children: ReactNode;
 }
 
-export function CommentMain({ children }: CommentMainProps) {
+export const CommentMain = ({ children }: CommentMainProps) => {
   return (
     <div className={styles.main}>
       <Text size="xs" align="justify">{children}</Text>

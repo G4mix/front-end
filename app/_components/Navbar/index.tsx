@@ -4,7 +4,7 @@ import styles from "./Navbar.module.css";
 import React from "react";
 import Image from "next/image";
 
-export function Navbar() {
+export const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.navItems}>

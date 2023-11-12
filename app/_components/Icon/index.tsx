@@ -8,9 +8,12 @@ type IconProps = {
   disabled?: boolean;
   withoutClick?: boolean;
   icon: keyof typeof icons;
-}
+};
 
-export function Icon({ icon, disabled=false, style, withoutClick=false, className=undefined, ...props }: Omit<FontAwesomeIconProps, "icon"> & IconProps) {
+export const Icon = ({
+  icon, disabled=false, style,
+   withoutClick=false, className=undefined, ...props
+}: Omit<FontAwesomeIconProps, "icon"> & IconProps) => {
   const IconToRender = icons[icon as keyof typeof icons];
   return (
     <FontAwesomeIcon

@@ -15,7 +15,7 @@ type FilterDropdownProps = {
   setFilterBy: Dispatch<SetStateAction<string>>;
 };
 
-export function PostFilterDropdown({ children, options, filterBy, setFilterBy}: FilterDropdownProps) {
+export const PostFilterDropdown = ({ children, options, filterBy, setFilterBy}: FilterDropdownProps) => {
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger className={postFilterStyles.postFilterTrigger}>

@@ -1,4 +1,4 @@
-import { CollapsableRoot } from "./CollapsableRoot";
+import { CollapsableRoot } from "../CollapsableRoot";
 import { CollapsableTrigger } from "./CollapsableTrigger";
 import React from "react";
 

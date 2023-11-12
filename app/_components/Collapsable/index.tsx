@@ -15,7 +15,7 @@ interface CollapsableProps {
   }[];
 }
 
-export function Collapsable({ open, items }: CollapsableProps) {
+export const Collapsable = ({ open, items }: CollapsableProps) => {
   return (
     <CollapsableRoot defaultOpen open={open}>
       <CollapsableContent>

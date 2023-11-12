@@ -13,7 +13,7 @@ type ErrorsToastProps = {
   open: boolean;
 }
 
-export function ErrorsToast({ error, open, setOpen }: ErrorsToastProps) {
+export const ErrorsToast = ({ error, open, setOpen }: ErrorsToastProps) => {
   useEffect(() => {
     setOpen(open);
     return () => {

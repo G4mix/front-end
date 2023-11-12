@@ -4,7 +4,7 @@ interface VideoProps {
   src: string;
 }
 
-export function PostVideo({ src }: VideoProps) {
+export const PostVideo = ({ src }: VideoProps) => {
   return (
     <video width="380" height="200" controls>
       <source src={src} type="video/mp4" />

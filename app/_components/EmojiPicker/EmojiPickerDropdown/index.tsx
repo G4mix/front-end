@@ -10,7 +10,7 @@ type EmojiPickerDropdownProps = {
   children: ReactNode;
 }
 
-export function EmojiPickerDropdown({ children, onSelect }: EmojiPickerDropdownProps) {
+export const EmojiPickerDropdown = ({ children, onSelect }: EmojiPickerDropdownProps) => {
   const [open, setOpen] = useState(false);
 
   return (

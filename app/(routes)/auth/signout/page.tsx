@@ -1,10 +1,10 @@
 "use client";
 
-import { APIManager } from "@/app/_classes/APIManager";
+import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
-export default function Signout() {
+export default function SignoutPage() {
   const router = useRouter();
   useEffect(() => {
     APIManager.signOut();

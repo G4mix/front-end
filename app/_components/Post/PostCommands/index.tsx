@@ -11,7 +11,7 @@ type PostCommandsProps = {
   views: string | null;
 };
 
-export function PostCommands({ like, comment, views }: PostCommandsProps) {
+export const PostCommands = ({ like, comment, views }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
   
   return (

@@ -12,7 +12,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: React.InputHTMLAttributes<HTMLInputElement>["onChange"];
 }
 
-export function Checkbox({disabled=false, defaultChecked=false, onChange }: CheckboxProps) {
+export const Checkbox = ({disabled=false, defaultChecked=false, onChange }: CheckboxProps) => {
   return (
     <CheckboxRoot disabled={disabled}>
       <CheckboxInput onChange={onChange} defaultChecked={defaultChecked} />

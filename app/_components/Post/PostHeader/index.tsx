@@ -10,7 +10,7 @@ type PostHeaderProps = {
   date: string | null;
 };
 
-export function PostHeader({ username, date }: PostHeaderProps) {
+export const PostHeader = ({ username, date }: PostHeaderProps) => {
   return(
     <div className={styles.postHeader}>
       <div className={styles.postUser}>

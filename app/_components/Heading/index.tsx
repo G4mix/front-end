@@ -10,7 +10,7 @@ interface HeadingProps extends React.HTMLAttributes<HTMLParagraphElement> {
   size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
 }
 
-export function Heading({ children, asChild=false, size="default", weight="regular", className, ...props }: HeadingProps) {
+export const Heading = ({ children, asChild=false, size="default", weight="regular", className, ...props }: HeadingProps) => {
   const Component = asChild ? Slot : "h2";
 
   return (

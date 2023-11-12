@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useCallback, type Ref } from "react";
+import React, { forwardRef, useCallback } from "react";
 import styles from "./TextArea.module.css";
 
 type TextAreaProps = {

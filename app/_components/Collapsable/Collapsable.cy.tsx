@@ -1,5 +1,5 @@
 import { CollapsableContent } from "./CollapsableContent";
-import { CollapsableTrigger } from "./CollapsableTrigger";
+import { CollapsableTrigger } from "./CollapsableTrigger/CollapsableTrigger";
 import { CollapsableItem } from "./CollapsableItem";
 import { CollapsableRoot } from "./CollapsableRoot";
 import { Icon } from "../Icon";

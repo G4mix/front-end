@@ -10,7 +10,7 @@ type CommentProps = {
   comment: CommentType;
 };
 
-export function Comment({ isReply, comment }: CommentProps) {
+export const Comment = ({ isReply, comment }: CommentProps) => {
   return (
     <CommentRoot isReply={isReply}>
       <CommentHeader

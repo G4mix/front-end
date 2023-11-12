@@ -6,7 +6,7 @@ interface PostImageProps {
   image: string | null;
 }
 
-export function PostImage({ image }: PostImageProps) {
+export const PostImage = ({ image }: PostImageProps) => {
   return (
     <div className={styles.postBoxImage}>
       <Image src={image || ""} width={380} height={200} alt="" />

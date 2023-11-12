@@ -1,12 +1,12 @@
 import { RegisterForm } from "./_components/SignupForm";
+import { Heading } from "@components/Heading";
+import { Text } from "@components/Text";
 import registerStyles from "./signup.module.css";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
-import { Heading } from "@/app/_components/Heading";
-import { Text } from "@/app/_components/Text";
 
-export default function SignUp() {
+export default function SignUpPage() {
   return (
     <main className={registerStyles.wrapper}>
       <div className={registerStyles.logoWrap}>

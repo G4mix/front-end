@@ -9,7 +9,7 @@ import styles from "./CommentCommands.module.css";
 
 type CommentCommandsProps = Pick<CommentType, "likes">;
 
-export function CommentCommands({ likes }: CommentCommandsProps) {
+export const CommentCommands = ({ likes }: CommentCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (

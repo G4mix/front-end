@@ -10,7 +10,7 @@ type NavbarUserProfileIconProps = {
   session: Session;
 }
 
-export function NavbarUserProfileIcon({ session }: NavbarUserProfileIconProps): JSX.Element {
+export const NavbarUserProfileIcon = ({ session }: NavbarUserProfileIconProps) => {
   return (
     <>
       {

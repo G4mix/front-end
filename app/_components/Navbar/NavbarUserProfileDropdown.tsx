@@ -11,7 +11,7 @@ type NavbarUserProfileDropdownProps = {
   children: ReactNode;
 }
 
-export function NavbarUserProfileDropdown({ children }: NavbarUserProfileDropdownProps) {
+export const NavbarUserProfileDropdown = ({ children }: NavbarUserProfileDropdownProps) => {
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger>

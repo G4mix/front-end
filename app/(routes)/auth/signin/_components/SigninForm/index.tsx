@@ -12,7 +12,7 @@ import Link from "next/link";
 import signinStyles from "./signinForm.module.css";
 import { apiErrors } from "@constants/apiErrors";
 
-export function LoginForm({ children }: { children: React.ReactNode }) {
+export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -18,17 +18,11 @@ interface InputProps {
   onBlur?: () => void;
 }
 
-export function Input({
-  label,
-  icon,
-  type,
-  placeholder,
-  name,
-  value,
-  onChange,
-  onBlur,
-  onFocus,
-}: InputProps) {
+export const Input = ({
+  label, icon, type,
+  placeholder, name, value,
+  onChange, onBlur, onFocus }: InputProps
+) => {
   return (
     <InputRoot>
       {label && <Text size="sm">{label}</Text>}

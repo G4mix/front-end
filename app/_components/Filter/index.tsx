@@ -7,7 +7,7 @@ type FilterProps = {
   options: { [option: string]: string };
 };
 
-export function Filter({ options }: FilterProps) {
+export const Filter = ({ options }: FilterProps) => {
   return (
     <FilterDropdown options={options}>
       <div className={styles.filter}>

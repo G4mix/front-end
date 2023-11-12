@@ -8,7 +8,7 @@ import React from "react";
 
 type CommentHeaderProps = Pick<UserProfileType, "displayName" | "user"> & Pick<CommentType, "createdAt" | "updatedAt">;
 
-export function CommentHeader({ displayName, user, createdAt, updatedAt }: CommentHeaderProps) {
+export const CommentHeader = ({ displayName, user, createdAt, updatedAt }: CommentHeaderProps) => {
   return (
     <div className={styles.header}>
       <div className={styles.userZone}>

@@ -6,7 +6,7 @@ type CommentRootProps = {
   isReply?: boolean;
 }
 
-export function CommentRoot({ children, isReply=false }: CommentRootProps) {
+export const CommentRoot = ({ children, isReply=false }: CommentRootProps) => {
   return (
     <div className={`${styles.root} ${isReply ? styles.isReply : ""}`}>
       {children}

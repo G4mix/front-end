@@ -5,7 +5,7 @@ type PostRootProps = {
   children: ReactNode;
 };
 
-export function PostRoot({ children }: PostRootProps) {
+export const PostRoot = ({ children }: PostRootProps) => {
   return (
     <div className={styles.postRoot}>
       {children}

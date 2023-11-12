@@ -16,7 +16,7 @@ interface SessionProviderProps {
   children: React.ReactNode;
 }
 
-export function SessionProvider({ children }: SessionProviderProps) {
+export const SessionProvider = ({ children }: SessionProviderProps) => {
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
   const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
   const toIgnoreRoutes = ["/auth/signin", "/auth/signup", "/auth/signout"];
@@ -59,7 +59,6 @@ export function SessionProvider({ children }: SessionProviderProps) {
 
   useEffect(() => {
     fetchData();
-    return () => {};
   }, [pathname]);
 
   return (

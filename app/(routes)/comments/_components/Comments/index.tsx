@@ -9,7 +9,7 @@ type CommentsProps = {
   comments: CommentType[];
 }
 
-export function Comments({ comments }: CommentsProps) {
+export const Comments = ({ comments }: CommentsProps) => {
   if (!comments || comments.length === 0) {
     return (
       <div className={styles.withoutComments}>

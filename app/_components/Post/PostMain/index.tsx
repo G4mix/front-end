@@ -7,7 +7,7 @@ type PostMainProps = {
   text: string | null;
 };
 
-export function PostMain({ title, text }: PostMainProps) {
+export const PostMain = ({ title, text }: PostMainProps) => {
   return (
     <div className={styles.postMain}>
       <Text size="default" weight="bold">{title}</Text>

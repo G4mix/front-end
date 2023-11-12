@@ -23,7 +23,7 @@ interface PostProps {
   };
 }
 
-export function Post({ postSession, postContent }: PostProps) {
+export const Post = ({ postSession, postContent }: PostProps) => {
   return (
     <PostRoot>
       <PostHeader date={postSession.date} username={postSession.username} />

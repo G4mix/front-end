@@ -9,12 +9,12 @@ interface InputInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function InputInput({
+export const InputInput = ({
   name, type,
   onChange, value,
   placeholder, className,
   ...props
-}: InputInputProps) {
+}: InputInputProps) => {
   return (
     <input
       {...props}

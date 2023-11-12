@@ -5,7 +5,7 @@ interface CollapsableItemsProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export function CollapsableItem({ children, ...props }: CollapsableItemsProps) {
+export const CollapsableItem = ({ children, ...props }: CollapsableItemsProps) => {
   return (
     <div {...props} className={styles.item}>
       {children}

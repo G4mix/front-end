@@ -6,7 +6,7 @@ import { useSession } from "@functions/useSession";
 import { Icon } from "@components/Icon";
 import React from "react";
 
-export function NavbarUserProfile(): JSX.Element {
+export const NavbarUserProfile = () => {
   const { session, status } = useSession();
 
   if (status !== "authenticated") {

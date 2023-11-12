@@ -11,7 +11,7 @@ type FilterDropdownProps = {
   options: { [option: string]: string };
 };
 
-export function FilterDropdown({ children, options }: FilterDropdownProps) {
+export const FilterDropdown = ({ children, options }: FilterDropdownProps) => {
   const [filterBy, setFilterBy] = useState<string>(Object.keys(options)[0]);
 
   return (

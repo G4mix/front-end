@@ -1,6 +1,6 @@
 "use client";
 
-import { PostFilterDropdown } from "./PostFilterMenu";
+import { PostFilterDropdown } from "./PostFilterDropdown";
 import { icons } from "@constants/icons";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -11,7 +11,7 @@ type PostFilterProps = {
   options: { [option: string]: { name: string; icon: keyof typeof icons } };
 };
 
-export function PostFilter({ options }: PostFilterProps) {
+export const PostFilter = ({ options }: PostFilterProps) => {
   const [filterBy, setFilterBy] = useState<string>(Object.keys(options)[0]);
 
   return (

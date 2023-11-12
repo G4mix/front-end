@@ -5,7 +5,7 @@ import { Post } from "@components/Post";
 import styles from "./page.module.css";
 import React from "react";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main className={styles.main}>
       <div className={styles.header}>
