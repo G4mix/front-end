@@ -5,7 +5,7 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 import textStyles from "@components/Text/Text.module.css";
 
-import React, { ChangeEvent, useEffect, useState, useRef } from "react";
+import React, { ChangeEvent, useEffect, useState, useRef, useCallback, FormEvent } from "react";
 import {
   hasEightOrMoreChars, hasGmailDomain, hasNumber,
   hasOneUppercaseChar, hasSpecialChar, isValidUsername
@@ -22,42 +22,55 @@ import { Text } from "@components/Text";
 
 export const RegisterForm = () => {
   const errorsToastRef = useRef<ErrorsToastHandlers>(null);
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfimPassword] = useState("");
-  const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
 
+  const [passwordState, setPasswordState] = useState("");
+  const registerForm = useRef<HTMLFormElement>(null)
   const [isCollapsableOpen, setIsCollapsableOpen] = useState<boolean>(false);
-  const [readyToRegister, setReadyToRegister] = useState<boolean>(false);
-
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
-  
   const router = useRouter();
 
-  const isReadyToRegister = () => {
-    if (
-      hasEightOrMoreChars(password) &&
-      hasNumber(password) &&
-      hasSpecialChar(password) &&
-      hasOneUppercaseChar(password) &&
-      isValidUsername(username) &&
-      username.length > 2 && 
-      hasGmailDomain(email) &&
-      password === confirmPassword &&
-      acceptedTerms
-    ) {
-      setReadyToRegister(true);
-    } else {
-      setReadyToRegister(false);
-    }
-  };
-
-  async function register(e?: React.FormEvent<HTMLFormElement>) {
-    e?.preventDefault();
+  const register = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (tryingToRegister) return;
     setTryingToRegister(true);
+
+    const formData = new FormData(registerForm.current || e.currentTarget)
+
+    const username = formData.get("username")?.valueOf() as string;
+    const email = formData.get("email")?.valueOf() as string;
+    const password = formData.get("password")?.valueOf() as string;
+    const confirmPassword = formData.get("confirm_password")?.valueOf() as string;
+    const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string;
+
+    if (!isValidUsername(username)) {
+      errorsToastRef.current?.showError(apiErrors["USERNAME_INVALID_FORMAT"]);
+      return;
+    } else if (username.length < 3) {
+      errorsToastRef.current?.showError(apiErrors["USERNAME_TOO_SHORT"]);
+      return;
+    } else if (!hasGmailDomain(email)) {
+      errorsToastRef.current?.showError(apiErrors["EMAIL_INVALID_FORMAT"]);
+      return;
+    } else if(!hasEightOrMoreChars(password)) {
+      errorsToastRef.current?.showError(apiErrors["PASSWORD_TOO_SHORT"]);
+      return;
+    } else if (!hasNumber(password)) {
+      errorsToastRef.current?.showError(apiErrors["PASSWORD_MISSING_NUMBER"]);
+      return;
+    } else if (!hasSpecialChar(password)) {
+      errorsToastRef.current?.showError(apiErrors["PASSWORD_MISSING_SPECIAL_CHAR"]);
+      return;
+    } else if (!hasOneUppercaseChar(password)) {
+      errorsToastRef.current?.showError(apiErrors["PASSWORD_MISSING_UPPERCASE"]);
+      return;
+    } else if (password !== confirmPassword) {
+      errorsToastRef.current?.showError("É necessário que a senha e a senha de confirmação sejam iguais.");
+      return;
+    } else if (!acceptedTerms) {
+      errorsToastRef.current?.showError("Você precisa aceitar os termos se quiser fazer parte do Gamix!");
+      return;
+    }
 
     const result = await APIManager.signUp({ username, email, password });
     if (apiErrors[result!]) {
@@ -67,16 +80,10 @@ export const RegisterForm = () => {
     }
 
     router.push("/");
-  }
-  
-  useEffect(() => {
-    isReadyToRegister();
-    return () => {};
-  }, [password, username, email, confirmPassword, acceptedTerms]);
-
+  }, []);
 
   return (
-    <form className={signupFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
+    <form className={signupFormStyles.form} onSubmit={(e) => register(e)} ref={registerForm}>
       <ErrorsToast ref={errorsToastRef} />
       <div className={signupFormStyles.fields}>
         <Input
@@ -84,10 +91,7 @@ export const RegisterForm = () => {
           label="Username"
           name="username"
           placeholder="Digite um nome de usuário válido"
-          value={username}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUserName(e.target.value)
-          }
+       
           type="text"
         />
         <Input
@@ -95,10 +99,7 @@ export const RegisterForm = () => {
           label="E-mail"
           name="email"
           placeholder="Digite seu e-mail"
-          value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+
           type="email"
         />
         <Input
@@ -106,9 +107,8 @@ export const RegisterForm = () => {
           label="Senha"
           name="password"
           placeholder="Digite uma senha"
-          value={password}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+            setPasswordState(e.target.value)
           }
           onFocus={() => setIsCollapsableOpen(true)}
           onBlur={() => setIsCollapsableOpen(false)}
@@ -119,19 +119,19 @@ export const RegisterForm = () => {
             open
             items={[
               {
-                icon: hasOneUppercaseChar(password) ? "check" : "x",
+                icon: hasOneUppercaseChar(passwordState) ? "check" : "x",
                 text: "Contém pelo menos um caractere maiúsculo",
               },
               {
-                icon: hasNumber(password) ? "check" : "x",
+                icon: hasNumber(passwordState) ? "check" : "x",
                 text: "Contém pelo menos um número",
               },
               {
-                icon: hasSpecialChar(password) ? "check" : "x",
+                icon: hasSpecialChar(passwordState) ? "check" : "x",
                 text: "Contem pelo menos um caractere especial",
               },
               {
-                icon: hasEightOrMoreChars(password) ? "check" : "x",
+                icon: hasEightOrMoreChars(passwordState) ? "check" : "x",
                 text: "Contém no mínimo 8 caracteres",
               },
             ]}
@@ -140,16 +140,14 @@ export const RegisterForm = () => {
         <Input
           icon="lock"
           label="Confirme sua senha"
-          name="password"
+          name="confirm_password"
           placeholder="Digite sua senha novamente"
-          value={confirmPassword}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setConfimPassword(e.target.value)}
           type="password"
         />
       </div>
 
       <div className={signupFormStyles.rememberMe}>
-        <Checkbox defaultChecked={acceptedTerms} onChange={(e: ChangeEvent<HTMLInputElement>) => setAcceptedTerms(e.target.checked)} />
+        <Checkbox defaultChecked={false} name="accepted_terms" />
         <Text size="xs">
           Eu li e concordo com os{" "}
           <Link className={textStyles.xs} href={"/terms"}>termos e políticas de privacidade</Link>
@@ -163,7 +161,6 @@ export const RegisterForm = () => {
           marginBottom: "0.1rem",
         }}
         type="submit"
-        disabled={!readyToRegister}
       >
         Registrar-se
       </Button>

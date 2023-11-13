@@ -20,10 +20,17 @@ interface InputProps {
   onBlur?: () => void;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { 
-    label, icon, type, placeholder, name,
-    value, onChange, onBlur, onFocus
+export const Input = (props: InputProps) => {
+  const {
+    label,
+    icon,
+    type,
+    placeholder,
+    name,
+    value,
+    onChange,
+    onBlur,
+    onFocus,
   } = props;
 
   return (
@@ -39,13 +46,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          ref={ref}
         />
       </InputField>
     </InputRoot>
   );
-});
-
-Input.displayName = "Input";
-
-export { Input };
+};

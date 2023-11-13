@@ -11,10 +11,10 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   default?: boolean;
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({disabled=false, defaultChecked=false }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ disabled=false, defaultChecked=false, ...props }, ref) => {
   return (
     <CheckboxRoot disabled={disabled}>
-      <CheckboxInput defaultChecked={defaultChecked} ref={ref} />
+      <CheckboxInput defaultChecked={defaultChecked} ref={ref} {...props} />
       <CheckboxIndicatorContainer>
         <CheckboxIndicator>
           <Icon icon="check" height={16} />
