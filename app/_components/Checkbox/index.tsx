@@ -9,10 +9,9 @@ import React, { forwardRef } from "react";
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
   default?: boolean;
-  onChange?: React.InputHTMLAttributes<HTMLInputElement>["onChange"];
-};
+}
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({disabled=false, defaultChecked=false, onChange }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({disabled=false, defaultChecked=false }, ref) => {
   return (
     <CheckboxRoot disabled={disabled}>
       <CheckboxInput defaultChecked={defaultChecked} ref={ref} />

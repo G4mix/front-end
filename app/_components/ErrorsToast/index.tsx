@@ -10,7 +10,7 @@ export type ErrorsToastHandlers = {
   showError: (errorMessage: string) => void;
 };
 
-const ErrorsToast = forwardRef<ErrorsToastHandlers, {}>((_props, ref) => {
+const ErrorsToast = forwardRef<ErrorsToastHandlers>((_props, ref) => {
   const [errorToShow, setErrorToShow] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const ErrorsToast = forwardRef<ErrorsToastHandlers, {}>((_props, ref) => {
   useImperativeHandle(ref, () => {
     return {
       showError
-    }
+    };
   });
 
   return (
