@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type Dispatch, type SetStateAction, useEffect } from "react";
+import React, { type Dispatch, type SetStateAction, useEffect, memo } from "react";
 import { apiErrors } from "@constants/apiErrors";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -13,7 +13,7 @@ type ErrorsToastProps = {
   open: boolean;
 }
 
-export const ErrorsToast = ({ error, open, setOpen }: ErrorsToastProps) => {
+export const ErrorsToast = memo(({ error, open, setOpen }: ErrorsToastProps) => {
   useEffect(() => {
     setOpen(open);
     return () => {
@@ -33,4 +33,4 @@ export const ErrorsToast = ({ error, open, setOpen }: ErrorsToastProps) => {
       <Toast.Viewport className={styles.ToastViewport} />
     </Toast.Provider>
   );
-};
+});

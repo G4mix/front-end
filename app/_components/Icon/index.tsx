@@ -1,7 +1,7 @@
 import { FontAwesomeIcon, type FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import { icons } from "@constants/icons";
 import styles from "./Icon.module.css";
-import React from "react";
+import React, { memo } from "react";
 
 type IconProps = {
   className?: FontAwesomeIconProps["className"];
@@ -10,7 +10,7 @@ type IconProps = {
   icon: keyof typeof icons;
 };
 
-export const Icon = ({
+export const Icon = memo(({
   icon, disabled=false, style,
   withoutClick=false, className=undefined, ...props
 }: Omit<FontAwesomeIconProps, "icon"> & IconProps) => {
@@ -23,4 +23,4 @@ export const Icon = ({
       style={style}
     />
   );
-};
+});

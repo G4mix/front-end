@@ -1,8 +1,9 @@
 "use client";
 
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { ChangeEvent, useState, useEffect, useCallback } from "react";
 import { ErrorsToast } from "@components/ErrorsToast";
 import { APIManager } from "@classes/APIManager";
+import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
@@ -10,7 +11,6 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 import Link from "next/link";
 import signinStyles from "./signinForm.module.css";
-import { apiErrors } from "@constants/apiErrors";
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -24,8 +24,8 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<keyof typeof apiErrors | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
-  const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
-  const isValidUsername = (username: string) => /^[A-Za-z0-9_]+$/.test(username);
+  const hasGmailDomain = useCallback((email: string) => /@gmail\.com$/.test(email), []);
+  const isValidUsername = useCallback((username: string) => /^[A-Za-z0-9_]+$/.test(username), []);
 
   const isReadyToLogin = () => {
     if (
