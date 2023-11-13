@@ -1,4 +1,6 @@
-import React, { ChangeEvent } from "react";
+"use client";
+
+import React, { type ChangeEvent, forwardRef } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";
 import { InputRoot } from "./InputRoot";
@@ -18,11 +20,12 @@ interface InputProps {
   onBlur?: () => void;
 }
 
-export const Input = ({
-  label, icon, type,
-  placeholder, name, value,
-  onChange, onBlur, onFocus }: InputProps
-) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+  const { 
+    label, icon, type, placeholder, name,
+    value, onChange, onBlur, onFocus
+  } = props;
+
   return (
     <InputRoot>
       {label && <Text size="sm">{label}</Text>}
@@ -36,8 +39,13 @@ export const Input = ({
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}
+          ref={ref}
         />
       </InputField>
     </InputRoot>
   );
-};
+});
+
+Input.displayName = "Input";
+
+export { Input };

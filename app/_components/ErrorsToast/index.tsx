@@ -1,32 +1,36 @@
 "use client";
 
-import React, { type Dispatch, type SetStateAction, useEffect, memo } from "react";
-import { apiErrors } from "@constants/apiErrors";
+import React, { useCallback, useState, forwardRef, useImperativeHandle } from "react";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import * as Toast from "@radix-ui/react-toast";
 import styles from "./ErrorsToast.module.css";
 
-type ErrorsToastProps = {
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  error: keyof typeof apiErrors;
-  open: boolean;
-}
+export type ErrorsToastHandlers = {
+  showError: (errorMessage: string) => void;
+};
 
-export const ErrorsToast = memo(({ error, open, setOpen }: ErrorsToastProps) => {
-  useEffect(() => {
-    setOpen(open);
-    return () => {
-      setOpen(false);
-    };
-  }, [open]);
+const ErrorsToast = forwardRef<ErrorsToastHandlers, {}>((_props, ref) => {
+  const [errorToShow, setErrorToShow] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const showError = useCallback((errorMessage: string) => {
+    if (errorToShow !== errorMessage) setErrorToShow(errorMessage);
+    setOpen(true);
+  }, []);
+
+  useImperativeHandle(ref, () => {
+    return {
+      showError
+    }
+  });
 
   return (
-    <Toast.Provider swipeDirection="down" duration={3000} label={`Error: ${error}`}>
+    <Toast.Provider swipeDirection="down" duration={3000} label={`Houve um erro: ${errorToShow}`}>
       <Toast.Root className={styles.ToastRoot} open={open} onOpenChange={setOpen}>
         <Toast.Description className={styles.ToastDescription}>
           <Icon icon="sad" size="lg" style={{color: "var(--veronica)"}} />
-          <Text size="xxs" align="justify">{apiErrors[error]}</Text>
+          <Text size="xxs" align="justify">{errorToShow}</Text>
         </Toast.Description>
       </Toast.Root>
 
@@ -34,3 +38,7 @@ export const ErrorsToast = memo(({ error, open, setOpen }: ErrorsToastProps) => 
     </Toast.Provider>
   );
 });
+
+ErrorsToast.displayName = "ErrorsToast";
+
+export { ErrorsToast };

@@ -16,9 +16,6 @@ export default function Layout({
   return (
     <SessionProvider>
       <html lang="pt-BR">
-        <head>
-          <script src="http://localhost:8097"></script>
-        </head>
         <body>{children}</body>
       </html>
     </SessionProvider>

@@ -10,7 +10,7 @@ type IconProps = {
   icon: keyof typeof icons;
 };
 
-export const Icon = memo(({
+const Icon = memo(({
   icon, disabled=false, style,
   withoutClick=false, className=undefined, ...props
 }: Omit<FontAwesomeIconProps, "icon"> & IconProps) => {
@@ -24,3 +24,7 @@ export const Icon = memo(({
     />
   );
 });
+
+Icon.displayName = "Icon";
+
+export { Icon };

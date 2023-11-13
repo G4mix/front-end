@@ -5,9 +5,13 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 import textStyles from "@components/Text/Text.module.css";
 
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState, useRef } from "react";
+import {
+  hasEightOrMoreChars, hasGmailDomain, hasNumber,
+  hasOneUppercaseChar, hasSpecialChar, isValidUsername
+} from "@functions/formValidations";
+import { ErrorsToast, ErrorsToastHandlers } from "@components/ErrorsToast";
 import { Collapsable } from "@components/Collapsable";
-import { ErrorsToast } from "@components/ErrorsToast";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
@@ -17,6 +21,7 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 
 export const RegisterForm = () => {
+  const errorsToastRef = useRef<ErrorsToastHandlers>(null);
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,20 +33,8 @@ export const RegisterForm = () => {
 
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
-  const [error, setError] = useState<keyof typeof apiErrors | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
   
   const router = useRouter();
-
-  const hasOneUppercaseChar = (text: string) => /[A-Z]/.test(text);
-
-  const hasNumber = (text: string) => /\d/.test(text);
-
-  const hasSpecialChar = (text: string) => /[^A-Za-z0-9_]/.test(text);
-
-  const hasEightOrMoreChars = (text: string) => text.length >= 8;
-
-  const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
 
   const isReadyToRegister = () => {
     if (
@@ -49,7 +42,7 @@ export const RegisterForm = () => {
       hasNumber(password) &&
       hasSpecialChar(password) &&
       hasOneUppercaseChar(password) &&
-      !hasSpecialChar(username) &&
+      isValidUsername(username) &&
       username.length > 2 && 
       hasGmailDomain(email) &&
       password === confirmPassword &&
@@ -69,8 +62,7 @@ export const RegisterForm = () => {
     const result = await APIManager.signUp({ username, email, password });
     if (apiErrors[result!]) {
       setTryingToRegister(false);
-      setError(result!);
-      setOpen(true);
+      errorsToastRef.current?.showError(apiErrors[result!]);
       return;
     }
 
@@ -85,7 +77,7 @@ export const RegisterForm = () => {
 
   return (
     <form className={signupFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
-      <ErrorsToast error={error!} open={open} setOpen={setOpen}/>
+      <ErrorsToast ref={errorsToastRef} />
       <div className={signupFormStyles.fields}>
         <Input
           icon="user"

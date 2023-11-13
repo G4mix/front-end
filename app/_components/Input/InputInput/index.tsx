@@ -1,5 +1,5 @@
+import React, { type ChangeEvent, forwardRef } from "react";
 import styles from "./InputInput.module.css";
-import React, { ChangeEvent } from "react";
 
 interface InputInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
@@ -9,22 +9,25 @@ interface InputInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputInput = ({
-  name, type,
-  onChange, value,
-  placeholder, className,
-  ...props
-}: InputInputProps) => {
+const InputInput = forwardRef<HTMLInputElement, InputInputProps>((props, ref) => {
+  const {
+    name, type, onChange, value, placeholder, className, ...inputProps
+  } = props;
   return (
     <input
-      {...props}
+      {...inputProps}
       type={type}
       className={`${styles.input} ${className ? className : ""}`}
       autoComplete="off"
       placeholder={placeholder}
       name={name}
-      value={value}
+      value={value ? value : undefined}
       onChange={onChange}
+      ref={ref}
     />
   );
-};
+});
+
+InputInput.displayName = "InputInput";
+
+export { InputInput };

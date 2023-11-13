@@ -1,7 +1,7 @@
 "use client";
 
-import React, { ChangeEvent, useState, useEffect, useCallback } from "react";
-import { ErrorsToast } from "@components/ErrorsToast";
+import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
+import { ErrorsToast, ErrorsToastHandlers } from "@components/ErrorsToast";
 import { APIManager } from "@classes/APIManager";
 import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
@@ -9,65 +9,61 @@ import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
-import Link from "next/link";
+import React, { useState, useCallback, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
+import Link from "next/link";
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const [usernameOrEmail, setUsernameOrEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const rememberMeRef = useRef<HTMLInputElement>(null);
+  const errorsToastRef = useRef<ErrorsToastHandlers>(null);
+  const usernameOrEmailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
 
-  const [readyToLogin, setReadyToLogin] = useState<boolean>(false);
-
-  const [error, setError] = useState<keyof typeof apiErrors | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const hasGmailDomain = useCallback((email: string) => /@gmail\.com$/.test(email), []);
-  const isValidUsername = useCallback((username: string) => /^[A-Za-z0-9_]+$/.test(username), []);
-
-  const isReadyToLogin = () => {
-    if (
-      (isValidUsername(usernameOrEmail) || hasGmailDomain(usernameOrEmail)) &&
-      usernameOrEmail.length > 2 &&
-      password
-    ) {
-      setReadyToLogin(true);
-    } else {
-      setReadyToLogin(false);
-    }
-  };
-
-  async function login(e?: React.FormEvent<HTMLFormElement>) {
-    e?.preventDefault();
+  const login = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     if (tryingToLogIn) return;
     setTryingToLogIn(true);
 
-    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = { password, rememberMe };
+    const password = passwordRef.current!.value;
+
+    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = {
+      password: password,
+      rememberMe: rememberMeRef.current!.checked
+    };
+
+    const usernameOrEmail = usernameOrEmailRef.current!.value;
+    
+    if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
+      errorsToastRef.current?.showError("Nome de usuário ou e-mail inválido.");
+      return;
+    } else if (usernameOrEmail.length < 3) {
+      errorsToastRef.current?.showError("Nome de usuário ou e-mail muito curto.");
+      return;
+    } else if (password.length < 7) {
+      errorsToastRef.current?.showError(apiErrors["PASSWORD_TOO_SHORT"]);
+      return;
+    }
 
     signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
+
     
     const result = await APIManager.signIn(signInBody);
     
     if (apiErrors[result!]) {
       setTryingToLogIn(false);
-      setError(result!);
-      setOpen(true);
+      errorsToastRef.current?.showError(apiErrors[result!]);
       return;
     }
 
     router.push("/");
-  }
-
-  useEffect(() => {
-    isReadyToLogin();
-    return () => {};
-  }, [password, usernameOrEmail]);
+  }, []);
 
   return (
-    <form onSubmit={readyToLogin ? (e) => login(e) : () => null}>
-      <ErrorsToast error={error!} open={open} setOpen={setOpen}/>
+    <form onSubmit={(e) => login(e)}>
+      <ErrorsToast ref={errorsToastRef} />
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input
@@ -76,8 +72,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
             name="username"
             placeholder="Digite um nome de usuário válido"
             type="text"
-            value={usernameOrEmail}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setUsernameOrEmail(e.target.value)}
+            ref={usernameOrEmailRef}
           />
           <Input
             icon="lock"
@@ -85,8 +80,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
             name="password"
             placeholder="Digite uma senha"
             type="password"
-            value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            ref={passwordRef}
           />
         </div>
         <Text size="xs" asChild className={signinStyles.forgotPassword}>
@@ -95,7 +89,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       </div>
       {children}
       <div className={signinStyles.rememberMe}>
-        <Checkbox defaultChecked={rememberMe} onChange={(e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)} />
+        <Checkbox defaultChecked={false} ref={rememberMeRef} />
         <Text size="xs">Lembrar de mim por 30 dias</Text>
       </div>
       <Button
@@ -104,7 +98,6 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
           marginTop: "1rem",
           marginBottom: "0.1rem",
         }}
-        disabled={!readyToLogin} 
         type="submit"
       >
         Conectar-se
