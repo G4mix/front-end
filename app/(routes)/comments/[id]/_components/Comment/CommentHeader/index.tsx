@@ -14,18 +14,21 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
   return (
     <div className={styles.header}>
       <Link
-        href={`/${author!.user!.username}`}
+        href={`/users/${author!.user!.username}`}
         aria-label={`Perfil do usuário ${author!.displayName || author!.user!.username}`}
         className={styles.userZone}
       >
         {
-          author!.user!.icon ?
+          author!.user!.icon ? 
             <Image
               src={author!.user!.icon }
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
+              width={16}
+              height={16}
             />
-            : <DuotoneUserIcon />
+          :
+            <DuotoneUserIcon />
         }
         <Text size="xs" weight="medium">{author!.displayName! || author!.user!.username}</Text>
         <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>

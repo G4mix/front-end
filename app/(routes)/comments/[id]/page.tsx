@@ -6,7 +6,15 @@ import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
 
-export default function CommentsPage() {
+function findCommentsByPostId(_id: number) {
+  return exampleComments;
+}
+
+export default function CommentsPage({
+  params: { id },
+}: { params: { id: string } }) {
+  const comments = findCommentsByPostId(parseInt(id));
+
   return (
     <main className={styles.main}>
       <div className={styles.commentsZone}>
@@ -19,7 +27,7 @@ export default function CommentsPage() {
           </Heading>
           <FilterComments />
         </div>
-        <Comments comments={exampleComments} />
+        <Comments comments={comments} />
       </div>
     </main>
   );

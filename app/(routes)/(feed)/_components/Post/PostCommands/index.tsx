@@ -6,10 +6,11 @@ import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState } from "react";
 import styles from "./PostCommands.module.css";
+import Link from "next/link";
 
-type PostCommandsProps = Pick<PostType, "likes" | "comments" | "views">;
+type PostCommandsProps = Pick<PostType, "likes" | "comments" | "views" | "id">;
 
-export const PostCommands = ({ likes, comments, views }: PostCommandsProps) => {
+export const PostCommands = ({ id, likes, comments, views }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
   
   return (
@@ -18,10 +19,10 @@ export const PostCommands = ({ likes, comments, views }: PostCommandsProps) => {
         <Icon icon={isLiked ? "liked" : "like"} size="lg" />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(likes || 0)}</Text>
       </div>
-      <div className={styles.postCommand}>
+      <Link href={`/comments/${id}`} className={styles.postCommand}>
         <Icon icon="comments" size="lg" />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(comments || 0)}</Text> 
-      </div>
+      </Link>
       <div className={styles.postCommand}>
         <Icon icon="chart" size="lg" />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(views || 0)}</Text>

@@ -25,6 +25,8 @@ export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToRe
               src={author!.user!.icon}
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
+              width={24}
+              height={24}
             />
             : <DuotoneUserIcon />
         }

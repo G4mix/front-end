@@ -25,6 +25,8 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
               src={author!.user!.icon }
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
+              width={24}
+              height={24}
             />
             : <DuotoneUserIcon />
         }
