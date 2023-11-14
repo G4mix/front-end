@@ -3,6 +3,7 @@ import { CommentType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import styles from "./MarkedToReply.module.css";
+import Image from "next/image";
 import React from "react";
 
 type MarkedToReplyProps = {
@@ -20,12 +21,12 @@ export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToRe
       <div className={styles.userZone}>
         {
           author!.user!.icon ?
-            <img
-              src={author!.user!.icon }
+            <Image
+              src={author!.user!.icon}
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
             />
-          : <DuotoneUserIcon />
+            : <DuotoneUserIcon />
         }
         <Text size="default" weight="medium">{author!.displayName! || author!.user!.username!}</Text>
       </div>
