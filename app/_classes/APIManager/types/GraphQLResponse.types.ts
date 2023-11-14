@@ -1,18 +1,18 @@
-import { User } from "./Models.types";
+import { UserType } from "./Models.types";
 
 export type GenericGraphQLResponse<T> = {
   data: T;
 };
 
 export type QueryResponseTypes = {
-  findAllUsers: Partial<User>[];
-  findUserByUsername: Partial<User>;
-  findUserByEmail: Partial<User>;
-  findUserByToken: Partial<User>;
+  findAllUsers: Partial<UserType>[];
+  findUserByUsername: Partial<UserType>;
+  findUserByEmail: Partial<UserType>;
+  findUserByToken: Partial<UserType>;
 };
 
 export type MutationResponseTypes = {
-  updateUser: User;
+  updateUser: UserType;
   deleteAccount: boolean;
 };
 
