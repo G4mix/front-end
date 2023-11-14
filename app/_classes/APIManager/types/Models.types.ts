@@ -1,22 +1,22 @@
-export type User = {
+export type UserType = {
   id?: number;
   username?: string;
   email?: string;
   icon?: string;
-  passwordUser?: PasswordUser;
+  passwordUser?: PasswordUserType;
   userProfile?: UserProfileType;
 };
 
-export type PasswordUser = {
+export type PasswordUserType = {
   id?: number;
   verifiedEmail?: boolean;
-  user?: User;
+  user?: UserType;
 };
 
 export type UserProfileType = {
   id?: number;
   displayName?: string;
-  user?: User;
+  user?: UserType;
   posts?: PostType[];
 };
 
@@ -27,7 +27,7 @@ export type PostType = {
   content?: string;
   views?: number;
   likes?: number;
-  comments?: CommentType[];
+  comments?: number;
   categories?: CategoryType[];
   createdAt?: Date;
   updatedAt?: Date;

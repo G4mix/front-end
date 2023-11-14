@@ -1,14 +1,14 @@
 "use client";
 
 import type { CommentType } from "@classes/APIManager/types/Models.types";
+import { Answer, type AnswerMethods } from "../Answer";
+import { useCommentsContext } from "../CommentsProvider";
 import { MarkedToReply } from "../MarkedToReply";
 import { Comment } from "../Comment";
-import { Answer, type AnswerMethods } from "../Answer";
+import { Replies } from "../Replies";
 import { Text } from "@components/Text";
 import React, { useRef, useState, useCallback } from "react";
 import styles from "./Comments.module.css";
-import { Replies } from "../Replies";
-import { useCommentsContext } from "../CommentsProvider";
 
 type CommentsProps = {
   comments: CommentType[];
@@ -70,7 +70,7 @@ export const Comments = ({ comments }: CommentsProps) => {
       <div className={styles.comments}>
         {
           filteredComments.map((comment: CommentType) =>
-            <div className={styles.commentZone} key={`commentZone:number:${comment.id}`}>
+            <div className={styles.commentZone} key={`commentZone:comment:${comment.id}`}>
               <Comment
                 handleWantToRespond={handleWantToRespond}
                 comment={comment}

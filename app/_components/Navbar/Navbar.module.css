@@ -1,7 +1,8 @@
 .nav {
   width: 100%;
+  max-height: 50px;
   height: 50px;
-  position: fixed;
+  position: sticky;
   background: linear-gradient(180deg, rgba(52, 58, 91, 0.1) 0%, rgba(52, 58, 91, 0.6) 100%), #1C2034;
 
   bottom: 0;
@@ -10,8 +11,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   z-index: 9998;
+
+  padding: 15px;
 }
 
 .navItems {
@@ -19,13 +21,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
-  padding: 15px;
 
   width: 100%;
-  max-width: 500px;
 
   z-index: 9998;
+}
+
+.centerContainer {
+  max-height: 50px;
+  width: 60px;
 }
 
 .createCenter {
@@ -34,13 +38,14 @@
   justify-content: center;
 
   position: relative;
-  top: -10px;
+  top: -20px;
 
   border-radius: 50%;
   width: 60px;
   height: 60px; 
   background-color: var(--delft-blue-bg); 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 0, 0, 0.3);
+
 }
 
 .imgRounded {

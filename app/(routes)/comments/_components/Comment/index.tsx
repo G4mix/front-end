@@ -16,8 +16,7 @@ export const Comment = ({ isReply, comment, marked, handleWantToRespond }: Comme
   return (
     <CommentRoot isReply={isReply} marked={marked}>
       <CommentHeader
-        displayName={comment.author!.displayName}
-        user={comment.author!.user}
+        author={comment.author!}
         createdAt={comment.createdAt}
         updatedAt={comment.updatedAt}
       />

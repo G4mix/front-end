@@ -1,4 +1,4 @@
-import { DuotoneUserIcon } from "@components/Post/DuotoneUserIcon";
+import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { CommentType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -13,11 +13,21 @@ type MarkedToReplyProps = {
 export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToReplyProps) => {
   if (markedToReply === null) return null;
 
+  const { author } = markedToReply!;
+
   return (
     <div className={styles.markedToReply}>
       <div className={styles.userZone}>
-        <DuotoneUserIcon />
-        <Text size="default" weight="medium">{markedToReply!.author!.displayName! || markedToReply!.author!.user!.username!}</Text>
+        {
+          author!.user!.icon ?
+            <img
+              src={author!.user!.icon }
+              alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
+              className={styles.userIcon}
+            />
+          : <DuotoneUserIcon />
+        }
+        <Text size="default" weight="medium">{author!.displayName! || author!.user!.username!}</Text>
       </div>
       <Icon icon="x" onClick={handleUnmarkToReply} />
     </div>

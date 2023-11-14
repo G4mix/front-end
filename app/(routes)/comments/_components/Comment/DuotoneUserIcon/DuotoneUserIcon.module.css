@@ -27,17 +27,17 @@
 
 @media (min-width: 640px) {
   .duotoneUserIcon {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .circleIcon {
-    width: 25.2px;
-    height: 25.2px;
+    width: 1.575rem;
+    height: 1.575rem;
   }
 
   .userCircleIcon {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }

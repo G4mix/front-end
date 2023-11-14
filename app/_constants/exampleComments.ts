@@ -1,4 +1,5 @@
 import { CommentType } from "@classes/APIManager/types/Models.types";
+import { exampleAuthors } from "./exampleAuthors";
 
 const lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it...";
 const currentDate = new Date();
@@ -10,30 +11,14 @@ oneDayAgo.setDate(currentDate.getDate() - 1);
 export const exampleComments: CommentType[] = [
   {
     id: 1,
-    author: {
-      id: 1,
-      displayName: "Le'Afonso",
-      user: {
-        id: 1,
-        username: "Afonso",
-        email: "afonso@gmail.com"
-      }
-    },
+    author: exampleAuthors[2],
     replies: [
       {
         id: 2,
         likes: 2500,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 2,
-          displayName: "Le'teste",
-          user: {
-            id: 2,
-            username: "teste",
-            email: "teste@gmail.com"
-          }
-        },
+        author: exampleAuthors[1],
         content: lorem
       },
       {
@@ -41,15 +26,7 @@ export const exampleComments: CommentType[] = [
         likes: 1000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 2,
-          displayName: undefined,
-          user: {
-            id: 2,
-            username: "rapaiz",
-            email: "rapaz@gmail.com"
-          }
-        },
+        author: exampleAuthors[0],
         content: lorem
       },
     ],
@@ -60,30 +37,14 @@ export const exampleComments: CommentType[] = [
   },
   {
     id: 4,
-    author: {
-      id: 2,
-      displayName: "Le'teste",
-      user: {
-        id: 1,
-        username: "teste",
-        email: "teste@gmail.com"
-      }
-    },
+    author: exampleAuthors[1],
     replies: [
       {
         id: 5,
         likes: 1000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 2,
-          displayName: undefined,
-          user: {
-            id: 2,
-            username: "rapaiz",
-            email: "rapaz@gmail.com"
-          }
-        },
+        author: exampleAuthors[0],
         content: lorem
       },
       {
@@ -91,15 +52,7 @@ export const exampleComments: CommentType[] = [
         likes: 1000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 1,
-          displayName: "Le'Afonso",
-          user: {
-            id: 1,
-            username: "Afonso",
-            email: "afonso@gmail.com"
-          }
-        },
+        author: exampleAuthors[0],
         content: lorem
       },
       {
@@ -107,17 +60,9 @@ export const exampleComments: CommentType[] = [
         likes: 11000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 1,
-          displayName: "Le'Afonso",
-          user: {
-            id: 1,
-            username: "Afonso",
-            email: "afonso@gmail.com"
-          }
-        },
+        author: exampleAuthors[2],
         content: lorem
-      },
+      }
     ],
     likes: 1000000,
     createdAt: oneDayAgo,
@@ -126,30 +71,14 @@ export const exampleComments: CommentType[] = [
   },
   {
     id: 8,
-    author: {
-      id: 2,
-      displayName: "Le'teste",
-      user: {
-        id: 1,
-        username: "teste",
-        email: "teste@gmail.com"
-      }
-    },
+    author: exampleAuthors[0],
     replies: [
       {
         id: 9,
         likes: 1000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 2,
-          displayName: undefined,
-          user: {
-            id: 2,
-            username: "rapaiz",
-            email: "rapaz@gmail.com"
-          }
-        },
+        author: exampleAuthors[1],
         content: lorem
       },
       {
@@ -157,15 +86,7 @@ export const exampleComments: CommentType[] = [
         likes: 1000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 1,
-          displayName: "Le'Afonso",
-          user: {
-            id: 1,
-            username: "Afonso",
-            email: "afonso@gmail.com"
-          }
-        },
+        author: exampleAuthors[2],
         content: lorem
       },
       {
@@ -173,15 +94,7 @@ export const exampleComments: CommentType[] = [
         likes: 11000,
         createdAt: new Date(),
         updatedAt: undefined,
-        author: {
-          id: 1,
-          displayName: "Le'Afonso",
-          user: {
-            id: 1,
-            username: "Afonso",
-            email: "afonso@gmail.com"
-          }
-        },
+        author: exampleAuthors[2],
         content: lorem
       },
     ],

@@ -3,15 +3,15 @@ import styles from "./PostMain.module.css";
 import React from "react";
 
 type PostMainProps = {
+  content: string | null;
   title: string | null;
-  text: string | null;
 };
 
-export const PostMain = ({ title, text }: PostMainProps) => {
+export const PostMain = ({ title, content }: PostMainProps) => {
   return (
     <div className={styles.postMain}>
       <Text size="default" weight="bold">{title}</Text>
-      <Text size="xs" weight="light">{text}</Text>
+      <Text size="xs" weight="light">{content}</Text>
     </div>
   );
 };

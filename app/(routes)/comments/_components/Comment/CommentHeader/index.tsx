@@ -1,4 +1,4 @@
-import type { CommentType, UserProfileType } from "@classes/APIManager/types/Models.types";
+import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { DuotoneUserIcon } from "../DuotoneUserIcon";
 import { formatDate } from "@functions/formatDate";
 import { Text } from "@components/Text";
@@ -7,14 +7,22 @@ import styles from "./CommentHeader.module.css";
 import React from "react";
 import Link from "next/link";
 
-type CommentHeaderProps = Pick<UserProfileType, "displayName" | "user"> & Pick<CommentType, "createdAt" | "updatedAt">;
+type CommentHeaderProps = Pick<CommentType, "createdAt" | "updatedAt" | "author">;
 
-export const CommentHeader = ({ displayName, user, createdAt, updatedAt }: CommentHeaderProps) => {
+export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderProps) => {
   return (
     <div className={styles.header}>
-      <Link href={`/${user!.username}`} className={styles.userZone}>
-        <DuotoneUserIcon />
-        <Text size="xs" weight="medium">{displayName! || user!.username}</Text>
+      <Link href={`/${author!.user!.username}`} className={styles.userZone}>
+        {
+          author!.user!.icon ?
+            <img
+              src={author!.user!.icon }
+              alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
+              className={styles.userIcon}
+            />
+          : <DuotoneUserIcon />
+        }
+        <Text size="xs" weight="medium">{author!.displayName! || author!.user!.username}</Text>
         <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>
       </Link>
       <Icon icon="ellipsis-h" className={styles.reportIcon} disabled />

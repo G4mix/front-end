@@ -5,6 +5,12 @@
   justify-content: space-between;
 }
 
+.userIcon {
+  border-radius: 9999px;
+  height: 1rem;
+  width: 1rem;
+}
+
 .userZone {
   display: flex;
   flex-direction: row;
@@ -23,6 +29,10 @@
 }
 
 @media (min-width: 640px) {
+  .userIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
   .reportIcon {
     width: 24.5px;
     height: 24.5px;

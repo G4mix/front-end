@@ -17,3 +17,16 @@
   align-items: center;
   gap: 4px;
 }
+
+.userIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+}
+
+@media (min-width: 640px) {
+  .userIcon {
+    width: 36px;
+    height: 36px;
+  }
+}
