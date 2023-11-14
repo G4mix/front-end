@@ -13,13 +13,13 @@ export default function CommentsPage() {
         <Link href="/">
           <div className={styles.closeComments} />
         </Link>
-          <div className={styles.filtersDiv}>
-            <Heading size="default">
+        <div className={styles.filtersDiv}>
+          <Heading size="default">
               Comentários
-            </Heading>
-            <FilterComments />
-          </div>
-          <Comments comments={exampleComments} />
+          </Heading>
+          <FilterComments />
+        </div>
+        <Comments comments={exampleComments} />
       </div>
     </main>
   );

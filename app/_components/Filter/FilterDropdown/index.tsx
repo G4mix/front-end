@@ -1,7 +1,7 @@
 "use client";
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect } from "react";
 import styles from "./FilterDropdown.module.css";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
