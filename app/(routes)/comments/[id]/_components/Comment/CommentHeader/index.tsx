@@ -27,7 +27,7 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
               width={16}
               height={16}
             />
-          :
+            :
             <DuotoneUserIcon />
         }
         <Text size="xs" weight="medium">{author!.displayName! || author!.user!.username}</Text>

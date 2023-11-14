@@ -6,7 +6,8 @@ import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
 
-function findCommentsByPostId(_id: number) {
+function findCommentsByPostId(id: number) {
+  console.log(id);
   return exampleComments;
 }
 
