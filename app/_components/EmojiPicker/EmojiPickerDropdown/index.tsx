@@ -20,12 +20,12 @@ export const EmojiPickerDropdown = ({ children, onSelect }: EmojiPickerDropdownP
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content sideOffset={8} side="top" align="end">
+        <DropdownMenu.Content sideOffset={8} side="top" align="start">
           <Picker
             autoFocus
             previewPosition="none"
             skinTonePosition="search"
-            maxFrequentRows={1}
+            maxFrequentRows={0}
             data={data}
             onEmojiSelect={(emoji: { native: string; }) => {
               if (!emoji?.native) return;

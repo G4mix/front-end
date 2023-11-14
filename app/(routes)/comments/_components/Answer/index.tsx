@@ -8,8 +8,8 @@ import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef 
 import styles from "./Answer.module.css";
 
 export type AnswerMethods = {
-  handleUserToMark: (username: string) => void;
   handleAnswerFocus: () => void;
+  handleUserToMark: (username: string) => void;
 };
 
 const Answer = forwardRef<AnswerMethods>((_props, ref) => {

@@ -22,7 +22,7 @@ export const CommentCommands = ({ likes, handleWantToRespond }: CommentCommandsP
         <Icon icon={isLiked ? "liked" : "like"} className={styles.likeIcon} />
         <Text size="xs">{formatNumberWithSuffix(likes || 0)}</Text>
       </div>
-      <Text size="xs" weight="bold" onClick={handleWantToRespond}>Responder</Text>
+      <Text size="xs" weight="bold" onClick={handleWantToRespond} className={styles.replyComment}>Responder</Text>
     </div>
   );
 };

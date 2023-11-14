@@ -15,7 +15,7 @@
 
 .answerArea {
   flex: 1;
-  resize: vertical;
+  resize: none;
 }
 
 .emojisSide {

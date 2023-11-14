@@ -29,6 +29,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
     <textarea
       className={`${styles.area} ${className ? className : ""}`}
       onChange={handleOnChange} ref={ref}
+      
       {...props}
     >
       {children}
