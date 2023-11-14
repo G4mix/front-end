@@ -5,13 +5,13 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 import textStyles from "@components/Text/Text.module.css";
 
-import React, { ChangeEvent, useEffect, useState, useRef, useCallback, FormEvent } from "react";
+import React, { ChangeEvent, useState, useRef, useCallback } from "react";
 import {
   hasEightOrMoreChars, hasGmailDomain, hasNumber,
   hasOneUppercaseChar, hasSpecialChar, isValidUsername
 } from "@functions/formValidations";
+import { Collapsable, CollapsableHandlers } from "../Collapsable";
 import { ErrorsToast, ErrorsToastHandlers } from "@components/ErrorsToast";
-import { Collapsable } from "@components/Collapsable";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
@@ -21,11 +21,11 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 
 export const RegisterForm = () => {
+  const collapsableRef = useRef<CollapsableHandlers>(null);
   const errorsToastRef = useRef<ErrorsToastHandlers>(null);
+  const registerForm = useRef<HTMLFormElement>(null);
 
   const [passwordState, setPasswordState] = useState("");
-  const registerForm = useRef<HTMLFormElement>(null)
-  const [isCollapsableOpen, setIsCollapsableOpen] = useState<boolean>(false);
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
   const router = useRouter();
@@ -35,7 +35,7 @@ export const RegisterForm = () => {
     if (tryingToRegister) return;
     setTryingToRegister(true);
 
-    const formData = new FormData(registerForm.current || e.currentTarget)
+    const formData = new FormData(registerForm.current || e.currentTarget);
 
     const username = formData.get("username")?.valueOf() as string;
     const email = formData.get("email")?.valueOf() as string;
@@ -91,7 +91,6 @@ export const RegisterForm = () => {
           label="Username"
           name="username"
           placeholder="Digite um nome de usuário válido"
-       
           type="text"
         />
         <Input
@@ -99,7 +98,6 @@ export const RegisterForm = () => {
           label="E-mail"
           name="email"
           placeholder="Digite seu e-mail"
-
           type="email"
         />
         <Input
@@ -110,33 +108,31 @@ export const RegisterForm = () => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPasswordState(e.target.value)
           }
-          onFocus={() => setIsCollapsableOpen(true)}
-          onBlur={() => setIsCollapsableOpen(false)}
+          onFocus={() => collapsableRef.current?.collapse()}
+          onBlur={() => collapsableRef.current?.uncollapse()}
           type="password"
         />
-        {isCollapsableOpen && (
-          <Collapsable
-            open
-            items={[
-              {
-                icon: hasOneUppercaseChar(passwordState) ? "check" : "x",
-                text: "Contém pelo menos um caractere maiúsculo",
-              },
-              {
-                icon: hasNumber(passwordState) ? "check" : "x",
-                text: "Contém pelo menos um número",
-              },
-              {
-                icon: hasSpecialChar(passwordState) ? "check" : "x",
-                text: "Contem pelo menos um caractere especial",
-              },
-              {
-                icon: hasEightOrMoreChars(passwordState) ? "check" : "x",
-                text: "Contém no mínimo 8 caracteres",
-              },
-            ]}
-          />
-        )}
+        <Collapsable
+          ref={collapsableRef}
+          items={[
+            {
+              icon: hasOneUppercaseChar(passwordState) ? "check" : "x",
+              text: "Contém pelo menos um caractere maiúsculo",
+            },
+            {
+              icon: hasNumber(passwordState) ? "check" : "x",
+              text: "Contém pelo menos um número",
+            },
+            {
+              icon: hasSpecialChar(passwordState) ? "check" : "x",
+              text: "Contem pelo menos um caractere especial",
+            },
+            {
+              icon: hasEightOrMoreChars(passwordState) ? "check" : "x",
+              text: "Contém no mínimo 8 caracteres",
+            },
+          ]}
+        />
         <Input
           icon="lock"
           label="Confirme sua senha"

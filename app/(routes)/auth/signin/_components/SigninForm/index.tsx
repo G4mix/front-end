@@ -15,10 +15,8 @@ import Link from "next/link";
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const rememberMeRef = useRef<HTMLInputElement>(null);
   const errorsToastRef = useRef<ErrorsToastHandlers>(null);
-  const usernameOrEmailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const registerForm = useRef<HTMLFormElement>(null);
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
 
   const login = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,14 +25,11 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     if (tryingToLogIn) return;
     setTryingToLogIn(true);
 
-    const password = passwordRef.current!.value;
+    const formData = new FormData(registerForm.current || e.currentTarget);
 
-    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = {
-      password: password,
-      rememberMe: rememberMeRef.current!.checked
-    };
-
-    const usernameOrEmail = usernameOrEmailRef.current!.value;
+    const usernameOrEmail = formData.get("username_or_email")?.valueOf() as string;
+    const password = formData.get("password")?.valueOf() as string;
+    const rememberMe = formData.get("remember_me")?.valueOf() as string;
     
     if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
       errorsToastRef.current?.showError("Nome de usuário ou e-mail inválido.");
@@ -47,8 +42,11 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
+    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = {
+      password, rememberMe: !!rememberMe
+    };
+    
     signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
-
     
     const result = await APIManager.signIn(signInBody);
     
@@ -62,17 +60,16 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <form onSubmit={(e) => login(e)}>
+    <form onSubmit={(e) => login(e)} >
       <ErrorsToast ref={errorsToastRef} />
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input
             icon="user"
             label="Username"
-            name="username"
-            placeholder="Digite um nome de usuário válido"
+            name="username_or_email"
+            placeholder="Digite seu nome de usuário ou e-mail"
             type="text"
-            ref={usernameOrEmailRef}
           />
           <Input
             icon="lock"
@@ -80,7 +77,6 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
             name="password"
             placeholder="Digite uma senha"
             type="password"
-            ref={passwordRef}
           />
         </div>
         <Text size="xs" asChild className={signinStyles.forgotPassword}>
@@ -89,7 +85,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       </div>
       {children}
       <div className={signinStyles.rememberMe}>
-        <Checkbox defaultChecked={false} ref={rememberMeRef} />
+        <Checkbox defaultChecked={false} name="remember_me" />
         <Text size="xs">Lembrar de mim por 30 dias</Text>
       </div>
       <Button

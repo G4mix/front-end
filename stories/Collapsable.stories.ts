@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Collapsable } from "@components/Collapsable";
+import { Collapsable } from "@/app/(routes)/auth/signup/_components/Collapsable";
 
 const meta = {
   title: "components/Collapsable",

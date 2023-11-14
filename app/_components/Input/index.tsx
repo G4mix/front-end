@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type ChangeEvent, forwardRef } from "react";
+import React, { type ChangeEvent } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";
 import { InputRoot } from "./InputRoot";

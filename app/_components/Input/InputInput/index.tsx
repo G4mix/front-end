@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, forwardRef } from "react";
+import React, { type ChangeEvent } from "react";
 import styles from "./InputInput.module.css";
 
 interface InputInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
