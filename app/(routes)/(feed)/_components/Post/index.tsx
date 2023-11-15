@@ -16,7 +16,7 @@ export const Post = ({ post }: PostProps) => {
       {/* { post!.images && (<PostImage image={post!.images} />) }
       { post!.videos && (<PostVideo src={post!.images ?? ""} />) } */}
       <PostMain title={post.title!} content={post.content!} />
-      <PostCommands likes={post.likes!} comments={post.comments!} views={post.views!} id={post.id} />
+      <PostCommands post={post} />
     </PostRoot>
   );
 };

@@ -16,6 +16,7 @@ export const examplePosts = (): PostType[] => {
       comments: 50000,
       views: 1000000,
       likes: 3000,
+      title: "Lorem lorem ipsum!",
       createdAt: twoDaysAgo,
       updatedAt: twoDaysAgo,
       content: lorem
@@ -26,6 +27,7 @@ export const examplePosts = (): PostType[] => {
       comments: 50000,
       views: 1000000,
       likes: 1000000,
+      title: "Lorem lorem ipsum!",
       createdAt: oneDayAgo,
       updatedAt: undefined,
       content: lorem
@@ -36,6 +38,7 @@ export const examplePosts = (): PostType[] => {
       comments: 50000,
       views: 1000000,
       likes: 9000,
+      title: "Lorem lorem ipsum!",
       createdAt: new Date(),
       updatedAt: undefined,
       content: lorem

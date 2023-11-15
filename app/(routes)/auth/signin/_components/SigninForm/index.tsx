@@ -1,7 +1,7 @@
 "use client";
 
 import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
-import { ErrorsToast, ErrorsToastHandlers } from "@components/ErrorsToast";
+import { Toast, ToastHandlers } from "@/app/_components/Toast";
 import { APIManager } from "@classes/APIManager";
 import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const errorsToastRef = useRef<ErrorsToastHandlers>(null);
+  const toastRef = useRef<ToastHandlers>(null);
   const registerForm = useRef<HTMLFormElement>(null);
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
 
@@ -32,13 +32,13 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     const rememberMe = formData.get("remember_me")?.valueOf() as string;
     
     if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
-      errorsToastRef.current?.showError("Nome de usuário ou e-mail inválido.");
+      toastRef.current?.showMessage("Nome de usuário ou e-mail inválido.");
       return;
     } else if (usernameOrEmail.length < 3) {
-      errorsToastRef.current?.showError("Nome de usuário ou e-mail muito curto.");
+      toastRef.current?.showMessage("Nome de usuário ou e-mail muito curto.");
       return;
     } else if (password.length < 7) {
-      errorsToastRef.current?.showError(apiErrors["PASSWORD_TOO_SHORT"]);
+      toastRef.current?.showMessage(apiErrors["PASSWORD_TOO_SHORT"]);
       return;
     }
 
@@ -52,7 +52,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     
     if (apiErrors[result!]) {
       setTryingToLogIn(false);
-      errorsToastRef.current?.showError(apiErrors[result!]);
+      toastRef.current?.showMessage(apiErrors[result!]);
       return;
     }
 
@@ -61,7 +61,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <form onSubmit={(e) => login(e)} >
-      <ErrorsToast ref={errorsToastRef} />
+      <Toast ref={toastRef} />
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input

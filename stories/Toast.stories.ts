@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ErrorsToast } from "@components/ErrorsToast";
+import { Toast } from "@components/Toast";
 
 const meta = {
-  title: "components/ErrorsToast",
-  component: ErrorsToast,
+  title: "components/Toast",
+  component: Toast,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"]
-} satisfies Meta<typeof ErrorsToast>;
+} satisfies Meta<typeof Toast>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
