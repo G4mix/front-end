@@ -1,14 +1,14 @@
 "use client";
 
+import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { Session } from "@components/SessionProvider/Session.types";
-import { Icon } from "@components/Icon";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
 import React from "react";
 
 type NavbarUserProfileIconProps = {
   session: Session;
-}
+};
 
 export const NavbarUserProfileIcon = ({ session }: NavbarUserProfileIconProps) => {
   return (
@@ -23,7 +23,10 @@ export const NavbarUserProfileIcon = ({ session }: NavbarUserProfileIconProps) =
             className={styles.imgRounded}
           />
         ) : (
-          <Icon icon="user-circle" size="3x" width={24} height={24} style={{color: "#626ca7"}} />
+          <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
+            <DuotoneUserIcon.Circle className={styles.circle} />
+            <DuotoneUserIcon.UserCircle className={styles.userCircle} />
+          </DuotoneUserIcon.Root>
         )
       }
     </>

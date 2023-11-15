@@ -1,9 +1,9 @@
 import styles from "./InputField.module.css";
 import React from "react";
 
-interface InputFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+type InputFieldProps = {
   children: React.ReactNode;
-}
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const InputField = ({ children, ...props }: InputFieldProps) => {
   return (

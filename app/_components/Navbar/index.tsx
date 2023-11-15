@@ -8,8 +8,8 @@ export const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.navItems}>
-        <Icon icon="house" size="3x" width={24} height={24} />
-        <Icon icon="search" size="3x" width={24} height={24} disabled />
+        <Icon icon="house" className={styles.navbarIcon} />
+        <Icon icon="search" className={styles.navbarIcon} disabled />
         <div className={styles.centerContainer}>
           <Image
             src={"/logo.svg"}
@@ -19,7 +19,7 @@ export const Navbar = () => {
             className={styles.createCenter}
           />
         </div>
-        <Icon icon="users" size="3x" width={24} height={24} disabled />
+        <Icon icon="users" className={styles.navbarIcon} disabled />
         <NavbarUserProfile />
       </div>
     </nav>

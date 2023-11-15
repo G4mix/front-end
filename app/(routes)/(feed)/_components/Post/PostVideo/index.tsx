@@ -1,10 +1,10 @@
 import React from "react";
 
-interface VideoProps {
+type PostVideoProps = {
   src: string;
-}
+};
 
-export const PostVideo = ({ src }: VideoProps) => {
+export const PostVideo = ({ src }: PostVideoProps) => {
   return (
     <video width="380" height="200" controls>
       <source src={src} type="video/mp4" />

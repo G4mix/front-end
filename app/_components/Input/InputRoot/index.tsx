@@ -1,9 +1,9 @@
 import styles from "./InputRoot.module.css";
 import React from "react";
 
-interface InputRootProps extends React.HTMLAttributes<HTMLDivElement> {
+type InputRootProps = {
   children: React.ReactNode;
-}
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const InputRoot = ({ children, ...props }: InputRootProps) => {
   return (

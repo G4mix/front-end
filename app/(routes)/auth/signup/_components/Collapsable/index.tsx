@@ -13,7 +13,7 @@ type CollapsableProps = {
     icon: string;
     text: string;
   }[];
-}
+};
 
 export type CollapsableHandlers = {
   collapse: () => void;

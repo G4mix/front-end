@@ -9,7 +9,7 @@ import React from "react";
 type MarkedToReplyProps = {
   handleUnmarkToReply: () => void;
   markedToReply: CommentType;
-}
+};
 
 export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToReplyProps) => {
   if (markedToReply === null) return null;
@@ -28,7 +28,11 @@ export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToRe
               width={24}
               height={24}
             />
-            : <DuotoneUserIcon />
+          :
+            <DuotoneUserIcon.Root>
+              <DuotoneUserIcon.Circle />
+              <DuotoneUserIcon.UserCircle />
+            </DuotoneUserIcon.Root>
         }
         <Text size="default" weight="medium">{author!.displayName! || author!.user!.username!}</Text>
       </div>

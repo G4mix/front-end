@@ -10,22 +10,22 @@ import Link from "next/link";
 
 type PostCommandsProps = Pick<PostType, "likes" | "comments" | "views" | "id">;
 
-export const PostCommands = ({ id, likes, comments, views }: PostCommandsProps) => {
+export const PostCommands = ({ id, likes=0, comments=0, views=0 }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
   
   return (
     <div className={styles.postCommands}>
       <div className={styles.postCommand} onClick={() => setIsLiked(!isLiked)}>
         <Icon icon={isLiked ? "liked" : "like"} size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(likes || 0)}</Text>
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(likes)}</Text>
       </div>
       <Link href={`/comments/${id}`} className={styles.postCommand}>
         <Icon icon="comments" size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(comments || 0)}</Text> 
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(comments)}</Text> 
       </Link>
       <div className={`${styles.postCommand} ${styles.postCommandView}`}>
         <Icon icon="chart" size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(views || 0)}</Text>
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(views)}</Text>
       </div>
       <Icon icon="share" size="lg" className={styles.shareIcon} />
     </div>

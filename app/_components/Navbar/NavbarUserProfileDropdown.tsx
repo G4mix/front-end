@@ -9,7 +9,7 @@ import Link from "next/link";
 
 type NavbarUserProfileDropdownProps = {
   children: ReactNode;
-}
+};
 
 export const NavbarUserProfileDropdown = ({ children }: NavbarUserProfileDropdownProps) => {
   return (

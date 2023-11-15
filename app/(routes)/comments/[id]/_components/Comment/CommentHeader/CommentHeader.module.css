@@ -28,6 +28,21 @@
   height: 14px;
 }
 
+.duotoneUserIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.circleIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.userCircleIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
 @media (min-width: 640px) {
   .userIcon {
     width: 1.75rem;
@@ -36,5 +51,19 @@
   .reportIcon {
     width: 24.5px;
     height: 24.5px;
-  }  
+  }
+  .duotoneUserIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .circleIcon {
+    width: 1.575rem;
+    height: 1.575rem;
+  }
+
+  .userCircleIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
 }

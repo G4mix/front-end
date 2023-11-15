@@ -1,5 +1,5 @@
 import type { CommentType } from "@classes/APIManager/types/Models.types";
-import { DuotoneUserIcon } from "../DuotoneUserIcon";
+import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { formatDate } from "@functions/formatDate";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
@@ -19,7 +19,7 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
       >
         <div className={styles.userZone}>
           {
-            author!.user!.icon && (
+            author!.user!.icon ?
               <Image
                 src={author!.user!.icon }
                 alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
@@ -27,10 +27,11 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
                 width={16}
                 height={16}
               />
-            )
-          }
-          {
-            !author!.user!.icon && (<DuotoneUserIcon />)
+            :
+              <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
+                <DuotoneUserIcon.Circle className={styles.circleIcon} />
+                <DuotoneUserIcon.UserCircle className={styles.userCircleIcon} />
+              </DuotoneUserIcon.Root>
           }
           <Text size="xs" weight="medium">{author!.displayName! || author!.user!.username}</Text>
           <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>

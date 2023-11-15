@@ -8,7 +8,7 @@ import data from "@emoji-mart/data";
 type EmojiPickerDropdownProps = {
   onSelect: (emoji: string) => void;
   children: ReactNode;
-}
+};
 
 export const EmojiPickerDropdown = ({ children, onSelect }: EmojiPickerDropdownProps) => {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,7 @@
 "use client";
 
 import type { Session, SessionContextProps } from "./Session.types";
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useCallback } from "react";
 import { APIManager } from "@classes/APIManager";
 import { usePathname } from "next/navigation";
 import { CookieManager } from "@/app/_classes/CookieManager";
@@ -9,12 +9,13 @@ import { CookieManager } from "@/app/_classes/CookieManager";
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
   status: "loading",
-  update: () => {}
+  update: () => undefined,
+  setUnauthenticated: () => undefined
 });
 
-interface SessionProviderProps {
+type SessionProviderProps = {
   children: React.ReactNode;
-}
+};
 
 export const SessionProvider = ({ children }: SessionProviderProps) => {
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
@@ -22,17 +23,17 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
   const toIgnoreRoutes = ["/auth/signin", "/auth/signup", "/auth/signout"];
   const pathname = usePathname();  
 
-  function update(newData?: Partial<Session>) {
+  const update = useCallback((newData?: Partial<Session>) => {
     setSession((prevSession) => 
       prevSession ? { ...prevSession, ...newData } : null
     );
-  }
+  }, []);
 
-  function setUnauthenticated() {
+  const setUnauthenticated = useCallback(() => {
     setSession(null);
     setStatus("unauthenticated");
     APIManager.signOut( );
-  }
+  }, []);
   
   async function fetchData() {
     if (toIgnoreRoutes.includes(pathname)) {
@@ -62,7 +63,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
   }, [pathname]);
 
   return (
-    <SessionContext.Provider value={{ session, status, update }}>
+    <SessionContext.Provider value={{ session, status, update, setUnauthenticated }}>
       {children}
     </SessionContext.Provider>
   );

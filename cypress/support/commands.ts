@@ -34,7 +34,7 @@
 //       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
 //     }
 //   }
-// }
+// };
 
 // Prevent TypeScript from reading file as legacy script
 export {}

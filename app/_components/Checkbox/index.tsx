@@ -6,10 +6,10 @@ import { CheckboxRoot } from "./CheckboxRoot";
 import { Icon } from "@components/Icon";
 import React, { forwardRef } from "react";
 
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type CheckboxProps = {
   disabled?: boolean;
   default?: boolean;
-}
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ disabled=false, defaultChecked=false, ...props }, ref) => {
   return (

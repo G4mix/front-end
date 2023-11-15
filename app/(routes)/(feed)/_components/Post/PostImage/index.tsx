@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import styles from "./PostImage.module.css";
 
-interface PostImageProps {
+type PostImageProps = {
   image: string | null;
-}
+};
 
 export const PostImage = ({ image }: PostImageProps) => {
   return (

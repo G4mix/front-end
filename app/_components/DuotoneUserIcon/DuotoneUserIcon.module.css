@@ -10,14 +10,14 @@
 
 .circleIcon {
   opacity: 1!important;
-  color: var(--white);
+  color: var(--white)!important;
   width: 21.6px;
   height: 21.6px;
 }
 
 .userCircleIcon {
   opacity: 1!important;
-  color: var(--jet);
+  color: var(--jet)!important;
   width: 24px;
   height: 24px;
   position: absolute;

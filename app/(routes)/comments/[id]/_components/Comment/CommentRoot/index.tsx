@@ -5,7 +5,7 @@ type CommentRootProps = {
   children: ReactNode;
   marked: boolean;
   isReply?: boolean;
-}
+};
 
 export const CommentRoot = ({ children, marked, isReply=false }: CommentRootProps) => {
   return (

@@ -7,7 +7,7 @@ import React from "react";
 
 type PostProps = {
   post: PostType;
-}
+};
 
 export const Post = ({ post }: PostProps) => {
   return (

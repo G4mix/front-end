@@ -4,7 +4,7 @@ import styles from "./CommentMain.module.css";
 
 type CommentMainProps = {
   children: ReactNode;
-}
+};
 
 export const CommentMain = ({ children }: CommentMainProps) => {
   return (

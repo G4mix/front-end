@@ -28,7 +28,11 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
               width={24}
               height={24}
             />
-            : <DuotoneUserIcon />
+          : 
+            <DuotoneUserIcon.Root>
+              <DuotoneUserIcon.Circle />
+              <DuotoneUserIcon.UserCircle />
+            </DuotoneUserIcon.Root>
         }
         <Heading size="sm" asChild>
           <h5>{author!.displayName || author!.user!.username}</h5>
