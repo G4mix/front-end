@@ -7,6 +7,7 @@ type InputInputProps = {
   name: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: React.InputHTMLAttributes<HTMLInputElement>["className"];
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const InputInput = ({

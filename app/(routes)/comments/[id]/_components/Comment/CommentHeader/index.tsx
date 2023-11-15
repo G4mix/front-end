@@ -27,7 +27,7 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
                 width={16}
                 height={16}
               />
-            :
+              :
               <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
                 <DuotoneUserIcon.Circle className={styles.circleIcon} />
                 <DuotoneUserIcon.UserCircle className={styles.userCircleIcon} />

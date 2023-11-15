@@ -28,7 +28,7 @@ export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToRe
               width={24}
               height={24}
             />
-          :
+            :
             <DuotoneUserIcon.Root>
               <DuotoneUserIcon.Circle />
               <DuotoneUserIcon.UserCircle />

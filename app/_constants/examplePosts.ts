@@ -40,5 +40,5 @@ export const examplePosts = (): PostType[] => {
       updatedAt: undefined,
       content: lorem
     }
-  ]
+  ];
 };

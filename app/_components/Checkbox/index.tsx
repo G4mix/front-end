@@ -8,7 +8,7 @@ import React, { forwardRef } from "react";
 
 type CheckboxProps = {
   disabled?: boolean;
-  default?: boolean;
+  defaultChecked?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ disabled=false, defaultChecked=false, ...props }, ref) => {

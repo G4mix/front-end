@@ -4,7 +4,6 @@ import { NavbarUserProfileDropdown } from "@components/Navbar/NavbarUserProfileD
 import { NavbarUserProfileIcon } from "@components/Navbar/NavbarUserProfileIcon";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { useSession } from "@functions/useSession";
-import { Icon } from "@components/Icon";
 import styles from "./Navbar.module.css";
 import React from "react";
 
