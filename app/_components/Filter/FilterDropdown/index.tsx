@@ -7,14 +7,17 @@ import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 
 type FilterDropdownProps = {
-  handleFilterBy: (option: string) => void;
+  handleFilterBy?: (option: string) => void;
+  disabled?: boolean;
   children: ReactNode;
-  filterBy: string;
+  filterBy?: string;
   options: { [option: string]: string };
 };
 
-export const FilterDropdown = ({ children, options, filterBy, handleFilterBy }: FilterDropdownProps) => {
+export const FilterDropdown = ({ children, options, filterBy, handleFilterBy, disabled=false }: FilterDropdownProps) => {
+  if (!filterBy) filterBy = Object.keys(options)[0];
   useEffect(() => {
+    if (!handleFilterBy) return;
     handleFilterBy(Object.keys(options)[0]);
   }, []);
 
@@ -26,10 +29,18 @@ export const FilterDropdown = ({ children, options, filterBy, handleFilterBy }: 
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={5} side="bottom" align="end">
-          <DropdownMenu.RadioGroup className={styles.dropdownFilters} value={filterBy} onValueChange={(value: string) => handleFilterBy(value)}>
+          <DropdownMenu.RadioGroup
+            className={styles.dropdownFilters}
+            value={filterBy}
+            onValueChange={disabled ? undefined : handleFilterBy}
+          >
             {
               Object.keys(options).map((option: string) => (
-                <DropdownMenu.RadioItem value={option} key={`option:${option}`} className={styles.dropdownItem} onSelect={e => e.preventDefault()}>
+                <DropdownMenu.RadioItem
+                  value={option} key={`option:${option}`}
+                  className={`${styles.dropdownItem} ${disabled ? styles.disabledOption : ""}`}
+                  onSelect={e => e.preventDefault()}
+                >
                   <Icon
                     icon="circle"
                     className={filterBy === option ? styles.dropdownSelectedCircleIcon : styles.dropdownCircleIcon}

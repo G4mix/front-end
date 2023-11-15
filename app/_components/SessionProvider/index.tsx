@@ -20,8 +20,8 @@ type SessionProviderProps = {
 export const SessionProvider = ({ children }: SessionProviderProps) => {
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
   const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
-  const toIgnoreRoutes = ["/auth/signin", "/auth/signup", "/auth/signout"];
-  const pathname = usePathname();  
+  const toIgnoreRoutes = ["/auth/signin", "/auth/signup"];
+  const pathname = usePathname();
 
   const update = useCallback((newData?: Partial<Session>) => {
     setSession((prevSession) => 
@@ -32,13 +32,12 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
   const setUnauthenticated = useCallback(() => {
     setSession(null);
     setStatus("unauthenticated");
-    APIManager.signOut( );
+    APIManager.signOut();
   }, []);
   
   async function fetchData() {
     if (toIgnoreRoutes.includes(pathname)) {
-      setSession(null);
-      setStatus("unauthenticated");
+      setUnauthenticated();
       return <>{children}</>;
     }
 

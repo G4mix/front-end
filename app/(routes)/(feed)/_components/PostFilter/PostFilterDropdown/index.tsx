@@ -3,19 +3,19 @@
 import { icons } from "@constants/icons";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
-import React, { type Dispatch, type ReactNode, type SetStateAction } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import postFilterStyles from "../PostFilter.module.css";
 import styles from "./PostFilterMenu.module.css";
+import React from "react";
 
 type FilterDropdownProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   options: { [option: string]: { name: string; icon: keyof typeof icons } };
-  filterBy: string;
-  setFilterBy: Dispatch<SetStateAction<string>>;
+  filterBy: "recent" | "highlights" | "following";
+  handleFilterBy: (option: "recent" | "highlights" | "following") => void;
 };
 
-export const PostFilterDropdown = ({ children, options, filterBy, setFilterBy}: FilterDropdownProps) => {
+export const PostFilterDropdown = ({ children, options, filterBy, handleFilterBy}: FilterDropdownProps) => {
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger className={postFilterStyles.postFilterTrigger}>
@@ -24,7 +24,7 @@ export const PostFilterDropdown = ({ children, options, filterBy, setFilterBy}: 
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={-1} side="bottom" align="center" className={styles.dropdownContent}>
-          <DropdownMenu.RadioGroup className={styles.dropdownFilters} value={filterBy} onValueChange={setFilterBy}>
+          <DropdownMenu.RadioGroup className={styles.dropdownFilters} value={filterBy} onValueChange={handleFilterBy as (option: string) => void}>
             {
               Object.keys(options)
                 .filter(option => option !== filterBy)
