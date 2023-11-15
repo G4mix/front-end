@@ -1,4 +1,3 @@
-import { exampleComments } from "@constants/exampleComments";
 import { FilterComments } from "./_components/FilterComments";
 import { Comments } from "./_components/Comments";
 import { Heading } from "@components/Heading";
@@ -6,16 +5,7 @@ import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
 
-function findCommentsByPostId(id: number) {
-  console.log(id);
-  return exampleComments;
-}
-
-export default function CommentsPage({
-  params: { id },
-}: { params: { id: string } }) {
-  const comments = findCommentsByPostId(parseInt(id));
-
+export default function CommentsPage() {
   return (
     <main className={styles.main}>
       <div className={styles.commentsZone}>
@@ -28,7 +18,7 @@ export default function CommentsPage({
           </Heading>
           <FilterComments />
         </div>
-        <Comments comments={comments} />
+        <Comments />
       </div>
     </main>
   );

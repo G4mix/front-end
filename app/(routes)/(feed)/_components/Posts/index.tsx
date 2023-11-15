@@ -1,13 +1,10 @@
-import type { PostType } from "@classes/APIManager/types/Models.types";
+import { examplePosts } from "@constants/examplePosts";
 import { Post } from "../Post";
 import styles from "./Posts.module.css";
 import React from "react";
 
-type PostsProps = {
-  posts: PostType[];
-}
-
-export function Posts({ posts }: PostsProps) {
+export function Posts() {
+  const posts = examplePosts();
   return (
     <div className={styles.posts}>
       {

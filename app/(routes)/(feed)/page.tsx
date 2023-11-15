@@ -1,4 +1,3 @@
-import { examplePosts } from "@constants/examplePosts";
 import { PostFilter } from "./_components/PostFilter";
 import { Navbar } from "@components/Navbar";
 import styles from "./page.module.css";
@@ -34,9 +33,7 @@ export default function FeedPage() {
             }}
           /> */}
         </div>
-        <Posts
-          posts={examplePosts}
-        />
+        <Posts />
       </div>
       <Navbar /> 
     </main>
