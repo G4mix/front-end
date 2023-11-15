@@ -3,6 +3,7 @@ import { Icon } from "@components/Icon";
 import styles from "./Navbar.module.css";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
@@ -10,7 +11,7 @@ export const Navbar = () => {
       <div className={styles.navItems}>
         <Icon icon="house" className={styles.navbarIcon} />
         <Icon icon="search" className={styles.navbarIcon} disabled />
-        <div className={styles.centerContainer}>
+        <Link href="/create" aria-label="Página de criação de posts, projetos, etc..." className={styles.centerContainer}>
           <Image
             src={"/logo.svg"}
             width={50}
@@ -18,7 +19,7 @@ export const Navbar = () => {
             alt="Gamix logo image"
             className={styles.createCenter}
           />
-        </div>
+        </Link>
         <Icon icon="users" className={styles.navbarIcon} disabled />
         <NavbarUserProfile />
       </div>

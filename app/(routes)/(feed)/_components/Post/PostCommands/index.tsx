@@ -40,7 +40,7 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
         <Icon icon={isLiked ? "liked" : "like"} size="lg" className={styles.postCommandIcon} />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(post.likes || 0)}</Text>
       </div>
-      <Link href={`/comments/${post.id!}`} className={styles.postCommand}>
+      <Link href={`/posts/${post.id!}/comments`} className={styles.postCommand}>
         <Icon icon="comments" size="lg" className={styles.postCommandIcon} />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(post.comments || 0)}</Text> 
       </Link>

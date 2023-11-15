@@ -1,6 +1,5 @@
 "use client";
 
-import { exampleComments } from "@constants/exampleComments";
 import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { Answer, type AnswerMethods } from "../Answer";
 import { useCommentsContext } from "../CommentsProvider";
@@ -11,11 +10,14 @@ import { Text } from "@components/Text";
 import React, { useRef, useState, useCallback } from "react";
 import styles from "./Comments.module.css";
 
-export const Comments = () => {
+type CommentsProps = {
+  comments: CommentType[];
+};
+
+export const Comments = ({ comments }: CommentsProps) => {
   const [markedToReply, setMarkedToReply] = useState<CommentType | null>(null);
   const { filterBy } = useCommentsContext();
   const answerRef = useRef<AnswerMethods>(null);
-  const comments = exampleComments();
 
   const filterComments = useCallback(() => {
     if (filterBy === "recent") {
