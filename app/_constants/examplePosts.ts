@@ -3,7 +3,7 @@ import { PostType } from "@classes/APIManager/types/Models.types";
 
 export const examplePosts = (): PostType[] => {
   const lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it...";
-  const currentDate = new Date();
+  const currentDate = new Date(2023, 10, 14, 21, 45);
   const twoDaysAgo = new Date(currentDate);
   twoDaysAgo.setDate(currentDate.getDate() - 2);
   const oneDayAgo = new Date(currentDate);
