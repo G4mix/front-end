@@ -1,6 +1,7 @@
 import type { PostType } from "@classes/APIManager/types/Models.types";
 import { examplePosts } from "@constants/examplePosts";
 import { Post } from "../../(feed)/_components/Post";
+import styles from "./page.module.css";
 import React from "react";
 
 export const dynamicParams = false;
@@ -17,6 +18,8 @@ export default function SinglePostPage({ params }: { params: { id: string } }) {
   const post = examplePosts().find(post => post.id === parseInt(params.id));
 
   return (
-    <Post post={post!} />
+    <div className={styles.postZone}>
+      <Post post={post!} />
+    </div>
   );
 }

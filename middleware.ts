@@ -16,5 +16,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/auth/:path*", "/", "/posts/:path*/comments"]
+  matcher: [
+    "/auth/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/posts/((?!api|_next/static|_next/image|favicon.ico).*)/comments",
+    "/", "/:path"
+  ]
 }

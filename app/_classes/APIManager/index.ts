@@ -84,7 +84,8 @@ export class APIManager {
 
   public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
     const accessToken = CookieManager.get("accessToken");
-
+    if (!accessToken) return;
+    
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query: GenericQueryRequest<"findUserByToken"> = { query: "query { findUserByToken { username email icon } }" };

@@ -15,12 +15,12 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
   return(
     <div className={styles.postHeader}>
       <Link
-        href={`/${author!.user!.username}`}
+        href={`/users/${author!.user!.username}`}
         aria-label={`Perfil do usuário ${author!.displayName || author!.user!.username}`}
         className={styles.postUser}
       >
         {
-          author!.user!.icon ?
+          author!.user!.icon ? (
             <Image
               src={author!.user!.icon }
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
@@ -28,11 +28,12 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
               width={24}
               height={24}
             />
-            : 
+          ) : (
             <DuotoneUserIcon.Root>
               <DuotoneUserIcon.Circle />
               <DuotoneUserIcon.UserCircle />
             </DuotoneUserIcon.Root>
+          )
         }
         <Heading size="sm" asChild>
           <h5>{author!.displayName || author!.user!.username}</h5>
