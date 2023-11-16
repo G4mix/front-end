@@ -4,12 +4,13 @@
   width: 100%;
   min-height: 100vh;
   align-items: center;
+  padding: 20px 18px;
+  gap: 18px;
 }
 
 .closeCreate {
   width: 4.75rem;
   height: 0px;
-  margin-top: 18px;
   border: 0.25rem solid var(--carolina-blue);
   border-radius: 9999px;
   transform: matrix(1, 0, 0, 1, 0, 0);

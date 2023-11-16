@@ -17,7 +17,7 @@ export const InputInput = ({
     <input
       {...inputProps}
       type={type}
-      className={`${styles.input} ${className ? className : ""}`}
+      className={`${className || styles.input}`}
       autoComplete="off"
       placeholder={placeholder}
       name={name}

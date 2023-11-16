@@ -1,0 +1,63 @@
+.postBody {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+}
+
+.postCommandIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.postCommands {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 16px;
+  gap: 20px;
+
+  border-radius: 0px 0px 12px 12px;
+  border: 2px solid rgba(98, 108, 167, 0.35);
+  background: linear-gradient(180deg, rgba(98, 108, 167, 0.60) 0%, rgba(98, 108, 167, 0.40) 100%);
+}
+
+.postContent {
+  width: 100%;
+  height: 228px;
+  flex-shrink: 0;
+  border-radius: 12px 12px 0px 0px;
+  border: 2px solid rgba(51, 51, 51, 0.35);
+  border-bottom: none;
+  padding: 15px;
+  background: linear-gradient(180deg, rgba(51, 51, 51, 0.60) 0%, rgba(51, 51, 51, 0.40) 100%);
+  line-height: var(--font-xs);
+  font-size: var(--font-xs);
+}
+.postContent::placeholder {
+  font-size: var(--font-xs);
+  font-weight: 300;
+}
+
+@media (min-width: 640px) {
+  .postCommandIcon {
+    width: 30px;
+    height: 30px;
+  }
+  .postContent {
+    line-height: var(--font-sm);
+    font-size: var(--font-sm);
+  }
+  .postContent::placeholder {
+    font-size: var(--font-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .postContent {
+    line-height: var(--font-default);
+    font-size: var(--font-default);
+  }
+  .postContent::placeholder {
+    font-size: var(--font-default);
+  }
+}

@@ -4,7 +4,6 @@ import React, { type ChangeEvent } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";
 import { InputRoot } from "./InputRoot";
-
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 
@@ -22,15 +21,9 @@ type InputProps = {
 
 export const Input = (props: InputProps) => {
   const {
-    label,
-    icon,
-    type,
-    placeholder,
-    name,
-    value,
-    onChange,
-    onBlur,
-    onFocus,
+    label, icon, type,
+    placeholder, name, value,
+    onChange, onBlur, onFocus
   } = props;
 
   return (
