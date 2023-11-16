@@ -7,14 +7,14 @@ type CommentsContextValuesProps = {
   handleFilterBy: (option: "all" | "recent" | "relevant") => void;
 };
 
-const CommentsContext = createContext<CommentsContextValuesProps>({ filterBy: "all", handleFilterBy: () => null });
+const CommentsContext = createContext<CommentsContextValuesProps>({ filterBy: "recent", handleFilterBy: () => null });
 
 type CommentsProviderProps = {
   children: React.ReactNode;
 };
 
 export const CommentsProvider = ({ children }: CommentsProviderProps) => {
-  const [filterBy, setFilterBy] = useState<"all" | "recent" | "relevant">("all");
+  const [filterBy, setFilterBy] = useState<"all" | "recent" | "relevant">("recent");
 
   const handleFilterBy = useCallback((option: "all" | "recent" | "relevant") => {
     setFilterBy(option);

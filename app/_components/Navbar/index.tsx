@@ -5,11 +5,17 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Navbar = () => {
+type NavbarProps = {
+  position?: "bottom" | "top";
+};
+
+export const Navbar = ({ position="bottom" }: NavbarProps) => {
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${position === "top" ? styles.navTop : ""}`}>
       <div className={styles.navItems}>
-        <Icon icon="house" className={styles.navbarIcon} />
+        <Link href="/">
+          <Icon icon="house" className={styles.navbarIcon} />
+        </Link>
         <Icon icon="search" className={styles.navbarIcon} disabled />
         <Link href="/create" aria-label="Página de criação de posts, projetos, etc..." className={styles.centerContainer}>
           <Image
@@ -17,7 +23,7 @@ export const Navbar = () => {
             width={50}
             height={50}
             alt="Gamix logo image"
-            className={styles.createCenter}
+            className={`${styles.createCenter} ${position === "top" ? styles.createCenterTop : ""}`}
           />
         </Link>
         <Icon icon="users" className={styles.navbarIcon} disabled />

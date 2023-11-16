@@ -11,10 +11,11 @@ import React, { useRef, useState, useCallback } from "react";
 import styles from "./Comments.module.css";
 
 type CommentsProps = {
+  className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
   comments: CommentType[];
 };
 
-export const Comments = ({ comments }: CommentsProps) => {
+export const Comments = ({ comments, className="" }: CommentsProps) => {
   const [markedToReply, setMarkedToReply] = useState<CommentType | null>(null);
   const { filterBy } = useCommentsContext();
   const answerRef = useRef<AnswerMethods>(null);
@@ -56,10 +57,9 @@ export const Comments = ({ comments }: CommentsProps) => {
     setMarkedToReply(null);
   }, []);
 
-
   if (!comments || comments.length === 0) {
     return (
-      <div className={styles.withoutComments}>
+      <div className={`${styles.withoutComments} ${className}`}>
         <Text size="xs" weight="medium">Ninguém comentou ainda...</Text>
       </div>
     );
@@ -67,7 +67,7 @@ export const Comments = ({ comments }: CommentsProps) => {
 
   return (
     <>
-      <div className={styles.comments}>
+      <div className={`${styles.comments} ${className}`}>
         {
           filteredComments.map((comment: CommentType) =>
             <div className={styles.commentZone} key={`commentZone:comment:${comment.id}`}>

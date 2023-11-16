@@ -1,3 +1,4 @@
+import { CommentsProvider } from "./comments/_components/CommentsProvider";
 import type { Metadata } from "next";
 import React from "react";
 import "@styles/globals.css";
@@ -13,6 +14,6 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <>{children}</>
+    <CommentsProvider>{children}</CommentsProvider>
   );
 }

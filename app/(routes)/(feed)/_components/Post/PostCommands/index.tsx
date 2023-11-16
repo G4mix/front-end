@@ -2,6 +2,8 @@
 
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
 import { Toast, ToastHandlers } from "@components/Toast";
+import { useSession } from "@functions/useSession";
+import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -13,8 +15,15 @@ type PostCommandsProps = { post: PostType };
 
 export const PostCommands = ({ post }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const { status } = useSession();
+  const router = useRouter();
   const toastRef = useRef<ToastHandlers>(null);
   
+  const handleLikeClick = () => {
+    if (status === "unauthenticated") router.push("/auth/signin");
+    setIsLiked(!isLiked);
+  };
+
   const handleShareClick = useCallback(() => {
     const currentLocation = window.location.origin;
 
@@ -36,7 +45,7 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
 
   return (
     <div className={styles.postCommands}>
-      <div className={styles.postCommand} onClick={() => setIsLiked(!isLiked)}>
+      <div className={styles.postCommand} onClick={handleLikeClick}>
         <Icon icon={isLiked ? "liked" : "like"} size="lg" className={styles.postCommandIcon} />
         <Text size="xs" weight="regular">{formatNumberWithSuffix(post.likes || 0)}</Text>
       </div>

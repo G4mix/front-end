@@ -6,18 +6,19 @@ import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { useSession } from "@functions/useSession";
 import styles from "./Navbar.module.css";
 import React from "react";
+import Link from "next/link";
 
 export const NavbarUserProfile = () => {
   const { session, status } = useSession();
 
   if (status !== "authenticated") {
     return (
-      <NavbarUserProfileDropdown>
+      <Link href="/auth/signin">
         <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
           <DuotoneUserIcon.Circle className={styles.circle} />
           <DuotoneUserIcon.UserCircle className={styles.userCircle} />
         </DuotoneUserIcon.Root>
-      </NavbarUserProfileDropdown>
+      </Link>
     );
   }
 

@@ -19,6 +19,6 @@ export const config = {
   matcher: [
     "/auth/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/posts/((?!api|_next/static|_next/image|favicon.ico).*)/comments",
-    "/", "/:path"
+    "/", "/create"
   ]
 }

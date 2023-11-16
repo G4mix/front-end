@@ -2,6 +2,8 @@
 
 import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
+import { useSession } from "@functions/useSession";
+import { useRouter } from "next/navigation";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState } from "react";
@@ -13,8 +15,13 @@ type CommentCommandsProps = {
 
 export const CommentCommands = ({ likes, handleWantToRespond }: CommentCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const { status } = useSession();
+  const router = useRouter();
 
-  const handleLikeClick = () => setIsLiked(!isLiked);
+  const handleLikeClick = () => {
+    if (status === "unauthenticated") return router.push("/auth/signin");
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div className={styles.commands}>

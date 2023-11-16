@@ -2,6 +2,7 @@
 
 import { EmojiPicker } from "@components/EmojiPicker";
 import { useSession } from "@functions/useSession";
+import { useRouter } from "next/navigation";
 import { TextArea } from "@components/TextArea";
 import { Icon } from "@components/Icon";
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
@@ -13,9 +14,10 @@ export type AnswerMethods = {
 };
 
 const Answer = forwardRef<AnswerMethods>((_props, ref) => {
-  const { session } = useSession();
+  const { session, status } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
+  const router = useRouter();
+  
   const handleAnswerFocus = useCallback(() => {
     textAreaRef.current?.focus();
   }, []);
@@ -43,14 +45,18 @@ const Answer = forwardRef<AnswerMethods>((_props, ref) => {
   const handlePostComment = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     if (!textAreaRef.current) {
-      console.log("Você precisa digitar algo.");
       return;
     }
+
+    if (status === "unauthenticated") {
+      return router.push("/auth/signin");
+    }
+
     console.log(`O usuário: "${session!.username}", postou o comentário:\n${textAreaRef.current.value}`);
     textAreaRef.current.value = "";
     textAreaRef.current.style.height = "auto";
     textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-  }, [session]);
+  }, [session, status]);
 
   useEffect(() => {
     if (textAreaRef.current) {
