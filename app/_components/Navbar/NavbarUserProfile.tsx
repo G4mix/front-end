@@ -13,7 +13,7 @@ export const NavbarUserProfile = () => {
 
   if (status !== "authenticated") {
     return (
-      <Link href="/auth/signin">
+      <Link href="/auth/signin" aria-label="Conecte-se ao Gamix!">
         <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
           <DuotoneUserIcon.Circle className={styles.circle} />
           <DuotoneUserIcon.UserCircle className={styles.userCircle} />
