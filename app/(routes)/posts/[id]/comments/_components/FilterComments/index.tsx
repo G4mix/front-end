@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useCommentsContext } from "../CommentsProvider";
+import { useCommentsContext } from "../../../../../../_contexts/CommentsContext";
 import { Filter } from "@components/Filter";
 
 export const FilterComments = () => {

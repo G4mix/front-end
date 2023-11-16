@@ -2,7 +2,7 @@
 
 import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
-import { useSession } from "@functions/useSession";
+import { useSession } from "@contexts/SessionContext";
 import { useRouter } from "next/navigation";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";

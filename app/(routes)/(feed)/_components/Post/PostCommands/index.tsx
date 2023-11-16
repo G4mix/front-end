@@ -2,7 +2,7 @@
 
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
 import { Toast, ToastHandlers } from "@components/Toast";
-import { useSession } from "@functions/useSession";
+import { useSession } from "@contexts/SessionContext";
 import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";

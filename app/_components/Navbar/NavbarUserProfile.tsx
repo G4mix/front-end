@@ -3,7 +3,7 @@
 import { NavbarUserProfileDropdown } from "@components/Navbar/NavbarUserProfileDropdown";
 import { NavbarUserProfileIcon } from "@components/Navbar/NavbarUserProfileIcon";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
-import { useSession } from "@functions/useSession";
+import { useSession } from "@contexts/SessionContext";
 import styles from "./Navbar.module.css";
 import React from "react";
 import Link from "next/link";

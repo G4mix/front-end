@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@functions/useSession";
+import { useSession } from "@contexts/SessionContext";
 import { useRouter } from "next/navigation";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";

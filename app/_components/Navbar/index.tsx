@@ -17,7 +17,7 @@ export const Navbar = ({ position="bottom" }: NavbarProps) => {
           <Icon icon="house" className={styles.navbarIcon} />
         </Link>
         <Icon icon="search" className={styles.navbarIcon} disabled />
-        <Link href="/create" aria-label="Página de criação de posts, projetos, etc..." className={styles.centerContainer}>
+        <Link href="/posts/create" aria-label="Página de criação de posts, projetos, etc..." className={styles.centerContainer}>
           <Image
             src={"/logo.svg"}
             width={50}

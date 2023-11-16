@@ -2,7 +2,7 @@
 
 import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { Answer, type AnswerMethods } from "../Answer";
-import { useCommentsContext } from "../CommentsProvider";
+import { useCommentsContext } from "../../../../../../_contexts/CommentsContext";
 import { MarkedToReply } from "../MarkedToReply";
 import { Comment } from "../Comment";
 import { Replies } from "../Replies";

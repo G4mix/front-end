@@ -3,7 +3,7 @@ import { CreatePost } from "./_components/CreatePost";
 import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
-import { CreatePostProvider } from "./_components/CreatePostProvider";
+import { CreatePostProvider } from "../../../_contexts/CreatePostContext";
 
 export default function CreatePage() {
   return (

@@ -67,3 +67,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     </SessionContext.Provider>
   );
 };
+
+export const useSession = () => {
+  return React.useContext(SessionContext);
+};

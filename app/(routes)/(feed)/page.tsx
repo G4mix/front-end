@@ -1,4 +1,4 @@
-import { PostsProvider } from "./_components/PostsProvider";
+import { PostsProvider } from "../../_contexts/PostsContext";
 import { PostFilter } from "./_components/PostFilter";
 import { Navbar } from "@components/Navbar";
 import { Filter } from "@components/Filter";

@@ -1,7 +1,7 @@
 "use client";
 
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
-import { Session } from "@components/SessionProvider/Session.types";
+import { Session } from "@/app/_contexts/SessionContext/Session.types";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
 import React from "react";
