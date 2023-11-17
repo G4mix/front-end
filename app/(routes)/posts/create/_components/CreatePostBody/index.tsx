@@ -2,6 +2,7 @@ import { SelectImageCommand } from "./SelectImageCommand";
 import { AddLinkCommand } from "./AddLinkCommand";
 import { ContentImages } from "./ContentImages";
 import { ContentLinks } from "./ContentLinks";
+import { DropImages } from "./DropImages";
 import { TextArea } from "@components/TextArea";
 import { AddLink } from "./AddLink";
 import { Icon } from "@components/Icon";
@@ -9,7 +10,6 @@ import styles from "./CreatePostBody.module.css";
 import React from "react";
 
 export const CreatePostBody = () => {
-
   return (
     <div className={styles.postBody}>
       <div className={styles.postContent}>
@@ -18,6 +18,7 @@ export const CreatePostBody = () => {
           name="post_content" placeholder="Conteúdo da postagem"
           maxLength={700} autoResize
         />
+        <DropImages />
         <ContentImages />
         <ContentLinks />
         <AddLink />

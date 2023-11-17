@@ -1,0 +1,21 @@
+.dropImages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-radius: 8px;
+  border: 2px solid rgba(51, 51, 51, 0.35);
+  background-color: var(--jet);
+  background: linear-gradient(180deg, var(--jet) 0%, rgba(28, 32, 52, 0.60) 100%);
+  opacity: 0.3;
+  width: 100%;
+  height: auto;
+  flex-grow: 1;
+}
+
+.dropImageIcon {
+  width: 30%;
+  height: 30%;
+}

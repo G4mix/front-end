@@ -10,26 +10,25 @@ type TextAreaProps = {
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
-  autoResize, maxSize, className, children, ...props
+  autoResize, maxSize, className, children, rows, ...props
 }, ref) => {
-  const handleOnChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.preventDefault();
-    if (ref && "current" in ref && ref.current) {
-      if (autoResize) {
+  const handleOnChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (ref && "current" in ref && ref.current) {
         ref.current.style.height = "auto";
         ref.current.style.height = `${ref.current.scrollHeight}px`;
+      } else if (e) {
+        e.currentTarget.style.height = "auto";
+        e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
       }
-  
-      const limitedValue = e.target.value.slice(0, maxSize);
-      ref.current.value = limitedValue;
-    }
-  }, [autoResize, maxSize, ref]);
+    },
+    [ref]
+  );
 
   return (
     <textarea
       className={`${styles.area} ${className ? className : ""}`}
-      onChange={handleOnChange} ref={ref}
-      
+      onChange={handleOnChange} ref={ref} rows={rows || 1}
       {...props}
     >
       {children}

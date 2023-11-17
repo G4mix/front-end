@@ -40,10 +40,9 @@
 
 .postContentArea {
   width: 100%;
-  height: auto;
+  min-height: var(--font-xs);
   line-height: var(--font-xs);
   font-size: var(--font-xs);
-  flex: 1;
   resize: none;
 }
 .postContentArea::placeholder {

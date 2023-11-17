@@ -41,6 +41,7 @@ export const CheckIcon: Story = buildIconStory("check");
 export const CircleIcon: Story = buildIconStory("circle");
 export const CirclePlusIcon: Story = buildIconStory("circle-plus");
 export const ClockIcon: Story = buildIconStory("clock");
+export const CloudArrowUpIcon: Story = buildIconStory("cloud-arrow-up");
 export const CodeIcon: Story = buildIconStory("code");
 export const CommentIcon: Story = buildIconStory("comments");
 export const DownIcon: Story = buildIconStory("down");

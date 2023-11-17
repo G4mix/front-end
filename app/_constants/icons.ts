@@ -3,7 +3,8 @@ import {
   faHouse, faMagnifyingGlass, faEnvelope, faX, faFaceFrown,
   faShareNodes, faThumbsUp, faChartSimple, faUserCircle, faBoltLightning,
   faMinus, faEllipsisH, faRightFromBracket, faCircle, faChevronDown,
-  faUserGroup, faPaperPlane, faCode, faPenToSquare, faLink, faCirclePlus
+  faUserGroup, faPaperPlane, faCode, faPenToSquare, faLink, faCirclePlus,
+  faCloudArrowUp
 } from "@fortawesome/free-solid-svg-icons";
 
 import { 
@@ -16,6 +17,7 @@ import { faGoogle, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-ico
 export const icons = {
   "paper-plane": faPaperPlane,
   "pen-to-square": faPenToSquare,
+  "cloud-arrow-up": faCloudArrowUp,
   "smile": faFaceSmile,
   "link": faLink,
   "google": faGoogle,
