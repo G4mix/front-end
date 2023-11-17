@@ -6,14 +6,15 @@ import styles from "./TextArea.module.css";
 type TextAreaProps = {
   autoResize?: boolean;
   className?: string;
-  maxSize?: number;
+  rows?: number;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
-  autoResize, maxSize, className, children, rows, ...props
+  autoResize=false, className, children, rows=1, ...props
 }, ref) => {
   const handleOnChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (!autoResize) return;
       if (ref && "current" in ref && ref.current) {
         ref.current.style.height = "auto";
         ref.current.style.height = `${ref.current.scrollHeight}px`;
@@ -28,7 +29,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({
   return (
     <textarea
       className={`${styles.area} ${className ? className : ""}`}
-      onChange={handleOnChange} ref={ref} rows={rows || 1}
+      onChange={handleOnChange} ref={ref} rows={rows}
       {...props}
     >
       {children}
