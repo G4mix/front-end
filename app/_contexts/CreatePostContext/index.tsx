@@ -2,8 +2,12 @@
 
 import type { icons } from "@constants/icons";
 import { Toast, type ToastHandlers } from "@components/Toast";
+import { CreatePostPosting } from "../../(routes)/posts/create/_components/CreatePostPosting";
+import { APIManager } from "@classes/APIManager";
+import { apiErrors } from "@constants/apiErrors";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";
 import styles from "./CreatePostContext.module.css";
+import { useRouter } from "next/navigation";
 
 type CreatePostContextValuesProps = {
   tags: string[];
@@ -40,6 +44,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
   const [tags, setTags] = useState<string[]>([]);
   const toastRef = useRef<ToastHandlers>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   const handleSelectImage = useCallback((image: File) => {
     setImages((prevImages) => {
@@ -92,21 +97,28 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
     toastRef.current?.showMessage(message, icon);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (tryingToPost) return;
-    setTryingToPost(true);
-
     const formData = new FormData(formRef.current || e.currentTarget);
-    const post = {
-      title: formData.get("post_title")?.valueOf() as string,
-      content: formData.get("post_content")?.valueOf() as string,
-      images,
-      links,
-      tags
+    setTryingToPost(true);
+    
+    const title = formData.get("post_title")?.valueOf() as string;
+    const content = formData.get("post_content")?.valueOf() as string;
+    const post: CreatePostInput = {
+      title, content,
+      images: images.map(img => img.image),
+      links, tags
     };
 
-    console.log(post);
+    const postData = await APIManager.createPost(post);
+
+    if(!postData) handleShowMessage("Falha ao criar o post...");
+    if (apiErrors[postData!.error as keyof typeof apiErrors]) {
+      handleShowMessage(apiErrors[postData!.error as keyof typeof apiErrors]);
+    }
+
+    router.push("/");
   };
 
   return (
@@ -118,10 +130,15 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
         openAddLink, handleToggleAddLink, handleShowMessage
       }}
     >
+      <CreatePostPosting tryingToPost={tryingToPost} />
       <Toast ref={toastRef} />
-      <form onSubmit={handleSubmit} ref={formRef} className={styles.form}>
-        {children}
-      </form>
+      {
+        !tryingToPost && (
+          <form onSubmit={handleSubmit} ref={formRef} className={styles.form}>
+            {children}
+          </form>
+        )
+      }
     </CreatePostContext.Provider>
   );
 };

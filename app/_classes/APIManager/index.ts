@@ -1,5 +1,5 @@
 import type { RequestBody, SignUpBody, SignInBody } from "./types/RequestBody.types";
-import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
+import type { GenericMutationRequest, GenericQueryRequest } from "./types/GraphQLRequest.types";
 import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
@@ -97,5 +97,31 @@ export class APIManager {
     const userData = data["data"]["findUserByToken"];
 
     return userData;
+  }
+
+  public static async createPost(
+    post: CreatePostInput
+    ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
+    const accessToken = CookieManager.get("accessToken");
+    if (!accessToken) return;
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+
+    const query: GenericMutationRequest<"createPost"> = {
+      query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
+      variables: {
+        input: {
+          title: post.title,
+          content: post.content
+        }
+      }
+    };
+    const response = await APIManager.request("/graphql", query, headers);
+    
+    const data: GenericQueryResponse<"createPost"> = await response.json();
+    if (response.status >= 400) return;
+
+    const postData = data["data"]["createPost"];
+    return postData;
   }
 }

@@ -7,14 +7,14 @@ import { CreatePostProvider } from "../../../_contexts/CreatePostContext";
 
 export default function CreatePage() {
   return (
-    <main className={styles.main}>
-      <Link href="/" aria-label="Voltar para o feed">
-        <div className={styles.closeCreate}></div>
-      </Link>
-      <CreatePostProvider>
-        <CreateHeader />
-        <CreatePost />
-      </CreatePostProvider>
-    </main>
+    <CreatePostProvider>
+      <main className={styles.main}>
+        <Link href="/" aria-label="Voltar para o feed">
+          <div className={styles.closeCreate}></div>
+        </Link>
+          <CreateHeader />
+          <CreatePost />
+      </main>
+    </CreatePostProvider>
   );
 }

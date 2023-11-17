@@ -1,4 +1,4 @@
-import { UserType } from "./Models.types";
+import { PostType, UserType } from "./Models.types";
 
 export type GenericGraphQLResponse<T> = {
   data: T;
@@ -9,6 +9,7 @@ export type QueryResponseTypes = {
   findUserByUsername: Partial<UserType>;
   findUserByEmail: Partial<UserType>;
   findUserByToken: Partial<UserType>;
+  createPost: Partial<PostType>;
 };
 
 export type MutationResponseTypes = {
