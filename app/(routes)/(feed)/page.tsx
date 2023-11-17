@@ -9,7 +9,6 @@ import React from "react";
 export default function FeedPage() {
   return (
     <PostsProvider>
-
       <main className={styles.main}>
         <div className={styles.postZone}>
           <div className={styles.header}>
@@ -19,13 +18,9 @@ export default function FeedPage() {
                   name: "Recentes",
                   icon: "clock"
                 },
-                highlights: {
-                  name: "Destaques",
-                  icon: "bolt-lightning"
-                },
-                following: {
-                  name: "Seguindo",
-                  icon: "user-group"
+                discover: {
+                  name: "Descubra",
+                  icon: "search"
                 }
               }}
             />

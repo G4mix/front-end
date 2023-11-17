@@ -3,8 +3,8 @@
 import React, { createContext, useState, useContext, useCallback } from "react";
 
 type PostsContextValuesProps = {
-  filterBy: "recent" | "highlights" | "following";
-  handleFilterBy: (option: "recent" | "highlights" | "following") => void;
+  filterBy: "recent" | "discover";
+  handleFilterBy: (option: "recent" | "discover") => void;
 };
 
 const PostsContext = createContext<PostsContextValuesProps>({ filterBy: "recent", handleFilterBy: () => null });
@@ -14,9 +14,9 @@ type PostsProviderProps = {
 };
 
 export const PostsProvider = ({ children }: PostsProviderProps) => {
-  const [filterBy, setFilterBy] = useState<"recent" | "highlights" | "following">("recent");
+  const [filterBy, setFilterBy] = useState<"recent" | "discover">("recent");
 
-  const handleFilterBy = useCallback((option: "recent" | "highlights" | "following") => {
+  const handleFilterBy = useCallback((option: "recent" | "discover") => {
     setFilterBy(option);
   }, []);
 
