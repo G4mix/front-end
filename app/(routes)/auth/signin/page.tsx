@@ -15,6 +15,7 @@ export default function SignInPage() {
           src={"/logo.svg"}
           width={150}
           height={150}
+          priority
           alt="Gamix logo image"
         />
 

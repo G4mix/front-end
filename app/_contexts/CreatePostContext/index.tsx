@@ -1,6 +1,8 @@
 "use client";
 
-import React, { createContext, useState, useContext, useCallback } from "react";
+import type { icons } from "@constants/icons";
+import { Toast, type ToastHandlers } from "@components/Toast";
+import React, { createContext, useState, useContext, useCallback, useRef } from "react";
 
 type CreatePostContextValuesProps = {
   tags: string[];
@@ -14,6 +16,7 @@ type CreatePostContextValuesProps = {
   handleAddLink: (url: string) => void;
   handleRemoveLink: (url: string) => void;
   handleToggleAddLink: () => void;
+  handleShowMessage: (message: string, icon?: keyof typeof icons) => void;
 };
 
 const CreatePostContext = createContext<CreatePostContextValuesProps>({
@@ -21,7 +24,7 @@ const CreatePostContext = createContext<CreatePostContextValuesProps>({
   handleSelectTag: () => null, handleUnselectTag: () => null,
   handleSelectImage: () => null, handleUnselectImage: () => null,
   handleAddLink: () => null, handleRemoveLink: () => null,
-  handleToggleAddLink: () => null
+  handleToggleAddLink: () => null, handleShowMessage: () => null
 });
 
 type CreatePostProviderProps = {
@@ -33,6 +36,8 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
   const [links, setLinks] = useState<string[]>([]);
   const [openAddLink, setOpenAddLink] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
+  const toastRef = useRef<ToastHandlers>(null);
+
   const handleSelectImage = useCallback((image: File) => {
     setImages((prevImages) => {
       const isImagePresent = prevImages.some((prevImage) => prevImage.image.name === image.name);
@@ -80,6 +85,10 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
     setLinks((prevLinks) => prevLinks.filter((prevLink: string) => prevLink !== url));
   }, []);
 
+  const handleShowMessage = useCallback((message: string, icon?: keyof typeof icons) => {
+    toastRef.current?.showMessage(message, icon);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -90,9 +99,10 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
         tags, handleSelectTag, handleUnselectTag,
         images, handleSelectImage, handleUnselectImage,
         links, handleAddLink, handleRemoveLink,
-        openAddLink, handleToggleAddLink
+        openAddLink, handleToggleAddLink, handleShowMessage
       }}
     >
+      <Toast ref={toastRef} />
       <form onSubmit={handleSubmit}>
         {children}
       </form>
