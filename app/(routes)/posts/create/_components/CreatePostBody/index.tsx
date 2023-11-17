@@ -8,7 +8,11 @@ export const CreatePostBody = () => {
   return (
     <div className={styles.postBody}>
       <div className={styles.postContent}>
-        <TextArea rows={1} className={styles.postContentArea} name="post_content" placeholder="Conteúdo da postagem" maxLength={700} />
+        <TextArea
+          rows={1} className={styles.postContentArea}
+          name="post_content" placeholder="Conteúdo da postagem"
+          maxLength={700} autoResize
+        />
         <Image
           src="https://sm.ign.com/t/ign_br/screenshot/default/tga-2021_gxpb.960.jpg"
           alt="Imagem do tga" width={294} height={156} className={styles.postContentImage}
