@@ -40,6 +40,7 @@
 
 .postContentArea {
   width: 100%;
+  flex-grow: 1;
   min-height: var(--font-xs);
   line-height: var(--font-xs);
   font-size: var(--font-xs);

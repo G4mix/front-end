@@ -2,7 +2,7 @@ import { SelectImageCommand } from "./SelectImageCommand";
 import { AddLinkCommand } from "./AddLinkCommand";
 import { ContentImages } from "./ContentImages";
 import { ContentLinks } from "./ContentLinks";
-import { DropImages } from "./DropImages";
+import { DropImages } from "./ImagesFeedback";
 import { TextArea } from "@components/TextArea";
 import { AddLink } from "./AddLink";
 import { Icon } from "@components/Icon";
