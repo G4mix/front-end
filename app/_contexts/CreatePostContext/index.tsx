@@ -32,11 +32,13 @@ type CreatePostProviderProps = {
 };
 
 export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
+  const [tryingToPost, setTryingToPost] = useState(false);
+  const [openAddLink, setOpenAddLink] = useState(false);
   const [images, setImages] = useState<{ link: string; image: File }[]>([]);
   const [links, setLinks] = useState<string[]>([]);
-  const [openAddLink, setOpenAddLink] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
   const toastRef = useRef<ToastHandlers>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSelectImage = useCallback((image: File) => {
     setImages((prevImages) => {
@@ -91,6 +93,19 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (tryingToPost) return;
+    setTryingToPost(true);
+
+    const formData = new FormData(formRef.current || e.currentTarget);
+    const post = {
+      title: formData.get("post_title")?.valueOf() as string,
+      content: formData.get("post_content")?.valueOf() as string,
+      images,
+      links,
+      tags
+    };
+
+    console.log(post);
   };
 
   return (
@@ -103,7 +118,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
       }}
     >
       <Toast ref={toastRef} />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         {children}
       </form>
     </CreatePostContext.Provider>
