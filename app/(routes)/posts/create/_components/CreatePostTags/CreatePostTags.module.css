@@ -30,7 +30,7 @@
 .tagInput {
   background-color: transparent;
   color: var(--white);
-  width: auto;
+  width: 0;
   flex-grow: 1;
   height: var(--font-xs);
   font-size: var(--font-xs);

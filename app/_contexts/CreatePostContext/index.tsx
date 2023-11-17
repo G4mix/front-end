@@ -3,6 +3,7 @@
 import type { icons } from "@constants/icons";
 import { Toast, type ToastHandlers } from "@components/Toast";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";
+import styles from "./CreatePostContext.module.css";
 
 type CreatePostContextValuesProps = {
   tags: string[];
@@ -118,7 +119,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
       }}
     >
       <Toast ref={toastRef} />
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form onSubmit={handleSubmit} ref={formRef} className={styles.form}>
         {children}
       </form>
     </CreatePostContext.Provider>
