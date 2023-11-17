@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: auto;
+  min-height: 228px;
   flex-shrink: 0;
   border-radius: 12px 12px 0px 0px;
   border: 2px solid rgba(51, 51, 51, 0.35);
@@ -40,7 +40,7 @@
 
 .postContentArea {
   width: 100%;
-  min-height: 12px;
+  height: auto;
   line-height: var(--font-xs);
   font-size: var(--font-xs);
   flex: 1;
@@ -49,12 +49,6 @@
 .postContentArea::placeholder {
   font-size: var(--font-xs);
   font-weight: 300;
-}
-
-.postContentImage {
-  width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
 }
 
 @media (min-width: 640px) {

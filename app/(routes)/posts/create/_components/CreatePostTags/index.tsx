@@ -12,6 +12,7 @@ export const CreatePostTags = () => {
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && e.currentTarget.value !== "") {
+      e.preventDefault();
       handleSelectTag(e.currentTarget.value);
       e.currentTarget.value = "";
     }

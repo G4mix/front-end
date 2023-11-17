@@ -1,10 +1,15 @@
+import { SelectImageCommand } from "./SelectImageCommand";
+import { AddLinkCommand } from "./AddLinkCommand";
+import { ContentImages } from "./ContentImages";
+import { ContentLinks } from "./ContentLinks";
 import { TextArea } from "@components/TextArea";
+import { AddLink } from "./AddLink";
 import { Icon } from "@components/Icon";
 import styles from "./CreatePostBody.module.css";
-import Image from "next/image";
 import React from "react";
 
 export const CreatePostBody = () => {
+
   return (
     <div className={styles.postBody}>
       <div className={styles.postContent}>
@@ -13,16 +18,15 @@ export const CreatePostBody = () => {
           name="post_content" placeholder="Conteúdo da postagem"
           maxLength={700} autoResize
         />
-        <Image
-          src="https://sm.ign.com/t/ign_br/screenshot/default/tga-2021_gxpb.960.jpg"
-          alt="Imagem do tga" width={294} height={156} className={styles.postContentImage}
-        />
+        <ContentImages />
+        <ContentLinks />
+        <AddLink />
       </div>
       <div className={styles.postCommands}>
-        <Icon icon="image" className={styles.postCommandIcon} />
+        <SelectImageCommand />
         <Icon icon="pen-to-square" className={styles.postCommandIcon} disabled />
         <Icon icon="chart" className={styles.postCommandIcon} disabled />
-        <Icon icon="link" className={styles.postCommandIcon} />
+        <AddLinkCommand />
         <Icon icon="code" className={styles.postCommandIcon} disabled />
       </div>
     </div>
