@@ -37,6 +37,23 @@ export const Posts = () => {
     if (initialLoadComplete && !allPostsLoaded) getPosts();
   }, [page, allPostsLoaded, initialLoadComplete]);
 
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:8080/ws");
+    
+    socket.addEventListener("open", () => {
+      console.log("Conectado ao servidor WebSocket");
+    });
+    
+    socket.addEventListener("message", (event) => {
+      const data = JSON.parse(event.data);
+      console.log("Nova mensagem do servidor:", data);
+    });
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   return (
     <div onScroll={handleScroll} className={styles.posts}>
       {
