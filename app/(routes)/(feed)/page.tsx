@@ -1,12 +1,14 @@
+import type { PostType } from "@classes/APIManager/types/Models.types";
 import { PostsProvider } from "../../_contexts/PostsContext";
 import { PostFilter } from "./_components/PostFilter";
+import { APIManager } from "@classes/APIManager";
 import { Navbar } from "@components/Navbar";
 import { Filter } from "@components/Filter";
 import { Posts } from "./_components/Posts";
 import styles from "./page.module.css";
 import React from "react";
 
-export default function FeedPage() {
+export default async function FeedPage() {
   return (
     <PostsProvider>
       <main className={styles.main}>

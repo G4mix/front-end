@@ -1,5 +1,5 @@
 export type QueryType = "findAllUsers" | "findUserByUsername" | "findUserByEmail" | "findUserByToken";
-export type MutationType = "updateUser" | "deleteAccount" | "createPost";
+export type MutationType = "updateUser" | "deleteAccount" | "createPost" | "findAllPosts";
 
 type UserFields = 
   "id"
@@ -29,4 +29,4 @@ export type GenericQueryRequest<Query extends QueryType> =
   { query: `query { ${Query} { ${Fields} } }` };
 
 export type GenericMutationRequest<Mutation extends MutationType, Variables = {}> = 
-  { query: `mutation ${Mutation}${string | undefined} { ${Mutation}${string | undefined} { ${string} }}`, variables?: Variables };
+  { query: `${"mutation" | "query"} ${Mutation}${string | undefined} { ${Mutation}${string | undefined} { ${string} }}`, variables?: Variables };

@@ -12,10 +12,10 @@ type PostProps = {
 export const Post = ({ post }: PostProps) => {
   return (
     <PostRoot>
-      <PostHeader createdAt={post.createdAt!} updatedAt={post.updatedAt!} author={post.author} />
+      <PostHeader createdAt={post.createdAt} updatedAt={post.updatedAt} author={post.author} />
       {/* { post!.images && (<PostImage image={post!.images} />) }
       { post!.videos && (<PostVideo src={post!.images ?? ""} />) } */}
-      <PostMain title={post.title!} content={post.content!} />
+      <PostMain title={post.title} content={post.content} />
       <PostCommands post={post} />
     </PostRoot>
   );

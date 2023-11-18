@@ -29,8 +29,8 @@ export type PostType = {
   likes?: number;
   comments?: number;
   categories?: CategoryType[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type CategoryType = {
@@ -45,7 +45,7 @@ export type CommentType = {
   author?: UserProfileType;
   replies?: CommentType[];
   likes?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
   content?: string;
 };

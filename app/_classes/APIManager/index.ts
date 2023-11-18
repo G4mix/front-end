@@ -124,4 +124,27 @@ export class APIManager {
     const postData = data["data"]["createPost"];
     return postData;
   }
+
+  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
+    const accessToken = CookieManager.get("accessToken");
+    if (!accessToken) return;
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+
+    const query: GenericMutationRequest<"findAllPosts"> = {
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt }}",
+      variables: {
+        skip,
+        limit: 10
+      }
+    };
+    const response = await APIManager.request("/graphql", query, headers);
+    
+    const data: GenericQueryResponse<"findAllPosts"> = await response.json();
+    if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
+    
+    console.log(data);
+    const allPostsData = data["data"]["findAllPosts"];
+    return allPostsData;
+  }
 }

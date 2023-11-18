@@ -38,7 +38,7 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
         <Heading size="sm" asChild>
           <h5>{author!.displayName || author!.user!.username}</h5>
         </Heading>
-        <Text size="xs" weight="thin">· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>
+        <Text size="xs" weight="thin">· {updatedAt ? `Atualizado ${formatDate(new Date(updatedAt!))}` : formatDate(new Date(createdAt!))}</Text>
       </Link>
       <Icon icon="ellipsis-h" width={16} height={16} disabled />
     </div>
