@@ -1,7 +1,5 @@
-import type { PostType } from "@classes/APIManager/types/Models.types";
 import { PostsProvider } from "../../_contexts/PostsContext";
 import { PostFilter } from "./_components/PostFilter";
-import { APIManager } from "@classes/APIManager";
 import { Navbar } from "@components/Navbar";
 import { Filter } from "@components/Filter";
 import { Posts } from "./_components/Posts";

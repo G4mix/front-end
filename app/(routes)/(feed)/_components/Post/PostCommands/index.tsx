@@ -16,12 +16,13 @@ type PostCommandsProps = { post: PostType };
 export const PostCommands = ({ post }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const { status } = useSession();
-  const router = useRouter();
   const toastRef = useRef<ToastHandlers>(null);
+  const router = useRouter();
   
   const handleLikeClick = () => {
     if (status === "unauthenticated") router.push("/auth/signin");
-    setIsLiked(!isLiked);
+    !isLiked ? post.likesCount!++ : post.likesCount!--;
+    setIsLiked(prevValue => !prevValue);
   };
 
   const handleShareClick = useCallback(() => {
@@ -47,15 +48,15 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
     <div className={styles.postCommands}>
       <div className={styles.postCommand} onClick={handleLikeClick}>
         <Icon icon={isLiked ? "liked" : "like"} size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.likes || 0)}</Text>
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.likesCount!)}</Text>
       </div>
       <Link href={`/posts/${post.id!}/comments`} className={styles.postCommand}>
         <Icon icon="comments" size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.comments || 0)}</Text> 
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.commentsCount!)}</Text> 
       </Link>
       <div className={`${styles.postCommand} ${styles.postCommandView}`}>
         <Icon icon="chart" size="lg" className={styles.postCommandIcon} />
-        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.views || 0)}</Text>
+        <Text size="xs" weight="regular">{formatNumberWithSuffix(post.viewsCount!)}</Text>
       </div>
       <Icon icon="share" size="lg" className={styles.shareIcon} onClick={handleShareClick} />
       <Toast ref={toastRef} />

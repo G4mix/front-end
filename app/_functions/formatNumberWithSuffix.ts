@@ -1,4 +1,5 @@
-export function formatNumberWithSuffix(number: number) {
+export const formatNumberWithSuffix = (number: number=0) => {
+  if (number === 0) return "0";
   const absNumber = Math.abs(number);
 
   const suffixes = ["", "K", "M", "B", "T", "Qd", "Qn", "S"];
@@ -10,4 +11,4 @@ export function formatNumberWithSuffix(number: number) {
   const formattedNumber = scaledNumber.toFixed(1);
 
   return formattedNumber + suffix;
-}
+};

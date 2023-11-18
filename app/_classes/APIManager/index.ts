@@ -93,15 +93,13 @@ export class APIManager {
     
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();
     if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
-    
-    const userData = data["data"]["findUserByToken"];
 
-    return userData;
+    return data["data"]["findUserByToken"];
   }
 
   public static async createPost(
     post: CreatePostInput
-    ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
+  ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -121,8 +119,7 @@ export class APIManager {
     const data: GenericQueryResponse<"createPost"> = await response.json();
     if (response.status >= 400) return;
 
-    const postData = data["data"]["createPost"];
-    return postData;
+    return data["data"]["createPost"];
   }
 
   public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
@@ -132,7 +129,7 @@ export class APIManager {
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query: GenericMutationRequest<"findAllPosts"> = {
-      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt }}",
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount }}",
       variables: {
         skip,
         limit: 10
@@ -143,8 +140,6 @@ export class APIManager {
     const data: GenericQueryResponse<"findAllPosts"> = await response.json();
     if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
     
-    console.log(data);
-    const allPostsData = data["data"]["findAllPosts"];
-    return allPostsData;
+    return data["data"]["findAllPosts"];
   }
 }

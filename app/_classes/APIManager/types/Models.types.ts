@@ -25,9 +25,9 @@ export type PostType = {
   author?: UserProfileType;
   title?: string;
   content?: string;
-  views?: number;
-  likes?: number;
-  comments?: number;
+  viewsCount?: number;
+  likesCount?: number;
+  commentsCount?: number;
   categories?: CategoryType[];
   createdAt?: string;
   updatedAt?: string;
@@ -44,7 +44,7 @@ export type CommentType = {
   post?: PostType;
   author?: UserProfileType;
   replies?: CommentType[];
-  likes?: number;
+  likesCount?: number;
   createdAt?: string;
   updatedAt?: string;
   content?: string;

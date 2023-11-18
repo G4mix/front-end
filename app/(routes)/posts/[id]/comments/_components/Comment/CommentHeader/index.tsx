@@ -34,7 +34,7 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
               </DuotoneUserIcon.Root>
           }
           <Text size="xs" weight="medium">{author!.displayName! || author!.user!.username}</Text>
-          <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(updatedAt!)}` : formatDate(createdAt!)}</Text>
+          <Text size="xs" className={styles.date}>· {updatedAt ? `Atualizado ${formatDate(new Date(updatedAt!))}` : formatDate(new Date(createdAt!))}</Text>
         </div>
       </Link>
       <Icon icon="ellipsis-h" className={styles.reportIcon} disabled />
