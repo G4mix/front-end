@@ -24,6 +24,8 @@ export type PostType = {
   id?: number;
   author?: UserProfileType;
   title?: string;
+  images?: string[];
+  links?: string[];
   content?: string;
   viewsCount?: number;
   likesCount?: number;

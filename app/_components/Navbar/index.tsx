@@ -24,6 +24,7 @@ export const Navbar = ({ position="bottom" }: NavbarProps) => {
             height={50}
             alt="Gamix logo image"
             className={`${styles.createCenter} ${position === "top" ? styles.createCenterTop : ""}`}
+            priority
           />
         </Link>
         <Icon icon="users" className={styles.navbarIcon} disabled />

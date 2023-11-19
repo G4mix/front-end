@@ -22,7 +22,7 @@ export const DropImages = () => {
     setIsVisible(true);
   };
 
-  const handleDragLeave = (_e: DragEvent) => {
+  const handleDragLeave = () => {
     setIsVisible(false);
   };
 

@@ -1,0 +1,31 @@
+.lastImageWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+}
+.lastImageWrapper:hover {
+  opacity: 0.5;
+}
+
+.remainingImages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  position: absolute;
+}
+
+.lastImage {
+  opacity: 0.5;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}

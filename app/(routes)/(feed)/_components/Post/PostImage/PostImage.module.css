@@ -2,5 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
+  width: 100%;
+  height: 150px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.boxImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.image:hover {
+  opacity: 0.5;
 }
