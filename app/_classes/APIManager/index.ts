@@ -12,7 +12,7 @@ export class APIManager {
     body: RequestBody<U>,
     headers: HeadersInit = {}
   ): Promise<Response> {
-    const response = await fetch(`/api/backend?url=${url}`, {
+    const response = await fetch(`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${url}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

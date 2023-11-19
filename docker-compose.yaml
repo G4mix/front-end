@@ -4,7 +4,7 @@ services:
     container_name: frontend
     restart: always
     environment:
-      - NEXT_PUBLIC_BACK_END_BASE_URL=https://fictional-doodle-9r56p6j7wrp2p65v-5005.app.github.dev
+      - NEXT_PUBLIC_BACK_END_BASE_URL=http://localhost:8080
     volumes:
       - ./app:/app/app
       - ./docker/development:/app/scripts

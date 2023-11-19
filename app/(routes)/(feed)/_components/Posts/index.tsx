@@ -1,7 +1,6 @@
 "use client";
 
 import type { PostType } from "@classes/APIManager/types/Models.types";
-import { Client, type IFrame, type IMessage } from "@stomp/stompjs";
 import { APIManager } from "@classes/APIManager";
 import { Post } from "../Post";
 import React, { useCallback, useEffect, useState } from "react";
@@ -37,34 +36,7 @@ export const Posts = () => {
   useEffect(() => {
     if (initialLoadComplete && !allPostsLoaded) getPosts();
   }, [page, allPostsLoaded, initialLoadComplete]);
-
-  useEffect(() => {
-    const client = new Client({
-      brokerURL: "ws://localhost:8080/ws",
-      reconnectDelay: 5000
-    });
-
-    client.activate();
-
-    client.onConnect = () => {
-      client.subscribe("/topic/feed", function (message: IMessage) {
-        console.log("Received message:", message.body);
-      });
-    };
-
-    client.onStompError = (frame: IFrame) => {
-      console.error("WebSocket error:", frame.headers.message);
-    };
-    
-    client.onWebSocketError = (error: Event) => {
-      console.error("WebSocket connection error:", error);
-    };
-
-    return () => {
-      client.deactivate();
-    };
-  }, []);
-
+  
   return (
     <div onScroll={handleScroll} className={styles.posts}>
       {
