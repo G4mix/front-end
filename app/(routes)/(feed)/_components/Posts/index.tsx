@@ -1,6 +1,7 @@
 "use client";
 
 import type { PostType } from "@classes/APIManager/types/Models.types";
+import { Client, type IFrame, type IMessage } from "@stomp/stompjs";
 import { APIManager } from "@classes/APIManager";
 import { Post } from "../Post";
 import React, { useCallback, useEffect, useState } from "react";
@@ -38,19 +39,29 @@ export const Posts = () => {
   }, [page, allPostsLoaded, initialLoadComplete]);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8080/ws");
-    
-    socket.addEventListener("open", () => {
-      console.log("Conectado ao servidor WebSocket");
-    });
-    
-    socket.addEventListener("message", (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Nova mensagem do servidor:", data);
+    const client = new Client({
+      brokerURL: "ws://localhost:8080/ws",
+      reconnectDelay: 5000
     });
 
+    client.activate();
+
+    client.onConnect = () => {
+      client.subscribe("/topic/feed", function (message: IMessage) {
+        console.log("Received message:", message.body);
+      });
+    };
+
+    client.onStompError = (frame: IFrame) => {
+      console.error("WebSocket error:", frame.headers.message);
+    };
+    
+    client.onWebSocketError = (error: Event) => {
+      console.error("WebSocket connection error:", error);
+    };
+
     return () => {
-      socket.close();
+      client.deactivate();
     };
   }, []);
 
