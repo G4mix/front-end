@@ -1,24 +1,22 @@
 "use client";
 
 import type { PostImageProps } from "..";
+import { SingleImageModal } from "../SingleImageModal";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
-import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from "react";
+import React, { useState, useImperativeHandle, forwardRef, useCallback } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import styles from "./PostImagesModal.module.css";
 import Image from "next/image";
 
 export type ImagesModalHandler = {
-  handleOpenModal: (selectedImage: string) => void;
+  handleOpenModal: () => void;
 };
 
 const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images, title }, ref) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const [selectedImage, setSelectedImage] = useState(images![0]);
   const [open, setOpen] = useState(false);
 
-  const handleOpenModal = useCallback((selectedImage: string) => {
-    setSelectedImage(selectedImage);
+  const handleOpenModal = useCallback(() => {
     setOpen(true);
   }, []);
 
@@ -31,35 +29,27 @@ const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images
   const handleCloseModal = useCallback(() => {
     setOpen(false);
   }, []);
-
-  useEffect(() => {
-    const selectedImgElement = document.querySelector(
-      `img[src='${selectedImage}']`
-    );
-    console.log(selectedImgElement);
-
-    if (selectedImgElement) {
-      selectedImgElement.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [selectedImage]);
-
-
+  
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open}>
       <Dialog.Overlay className={styles.dialogOverlay}>
-        <Dialog.Content className={styles.dialogContent} ref={modalRef}>
+        <Dialog.Content className={styles.dialogContent}>
           <div className={styles.dialogNav}>
             <Icon icon="arrow-left" className={styles.dialogNavIcon} onClick={handleCloseModal} />
             <Text size="xs">{images!.length} imagens</Text>
           </div>
           {
-            images!.map((img: string) => 
-              <Image
+            images!.map((img: string) =>
+              <SingleImageModal
                 key={`modal:imagem:${img}`}
-                alt={`Imagem do post ${title}`} src={img}
-                width={500} height={300}
-                className={styles.modalImage}
-              />
+                image={img} title={title}
+              >
+                <Image
+                  alt={`Imagem do post ${title}`} src={img}
+                  width={500} height={300}
+                  className={styles.modalImage}
+                />
+              </SingleImageModal>
             )
           }
         </Dialog.Content>

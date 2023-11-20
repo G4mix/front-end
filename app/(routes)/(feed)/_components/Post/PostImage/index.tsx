@@ -23,8 +23,8 @@ export const PostImage = ({ images=[], title }: PostImageProps) => {
 
   const imagesModalRef = useRef<ImagesModalHandler>(null);
   
-  const handleOpenModal = useCallback((selectedImage: string) => {
-    imagesModalRef.current?.handleOpenModal(selectedImage);
+  const handleOpenModal = useCallback(() => {
+    imagesModalRef.current?.handleOpenModal();
   }, []);
 
   const renderImageLogic = {
@@ -37,7 +37,7 @@ export const PostImage = ({ images=[], title }: PostImageProps) => {
   const RenderImages = renderImageLogic[images.length as keyof typeof renderImageLogic] || renderImageLogic[4];
   return (
     <>
-      <PostImagesModal images={images} title={title} ref={imagesModalRef} />
+      { images.length > 1 && (<PostImagesModal images={images} title={title} ref={imagesModalRef} />) }
       <RenderImages />
     </>
   );
