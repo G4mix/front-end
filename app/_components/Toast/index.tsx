@@ -26,7 +26,7 @@ const Toast = forwardRef<ToastHandlers>((_props, ref) => {
     return {
       showMessage
     };
-  });
+  }, []);
 
   return (
     <ToastPrimitive.Provider swipeDirection="down" duration={3000} label={`Houve um erro: ${message}`}>

@@ -26,15 +26,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function buildIconStory(name: keyof typeof icons): Story {
+const buildIconStory = (name: keyof typeof icons): Story => {
   return ({
     args: {
       icon: name,
       size: "2xl"
     }
   });
-}
+};
 
+export const ArrowLeftIcon: Story = buildIconStory("arrow-left");
 export const BoltLightningIcon: Story = buildIconStory("bolt-lightning"); 
 export const ChartIcon: Story = buildIconStory("chart");
 export const CheckIcon: Story = buildIconStory("check");

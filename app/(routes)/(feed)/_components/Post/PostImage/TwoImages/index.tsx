@@ -1,9 +1,12 @@
+"use client";
+
+import type { ImagesModalHandler } from "../PostImagesModal";
 import type { PostImageProps } from "..";
+import React, { forwardRef } from "react";
 import styles from "../PostImage.module.css";
 import Image from "next/image";
-import React from "react";
 
-export const TwoImages = ({ images, title }: PostImageProps) => {
+const TwoImages = forwardRef<ImagesModalHandler, PostImageProps>(({ images, title }, ref) => {
   return (
     <div className={styles.postBoxImage}>
       {
@@ -13,10 +16,14 @@ export const TwoImages = ({ images, title }: PostImageProps) => {
             width={500}  height={300}
             quality={100} alt={`Imagem do post: ${title!}`}
             className={styles.image} style={{width: "50%"}}
-            // onClick={() => openModal(img)}
+            onClick={() => ref!.current!.handleOpenModal(img)}
           />
         ))
       }
     </div>
   );
-};
+});
+
+TwoImages.displayName = "TwoImages";
+
+export { TwoImages };

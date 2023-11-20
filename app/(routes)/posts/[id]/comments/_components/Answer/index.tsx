@@ -33,7 +33,7 @@ const Answer = forwardRef<AnswerMethods>((_props, ref) => {
       handleAnswerFocus,
       handleUserToMark
     };
-  });
+  }, []);
 
   const handleOnSelect = useCallback((emoji: string) => {
     if (textAreaRef.current) {

@@ -1,9 +1,12 @@
+"use client";
+
 import type { PostType } from "@classes/APIManager/types/Models.types";
 import { MoreThanThreeImages } from "./MoreThanThreeImages";
+import { ImagesModalHandler, PostImagesModal } from "./PostImagesModal";
 import { SingleImage } from "./SingleImage";
 import { ThreeImages } from "./ThreeImages";
 import { TwoImages } from "./TwoImages";
-import React from "react";
+import React, { useRef } from "react";
 
 export type PostImageProps = Pick<PostType, "images" | "title">;
 
@@ -16,14 +19,22 @@ export const PostImage = ({ images=[], title }: PostImageProps) => {
     "https://images.pexels.com/photos/1898555/pexels-photo-1898555.jpeg?auto=compress&cs=tinysrgb&w=600"
   ];
 
-  const renderImageLogic = [
-    () => null,
-    () => <SingleImage images={images} title={title} />,
-    () => <TwoImages images={images} title={title} />,
-    () => <ThreeImages images={images} title={title} />
-  ];
+  if (images.length === 0) return null;
 
-  const RenderImages = renderImageLogic[images.length];
-  if (!RenderImages) return <MoreThanThreeImages images={images} title={title} />;
-  return <RenderImages />;
+  const imagesModalRef = useRef<ImagesModalHandler>(null);
+  
+  const renderImageLogic = {
+    1: () => <SingleImage images={images} title={title} />,
+    2: () => <TwoImages images={images} title={title} ref={imagesModalRef} />,
+    3: () => <ThreeImages images={images} title={title} />,
+    4: () => <MoreThanThreeImages images={images} title={title} />
+  };
+
+  const RenderImages = renderImageLogic[images.length as keyof typeof renderImageLogic] || renderImageLogic[4];
+  return (
+    <>
+      <PostImagesModal images={images} title={title} ref={imagesModalRef} />
+      <RenderImages />
+    </>
+  );
 };

@@ -31,7 +31,7 @@ const Collapsable = forwardRef<CollapsableHandlers, CollapsableProps>(({ items }
       collapse,
       uncollapse
     };
-  });
+  }, []);
 
   const handleAnimationStart = useCallback((e: React.AnimationEvent<HTMLDivElement>) => {
     if (e.animationName === styles.slideDown) {
