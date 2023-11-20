@@ -13,8 +13,8 @@ export type ImagesModalHandler = {
 };
 
 const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images, title }, ref) => {
-  const [open, setOpen] = useState(true);
   const [selectedImage, setSelectedImage] = useState(images![0]);
+  const [open, setOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleOpenModal = useCallback((selectedImage: string) => {
@@ -33,14 +33,13 @@ const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images
   }, []);
 
   useEffect(() => {
-    // Verifica se há uma imagem selecionada
     if (selectedImage && modalRef.current) {
-      // Encontra a imagem com base no URL
+      console.log(modalRef.current);
       const selectedImgElement = modalRef.current.querySelector(
         `img[src='${selectedImage}']`
       );
+      console.log(selectedImgElement);
 
-      // Se a imagem for encontrada, rola para essa imagem
       if (selectedImgElement) {
         selectedImgElement.scrollIntoView({ behavior: "smooth" });
       }

@@ -6,7 +6,11 @@ import styles from "../PostImage.module.css";
 import Image from "next/image";
 import React from "react";
 
-export const MoreThanThreeImages = ({ images, title }: PostImageProps) => {
+type MoreThanThreeImagesProps = {
+  handleOpenModal?: (selectedImage: string) => void;
+} & PostImageProps;
+
+export const MoreThanThreeImages = ({ images, title, handleOpenModal }: MoreThanThreeImagesProps) => {
   const remainingImages = images!.length - 4;
   const imagesToDisplay = images!.slice(0, 4);
 
@@ -25,7 +29,11 @@ export const MoreThanThreeImages = ({ images, title }: PostImageProps) => {
                 (chunkIndex === Math.ceil(imagesToDisplay.length / 2) - 1) &&
                 (imgIndex === chunk.length - 1) && 
                 (remainingImages > 0) ? (
-                    <div className={componentStyles.lastImageWrapper} key={`post:image:${img}`}>
+                    <div
+                      className={componentStyles.lastImageWrapper}
+                      onClick={() => { if (handleOpenModal) handleOpenModal(img); }}
+                      key={`post:image:${img}`}
+                    >
                       <Image
                         src={img}
                         width={500}
@@ -47,6 +55,7 @@ export const MoreThanThreeImages = ({ images, title }: PostImageProps) => {
                       quality={100}
                       alt={`Imagem do post: ${title!}`}
                       className={styles.image}
+                      onClick={() => { if (handleOpenModal) handleOpenModal(img); }}
                     />
                   )
               ))

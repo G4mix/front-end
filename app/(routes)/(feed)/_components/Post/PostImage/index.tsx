@@ -6,7 +6,7 @@ import { ImagesModalHandler, PostImagesModal } from "./PostImagesModal";
 import { SingleImage } from "./SingleImage";
 import { ThreeImages } from "./ThreeImages";
 import { TwoImages } from "./TwoImages";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 
 export type PostImageProps = Pick<PostType, "images" | "title">;
 
@@ -23,11 +23,15 @@ export const PostImage = ({ images=[], title }: PostImageProps) => {
 
   const imagesModalRef = useRef<ImagesModalHandler>(null);
   
+  const handleOpenModal = useCallback((selectedImage: string) => {
+    imagesModalRef.current?.handleOpenModal(selectedImage);
+  }, []);
+
   const renderImageLogic = {
     1: () => <SingleImage images={images} title={title} />,
-    2: () => <TwoImages images={images} title={title} ref={imagesModalRef} />,
-    3: () => <ThreeImages images={images} title={title} />,
-    4: () => <MoreThanThreeImages images={images} title={title} />
+    2: () => <TwoImages images={images} title={title} handleOpenModal={handleOpenModal} />,
+    3: () => <ThreeImages images={images} title={title} handleOpenModal={handleOpenModal} />,
+    4: () => <MoreThanThreeImages images={images} title={title} handleOpenModal={handleOpenModal} />
   };
 
   const RenderImages = renderImageLogic[images.length as keyof typeof renderImageLogic] || renderImageLogic[4];
