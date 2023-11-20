@@ -13,9 +13,9 @@ export type ImagesModalHandler = {
 };
 
 const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images, title }, ref) => {
+  const modalRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState(images![0]);
   const [open, setOpen] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleOpenModal = useCallback((selectedImage: string) => {
     setSelectedImage(selectedImage);
@@ -33,16 +33,13 @@ const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images
   }, []);
 
   useEffect(() => {
-    if (selectedImage && modalRef.current) {
-      console.log(modalRef.current);
-      const selectedImgElement = modalRef.current.querySelector(
-        `img[src='${selectedImage}']`
-      );
-      console.log(selectedImgElement);
+    const selectedImgElement = document.querySelector(
+      `img[src='${selectedImage}']`
+    );
+    console.log(selectedImgElement);
 
-      if (selectedImgElement) {
-        selectedImgElement.scrollIntoView({ behavior: "smooth" });
-      }
+    if (selectedImgElement) {
+      selectedImgElement.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedImage]);
 
