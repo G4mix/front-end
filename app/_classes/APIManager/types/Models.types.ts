@@ -20,12 +20,24 @@ export type UserProfileType = {
   posts?: PostType[];
 };
 
+export type ImageType = {
+  width?: number;
+  height?: number;
+  src?: string;
+  name?: string;
+}
+
+export type LinkType = {
+  id?: number;
+  link?: string;
+}
+
 export type PostType = {
   id?: number;
   author?: UserProfileType;
   title?: string;
-  images?: string[];
-  links?: string[];
+  images?: ImageType[];
+  links?: LinkType[];
   content?: string;
   viewsCount?: number;
   likesCount?: number;

@@ -4,7 +4,6 @@ import { useMessagesContext } from "@contexts/MessagesContext";
 import { CreatePostPosting } from "../../(routes)/posts/create/_components/CreatePostPosting";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
-import { apiErrors } from "@constants/apiErrors";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";
 import styles from "./CreatePostContext.module.css";
 
@@ -101,15 +100,16 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
     const content = formData.get("post_content")?.valueOf() as string;
     const post = {
       title, content,
-      images: images.map(img => img.image),
-      links, tags
+      images: images.length > 0 ? images.map(img => img.image) : undefined,
+      links: links.length > 0 ? links : undefined,
+      tags: tags.length > 0 ? tags : undefined
     };
 
     const postData = await APIManager.createPost(post);
 
-    if(!postData) handleShowMessage("Falha ao criar o post...");
-    if (apiErrors[postData!.error as keyof typeof apiErrors]) {
-      handleShowMessage(apiErrors[postData!.error as keyof typeof apiErrors]);
+    if(!postData || postData["error"]) {
+      handleShowMessage("Falha ao criar o post...");
+      return setTryingToPost(false);
     }
 
     router.push("/");

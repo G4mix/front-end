@@ -5,6 +5,12 @@
   gap: 5px;
 }
 
+.userIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+}
+
 .duotoneRoot {
   width: 20px;
   height: 20px;
@@ -31,4 +37,8 @@
     width: 30px;
     height: 30px;
   }
+  .userIcon {
+    width: 30px;
+    height: 30px;
+  }  
 }

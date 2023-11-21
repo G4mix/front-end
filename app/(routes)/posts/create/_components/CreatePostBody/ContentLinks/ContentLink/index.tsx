@@ -14,8 +14,14 @@ export const ContentLink = ({ url }: ContentLinkProps) => {
   const { handleRemoveLink } = useCreatePostContext();
 
   return (
-    <PostLink>
-      <Icon icon="x" className={styles.removeLink} onClick={() => handleRemoveLink(url)} />
+    <PostLink url={url}>
+      <Icon 
+        icon="x" className={styles.removeLink}
+        onClick={(e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+          e.preventDefault();
+          handleRemoveLink(url);
+        }} 
+      />
     </PostLink>
   );
 };

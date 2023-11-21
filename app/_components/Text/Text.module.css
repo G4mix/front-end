@@ -1,13 +1,16 @@
 .center {
   text-align: center;
+  overflow-wrap: break-word;
 }
 
 .justify {
   text-align: justify;
+  overflow-wrap: break-word;
 }
 
 .left {
   text-align: left;
+  overflow-wrap: break-word;
 }
 
 .white {

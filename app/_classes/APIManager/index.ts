@@ -99,20 +99,17 @@ export class APIManager {
   }
 
   public static async createPost(
-    { title, content }: CreatePostInput
+    { images, ...postInput }: CreatePostInput
   ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
-
+    console.log(images);
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query: GenericMutationRequest<"createPost"> = {
       query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
       variables: {
-        input: {
-          title,
-          content
-        }
+        input: postInput
       }
     };
     const response = await APIManager.request("/graphql", query, headers);
@@ -128,11 +125,10 @@ export class APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
-
     const query: GenericMutationRequest<"findAllPosts"> = {
-      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount }}",
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
       variables: {
-        skip,
+        skip: skip,
         limit: 10
       }
     };

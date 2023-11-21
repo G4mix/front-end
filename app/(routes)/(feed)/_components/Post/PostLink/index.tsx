@@ -5,6 +5,7 @@ import { Text } from "@components/Text";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./PostLinks.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
 type PostLinkProps = {
   children?: React.ReactNode
@@ -52,7 +53,7 @@ export const PostLink = ({ url="", children }: PostLinkProps) => {
   if (!data || !data.icon.url) return null;
 
   return (
-    <div className={styles.link}>
+    <Link className={styles.link} href={url} aria-label={`Link para o site: ${data.title}`} target="_blank">
       <Image
         src={data.icon.url || ""}
         width={data.icon.width}
@@ -66,6 +67,6 @@ export const PostLink = ({ url="", children }: PostLinkProps) => {
         <Text size="xs" weight="light" align="justify">{data.description.slice(0, 90)}...</Text>
       </div>
       {children}
-    </div>
+    </Link>
   );
 };

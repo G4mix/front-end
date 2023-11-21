@@ -11,7 +11,7 @@ type TextProps = {
   size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
 } & React.HTMLAttributes<HTMLParagraphElement>;
 
-export const Text = ({ children, asChild=false, size="default", weight="regular", align="left", className, ...props }: TextProps) => {
+export const Text = ({ children, asChild=false, size="default", weight="regular", align="left", className="", ...props }: TextProps) => {
   const Component = asChild ? Slot : "p";
 
   return (
