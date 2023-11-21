@@ -11,7 +11,7 @@ import {
   hasOneUppercaseChar, hasSpecialChar, isValidUsername
 } from "@functions/formValidations";
 import { Collapsable, CollapsableHandlers } from "../Collapsable";
-import { Toast, ToastHandlers } from "@/app/_components/Toast";
+import { useMessagesContext } from "@contexts/MessagesContext";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
@@ -21,8 +21,9 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 
 export const RegisterForm = () => {
+  const { handleShowMessage } = useMessagesContext();
+
   const collapsableRef = useRef<CollapsableHandlers>(null);
-  const toastRef = useRef<ToastHandlers>(null);
   const registerForm = useRef<HTMLFormElement>(null);
 
   const [passwordState, setPasswordState] = useState("");
@@ -44,38 +45,38 @@ export const RegisterForm = () => {
     const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string;
 
     if (!isValidUsername(username)) {
-      toastRef.current?.showMessage(apiErrors["USERNAME_INVALID_FORMAT"]);
+      handleShowMessage(apiErrors["USERNAME_INVALID_FORMAT"]);
       return;
     } else if (username.length < 3) {
-      toastRef.current?.showMessage(apiErrors["USERNAME_TOO_SHORT"]);
+      handleShowMessage(apiErrors["USERNAME_TOO_SHORT"]);
       return;
     } else if (!hasGmailDomain(email)) {
-      toastRef.current?.showMessage(apiErrors["EMAIL_INVALID_FORMAT"]);
+      handleShowMessage(apiErrors["EMAIL_INVALID_FORMAT"]);
       return;
     } else if(!hasEightOrMoreChars(password)) {
-      toastRef.current?.showMessage(apiErrors["PASSWORD_TOO_SHORT"]);
+      handleShowMessage(apiErrors["PASSWORD_TOO_SHORT"]);
       return;
     } else if (!hasNumber(password)) {
-      toastRef.current?.showMessage(apiErrors["PASSWORD_MISSING_NUMBER"]);
+      handleShowMessage(apiErrors["PASSWORD_MISSING_NUMBER"]);
       return;
     } else if (!hasSpecialChar(password)) {
-      toastRef.current?.showMessage(apiErrors["PASSWORD_MISSING_SPECIAL_CHAR"]);
+      handleShowMessage(apiErrors["PASSWORD_MISSING_SPECIAL_CHAR"]);
       return;
     } else if (!hasOneUppercaseChar(password)) {
-      toastRef.current?.showMessage(apiErrors["PASSWORD_MISSING_UPPERCASE"]);
+      handleShowMessage(apiErrors["PASSWORD_MISSING_UPPERCASE"]);
       return;
     } else if (password !== confirmPassword) {
-      toastRef.current?.showMessage("É necessário que a senha e a senha de confirmação sejam iguais.");
+      handleShowMessage("É necessário que a senha e a senha de confirmação sejam iguais.");
       return;
     } else if (!acceptedTerms) {
-      toastRef.current?.showMessage("Você precisa aceitar os termos se quiser fazer parte do Gamix!");
+      handleShowMessage("Você precisa aceitar os termos se quiser fazer parte do Gamix!");
       return;
     }
 
     const result = await APIManager.signUp({ username, email, password });
     if (apiErrors[result!]) {
       setTryingToRegister(false);
-      toastRef.current?.showMessage(apiErrors[result!]);
+      handleShowMessage(apiErrors[result!]);
       return;
     }
 
@@ -84,7 +85,6 @@ export const RegisterForm = () => {
 
   return (
     <form className={signupFormStyles.form} onSubmit={(e) => register(e)} ref={registerForm}>
-      <Toast ref={toastRef} />
       <div className={signupFormStyles.fields}>
         <Input
           icon="user"

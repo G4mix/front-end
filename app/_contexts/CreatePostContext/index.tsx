@@ -1,13 +1,12 @@
 "use client";
 
-import type { icons } from "@constants/icons";
-import { Toast, type ToastHandlers } from "@components/Toast";
+import { useMessagesContext } from "@contexts/MessagesContext";
 import { CreatePostPosting } from "../../(routes)/posts/create/_components/CreatePostPosting";
 import { APIManager } from "@classes/APIManager";
+import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";
 import styles from "./CreatePostContext.module.css";
-import { useRouter } from "next/navigation";
 
 type CreatePostContextValuesProps = {
   tags: string[];
@@ -21,7 +20,6 @@ type CreatePostContextValuesProps = {
   handleAddLink: (url: string) => void;
   handleRemoveLink: (url: string) => void;
   handleToggleAddLink: () => void;
-  handleShowMessage: (message: string, icon?: keyof typeof icons) => void;
 };
 
 const CreatePostContext = createContext<CreatePostContextValuesProps>({
@@ -29,7 +27,7 @@ const CreatePostContext = createContext<CreatePostContextValuesProps>({
   handleSelectTag: () => null, handleUnselectTag: () => null,
   handleSelectImage: () => null, handleUnselectImage: () => null,
   handleAddLink: () => null, handleRemoveLink: () => null,
-  handleToggleAddLink: () => null, handleShowMessage: () => null
+  handleToggleAddLink: () => null
 });
 
 type CreatePostProviderProps = {
@@ -37,12 +35,12 @@ type CreatePostProviderProps = {
 };
 
 export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
+  const { handleShowMessage } = useMessagesContext();
   const [tryingToPost, setTryingToPost] = useState(false);
   const [openAddLink, setOpenAddLink] = useState(false);
   const [images, setImages] = useState<{ link: string; image: File }[]>([]);
   const [links, setLinks] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  const toastRef = useRef<ToastHandlers>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -93,10 +91,6 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
     setLinks((prevLinks) => prevLinks.filter((prevLink: string) => prevLink !== url));
   }, []);
 
-  const handleShowMessage = useCallback((message: string, icon?: keyof typeof icons) => {
-    toastRef.current?.showMessage(message, icon);
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (tryingToPost) return;
@@ -105,7 +99,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
     
     const title = formData.get("post_title")?.valueOf() as string;
     const content = formData.get("post_content")?.valueOf() as string;
-    const post: CreatePostInput = {
+    const post = {
       title, content,
       images: images.map(img => img.image),
       links, tags
@@ -127,11 +121,10 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
         tags, handleSelectTag, handleUnselectTag,
         images, handleSelectImage, handleUnselectImage,
         links, handleAddLink, handleRemoveLink,
-        openAddLink, handleToggleAddLink, handleShowMessage
+        openAddLink, handleToggleAddLink
       }}
     >
       <CreatePostPosting tryingToPost={tryingToPost} />
-      <Toast ref={toastRef} />
       {
         !tryingToPost && (
           <form onSubmit={handleSubmit} ref={formRef} className={styles.form}>

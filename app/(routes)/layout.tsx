@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "@/app/_contexts/SessionContext";
+import { SessionProvider } from "@contexts/SessionContext";
 import React from "react";
 import "@styles/globals.css";
 

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useCallback, useState, forwardRef, useImperativeHandle } from "react";
+import type { icons } from "@/app/_constants/icons";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import styles from "./Toast.module.css";
-import { icons } from "@/app/_constants/icons";
 
 export type ToastHandlers = {
   showMessage: (message: string, iconToShow?: keyof typeof icons) => void;

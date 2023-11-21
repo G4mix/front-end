@@ -1,13 +1,13 @@
 "use client";
 
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
-import { Toast, ToastHandlers } from "@components/Toast";
+import { useMessagesContext } from "@contexts/MessagesContext";
 import { useSession } from "@contexts/SessionContext";
 import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import styles from "./PostCommands.module.css";
 import Link from "next/link";
 
@@ -15,8 +15,8 @@ type PostCommandsProps = { post: PostType };
 
 export const PostCommands = ({ post }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(false);
+  const { handleShowMessage } = useMessagesContext();
   const { status } = useSession();
-  const toastRef = useRef<ToastHandlers>(null);
   const router = useRouter();
   
   const handleLikeClick = () => {
@@ -35,12 +35,12 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
           text: post.content?.slice(0, 100) || "Venha fazer parte da plataforma que conecta desenvolvedores de games!",
           url: `${currentLocation}/posts/${post.id}`
         })
-        .catch(() => toastRef.current?.showMessage("Erro ao tentar compartilhar..."));
+        .catch(() => handleShowMessage("Erro ao tentar compartilhar..."));
     } else {
       const textToCopy = `${currentLocation}/posts/${post.id}`;
       navigator.clipboard.writeText(textToCopy)
-        .then(() => toastRef.current?.showMessage("Link copiado para a área de transferência!", "smile"))
-        .catch(() => toastRef.current?.showMessage("Erro ao copiar para o clipboard..."));
+        .then(() => handleShowMessage("Link copiado para a área de transferência!", "smile"))
+        .catch(() => handleShowMessage("Erro ao copiar para o clipboard..."));
     }
   }, []);
 
@@ -59,7 +59,6 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
         <Text size="xs" weight="regular">{formatNumberWithSuffix(post.viewsCount!)}</Text>
       </div>
       <Icon icon="share" size="lg" className={styles.shareIcon} onClick={handleShareClick} />
-      <Toast ref={toastRef} />
     </div>
   );
 };

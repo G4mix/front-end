@@ -1,7 +1,7 @@
 "use client";
 
 import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
-import { Toast, ToastHandlers } from "@/app/_components/Toast";
+import { useMessagesContext } from "@contexts/MessagesContext";
 import { APIManager } from "@classes/APIManager";
 import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
@@ -14,10 +14,10 @@ import signinStyles from "./signinForm.module.css";
 import Link from "next/link";
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-  const toastRef = useRef<ToastHandlers>(null);
-  const registerForm = useRef<HTMLFormElement>(null);
+  const { handleShowMessage } = useMessagesContext();
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
+  const registerForm = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   const login = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,13 +32,13 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     const rememberMe = formData.get("remember_me")?.valueOf() as string;
     
     if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
-      toastRef.current?.showMessage("Nome de usuário ou e-mail inválido.");
+      handleShowMessage("Nome de usuário ou e-mail inválido.");
       return;
     } else if (usernameOrEmail.length < 3) {
-      toastRef.current?.showMessage("Nome de usuário ou e-mail muito curto.");
+      handleShowMessage("Nome de usuário ou e-mail muito curto.");
       return;
     } else if (password.length < 7) {
-      toastRef.current?.showMessage(apiErrors["PASSWORD_TOO_SHORT"]);
+      handleShowMessage(apiErrors["PASSWORD_TOO_SHORT"]);
       return;
     }
 
@@ -52,7 +52,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     
     if (apiErrors[result!]) {
       setTryingToLogIn(false);
-      toastRef.current?.showMessage(apiErrors[result!]);
+      handleShowMessage(apiErrors[result!]);
       return;
     }
 
@@ -61,7 +61,6 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <form onSubmit={(e) => login(e)} >
-      <Toast ref={toastRef} />
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input

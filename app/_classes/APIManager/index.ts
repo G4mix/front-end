@@ -5,6 +5,7 @@ import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
 import { CookieManager } from "@classes/CookieManager";
 import { apiErrors } from "@constants/apiErrors";
+import { CreatePostInput } from "./types/Inputs.types";
 
 export class APIManager {
   private static async request<U extends BackendRoutes>(
@@ -98,7 +99,7 @@ export class APIManager {
   }
 
   public static async createPost(
-    post: CreatePostInput
+    { title, content }: CreatePostInput
   ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
@@ -109,8 +110,8 @@ export class APIManager {
       query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
       variables: {
         input: {
-          title: post.title,
-          content: post.content
+          title,
+          content
         }
       }
     };

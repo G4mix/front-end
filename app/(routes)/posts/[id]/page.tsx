@@ -1,4 +1,5 @@
 import type { PostType } from "@classes/APIManager/types/Models.types";
+import { MessagesProvider } from "@contexts/MessagesContext";
 import { exampleComments } from "@constants/exampleComments";
 import { examplePosts } from "@constants/examplePosts";
 import { Comments } from "./comments/_components/Comments";
@@ -23,19 +24,21 @@ export default function SinglePostPage({ params }: { params: { id: string } }) {
   const post = examplePosts().find(post => post.id === parseInt(params.id));
 
   return (
-    <main className={styles.main}>
-      <Navbar position="top" />
-      <div className={styles.postZone}>
-        <Post post={post!} />
-      </div>
-      <div className={styles.commentsArea}>
-        <div className={styles.commentsHeading}>
-          <Heading size="default">
-            Comentários
-          </Heading>
+    <MessagesProvider>
+      <main className={styles.main}>
+        <Navbar position="top" />
+        <div className={styles.postZone}>
+          <Post post={post!} />
         </div>
-        <Comments comments={comments} />
-      </div>
-    </main>
+        <div className={styles.commentsArea}>
+          <div className={styles.commentsHeading}>
+            <Heading size="default">
+              Comentários
+            </Heading>
+          </div>
+          <Comments comments={comments} />
+        </div>
+      </main>
+    </MessagesProvider>
   );
 }

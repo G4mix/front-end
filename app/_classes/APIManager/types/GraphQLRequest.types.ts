@@ -31,5 +31,5 @@ export type GenericQueryRequest<Query extends QueryType> =
 export type GenericMutationRequest<Mutation extends MutationType> = 
   { 
     query: `${"mutation" | "query"} ${Mutation}${string | undefined} { ${Mutation}${string | undefined} { ${string} }}`, 
-    variables?: {[key: string]: string} 
+    variables?: {[key: string]: unknown} 
   };

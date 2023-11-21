@@ -1,16 +1,16 @@
 "use client";
 
 import type { Session, SessionContextProps } from "./Session.types";
-import React, { useState, useEffect, createContext, useCallback } from "react";
-import { APIManager } from "@classes/APIManager";
+import { CookieManager } from "@classes/CookieManager";
 import { usePathname } from "next/navigation";
-import { CookieManager } from "@/app/_classes/CookieManager";
+import { APIManager } from "@classes/APIManager";
+import React, { useState, useEffect, createContext, useCallback } from "react";
 
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
   status: "loading",
-  update: () => undefined,
-  setUnauthenticated: () => undefined
+  update: () => null,
+  setUnauthenticated: () => null
 });
 
 type SessionProviderProps = {
@@ -20,8 +20,8 @@ type SessionProviderProps = {
 export const SessionProvider = ({ children }: SessionProviderProps) => {
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
   const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
-  const toIgnoreRoutes = ["/auth/signin", "/auth/signup"];
   const pathname = usePathname();
+  const toIgnoreRoutes = ["/auth/signin", "/auth/signup"];
 
   const update = useCallback((newData?: Partial<Session>) => {
     setSession((prevSession) => 
