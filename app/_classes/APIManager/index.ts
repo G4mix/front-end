@@ -15,10 +15,7 @@ export class APIManager {
   ): Promise<Response> {
     const response = await fetch(`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${url}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...headers
-      },
+      headers: headers,
       body: body,
     });
 
@@ -44,7 +41,9 @@ export class APIManager {
 
   private static async refreshTokens(): Promise<string | undefined> {
     const response = await APIManager.request(
-      "/auth/refreshtoken", JSON.stringify({ refreshToken: CookieManager.get("refreshToken") })
+      "/auth/refreshtoken", 
+      JSON.stringify({ refreshToken: CookieManager.get("refreshToken") }),
+      { "Content-Type": "application/json" }
     );
   
     const { accessToken, refreshToken, error }: JwtTokens = await response.json();
@@ -60,7 +59,7 @@ export class APIManager {
   }
 
   public static async signUp(signUpBody: SignUpBody): Promise<void | keyof typeof apiErrors> {
-    const response = await APIManager.request("/auth/signup", JSON.stringify(signUpBody));
+    const response = await APIManager.request("/auth/signup", JSON.stringify(signUpBody), { "Content-Type": "application/json" });
     const { accessToken, refreshToken, error }: JwtTokens = await response.json();
     if (apiErrors[error as keyof typeof apiErrors]) {
       return error as keyof typeof apiErrors;
@@ -69,7 +68,7 @@ export class APIManager {
   }
 
   public static async signIn(signInBody: SignInBody): Promise<void | keyof typeof apiErrors> {
-    const response = await APIManager.request("/auth/signin", JSON.stringify(signInBody));
+    const response = await APIManager.request("/auth/signin", JSON.stringify(signInBody), { "Content-Type": "application/json" });
 
     const { accessToken, refreshToken, error } = await response.json();
     if (apiErrors[error as keyof typeof apiErrors]) {
@@ -87,7 +86,7 @@ export class APIManager {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
     
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
 
     const query: GenericQueryRequest<"findUserByToken"> = { query: "query { findUserByToken { username email icon } }" };
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
@@ -106,18 +105,23 @@ export class APIManager {
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
-    const query = {
-      query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
+    const query  = {
+      query: "mutation createPost($input: PartialPostInput!, $images: [Upload]) { createPost(input: $input, images: $images) { author { id displayName } title content }}",
       variables: {
-        input: postInput
+        input: postInput,
+        images: new Array(images?.length).fill(null)
       }
     };
 
     const formData = new FormData();
     formData.append("operations", JSON.stringify(query));
+    const map: { [key: string]: string[] } = {};
     images && images.map((image, index) => {
-      formData.append(`variables.input.images.${index}`, image);
+      const imageKey = `variables.images.${index}`;
+      formData.append(`image${index}`, image);
+      map[`image${index}`] = [imageKey];
     });
+    formData.append("map", JSON.stringify(map));
 
     const response = await APIManager.request("/graphql", formData, headers);
     
@@ -134,7 +138,7 @@ export class APIManager {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
     const query: GenericMutationRequest<"findAllPosts"> = {
       query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
       variables: {
