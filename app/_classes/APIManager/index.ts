@@ -11,11 +11,14 @@ export class APIManager {
   private static async request<U extends BackendRoutes>(
     url: U,
     body: string | FormData,
-    headers: HeadersInit = { "Content-Type": "application/json" } 
+    headers: HeadersInit = {}
   ): Promise<Response> {
     const response = await fetch(`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${url}`, {
       method: "POST",
-      headers: headers,
+      headers: {
+        "Content-Type": "application/json",
+        ...headers
+      },
       body: body,
     });
 
@@ -103,26 +106,25 @@ export class APIManager {
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
-    const formData = new FormData();
-    formData.append("operations", JSON.stringify({
+    const query = {
       query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
       variables: {
         input: postInput
       }
-    }));
-    
+    };
+
+    const formData = new FormData();
+    formData.append("operations", JSON.stringify(query));
     images && images.map((image, index) => {
       formData.append(`variables.input.images.${index}`, image);
     });
 
-    for (const [key, value] of formData.entries()) {
-      console.log(`Chave: ${key}`);
-      console.log(`Valor: ${value}`);
-    }
     const response = await APIManager.request("/graphql", formData, headers);
     
     const data: GenericQueryResponse<"createPost"> = await response.json();
     console.log(data);
+
+    return;
     if (response.status >= 400) return;
 
     return data["data"]["createPost"];
