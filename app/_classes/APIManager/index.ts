@@ -99,11 +99,11 @@ export class APIManager {
   }
 
   public static async createPost(
-    { images, ...postInput }: CreatePostInput
+    postInput: CreatePostInput
   ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
-    console.log(images);
+    
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query: GenericMutationRequest<"createPost"> = {
