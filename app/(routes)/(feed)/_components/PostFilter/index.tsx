@@ -16,7 +16,7 @@ export const PostFilter = ({ options }: PostFilterProps) => {
   const { filterBy, handleFilterBy } = usePostsContext();
 
   useEffect(() => {
-    handleFilterBy(Object.keys(options)[0] as "recent" | "highlights" | "following");
+    handleFilterBy(Object.keys(options)[0] as "recent" | "discover");
   }, []);
 
   return (

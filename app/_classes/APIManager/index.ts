@@ -1,4 +1,4 @@
-import type { GenericMutationRequest, GenericQueryRequest } from "./types/GraphQLRequest.types";
+import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
 import type { SignUpBody, SignInBody } from "./types/RequestBody.types";
 import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
@@ -106,7 +106,7 @@ export class APIManager {
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query  = {
-      query: "mutation createPost($input: PartialPostInput!, $images: [Upload]) { createPost(input: $input, images: $images) { author { id displayName } title content }}",
+      query: "mutation createPost($input: PartialPostInput!, $images: [Upload]) { createPost(input: $input, images: $images) { id }}",
       variables: {
         input: postInput,
         images: new Array(images?.length).fill(null)
@@ -126,12 +126,28 @@ export class APIManager {
     const response = await APIManager.request("/graphql", formData, headers);
     
     const data: GenericQueryResponse<"createPost"> = await response.json();
-    console.log(data);
-
-    return;
     if (response.status >= 400) return;
 
     return data["data"]["createPost"];
+  }
+
+  public static async findPostById(id: number): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | undefined> {
+    const accessToken = CookieManager.get("accessToken");
+    if (!accessToken) return;
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
+    const query: GenericQueryRequest<"findPostById"> = {
+      query: "query findPostById($id: Int!) { findPostById(id: $id) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
+      variables: {
+        id: id
+      }
+    };
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
+    
+    const data: GenericQueryResponse<"findPostById"> = await response.json();
+    if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
+    
+    return data["data"]["findPostById"];
   }
 
   public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
@@ -139,7 +155,7 @@ export class APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-    const query: GenericMutationRequest<"findAllPosts"> = {
+    const query: GenericQueryRequest<"findAllPosts"> = {
       query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
       variables: {
         skip: skip,

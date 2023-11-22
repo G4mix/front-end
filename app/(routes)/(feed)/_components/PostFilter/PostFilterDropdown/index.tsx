@@ -11,8 +11,8 @@ import React from "react";
 type FilterDropdownProps = {
   children: React.ReactNode;
   options: { [option: string]: { name: string; icon: keyof typeof icons } };
-  filterBy: "recent" | "highlights" | "following";
-  handleFilterBy: (option: "recent" | "highlights" | "following") => void;
+  filterBy: "recent" | "discover";
+  handleFilterBy: (option: "recent" | "discover") => void;
 };
 
 export const PostFilterDropdown = ({ children, options, filterBy, handleFilterBy}: FilterDropdownProps) => {

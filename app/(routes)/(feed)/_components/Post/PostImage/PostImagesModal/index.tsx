@@ -1,6 +1,7 @@
 "use client";
 
 import type { PostImageProps } from "..";
+import type { ImageType } from "@classes/APIManager/types/Models.types";
 import { SingleImageModal } from "../SingleImageModal";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
@@ -39,13 +40,13 @@ const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images
             <Text size="xs">{images!.length} imagens</Text>
           </div>
           {
-            images!.map((img: string) =>
+            images!.map((img: ImageType) =>
               <SingleImageModal
-                key={`modal:imagem:${img}`}
-                image={img} title={title}
+                key={`modal:imagem:${img.name}`}
+                image={img}
               >
                 <Image
-                  alt={`Imagem do post ${title}`} src={img}
+                  alt={`Imagem do post ${title}`} src={img.src!}
                   width={500} height={300}
                   className={styles.modalImage}
                 />

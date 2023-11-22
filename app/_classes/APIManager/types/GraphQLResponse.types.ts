@@ -11,6 +11,7 @@ export type QueryResponseTypes = {
   findUserByToken: Partial<UserType>;
   createPost: Partial<PostType>;
   findAllPosts: Partial<PostType>[];
+  findPostById: Partial<PostType>;
 };
 
 export type MutationResponseTypes = {

@@ -1,17 +1,17 @@
+import type { PostType } from "@classes/APIManager/types/Models.types";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
-import { CommentType } from "@classes/APIManager/types/Models.types";
+import { MoreOptions } from "./MoreOptions";
 import { formatDate } from "@functions/formatDate";
 import { Heading } from "@components/Heading";
-import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import styles from "./PostHeader.module.css";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 
-type PostHeaderProps = Pick<CommentType, "createdAt" | "updatedAt" | "author">;
+type PostHeaderProps = Pick<PostType, "id" | "createdAt" | "updatedAt" | "author">;
 
-export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) => {
+export const PostHeader = ({ id, author, createdAt, updatedAt }: PostHeaderProps) => {
   return(
     <div className={styles.postHeader}>
       <Link
@@ -40,7 +40,7 @@ export const PostHeader = ({ author, createdAt, updatedAt }: PostHeaderProps) =>
         </Heading>
         <Text size="xs" weight="thin">· {updatedAt ? `Atualizado ${formatDate(new Date(updatedAt!))}` : formatDate(new Date(createdAt!))}</Text>
       </Link>
-      <Icon icon="ellipsis-h" width={16} height={16} disabled />
+      <MoreOptions id={id} author={author} />
     </div>
   );
 };
