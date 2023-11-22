@@ -1,5 +1,5 @@
-import type { RequestBody, SignUpBody, SignInBody } from "./types/RequestBody.types";
 import type { GenericMutationRequest, GenericQueryRequest } from "./types/GraphQLRequest.types";
+import type { SignUpBody, SignInBody } from "./types/RequestBody.types";
 import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
@@ -10,16 +10,13 @@ import { CreatePostInput } from "./types/Inputs.types";
 export class APIManager {
   private static async request<U extends BackendRoutes>(
     url: U,
-    body: RequestBody<U>,
-    headers: HeadersInit = {}
+    body: string | FormData,
+    headers: HeadersInit = { "Content-Type": "application/json" } 
   ): Promise<Response> {
     const response = await fetch(`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${url}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...headers
-      },
-      body: JSON.stringify(body),
+      headers: headers,
+      body: body,
     });
 
     if (response.status === 401 && url !== "/auth/refreshtoken") {
@@ -44,7 +41,7 @@ export class APIManager {
 
   private static async refreshTokens(): Promise<string | undefined> {
     const response = await APIManager.request(
-      "/auth/refreshtoken", { refreshToken: CookieManager.get("refreshToken") }
+      "/auth/refreshtoken", JSON.stringify({ refreshToken: CookieManager.get("refreshToken") })
     );
   
     const { accessToken, refreshToken, error }: JwtTokens = await response.json();
@@ -60,7 +57,7 @@ export class APIManager {
   }
 
   public static async signUp(signUpBody: SignUpBody): Promise<void | keyof typeof apiErrors> {
-    const response = await APIManager.request("/auth/signup", signUpBody);
+    const response = await APIManager.request("/auth/signup", JSON.stringify(signUpBody));
     const { accessToken, refreshToken, error }: JwtTokens = await response.json();
     if (apiErrors[error as keyof typeof apiErrors]) {
       return error as keyof typeof apiErrors;
@@ -69,7 +66,7 @@ export class APIManager {
   }
 
   public static async signIn(signInBody: SignInBody): Promise<void | keyof typeof apiErrors> {
-    const response = await APIManager.request("/auth/signin", signInBody);
+    const response = await APIManager.request("/auth/signin", JSON.stringify(signInBody));
 
     const { accessToken, refreshToken, error } = await response.json();
     if (apiErrors[error as keyof typeof apiErrors]) {
@@ -90,7 +87,7 @@ export class APIManager {
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
     const query: GenericQueryRequest<"findUserByToken"> = { query: "query { findUserByToken { username email icon } }" };
-    const response = await APIManager.request("/graphql", query, headers);
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();
     if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
@@ -99,22 +96,33 @@ export class APIManager {
   }
 
   public static async createPost(
-    postInput: CreatePostInput
+    { images, ...postInput }: CreatePostInput
   ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
-    
+
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
 
-    const query: GenericMutationRequest<"createPost"> = {
+    const formData = new FormData();
+    formData.append("operations", JSON.stringify({
       query: "mutation createPost($input: PartialPostInput!) { createPost(input: $input) { author { id displayName } title content }}",
       variables: {
         input: postInput
       }
-    };
-    const response = await APIManager.request("/graphql", query, headers);
+    }));
+    
+    images && images.map((image, index) => {
+      formData.append(`variables.input.images.${index}`, image);
+    });
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`Chave: ${key}`);
+      console.log(`Valor: ${value}`);
+    }
+    const response = await APIManager.request("/graphql", formData, headers);
     
     const data: GenericQueryResponse<"createPost"> = await response.json();
+    console.log(data);
     if (response.status >= 400) return;
 
     return data["data"]["createPost"];
@@ -132,7 +140,7 @@ export class APIManager {
         limit: 10
       }
     };
-    const response = await APIManager.request("/graphql", query, headers);
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findAllPosts"> = await response.json();
     if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
