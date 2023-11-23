@@ -4,7 +4,7 @@ import {
   faShareNodes, faThumbsUp, faChartSimple, faUserCircle, faBoltLightning,
   faMinus, faEllipsisH, faRightFromBracket, faCircle, faChevronDown,
   faUserGroup, faPaperPlane, faCode, faPenToSquare, faLink, faCirclePlus,
-  faCloudArrowUp, faArrowLeft
+  faCloudArrowUp, faArrowLeft, faTrashCan
 } from "@fortawesome/free-solid-svg-icons";
 
 import { 
@@ -30,6 +30,7 @@ export const icons = {
   "lock": faLock,
   "users": faUsers,
   "plus": faPlus,
+  "trash-can": faTrashCan,
   "circle-plus": faCirclePlus,
   "house": faHouse,
   "search": faMagnifyingGlass,

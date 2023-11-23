@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import * as Dialog from "@radix-ui/react-dialog";
 import styles from "./MoreOptionsDropdown.module.css";
@@ -14,14 +15,16 @@ export const MoreOptionsDropdown = ({ id, children }: MoreOptionsDropdownProps) 
       <Dialog.Trigger>
         {children}
       </Dialog.Trigger>
-      <Dialog.Overlay className={styles.dialogOverlay}>
-        <Dialog.Content className={styles.dropdownContent}>
-          <Link href={`/posts/${id}/edit`}>
-            <Text>Atualizar</Text>
-          </Link>
-          <Text>Deletar</Text>
-        </Dialog.Content>
-      </Dialog.Overlay>
+      <Dialog.Content className={styles.dropdownContent}>
+        <Link href={`/posts/${id}/edit`} className={styles.dropdownContentItem}>
+          <Icon icon="pen-to-square" className={styles.dropdownContentItemIcon} />
+          <Text size="md">Atualizar</Text>
+        </Link>
+        <div className={styles.dropdownContentItem}>
+          <Icon icon="trash-can" className={styles.dropdownContentItemIcon} />
+          <Text size="md">Deletar</Text>
+        </div>
+      </Dialog.Content>
     </Dialog.Root>
   );
 };

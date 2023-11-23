@@ -64,6 +64,7 @@ export const SadIcon: Story = buildIconStory("sad");
 export const SearchIcon: Story = buildIconStory("search");
 export const ShareIcon: Story = buildIconStory("share");
 export const SmileIcon: Story = buildIconStory("smile");
+export const TrashCanIcon: Story = buildIconStory("trash-can");
 export const UserIcon: Story = buildIconStory("user");
 export const UserCircleIcon: Story = buildIconStory("user-circle");
 export const UserGroupIcon: Story = buildIconStory("user-group");

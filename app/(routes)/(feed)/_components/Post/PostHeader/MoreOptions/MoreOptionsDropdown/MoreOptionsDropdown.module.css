@@ -1,19 +1,35 @@
-.dropdownOverlay {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .dropdownContent {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: 22px 32px;
+  gap: 22px;
+
+  position: fixed;
+  bottom: 50px;
+  left: 0;
 
   border-radius: 12px 12px 0px 0px;
   border: 1px solid rgba(52, 58, 91, 0.35);
   background: linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%), #1C2034;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(12.5px);
+
+  z-index: 9997;
+}
+
+.dropdownContentItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.dropdownContentItem:hover {
+  opacity: 0.5;
+}
+
+.dropdownContentItemIcon {
+  width: 24px;
+  height: 24px;
+  opacity: 1;
 }

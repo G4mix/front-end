@@ -62,7 +62,7 @@ export const Posts = () => {
         posts && posts.length > 0  && (
           posts.map((post) => 
             <Post
-              key={`post:${post!.id}`}
+              key={`post:${post!.id}:user:${post!.author!.id}`}
               post={post}
             />
           )
