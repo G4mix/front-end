@@ -22,8 +22,8 @@ export type MutationResponseTypes = {
 
 export type GenericQueryResponse<T extends keyof QueryResponseTypes> = GenericGraphQLResponse<
   { [key in T]: QueryResponseTypes[T] }
-> & { error?: string; };
+> & { error?: string; message?: string; };
 
 export type GenericMutationResponse<T extends keyof MutationResponseTypes> = GenericGraphQLResponse<
   { [key in T]: MutationResponseTypes[T] }
->;
+> & { error?: string; message?: string; };

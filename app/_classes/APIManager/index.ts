@@ -1,11 +1,11 @@
-import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
-import type { SignUpBody, SignInBody } from "./types/RequestBody.types";
 import type { GenericMutationResponse, GenericQueryResponse } from "./types/GraphQLResponse.types";
+import type { SignInBody, SignUpBody } from "./types/RequestBody.types";
+import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
+import { CreatePostInput } from "./types/Inputs.types";
 import { CookieManager } from "@classes/CookieManager";
 import { apiErrors } from "@constants/apiErrors";
-import { CreatePostInput } from "./types/Inputs.types";
 
 export class APIManager {
   private static async request<U extends BackendRoutes>(
@@ -20,14 +20,14 @@ export class APIManager {
     });
 
     if (response.status === 401 && url !== "/auth/refreshtoken") {
-      const refreshTokenData = await APIManager.refreshTokens();
-      if (apiErrors[refreshTokenData as keyof typeof apiErrors]) {
+      const { accessToken, error, message } = await APIManager.refreshTokens();
+      if (apiErrors.includes(error!)) {
         return new Response(
-          JSON.stringify(refreshTokenData), 
-          { status: 401, statusText: apiErrors[refreshTokenData as keyof typeof apiErrors] }
+          JSON.stringify(message), 
+          { status: 401, headers: { "Content-Type": "application/json; charset=utf-8" } }
         );
       }
-      const newHeaders = { ...headers, Authorization: `Bearer ${refreshTokenData}` };
+      const newHeaders = { ...headers, Authorization: `Bearer ${accessToken}` };
       return await APIManager.request(url, body, newHeaders);
     }
 
@@ -35,44 +35,41 @@ export class APIManager {
   }
 
   private static setCookies({ accessToken, refreshToken }: JwtTokens): void {
-    CookieManager.set(accessToken);
-    CookieManager.set(refreshToken);
+    CookieManager.set(accessToken!);
+    CookieManager.set(refreshToken!);
   }
 
-  private static async refreshTokens(): Promise<string | undefined> {
+  private static async refreshTokens(): Promise<{ accessToken?: string; error?: string; message?: string; }> {
     const response = await APIManager.request(
       "/auth/refreshtoken", 
       JSON.stringify({ refreshToken: CookieManager.get("refreshToken") }),
       { "Content-Type": "application/json" }
     );
   
-    const { accessToken, refreshToken, error }: JwtTokens = await response.json();
+    const { accessToken, refreshToken, error, message }: JwtTokens = await response.json();
+    if (apiErrors.includes(error!)) {
+      return { error, message  };
+    }
 
-    if (apiErrors[error as keyof typeof apiErrors]) {
-      return error as keyof typeof apiErrors;
-    }
-  
-    if (accessToken && refreshToken) {
-      this.setCookies({ accessToken, refreshToken });
-      return CookieManager.get("accessToken");
-    }
+    this.setCookies({ accessToken, refreshToken });
+    return { accessToken: CookieManager.get("accessToken") };
+    
   }
 
-  public static async signUp(signUpBody: SignUpBody): Promise<void | keyof typeof apiErrors> {
+  public static async signUp(signUpBody: SignUpBody): Promise<void | string> {
     const response = await APIManager.request("/auth/signup", JSON.stringify(signUpBody), { "Content-Type": "application/json" });
-    const { accessToken, refreshToken, error }: JwtTokens = await response.json();
-    if (apiErrors[error as keyof typeof apiErrors]) {
-      return error as keyof typeof apiErrors;
+    const { accessToken, refreshToken, error, message }: JwtTokens = await response.json();
+    if (apiErrors.includes(error!)) {
+      return message!;
     }
     APIManager.setCookies({ accessToken, refreshToken });
   }
 
-  public static async signIn(signInBody: SignInBody): Promise<void | keyof typeof apiErrors> {
+  public static async signIn(signInBody: SignInBody): Promise<void | string> {
     const response = await APIManager.request("/auth/signin", JSON.stringify(signInBody), { "Content-Type": "application/json" });
-
-    const { accessToken, refreshToken, error } = await response.json();
-    if (apiErrors[error as keyof typeof apiErrors]) {
-      return error as keyof typeof apiErrors;
+    const { accessToken, refreshToken, error, message } = await response.json();
+    if (apiErrors.includes(error!)) {
+      return message!;
     }
     APIManager.setCookies({ accessToken, refreshToken });
   }
@@ -82,7 +79,7 @@ export class APIManager {
     if (CookieManager.get("refreshToken")) CookieManager.delete("refreshToken");
   }
 
-  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
+  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | string | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
     
@@ -92,14 +89,14 @@ export class APIManager {
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();
-    if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
+    if (apiErrors.includes(data!.error!) || response.status >= 400) return data.message!;
 
     return data["data"]["findUserByToken"];
   }
 
   public static async createPost(
     { images, ...postInput }: CreatePostInput
-  ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
+  ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -142,7 +139,7 @@ export class APIManager {
 
   public static async deletePost(
     id: number
-  ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] & { error?: keyof typeof apiErrors; } | undefined> {
+  ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -164,7 +161,7 @@ export class APIManager {
     return data["data"]["deletePost"];
   }
 
-  public static async findPostById(id: number): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | undefined> {
+  public static async findPostById(id: number): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | string | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -178,12 +175,12 @@ export class APIManager {
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findPostById"> = await response.json();
-    if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
+    if (apiErrors.includes(data.error!) || response.status >= 400) return data.message;
     
     return data["data"]["findPostById"];
   }
 
-  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
+  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | string | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -198,7 +195,7 @@ export class APIManager {
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findAllPosts"> = await response.json();
-    if (apiErrors[data.error as keyof typeof apiErrors] || response.status >= 400) return;
+    if (apiErrors.includes(data.error!) || response.status >= 400) return data.message;
     
     return data["data"]["findAllPosts"];
   }

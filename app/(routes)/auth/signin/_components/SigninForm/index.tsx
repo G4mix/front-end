@@ -3,15 +3,22 @@
 import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
 import { useMessagesContext } from "@contexts/MessagesContext";
 import { APIManager } from "@classes/APIManager";
-import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
+import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
 import Link from "next/link";
+
+type LoginProps = {
+  password: string;
+  rememberMe: boolean;
+  username?: string;
+  email?: string;
+};
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const { handleShowMessage } = useMessagesContext();
@@ -19,7 +26,23 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const registerForm = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
-  const login = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+  const login = async (signInBody: LoginProps) => {
+    const errorMessage = await APIManager.signIn(signInBody);
+    
+    if (errorMessage) {
+      setTryingToLogIn(false);
+      if (apiErrors.includes(errorMessage)) {
+        handleShowMessage(errorMessage);
+        return;
+      }
+      handleShowMessage("Erro ao fazer o login");
+      return;
+    }
+
+    router.push("/");
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (tryingToLogIn) return;
@@ -30,7 +53,10 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     const usernameOrEmail = formData.get("username_or_email")?.valueOf() as string;
     const password = formData.get("password")?.valueOf() as string;
     const rememberMe = formData.get("remember_me")?.valueOf() as string;
-    
+
+    const signInBody: LoginProps = { password, rememberMe: !!rememberMe };
+    signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
+
     if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
       handleShowMessage("Nome de usuário ou e-mail inválido.");
       return;
@@ -38,29 +64,15 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       handleShowMessage("Nome de usuário ou e-mail muito curto.");
       return;
     } else if (password.length < 7) {
-      handleShowMessage(apiErrors["PASSWORD_TOO_SHORT"]);
+      handleShowMessage("Senha muito curta.");
       return;
     }
 
-    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = {
-      password, rememberMe: !!rememberMe
-    };
-    
-    signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
-    
-    const result = await APIManager.signIn(signInBody);
-    
-    if (apiErrors[result!]) {
-      setTryingToLogIn(false);
-      handleShowMessage(apiErrors[result!]);
-      return;
-    }
-
-    router.push("/");
-  }, []);
+    login(signInBody);
+  };
 
   return (
-    <form onSubmit={(e) => login(e)} >
+    <form onSubmit={onSubmit} >
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input

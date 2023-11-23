@@ -5,20 +5,26 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 import textStyles from "@components/Text/Text.module.css";
 
-import React, { ChangeEvent, useState, useRef, useCallback } from "react";
+import React, { ChangeEvent, useState, useRef } from "react";
 import {
-  hasEightOrMoreChars, hasGmailDomain, hasNumber,
-  hasOneUppercaseChar, hasSpecialChar, isValidUsername
+  hasEightOrMoreChars, hasNumber,
+  hasOneUppercaseChar, hasSpecialChar
 } from "@functions/formValidations";
 import { Collapsable, CollapsableHandlers } from "../Collapsable";
 import { useMessagesContext } from "@contexts/MessagesContext";
 import { APIManager } from "@classes/APIManager";
+import { apiErrors } from "@/app/_constants/apiErrors";
 import { useRouter } from "next/navigation";
-import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
+
+type RegisterProps = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 export const RegisterForm = () => {
   const { handleShowMessage } = useMessagesContext();
@@ -31,7 +37,23 @@ export const RegisterForm = () => {
 
   const router = useRouter();
 
-  const register = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+  const register = async (signUpBody: RegisterProps) => {
+    const errorMessage = await APIManager.signUp(signUpBody);
+
+    if (errorMessage) {
+      setTryingToRegister(false);
+      if (apiErrors.includes(errorMessage)) {
+        handleShowMessage(errorMessage);
+        return;
+      }
+      handleShowMessage("Erro ao fazer o login");
+      return;
+    }
+
+    router.push("/");
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (tryingToRegister) return;
     setTryingToRegister(true);
@@ -42,30 +64,9 @@ export const RegisterForm = () => {
     const email = formData.get("email")?.valueOf() as string;
     const password = formData.get("password")?.valueOf() as string;
     const confirmPassword = formData.get("confirm_password")?.valueOf() as string;
-    const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string;
+    const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string | undefined | null;
 
-    if (!isValidUsername(username)) {
-      handleShowMessage(apiErrors["USERNAME_INVALID_FORMAT"]);
-      return;
-    } else if (username.length < 3) {
-      handleShowMessage(apiErrors["USERNAME_TOO_SHORT"]);
-      return;
-    } else if (!hasGmailDomain(email)) {
-      handleShowMessage(apiErrors["EMAIL_INVALID_FORMAT"]);
-      return;
-    } else if(!hasEightOrMoreChars(password)) {
-      handleShowMessage(apiErrors["PASSWORD_TOO_SHORT"]);
-      return;
-    } else if (!hasNumber(password)) {
-      handleShowMessage(apiErrors["PASSWORD_MISSING_NUMBER"]);
-      return;
-    } else if (!hasSpecialChar(password)) {
-      handleShowMessage(apiErrors["PASSWORD_MISSING_SPECIAL_CHAR"]);
-      return;
-    } else if (!hasOneUppercaseChar(password)) {
-      handleShowMessage(apiErrors["PASSWORD_MISSING_UPPERCASE"]);
-      return;
-    } else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
       handleShowMessage("É necessário que a senha e a senha de confirmação sejam iguais.");
       return;
     } else if (!acceptedTerms) {
@@ -73,18 +74,15 @@ export const RegisterForm = () => {
       return;
     }
 
-    const result = await APIManager.signUp({ username, email, password });
-    if (apiErrors[result!]) {
-      setTryingToRegister(false);
-      handleShowMessage(apiErrors[result!]);
-      return;
-    }
-
-    router.push("/");
-  }, []);
-
+    register({
+      username,
+      email,
+      password
+    });
+  };
+  
   return (
-    <form className={signupFormStyles.form} onSubmit={(e) => register(e)} ref={registerForm}>
+    <form className={signupFormStyles.form} onSubmit={onSubmit} ref={registerForm}>
       <div className={signupFormStyles.fields}>
         <Input
           icon="user"
