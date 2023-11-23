@@ -9,9 +9,11 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 
-type PostHeaderProps = Pick<PostType, "id" | "createdAt" | "updatedAt" | "author">;
+type PostHeaderProps = {
+  handleDeletePost: () => void;
+} & Pick<PostType, "id" | "createdAt" | "updatedAt" | "author">;
 
-export const PostHeader = ({ id, author, createdAt, updatedAt }: PostHeaderProps) => {
+export const PostHeader = ({ id, author, createdAt, updatedAt, handleDeletePost }: PostHeaderProps) => {
   return(
     <div className={styles.postHeader}>
       <Link
@@ -40,7 +42,7 @@ export const PostHeader = ({ id, author, createdAt, updatedAt }: PostHeaderProps
         </Heading>
         <Text size="xs" weight="thin">· {updatedAt ? `Atualizado ${formatDate(new Date(updatedAt!))}` : formatDate(new Date(createdAt!))}</Text>
       </Link>
-      <MoreOptions id={id} author={author} />
+      <MoreOptions id={id} author={author} handleDeletePost={handleDeletePost} />
     </div>
   );
 };

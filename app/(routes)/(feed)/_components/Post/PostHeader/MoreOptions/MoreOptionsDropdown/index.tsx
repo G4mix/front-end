@@ -7,9 +7,13 @@ import styles from "./MoreOptionsDropdown.module.css";
 import React from "react";
 import Link from "next/link";
 
-type MoreOptionsDropdownProps = { children: React.ReactNode; id?: number; };
+type MoreOptionsDropdownProps = {
+  handleDeletePost: () => void;
+  children: React.ReactNode;
+  id?: number; 
+};
 
-export const MoreOptionsDropdown = ({ id, children }: MoreOptionsDropdownProps) => {
+export const MoreOptionsDropdown = ({ id, children, handleDeletePost }: MoreOptionsDropdownProps) => {
   return (
     <Dialog.Root modal={false}>
       <Dialog.Trigger>
@@ -20,7 +24,7 @@ export const MoreOptionsDropdown = ({ id, children }: MoreOptionsDropdownProps) 
           <Icon icon="pen-to-square" className={styles.dropdownContentItemIcon} />
           <Text size="md">Atualizar</Text>
         </Link>
-        <div className={styles.dropdownContentItem}>
+        <div className={styles.dropdownContentItem} onClick={handleDeletePost}>
           <Icon icon="trash-can" className={styles.dropdownContentItemIcon} />
           <Text size="md">Deletar</Text>
         </div>

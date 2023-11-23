@@ -7,6 +7,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Posts.module.css";
 
 export const Posts = () => {
+  const [deletingPost, setDeletingPost] = useState(false);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const [searching, setSearching] = useState(false);
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -40,6 +41,14 @@ export const Posts = () => {
       setPage(prevPage => prevPage + 1);
     }
   }, [searching, allPostsLoaded]);
+
+  const handleDeletePost = async (id: number) => {
+    if (deletingPost) return;
+    setDeletingPost(true);
+    await APIManager.deletePost(id!);
+    setDeletingPost(false);
+    setPosts((prevPosts: PostType[]) => prevPosts.filter(prevPost => id !== prevPost!.id!));
+  };
   
   useEffect(() => {
     getPosts();
@@ -60,10 +69,11 @@ export const Posts = () => {
     <div className={styles.posts}>
       {
         posts && posts.length > 0  && (
-          posts.map((post) => 
+          posts.map((post) =>
             <Post
               key={`post:${post!.id}:user:${post!.author!.id}`}
               post={post}
+              handleDeletePost={() => handleDeletePost(post!.id!)}
             />
           )
         )

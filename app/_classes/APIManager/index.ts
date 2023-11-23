@@ -1,6 +1,6 @@
 import type { GenericQueryRequest } from "./types/GraphQLRequest.types";
 import type { SignUpBody, SignInBody } from "./types/RequestBody.types";
-import type { GenericQueryResponse } from "./types/GraphQLResponse.types";
+import type { GenericMutationResponse, GenericQueryResponse } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
 import { CookieManager } from "@classes/CookieManager";
@@ -99,7 +99,7 @@ export class APIManager {
 
   public static async createPost(
     { images, ...postInput }: CreatePostInput
-  ): Promise<GenericQueryResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
+  ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] & { error?: keyof typeof apiErrors; } | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -134,10 +134,34 @@ export class APIManager {
 
     const response = await APIManager.request("/graphql", formData, headers);
     
-    const data: GenericQueryResponse<"createPost"> = await response.json();
+    const data: GenericMutationResponse<"createPost"> = await response.json();
     if (response.status >= 400) return;
 
     return data["data"]["createPost"];
+  }
+
+  public static async deletePost(
+    id: number
+  ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] & { error?: keyof typeof apiErrors; } | undefined> {
+    const accessToken = CookieManager.get("accessToken");
+    if (!accessToken) return;
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
+
+    const query  = {
+      query: "mutation deletePost($postId: Int!) { deletePost(postId: $postId) }",
+      variables: {
+        postId: id
+      }
+    };
+
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
+    console.log(response);
+    const data: GenericMutationResponse<"deletePost"> = await response.json();
+    console.log(data);
+    if (response.status >= 400) return;
+
+    return data["data"]["deletePost"];
   }
 
   public static async findPostById(id: number): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | undefined> {
