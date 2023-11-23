@@ -25,7 +25,7 @@ export const SingleImageModal = ({ children, image }: SingleImageModalProps) => 
           </div>
           <Image
             key={`modal:singleModalImage:imagem:${image.src}`}
-            alt={`Imagem ${image.name}`} src={image.src!}
+            alt={`Imagem ${image.name}`} src={`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${image.src!}`}
             width={image.width} height={image.height}
             className={styles.modalImage}
           />

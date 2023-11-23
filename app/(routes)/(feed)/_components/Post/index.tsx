@@ -15,7 +15,7 @@ export const Post = ({ post }: PostProps) => {
   return (
     <PostRoot>
       <PostHeader createdAt={post.createdAt} updatedAt={post.updatedAt} author={post.author} />
-      { post.images && post.images.length > 0 && (<PostImage images={post.images} title={post.title} />) }
+      { post.images && post.images.length > 0 && (<PostImage images={post.images} />) }
       <PostMain title={post.title} content={post.content} />
       { post.links && post.links.map((link) => (<PostLink url={link.link} key={`link:${link.id}:${link.link}`} />)) }
       <PostCommands post={post} />

@@ -109,19 +109,28 @@ export class APIManager {
       query: "mutation createPost($input: PartialPostInput!, $images: [Upload]) { createPost(input: $input, images: $images) { id }}",
       variables: {
         input: postInput,
-        images: new Array(images?.length).fill(null)
+        images: !images || images.length === 0 ? undefined : new Array(images?.length).fill(null)
       }
     };
 
+    console.log(query);
+
     const formData = new FormData();
     formData.append("operations", JSON.stringify(query));
-    const map: { [key: string]: string[] } = {};
-    images && images.map((image, index) => {
-      const imageKey = `variables.images.${index}`;
-      formData.append(`image${index}`, image);
-      map[`image${index}`] = [imageKey];
-    });
-    formData.append("map", JSON.stringify(map));
+    if (images && images.length > 0) {
+      const map: { [key: string]: string[] } = {};
+      images.map((image, index) => {
+        const imageKey = `variables.images.${index}`;
+        formData.append(`image${index}`, image);
+        map[`image${index}`] = [imageKey];
+      });
+      formData.append("map", JSON.stringify(map));
+    }
+
+    for (const [key, value] of formData) {
+      console.log("Chave "+key);
+      console.log("Valor "+value);
+    }
 
     const response = await APIManager.request("/graphql", formData, headers);
     
@@ -156,7 +165,7 @@ export class APIManager {
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
     const query: GenericQueryRequest<"findAllPosts"> = {
-      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } images { id name src width height } }}",
       variables: {
         skip: skip,
         limit: 10

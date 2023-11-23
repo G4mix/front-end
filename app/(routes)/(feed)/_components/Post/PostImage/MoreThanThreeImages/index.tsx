@@ -1,4 +1,5 @@
 import type { PostImageProps } from "..";
+import type { ImageType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import componentStyles from "./MoreThanThreeImages.module.css";
@@ -10,14 +11,14 @@ type MoreThanThreeImagesProps = {
   handleOpenModal?: (selectedImage: string) => void;
 } & PostImageProps;
 
-export const MoreThanThreeImages = ({ images, title, handleOpenModal }: MoreThanThreeImagesProps) => {
+export const MoreThanThreeImages = ({ images, handleOpenModal }: MoreThanThreeImagesProps) => {
   const remainingImages = images!.length - 4;
   const imagesToDisplay = images!.slice(0, 4);
 
   return (
     <div className={styles.postBoxImage} style={{flexDirection: "column"}}>
       {
-        imagesToDisplay.reduce((chunks: string[][], _img: string, index: number) => {
+        imagesToDisplay.reduce((chunks: ImageType[][], _img: ImageType, index: number) => {
           if (index % 2 === 0) {
             chunks.push(images!.slice(index, index + 2));
           }
@@ -31,15 +32,15 @@ export const MoreThanThreeImages = ({ images, title, handleOpenModal }: MoreThan
                 (remainingImages > 0) ? (
                     <div
                       className={componentStyles.lastImageWrapper}
-                      onClick={() => { if (handleOpenModal) handleOpenModal(img); }}
+                      onClick={() => { if (handleOpenModal) handleOpenModal(img!.src!); }}
                       key={`post:image:${img}`}
                     >
                       <Image
-                        src={img}
-                        width={500}
-                        height={300}
+                        src={`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${img!.src!}`}
+                        width={img!.width}
+                        height={img!.height}
                         quality={100}
-                        alt={`Imagem do post: ${title!}`}
+                        alt={`Imagem: ${img!.name!}`}
                         className={`${styles.image} ${componentStyles.lastImage}`}
                       />
                       <div className={componentStyles.remainingImages}>
@@ -49,13 +50,13 @@ export const MoreThanThreeImages = ({ images, title, handleOpenModal }: MoreThan
                     </div>
                   ) : (
                     <Image
-                      src={img} key={`post:image:${img}`}
-                      width={500}
-                      height={300}
+                      src={`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${img!.src!}`} key={`post:image:${img!.src!}`}
+                      width={img.width}
+                      height={img.height}
                       quality={100}
-                      alt={`Imagem do post: ${title!}`}
+                      alt={`Imagem: ${img.name!}`}
                       className={styles.image}
-                      onClick={() => { if (handleOpenModal) handleOpenModal(img); }}
+                      onClick={() => { if (handleOpenModal) handleOpenModal(img!.src!); }}
                     />
                   )
               ))

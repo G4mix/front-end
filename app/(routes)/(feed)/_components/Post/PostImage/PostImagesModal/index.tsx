@@ -14,7 +14,7 @@ export type ImagesModalHandler = {
   handleOpenModal: () => void;
 };
 
-const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images, title }, ref) => {
+const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images }, ref) => {
   const [open, setOpen] = useState(false);
 
   const handleOpenModal = useCallback(() => {
@@ -42,12 +42,12 @@ const PostImagesModal = forwardRef<ImagesModalHandler, PostImageProps>(({ images
           {
             images!.map((img: ImageType) =>
               <SingleImageModal
-                key={`modal:imagem:${img.name}`}
+                key={`modal:imagem:${img.src}`}
                 image={img}
               >
                 <Image
-                  alt={`Imagem do post ${title}`} src={img.src!}
-                  width={500} height={300}
+                  alt={`Imagem: ${img.name}`} src={`${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${img!.src!}`}
+                  width={img.width} height={img.height}
                   className={styles.modalImage}
                 />
               </SingleImageModal>

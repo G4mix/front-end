@@ -22,7 +22,7 @@ export const PostHeader = ({ id, author, createdAt, updatedAt }: PostHeaderProps
         {
           author!.user!.icon ? (
             <Image
-              src={author!.user!.icon }
+              src={author!.user!.icon}
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
               width={24}
