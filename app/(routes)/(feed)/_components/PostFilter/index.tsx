@@ -6,7 +6,7 @@ import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useEffect } from "react";
 import styles from "./PostFilter.module.css";
-import { usePostsContext } from "../../../../_contexts/PostsContext";
+import { usePostsContext } from "@contexts/feed/PostsContext";
 
 type PostFilterProps = {
   options: { [option: string]: { name: string; icon: keyof typeof icons } };

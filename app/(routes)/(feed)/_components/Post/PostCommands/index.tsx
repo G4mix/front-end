@@ -1,8 +1,8 @@
 "use client";
 
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
-import { useMessagesContext } from "@contexts/MessagesContext";
-import { useSession } from "@contexts/SessionContext";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
+import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";

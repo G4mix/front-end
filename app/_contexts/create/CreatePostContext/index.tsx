@@ -1,7 +1,7 @@
 "use client";
 
-import { useMessagesContext } from "@contexts/MessagesContext";
-import { CreatePostPosting } from "../../(routes)/posts/create/_components/CreatePostPosting";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
+import { CreatePostPosting } from "@/app/(routes)/posts/create/_components/CreatePostPosting";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";

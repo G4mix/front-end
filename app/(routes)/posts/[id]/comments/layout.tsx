@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CommentsProvider } from "../../../../_contexts/CommentsContext";
+import { CommentsProvider } from "@contexts/post/CommentsContext";
 import React from "react";
 import "@styles/globals.css";
 

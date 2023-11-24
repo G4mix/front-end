@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreatePostContext } from "../../../../../_contexts/CreatePostContext";
+import { useCreatePostContext } from "@contexts/create/CreatePostContext";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 import React, { useCallback } from "react";

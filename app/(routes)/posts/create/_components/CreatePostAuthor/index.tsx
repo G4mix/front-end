@@ -1,7 +1,7 @@
 "use client";
 
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
-import { useSession } from "@contexts/SessionContext";
+import { useSession } from "@contexts/global/SessionContext";
 import { Text } from "@components/Text";
 import styles from "./CreatePostAuthor.module.css";
 import Image from "next/image";

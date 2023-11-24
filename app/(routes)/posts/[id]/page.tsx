@@ -1,4 +1,3 @@
-import { MessagesProvider } from "@contexts/MessagesContext";
 import { exampleComments } from "@constants/exampleComments";
 import { examplePosts } from "@constants/examplePosts";
 import { Comments } from "./comments/_components/Comments";
@@ -19,21 +18,19 @@ export default function SinglePostPage({ params }: { params: { id: string } }) {
   };
 
   return (
-    <MessagesProvider>
-      <main className={styles.main}>
-        <Navbar position="top" />
-        <div className={styles.postZone}>
-          <Post handleDeletePost={handleDeletePost} post={post!} />
+    <main className={styles.main}>
+      <Navbar position="top" />
+      <div className={styles.postZone}>
+        <Post handleDeletePost={handleDeletePost} post={post!} />
+      </div>
+      <div className={styles.commentsArea}>
+        <div className={styles.commentsHeading}>
+          <Heading size="default">
+            Comentários
+          </Heading>
         </div>
-        <div className={styles.commentsArea}>
-          <div className={styles.commentsHeading}>
-            <Heading size="default">
-              Comentários
-            </Heading>
-          </div>
-          <Comments comments={comments} />
-        </div>
-      </main>
-    </MessagesProvider>
+        <Comments comments={comments} />
+      </div>
+    </main>
   );
 }

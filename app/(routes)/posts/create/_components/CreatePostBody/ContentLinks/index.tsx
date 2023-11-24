@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreatePostContext } from "@contexts/CreatePostContext";
+import { useCreatePostContext } from "@contexts/create/CreatePostContext";
 import { ContentLink } from "./ContentLink";
 import React from "react";
 

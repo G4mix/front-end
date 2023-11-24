@@ -1,7 +1,7 @@
 "use client";
 
 import { MoreOptionsDropdown } from "./MoreOptionsDropdown";
-import { useSession } from "@contexts/SessionContext";
+import { useSession } from "@contexts/global/SessionContext";
 import { PostType } from "@classes/APIManager/types/Models.types";
 import { Icon } from "@components/Icon";
 import React from "react";

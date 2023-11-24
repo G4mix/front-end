@@ -1,9 +1,11 @@
 "use client";
 
 import type { Session, SessionContextProps } from "./Session.types";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { CookieManager } from "@classes/CookieManager";
 import { usePathname } from "next/navigation";
 import { APIManager } from "@classes/APIManager";
+import { apiErrors } from "@constants/apiErrors";
 import React, { useState, useEffect, createContext, useCallback } from "react";
 
 export const SessionContext = createContext<SessionContextProps>({
@@ -18,6 +20,7 @@ type SessionProviderProps = {
 };
 
 export const SessionProvider = ({ children }: SessionProviderProps) => {
+  const { handleShowMessage } = useMessagesContext();
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
   const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
   const pathname = usePathname();
@@ -44,7 +47,13 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     setStatus("loading");
 
     const data = await APIManager.findUserByToken()!;
-    if (!data || data.error) return setUnauthenticated();
+    if (!data || data.error) {
+      if (data && apiErrors.includes(data!.error!)) {
+        handleShowMessage(data!.message!);
+      }
+      
+      return setUnauthenticated();
+    }
     const { username, email, icon } = data;
 
     setSession({

@@ -2,7 +2,7 @@
 
 import type { CommentType } from "@classes/APIManager/types/Models.types";
 import { Answer, type AnswerMethods } from "../Answer";
-import { useCommentsContext } from "../../../../../../_contexts/CommentsContext";
+import { useCommentsContext } from "@contexts/post/CommentsContext";
 import { MarkedToReply } from "../MarkedToReply";
 import { Comment } from "../Comment";
 import { Replies } from "../Replies";
@@ -29,7 +29,7 @@ export const Comments = ({ comments, className="" }: CommentsProps) => {
         return new Date(dateB).getTime() - new Date(dateA).getTime();
       });
     } else if (filterBy === "relevant") {
-      return comments.sort((a, b) => b!.likes! - a!.likes!);
+      return comments.sort((a, b) => b!.likesCount! - a!.likesCount!);
     }
 
     return comments.sort(() => Math.random() - 0.5);

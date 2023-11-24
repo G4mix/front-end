@@ -1,7 +1,7 @@
 "use client";
 
 import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
-import { useMessagesContext } from "@contexts/MessagesContext";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
@@ -58,12 +58,15 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
 
     if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
+      setTryingToLogIn(false);
       handleShowMessage("Nome de usuário ou e-mail inválido.");
       return;
     } else if (usernameOrEmail.length < 3) {
+      setTryingToLogIn(false);
       handleShowMessage("Nome de usuário ou e-mail muito curto.");
       return;
     } else if (password.length < 7) {
+      setTryingToLogIn(false);
       handleShowMessage("Senha muito curta.");
       return;
     }

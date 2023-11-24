@@ -1,6 +1,5 @@
 "use client";
 
-import { useMessagesContext } from "@contexts/MessagesContext";
 import { Text } from "@components/Text";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./PostLinks.module.css";
@@ -8,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type PostLinkProps = {
+  handleError?: () => void;
   children?: React.ReactNode;
   url?: string;
 };
@@ -22,8 +22,7 @@ type DataType = {
   };
 };
 
-export const PostLink = ({ url="", children }: PostLinkProps) => {
-  const { handleShowMessage } = useMessagesContext();
+export const PostLink = ({ url="", handleError, children }: PostLinkProps) => {
   const [data, setData] = useState<DataType | null>(null);
   
   const fetchData = useCallback(async () => {
@@ -42,7 +41,7 @@ export const PostLink = ({ url="", children }: PostLinkProps) => {
       });
   
     } catch (error) {
-      handleShowMessage("Erro ao buscar informações da URL!");
+      if (handleError) handleError();
     }
   }, []);
 

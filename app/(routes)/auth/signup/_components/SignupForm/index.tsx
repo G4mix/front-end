@@ -11,9 +11,9 @@ import {
   hasOneUppercaseChar, hasSpecialChar
 } from "@functions/formValidations";
 import { Collapsable, CollapsableHandlers } from "../Collapsable";
-import { useMessagesContext } from "@contexts/MessagesContext";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { APIManager } from "@classes/APIManager";
-import { apiErrors } from "@/app/_constants/apiErrors";
+import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
@@ -67,9 +67,11 @@ export const RegisterForm = () => {
     const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string | undefined | null;
 
     if (password !== confirmPassword) {
+      setTryingToRegister(false);
       handleShowMessage("É necessário que a senha e a senha de confirmação sejam iguais.");
       return;
     } else if (!acceptedTerms) {
+      setTryingToRegister(false);
       handleShowMessage("Você precisa aceitar os termos se quiser fazer parte do Gamix!");
       return;
     }
