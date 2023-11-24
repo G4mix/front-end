@@ -79,7 +79,7 @@ export class APIManager {
     if (CookieManager.get("refreshToken")) CookieManager.delete("refreshToken");
   }
 
-  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | string | undefined> {
+  public static async findUserByToken(): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
     
@@ -89,8 +89,6 @@ export class APIManager {
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();
-    if (apiErrors.includes(data!.error!) || response.status >= 400) return data.message!;
-
     return data["data"]["findUserByToken"];
   }
 
@@ -132,8 +130,6 @@ export class APIManager {
     const response = await APIManager.request("/graphql", formData, headers);
     
     const data: GenericMutationResponse<"createPost"> = await response.json();
-    if (response.status >= 400) return;
-
     return data["data"]["createPost"];
   }
 
@@ -174,13 +170,11 @@ export class APIManager {
     };
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
-    const data: GenericQueryResponse<"findPostById"> = await response.json();
-    if (apiErrors.includes(data.error!) || response.status >= 400) return data.message;
-    
+    const data: GenericQueryResponse<"findPostById"> = await response.json();    
     return data["data"]["findPostById"];
   }
 
-  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | string | undefined> {
+  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
     const accessToken = CookieManager.get("accessToken");
     if (!accessToken) return;
 
@@ -194,9 +188,7 @@ export class APIManager {
     };
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
     
-    const data: GenericQueryResponse<"findAllPosts"> = await response.json();
-    if (apiErrors.includes(data.error!) || response.status >= 400) return data.message;
-    
+    const data: GenericQueryResponse<"findAllPosts"> = await response.json();    
     return data["data"]["findAllPosts"];
   }
 }

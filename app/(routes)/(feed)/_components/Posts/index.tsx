@@ -18,7 +18,7 @@ export const Posts = () => {
     setSearching(true);
     const allPosts = await APIManager.findAllPosts(page);
 
-    if (!allPosts || allPosts.length === 0) {
+    if (!allPosts || allPosts.error || allPosts.length === 0) {
       setSearching(false);
       return setAllPostsLoaded(true);
     }

@@ -44,7 +44,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     setStatus("loading");
 
     const data = await APIManager.findUserByToken()!;
-    if (!data) return setUnauthenticated();
+    if (!data || data.error) return setUnauthenticated();
     const { username, email, icon } = data;
 
     setSession({

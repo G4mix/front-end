@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type PostLinkProps = {
-  children?: React.ReactNode
+  children?: React.ReactNode;
   url?: string;
 };
 

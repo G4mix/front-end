@@ -22,9 +22,11 @@ export const SelectImageCommand = () => {
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files![0];
-    const fileName = selectedFile.name || generateRandomFileName();
-    handleSelectImage(new File([selectedFile], fileName));
+    const selectedFiles = e.target.files!;
+    for (const selectedFile of selectedFiles) {
+      const fileName = selectedFile.name || generateRandomFileName();
+      handleSelectImage(new File([selectedFile], fileName));
+    }
   };
 
   return (
@@ -33,6 +35,7 @@ export const SelectImageCommand = () => {
         type="file"
         accept="image/*"
         ref={fileInputRef}
+        multiple
         style={{ display: "none" }}
         onChange={handleFileChange}
       />

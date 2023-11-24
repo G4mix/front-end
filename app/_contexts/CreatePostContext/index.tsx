@@ -44,7 +44,17 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
   const router = useRouter();
 
   const handleSelectImage = useCallback((image: File) => {
+    if(image.size > 1048576) {
+      handleShowMessage("O tamanho da imagem não deve ultrapassar 1mb!");
+      return;
+    }
+
     setImages((prevImages) => {
+      if (prevImages.length === 8) {
+        handleShowMessage("O limite de imagens é 8!");
+        return prevImages;
+      }
+
       const isImagePresent = prevImages.some((prevImage) => prevImage.image.name === image.name);
       if (isImagePresent) return prevImages;
       return [...prevImages, { link: URL.createObjectURL(image), image }];
@@ -76,6 +86,9 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
   }, []);
 
   const handleToggleAddLink = useCallback(() => {
+    if (images.length > 5) {
+      return handleShowMessage("O limite de links é 5!");
+    }
     setOpenAddLink((isOpen) => !isOpen);
   }, []);
 
@@ -107,7 +120,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
 
     const postData = await APIManager.createPost(post);
 
-    if(!postData || postData["error"]) {
+    if(postData!.error) {
       handleShowMessage("Falha ao criar o post...");
       return setTryingToPost(false);
     }
