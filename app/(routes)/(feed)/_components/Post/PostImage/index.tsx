@@ -1,6 +1,6 @@
 "use client";
 
-import type { PostType } from "@classes/APIManager/types/Models.types";
+import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
 import { MoreThanThreeImages } from "./MoreThanThreeImages";
 import { ImagesModalHandler, PostImagesModal } from "./PostImagesModal";
 import { SingleImage } from "./SingleImage";

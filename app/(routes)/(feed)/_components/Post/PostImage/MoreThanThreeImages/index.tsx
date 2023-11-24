@@ -1,5 +1,5 @@
 import type { PostImageProps } from "..";
-import type { ImageType } from "@classes/APIManager/types/Models.types";
+import type { ImageType } from "@/app/_classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import componentStyles from "./MoreThanThreeImages.module.css";

@@ -1,4 +1,4 @@
-import type { CommentType } from "@classes/APIManager/types/Models.types";
+import type { CommentType } from "@/app/_classes/APIManager/base/types/Models.types";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { formatDate } from "@functions/formatDate";
 import { Text } from "@components/Text";

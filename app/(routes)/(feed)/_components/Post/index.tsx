@@ -1,4 +1,4 @@
-import type { PostType } from "@classes/APIManager/types/Models.types";
+import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
 import { PostCommands } from "./PostCommands";
 import { PostHeader } from "./PostHeader";
 import { PostImage } from "./PostImage";
@@ -9,13 +9,14 @@ import React from "react";
 
 type PostProps = {
   post: PostType;
-  handleDeletePost: () => void;
+  handleDeletePost?: () => void;
 };
 
 export const Post = ({ post, handleDeletePost }: PostProps) => {
   return (
     <PostRoot>
       <PostHeader
+        id={post.id}
         createdAt={post.createdAt}
         updatedAt={post.updatedAt}
         author={post.author}

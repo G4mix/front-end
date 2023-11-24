@@ -2,7 +2,7 @@
 
 import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
-import { APIManager } from "@classes/APIManager";
+import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
@@ -27,7 +27,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const login = async (signInBody: LoginProps) => {
-    const errorMessage = await APIManager.signIn(signInBody);
+    const errorMessage = await UserAuthManager.signIn(signInBody);
     
     if (errorMessage) {
       setTryingToLogIn(false);

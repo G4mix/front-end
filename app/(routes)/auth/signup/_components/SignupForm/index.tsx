@@ -12,7 +12,7 @@ import {
 } from "@functions/formValidations";
 import { Collapsable, CollapsableHandlers } from "../Collapsable";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
-import { APIManager } from "@classes/APIManager";
+import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
@@ -38,7 +38,7 @@ export const RegisterForm = () => {
   const router = useRouter();
 
   const register = async (signUpBody: RegisterProps) => {
-    const errorMessage = await APIManager.signUp(signUpBody);
+    const errorMessage = await UserAuthManager.signUp(signUpBody);
 
     if (errorMessage) {
       setTryingToRegister(false);

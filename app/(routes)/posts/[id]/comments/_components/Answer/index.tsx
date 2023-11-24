@@ -1,7 +1,7 @@
 "use client";
 
 import { EmojiPicker } from "@components/EmojiPicker";
-import { useSession } from "@contexts/SessionContext";
+import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
 import { TextArea } from "@components/TextArea";
 import { Icon } from "@components/Icon";

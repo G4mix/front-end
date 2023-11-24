@@ -7,21 +7,20 @@ import { Post } from "../../(feed)/_components/Post";
 import styles from "./page.module.css";
 import React from "react";
 
-export const dynamicParams = true;
 
 export default function SinglePostPage({ params }: { params: { id: string } }) {
-  const comments = exampleComments();
-  const post = examplePosts().find(post => post.id === parseInt(params.id));
-
-  const handleDeletePost = () => {
-
+  const findData = () => {
+    return examplePosts().find(post => post.id === parseInt(params.id));
   };
+  
+  const comments = exampleComments();
+  const post = findData();
 
   return (
     <main className={styles.main}>
       <Navbar position="top" />
       <div className={styles.postZone}>
-        <Post handleDeletePost={handleDeletePost} post={post!} />
+        <Post post={post!} />
       </div>
       <div className={styles.commentsArea}>
         <div className={styles.commentsHeading}>

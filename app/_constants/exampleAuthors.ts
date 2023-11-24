@@ -1,4 +1,4 @@
-import { CommentType } from "../_classes/APIManager/types/Models.types";
+import { CommentType } from "../_classes/APIManager/base/types/Models.types";
 
 export const exampleAuthors: CommentType["author"][] = [
   {

@@ -2,9 +2,10 @@
 
 import type { Session, SessionContextProps } from "./Session.types";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
+import { UserQueryManager } from "@classes/APIManager/user/UserQueryManager";
+import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { CookieManager } from "@classes/CookieManager";
 import { usePathname } from "next/navigation";
-import { APIManager } from "@classes/APIManager";
 import { apiErrors } from "@constants/apiErrors";
 import React, { useState, useEffect, createContext, useCallback } from "react";
 
@@ -35,7 +36,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
   const setUnauthenticated = useCallback(() => {
     setSession(null);
     setStatus("unauthenticated");
-    APIManager.signOut();
+    UserAuthManager.signOut();
   }, []);
   
   async function fetchData() {
@@ -46,7 +47,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
 
     setStatus("loading");
 
-    const data = await APIManager.findUserByToken()!;
+    const data = await UserQueryManager.findUserByToken()!;
     if (!data || data.error) {
       if (data && apiErrors.includes(data!.error!)) {
         handleShowMessage(data!.message!);

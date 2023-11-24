@@ -1,4 +1,5 @@
 import { PostsProvider } from "@/app/_contexts/feed/PostsContext";
+import { FeedOptionsProvider } from "@contexts/feed/FeedOptionsContext";
 import { PostFilter } from "./_components/PostFilter";
 import { Navbar } from "@components/Navbar";
 import { Filter } from "@components/Filter";
@@ -10,32 +11,34 @@ export default async function FeedPage() {
   return (
     <PostsProvider>
       <main className={styles.main}>
-        <div className={styles.postZone}>
-          <div className={styles.header}>
-            <PostFilter
-              options={{
-                recent: {
-                  name: "Recentes",
-                  icon: "clock"
-                },
-                discover: {
-                  name: "Descubra",
-                  icon: "search"
-                }
-              }}
-            />
-            <Filter
-              disabled
-              options={{
-                posts: "Postagens",
-                projects: "Projetos",
-                teams: "Equipes"
-              }}
-            />
+        <Navbar />
+        <FeedOptionsProvider>
+          <div className={styles.postZone}>
+            <div className={styles.header}>
+              <PostFilter
+                options={{
+                  recent: {
+                    name: "Recentes",
+                    icon: "clock"
+                  },
+                  discover: {
+                    name: "Descubra",
+                    icon: "search"
+                  }
+                }}
+              />
+              <Filter
+                disabled
+                options={{
+                  posts: "Postagens",
+                  projects: "Projetos",
+                  teams: "Equipes"
+                }}
+              />
+            </div>
+            <Posts />
           </div>
-          <Posts />
-        </div>
-        <Navbar /> 
+        </FeedOptionsProvider>
       </main>
     </PostsProvider>
   );

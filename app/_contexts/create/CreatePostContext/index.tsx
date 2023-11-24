@@ -1,8 +1,8 @@
 "use client";
 
+import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { CreatePostPosting } from "@/app/(routes)/posts/create/_components/CreatePostPosting";
-import { APIManager } from "@classes/APIManager";
 import { useRouter } from "next/navigation";
 import React, { createContext, useState, useContext, useCallback, useRef } from "react";
 import styles from "./CreatePostContext.module.css";
@@ -118,7 +118,7 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
       tags: tags.length > 0 ? tags : undefined
     };
 
-    const postData = await APIManager.createPost(post);
+    const postData = await PostMutationManager.createPost(post);
 
     if(postData!.error) {
       handleShowMessage("Falha ao criar o post...");

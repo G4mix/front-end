@@ -1,4 +1,4 @@
-import type { PostType } from "@classes/APIManager/types/Models.types";
+import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { MoreOptions } from "./MoreOptions";
 import { formatDate } from "@functions/formatDate";
@@ -10,7 +10,7 @@ import React from "react";
 import Link from "next/link";
 
 type PostHeaderProps = {
-  handleDeletePost: () => void;
+  handleDeletePost?: () => void;
 } & Pick<PostType, "id" | "createdAt" | "updatedAt" | "author">;
 
 export const PostHeader = ({ id, author, createdAt, updatedAt, handleDeletePost }: PostHeaderProps) => {

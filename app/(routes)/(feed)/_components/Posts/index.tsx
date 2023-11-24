@@ -1,13 +1,12 @@
 "use client";
 
-import type { PostType } from "@classes/APIManager/types/Models.types";
-import { APIManager } from "@classes/APIManager";
+import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { PostQueryManager } from "@classes/APIManager/posts/PostQueryManager";
 import { Post } from "../Post";
 import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Posts.module.css";
 
 export const Posts = () => {
-  const [deletingPost, setDeletingPost] = useState(false);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const [searching, setSearching] = useState(false);
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -16,7 +15,7 @@ export const Posts = () => {
   const getPosts = async () => {
     if (searching) return;
     setSearching(true);
-    const allPosts = await APIManager.findAllPosts(page);
+    const allPosts = await PostQueryManager.findAllPosts(page);
 
     if (!allPosts || allPosts.error || allPosts.length === 0) {
       setSearching(false);
@@ -43,10 +42,6 @@ export const Posts = () => {
   }, [searching, allPostsLoaded]);
 
   const handleDeletePost = async (id: number) => {
-    if (deletingPost) return;
-    setDeletingPost(true);
-    await APIManager.deletePost(id!);
-    setDeletingPost(false);
     setPosts((prevPosts: PostType[]) => prevPosts.filter(prevPost => id !== prevPost!.id!));
   };
   
