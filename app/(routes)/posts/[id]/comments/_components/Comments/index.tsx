@@ -1,6 +1,6 @@
 "use client";
 
-import type { CommentType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { CommentType } from "@classes/APIManager/base/types/Models.types";
 import { Answer, type AnswerMethods } from "../Answer";
 import { useCommentsContext } from "@contexts/post/CommentsContext";
 import { MarkedToReply } from "../MarkedToReply";

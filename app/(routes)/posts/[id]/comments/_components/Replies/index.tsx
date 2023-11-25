@@ -1,4 +1,4 @@
-import { CommentType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { CommentType } from "@classes/APIManager/base/types/Models.types";
 import { Comment } from "../Comment";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";

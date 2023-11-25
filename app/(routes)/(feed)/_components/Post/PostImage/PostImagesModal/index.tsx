@@ -1,7 +1,7 @@
 "use client";
 
 import type { PostImageProps } from "..";
-import type { ImageType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { ImageType } from "@classes/APIManager/base/types/Models.types";
 import { SingleImageModal } from "../SingleImageModal";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";

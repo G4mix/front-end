@@ -4,7 +4,7 @@ import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
-import { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState, useCallback } from "react";

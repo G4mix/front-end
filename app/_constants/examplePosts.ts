@@ -1,5 +1,5 @@
 import { exampleAuthors } from "./exampleAuthors";
-import { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
 
 export const examplePosts = (): PostType[] => {
   const lorem = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it...";
@@ -13,33 +13,33 @@ export const examplePosts = (): PostType[] => {
     {
       id: 1,
       author: exampleAuthors[2],
-      comments: 50000,
-      views: 1000000,
-      likes: 3000,
+      commentsCount: 50000,
+      viewsCount: 1000000,
+      likesCount: 3000,
       title: "Lorem lorem ipsum!",
-      createdAt: twoDaysAgo,
-      updatedAt: twoDaysAgo,
+      createdAt: twoDaysAgo.toString(),
+      updatedAt: twoDaysAgo.toString(),
       content: lorem
     },
     {
       id: 2,
       author: exampleAuthors[1],
-      comments: 50000,
-      views: 1000000,
-      likes: 1000000,
+      commentsCount: 50000,
+      viewsCount: 1000000,
+      likesCount: 1000000,
       title: "Lorem lorem ipsum!",
-      createdAt: oneDayAgo,
+      createdAt: oneDayAgo.toString(),
       updatedAt: undefined,
       content: lorem
     },
     {
       id: 3,
       author: exampleAuthors[0],
-      comments: 50000,
-      views: 1000000,
-      likes: 9000,
+      commentsCount: 50000,
+      viewsCount: 1000000,
+      likesCount: 9000,
       title: "Lorem lorem ipsum!",
-      createdAt: new Date(),
+      createdAt: currentDate.toString(),
       updatedAt: undefined,
       content: lorem
     }

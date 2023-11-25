@@ -1,6 +1,6 @@
 "use client";
 
-import type { ImageType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { ImageType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";

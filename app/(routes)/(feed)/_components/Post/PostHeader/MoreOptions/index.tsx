@@ -3,7 +3,7 @@
 import { useFeedOptionsContext } from "@contexts/feed/FeedOptionsContext";
 import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useSession } from "@contexts/global/SessionContext";
-import { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import React, { useCallback, useState } from "react";
 

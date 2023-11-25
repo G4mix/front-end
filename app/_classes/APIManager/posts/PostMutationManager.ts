@@ -1,13 +1,13 @@
 import { GenericMutationResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
 import { CreatePostInput } from "@classes/APIManager/base/types/Inputs.types";
-import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class PostMutationManager extends APIManager {
   public static async createPost(
-    { images, ...postInput }: CreatePostInput
+    { images, ...postInput }: CreatePostInput,
+    useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken");
+    const accessToken = await APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
@@ -39,16 +39,16 @@ export class PostMutationManager extends APIManager {
       console.log("Valor "+value);
     }
 
-    const response = await APIManager.request("/graphql", formData, headers);
+    const response = await APIManager.request("/graphql", formData, headers, useServer);
     
     const data: GenericMutationResponse<"createPost"> = await response.json();
     return data["data"]["createPost"];
   }
 
   public static async deletePost(
-    id: number
+    id: number, useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken");
+    const accessToken = await APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -60,7 +60,7 @@ export class PostMutationManager extends APIManager {
       }
     };
 
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
     console.log(response);
     const data: GenericMutationResponse<"deletePost"> = await response.json();
     console.log(data);

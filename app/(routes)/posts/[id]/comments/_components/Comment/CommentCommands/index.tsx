@@ -1,6 +1,6 @@
 "use client";
 
-import type { CommentType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { CommentType } from "@classes/APIManager/base/types/Models.types";
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
 import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";

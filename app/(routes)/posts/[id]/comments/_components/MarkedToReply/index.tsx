@@ -1,5 +1,5 @@
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
-import { CommentType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { CommentType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import styles from "./MarkedToReply.module.css";

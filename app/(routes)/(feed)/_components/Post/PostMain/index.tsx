@@ -1,4 +1,4 @@
-import { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Text } from "@components/Text";
 import styles from "./PostMain.module.css";
 import React from "react";

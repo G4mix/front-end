@@ -1,6 +1,6 @@
 "use client";
 
-import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { PostType } from "@classes/APIManager/base/types/Models.types";
 import { PostQueryManager } from "@classes/APIManager/posts/PostQueryManager";
 import { Post } from "../Post";
 import React, { useEffect, useState, useCallback } from "react";

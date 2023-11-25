@@ -1,10 +1,10 @@
 "use client";
 
 import type { Session, SessionContextProps } from "./Session.types";
+import { CookieManagerClient } from "@classes/CookieManager/CookieManagerClient";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { UserQueryManager } from "@classes/APIManager/user/UserQueryManager";
 import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
-import { CookieManager } from "@classes/CookieManager";
 import { usePathname } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
 import React, { useState, useEffect, createContext, useCallback } from "react";
@@ -56,9 +56,9 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
       return setUnauthenticated();
     }
     const { username, email, icon } = data;
-
+    const accessToken = CookieManagerClient.get("accessToken")! as string | null;
     setSession({
-      accessToken: CookieManager.get("accessToken")!,
+      accessToken,
       username: username!,
       email: email!,
       icon: icon!

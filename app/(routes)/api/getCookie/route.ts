@@ -6,8 +6,8 @@ export async function GET(request: NextRequest) {
   const name = searchParams.get("name") as string;
   const cookiesStore = cookies();
   const namedCookie = cookiesStore.get(name);
-  const cookie = namedCookie ? namedCookie.value! : null;
-  console.log(name);
+  const cookie = namedCookie ? namedCookie.value! : undefined;
+  
   const res: { [name: string]: string; } = {};
   res[name] = cookie as string;
 

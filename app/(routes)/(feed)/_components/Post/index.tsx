@@ -1,4 +1,4 @@
-import type { PostType } from "@/app/_classes/APIManager/base/types/Models.types";
+import type { PostType } from "@classes/APIManager/base/types/Models.types";
 import { PostCommands } from "./PostCommands";
 import { PostHeader } from "./PostHeader";
 import { PostImage } from "./PostImage";

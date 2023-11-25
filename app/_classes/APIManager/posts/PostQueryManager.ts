@@ -1,11 +1,12 @@
 import { GenericQueryResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
 import { GenericQueryRequest } from "@classes/APIManager/base/types/GraphQLRequest.types";
-import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class PostQueryManager extends APIManager {
-  public static async findPostById(id: number): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | string | undefined> {
-    const accessToken = CookieManager.get("accessToken");
+  public static async findPostById(
+    id: number, useServer: { useServer: boolean } = { useServer: false }
+  ): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | string | undefined> {
+    const accessToken = await APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -15,14 +16,17 @@ export class PostQueryManager extends APIManager {
         id: id
       }
     };
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
     
     const data: GenericQueryResponse<"findPostById"> = await response.json();    
     return data["data"]["findPostById"];
   }
 
-  public static async findAllPosts(skip: number): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
-    const accessToken = CookieManager.get("accessToken");
+  public static async findAllPosts(
+    skip: number,
+    useServer: { useServer: boolean } = { useServer: false }
+  ): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
+    const accessToken = await APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -33,7 +37,7 @@ export class PostQueryManager extends APIManager {
         limit: 10
       }
     };
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers);
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
     
     const data: GenericQueryResponse<"findAllPosts"> = await response.json();
     return data["data"]["findAllPosts"];
