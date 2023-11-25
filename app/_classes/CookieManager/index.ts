@@ -1,9 +1,12 @@
-export class CookieManager {
-  public static get(name: "accessToken" | "refreshToken"): string | undefined {
-    const allCookies = document.cookie.split(";").map((cookie) => cookie.trim());
-    const targetCookie = allCookies.find((cookie) => cookie.startsWith(name + "="));
+import { getCookieClient } from "./client/getCookieClient";
+import { getCookieServer } from "./server/getCookieServer";
 
-    return targetCookie ? targetCookie.substring(name.length + 1) : undefined;
+export class CookieManager {
+  public static get(name: "accessToken" | "refreshToken", { useServer }: { useServer?: boolean; } = { useServer: false }): string | undefined {
+    if (useServer) {
+      return getCookieServer(name);
+    }
+    return getCookieClient(name);
   }
 
   public static delete(name: "accessToken" | "refreshToken"): void {

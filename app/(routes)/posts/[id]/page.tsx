@@ -1,4 +1,5 @@
 import { exampleComments } from "@constants/exampleComments";
+import { CookieManager } from "@classes/CookieManager";
 import { examplePosts } from "@constants/examplePosts";
 import { Comments } from "./comments/_components/Comments";
 import { Heading } from "@components/Heading";
@@ -7,14 +8,15 @@ import { Post } from "../../(feed)/_components/Post";
 import styles from "./page.module.css";
 import React from "react";
 
+const findData = (id: string) => {
+  const cookie = CookieManager.get("accessToken", { useServer: true });
+  console.log(cookie);
+  return examplePosts().find(post => post.id === parseInt(id));
+};
 
 export default function SinglePostPage({ params }: { params: { id: string } }) {
-  const findData = () => {
-    return examplePosts().find(post => post.id === parseInt(params.id));
-  };
-  
   const comments = exampleComments();
-  const post = findData();
+  const post = findData(params.id);
 
   return (
     <main className={styles.main}>
