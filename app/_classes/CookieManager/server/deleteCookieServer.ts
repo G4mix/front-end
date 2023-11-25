@@ -1,3 +1,8 @@
-export const deleteCookieServer = async (name: "accessToken" | "refreshToken") => {
-  await fetch(`/api/deleteCookie?name=${name}`, { method: "DELETE" });
+"use server";
+
+import { cookies } from "next/headers";
+
+export const deleteCookieServer = (name: "accessToken" | "refreshToken") => {
+  const cookiesStore = cookies();
+  cookiesStore.delete(name);
 };

@@ -32,10 +32,10 @@ export class UserAuthManager extends APIManager {
   }
 
   public static async signOut(useServer: { useServer: boolean } = { useServer: false }): Promise<void> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
-    const refreshToken = await APIManager.getCookie("refreshToken", useServer);
-    if (accessToken) await this.deleteCookie("accessToken", useServer);
-    if (refreshToken) await this.deleteCookie("refreshToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
+    const refreshToken = APIManager.getCookie("refreshToken", useServer);
+    if (accessToken) this.deleteCookie("accessToken", useServer);
+    if (refreshToken) this.deleteCookie("refreshToken", useServer);
   }
 
 }

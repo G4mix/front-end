@@ -32,41 +32,39 @@ export class APIManager {
     return response;
   }
 
-  protected static async deleteCookie(
+  protected static deleteCookie(
     name: "accessToken" | "refreshToken",
-    useServer: { useServer: boolean }
+    { useServer }: { useServer: boolean }
   ) {
     if (!useServer) return CookieManagerClient.delete(name!);
-    await CookieManagerServer.delete(name!);
+    CookieManagerServer.delete(name!);
   }
 
-  public static async getCookie(
+  public static getCookie(
     name: "accessToken" | "refreshToken",
-    useServer: { useServer: boolean }
+    { useServer }: { useServer: boolean }
   ) {
     if (!useServer) return CookieManagerClient.get(name!);
-    return await CookieManagerServer.get(name!);
+    return CookieManagerServer.get(name!);
   }
 
-  protected static async setCookies(
+  protected static setCookies(
     { accessToken, refreshToken }: JwtTokens,
-    useServer: { useServer: boolean }
-  ): Promise<void> {
-    console.log(accessToken);
-    console.log(refreshToken);
+    { useServer }: { useServer: boolean }
+  ) {
     if (!useServer) {
       CookieManagerClient.set(accessToken!);
       CookieManagerClient.set(refreshToken!);
       return;
     }
-    await CookieManagerServer.set(accessToken!);
-    await CookieManagerServer.set(refreshToken!);
+    CookieManagerServer.set(accessToken!);
+    CookieManagerServer.set(refreshToken!);
   }
 
   private static async refreshTokens(
     useServer: { useServer: boolean }
   ): Promise<{ accessToken?: string; error?: string; message?: string; }> {
-    const cookieRefreshToken = await APIManager.getCookie("refreshToken", useServer);
+    const cookieRefreshToken = APIManager.getCookie("refreshToken", useServer);
     
     const response = await APIManager.request(
       "/auth/refreshtoken", 

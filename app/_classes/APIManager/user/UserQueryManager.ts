@@ -6,7 +6,7 @@ export class UserQueryManager extends APIManager {
   public static async findUserByToken(
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericQueryResponse<"findUserByToken">["data"]["findUserByToken"] | undefined> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
     
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };

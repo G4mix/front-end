@@ -6,7 +6,7 @@ export class PostQueryManager extends APIManager {
   public static async findPostById(
     id: number, useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | string | undefined> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -26,7 +26,7 @@ export class PostQueryManager extends APIManager {
     skip: number,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };

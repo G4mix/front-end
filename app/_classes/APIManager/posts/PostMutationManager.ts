@@ -7,7 +7,7 @@ export class PostMutationManager extends APIManager {
     { images, ...postInput }: CreatePostInput,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] | undefined> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
@@ -48,7 +48,7 @@ export class PostMutationManager extends APIManager {
   public static async deletePost(
     id: number, useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] | undefined> {
-    const accessToken = await APIManager.getCookie("accessToken", useServer);
+    const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };

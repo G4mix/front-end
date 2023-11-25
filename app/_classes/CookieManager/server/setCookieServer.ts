@@ -1,7 +1,10 @@
-export const setCookieServer = async (cookie: string) => {
-  await fetch("/api/setCookie", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ cookie }),
-  });
+"use server";
+
+import { parseCookie } from "@functions/parseCookie";
+import { cookies } from "next/headers";
+
+export const setCookieServer = (cookie: string) => {
+  const { name, value, opts } = parseCookie(cookie);
+  const cookiesStore = cookies();
+  cookiesStore.set(name, value, opts);
 };
