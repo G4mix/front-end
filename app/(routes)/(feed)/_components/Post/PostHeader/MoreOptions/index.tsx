@@ -1,27 +1,24 @@
 "use client";
 
-import { useFeedOptionsContext } from "@contexts/feed/FeedOptionsContext";
+import { usePostOptionsContext } from "@/app/_contexts/post/PostOptionsContext";
 import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useSession } from "@contexts/global/SessionContext";
 import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 
 type MoreOptionsProps = {
   handleDeletePost?: () => void;
 } & Pick<PostType, "author" | "id">;
 
 export const MoreOptions = ({ id, author, handleDeletePost }: MoreOptionsProps) => {
-  const { handleToggleOwnerPostDropdown } = useFeedOptionsContext();
-  const [deletingPost, setDeletingPost] = useState(false);
+  const { handleToggleOwnerPostDropdown } = usePostOptionsContext();
   const { session } = useSession();
 
   const handleDeletePostOption = async () => {
-    if (deletingPost) return;
-    setDeletingPost(true);
+    console.log("deletando");
     await PostMutationManager.deletePost(id!);
-    if (handleDeletePost) handleDeletePost();      
-    setDeletingPost(false);
+    if (handleDeletePost) handleDeletePost();
   };
 
   const handleOnClick = useCallback(() => {

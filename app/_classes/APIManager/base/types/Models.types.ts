@@ -32,11 +32,17 @@ export type LinkType = {
   link?: string;
 }
 
+export type TagType = {
+  id?: number;
+  name?: string;
+}
+
 export type PostType = {
   id?: number;
   author?: UserProfileType;
   title?: string;
   images?: ImageType[];
+  tags?: TagType[];
   links?: LinkType[];
   content?: string;
   viewsCount?: number;

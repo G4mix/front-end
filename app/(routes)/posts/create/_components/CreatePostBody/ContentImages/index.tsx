@@ -19,7 +19,7 @@ export const ContentImages  = () => {
               width={294} height={156}
               className={styles.postContentImage}
             />
-            <Icon icon="x" className={styles.postContentImageCancel} onClick={() => handleUnselectImage(img.image)} />
+            <Icon icon="x" className={styles.postContentImageCancel} onClick={() => handleUnselectImage(img.link)} />
           </div>
         )
       }

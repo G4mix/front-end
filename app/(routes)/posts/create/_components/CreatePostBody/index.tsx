@@ -9,14 +9,18 @@ import { Icon } from "@components/Icon";
 import styles from "./CreatePostBody.module.css";
 import React from "react";
 
-export const CreatePostBody = () => {
+type CreatePostBodyProps = {
+  defaultContent?: string;
+};
+
+export const CreatePostBody = ({ defaultContent }: CreatePostBodyProps) => {
   return (
     <div className={styles.postBody}>
       <div className={styles.postContent}>
         <TextArea
           rows={1} className={styles.postContentArea}
           name="post_content" placeholder="Conteúdo da postagem"
-          maxLength={700} autoResize
+          maxLength={700} autoResize defaultValue={defaultContent}
         />
         <DropImages />
         <ContentImages />

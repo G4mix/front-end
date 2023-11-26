@@ -20,8 +20,6 @@ export class PostMutationManager extends APIManager {
       }
     };
 
-    console.log(query);
-
     const formData = new FormData();
     formData.append("operations", JSON.stringify(query));
     if (images && images.length > 0) {
@@ -32,11 +30,6 @@ export class PostMutationManager extends APIManager {
         map[`image${index}`] = [imageKey];
       });
       formData.append("map", JSON.stringify(map));
-    }
-
-    for (const [key, value] of formData) {
-      console.log("Chave "+key);
-      console.log("Valor "+value);
     }
 
     const response = await APIManager.request("/graphql", formData, headers, useServer);
@@ -61,9 +54,7 @@ export class PostMutationManager extends APIManager {
     };
 
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
-    console.log(response);
     const data: GenericMutationResponse<"deletePost"> = await response.json();
-    console.log(data);
     if (response.status >= 400) return;
 
     return data["data"]["deletePost"];

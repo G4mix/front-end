@@ -11,7 +11,7 @@ export class UserQueryManager extends APIManager {
     
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
 
-    const query: GenericQueryRequest<"findUserByToken"> = { query: "query { findUserByToken { username email icon } }" };
+    const query: GenericQueryRequest<"findUserByToken"> = { query: "query { findUserByToken { id username email icon } }" };
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
     
     const data: GenericQueryResponse<"findUserByToken"> = await response.json();

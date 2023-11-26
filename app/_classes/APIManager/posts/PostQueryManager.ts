@@ -5,13 +5,13 @@ import { APIManager } from "@classes/APIManager/base";
 export class PostQueryManager extends APIManager {
   public static async findPostById(
     id: number, useServer: { useServer: boolean } = { useServer: false }
-  ): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | string | undefined> {
+  ): Promise<GenericQueryResponse<"findPostById">["data"]["findPostById"] | undefined> {
     const accessToken = APIManager.getCookie("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
     const query: GenericQueryRequest<"findPostById"> = {
-      query: "query findPostById($id: Int!) { findPostById(id: $id) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } }}",
+      query: "query findPostById($id: Int!) { findPostById(id: $id) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt likesCount commentsCount viewsCount links { id link } tags { id name } }}",
       variables: {
         id: id
       }

@@ -4,12 +4,16 @@ import { Text } from "@components/Text";
 import styles from "./CreateHeader.module.css";
 import React from "react";
 
-export const CreateHeader = () => {
+type CreateHeaderProps = {
+  mode?: "create" | "update";
+};
+
+export const CreateHeader = ({ mode }: CreateHeaderProps = { mode: "create" }) => {
   return (
     <div className={styles.createHeader}>
-      <Heading weight="bold">Nova postagem</Heading>
+      <Heading weight="bold">{ mode === "create" ? "Nova" : "Atualizar"} postagem</Heading>
       <Button className={styles.postButton} type="submit">
-        <Text weight="medium">Publicar</Text>
+        <Text weight="medium">{ mode === "create" ? "Publicar" : "Atualizar"}</Text>
       </Button>
     </div>
   );

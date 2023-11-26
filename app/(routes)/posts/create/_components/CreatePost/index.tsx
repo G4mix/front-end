@@ -5,13 +5,18 @@ import { CreatePostBody } from "../CreatePostBody";
 import styles from "./CreatePost.module.css";
 import React from "react";
 
-export const CreatePost = () => {
+type CreatePostProps = {
+  defaultTitle?: string;
+  defaultContent?: string;
+};
+
+export const CreatePost = ({ defaultTitle, defaultContent }: CreatePostProps) => {
   return (
     <div className={styles.createPost}>
       <CreatePostAuthor />
       <div className={styles.post}>
-        <CreatePostTitle />
-        <CreatePostBody />
+        <CreatePostTitle defaultTitle={defaultTitle} />
+        <CreatePostBody defaultContent={defaultContent} />
         <CreatePostTags />
       </div>
     </div>

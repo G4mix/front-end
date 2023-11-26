@@ -1,5 +1,5 @@
+import { PostOptionsProvider } from "@/app/_contexts/post/PostOptionsContext";
 import { PostsProvider } from "@/app/_contexts/feed/PostsContext";
-import { FeedOptionsProvider } from "@contexts/feed/FeedOptionsContext";
 import { PostFilter } from "./_components/PostFilter";
 import { Navbar } from "@components/Navbar";
 import { Filter } from "@components/Filter";
@@ -12,7 +12,7 @@ export default async function FeedPage() {
     <PostsProvider>
       <main className={styles.main}>
         <Navbar />
-        <FeedOptionsProvider>
+        <PostOptionsProvider>
           <div className={styles.postZone}>
             <div className={styles.header}>
               <PostFilter
@@ -38,7 +38,7 @@ export default async function FeedPage() {
             </div>
             <Posts />
           </div>
-        </FeedOptionsProvider>
+        </PostOptionsProvider>
       </main>
     </PostsProvider>
   );

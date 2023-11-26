@@ -3,8 +3,11 @@
 import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { CreatePostPosting } from "@/app/(routes)/posts/create/_components/CreatePostPosting";
+import { CreatePostInput } from "@classes/APIManager/base/types/Inputs.types";
+import { getFileFromURL } from "@functions/getFileFromURL";
 import { useRouter } from "next/navigation";
-import React, { createContext, useState, useContext, useCallback, useRef } from "react";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
+import React, { createContext, useState, useContext, useCallback, useRef, useEffect } from "react";
 import styles from "./CreatePostContext.module.css";
 
 type CreatePostContextValuesProps = {
@@ -15,7 +18,7 @@ type CreatePostContextValuesProps = {
   handleSelectTag: (tag: string) => void;
   handleUnselectTag: (tag: string) => void;
   handleSelectImage: (image: File) => void;
-  handleUnselectImage: (image: File) => void;
+  handleUnselectImage: (link: string) => void;
   handleAddLink: (url: string) => void;
   handleRemoveLink: (url: string) => void;
   handleToggleAddLink: () => void;
@@ -30,10 +33,11 @@ const CreatePostContext = createContext<CreatePostContextValuesProps>({
 });
 
 type CreatePostProviderProps = {
+  defaultPost?: PostType;
   children: React.ReactNode;
 };
 
-export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
+export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePostProviderProps) => {
   const { handleShowMessage } = useMessagesContext();
   const [tryingToPost, setTryingToPost] = useState(false);
   const [openAddLink, setOpenAddLink] = useState(false);
@@ -42,6 +46,36 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
   const [tags, setTags] = useState<string[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+  const loadDefaultPost = async () => {
+    const defaultTags = defaultPost!.tags!.map((tag) => tag.name!);
+    if (defaultTags) setTags(defaultTags);
+
+    const defaultLinks = defaultPost!.links!.map((link) => link.link!);
+    if (defaultLinks) setLinks(defaultLinks);
+
+    async function getFilesFromURLs() {
+      console.log(defaultPost!);
+      if (!defaultPost!.images) return;
+      const filePromises = defaultPost!.images!.map(async (img) => {
+        const image = await getFileFromURL(img!.src!, img!.name!);
+        return {
+          link: img!.src!, image,
+        };
+      });
+      return Promise.all(filePromises);
+    }
+
+    const defaultImages = await getFilesFromURLs();
+    console.log(defaultImages);
+    if (defaultImages) setImages(defaultImages);
+  };
+
+  useEffect(() => {
+    if (defaultPost) {
+      loadDefaultPost();
+    }
+  }, []);
 
   const handleSelectImage = useCallback((image: File) => {
     if(image.size > 1048576) {
@@ -55,19 +89,19 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
         return prevImages;
       }
 
-      const isImagePresent = prevImages.some((prevImage) => prevImage.image.name === image.name);
+      const isImagePresent = prevImages.some((prevImage) => prevImage.image!.name === image.name);
       if (isImagePresent) return prevImages;
       return [...prevImages, { link: URL.createObjectURL(image), image }];
     });
   }, []);
 
-  const handleUnselectImage = useCallback((image: File) => {
+  const handleUnselectImage = useCallback((link: string) => {
     setImages((prevImages) => {
       const filteredImages = prevImages.filter(
-        (prevImage: { link: string; image: File }) => prevImage.image.name !== image.name
+        (prevImage: { link: string; image: File | undefined }) => prevImage.link !== link
       );
       const imageToRevoke = prevImages.find(
-        (prevImage: { link: string; image: File }) => prevImage.image.name === image.name
+        (prevImage: { link: string; image: File | undefined }) => prevImage.link === link
       );
       if (imageToRevoke) URL.revokeObjectURL(imageToRevoke.link);
       return filteredImages;
@@ -118,7 +152,9 @@ export const CreatePostProvider = ({ children }: CreatePostProviderProps) => {
       tags: tags.length > 0 ? tags : undefined
     };
 
-    const postData = await PostMutationManager.createPost(post);
+    const postData = defaultPost
+      ? await PostMutationManager.createPost(post as CreatePostInput) 
+      : await PostMutationManager.createPost(post as CreatePostInput);
 
     if(postData!.error) {
       handleShowMessage("Falha ao criar o post...");
