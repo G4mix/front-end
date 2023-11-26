@@ -4,7 +4,12 @@ import React from "react";
 import styles from "./CreatePostPosting.module.css";
 import Image from "next/image";
 
-export const CreatePostPosting = ({ tryingToPost }: { tryingToPost: boolean; }) => {
+type CreatePostPostingProps = {
+  mode: "create" | "update";
+  tryingToPost: boolean;
+};
+
+export const CreatePostPosting = ({ tryingToPost, mode }: CreatePostPostingProps) => {
   if (!tryingToPost) return null;
   
   return (
@@ -18,7 +23,7 @@ export const CreatePostPosting = ({ tryingToPost }: { tryingToPost: boolean; }) 
           quality={100}
           className={styles.createPostPostingImage}
         />
-        <Heading size="lg" weight="bold">Publicando...</Heading>
+        <Heading size="lg" weight="bold">{ mode === "update" ? "Atualizando" : "Publicando"}...</Heading>
       </div>
       <Loader />
     </div>

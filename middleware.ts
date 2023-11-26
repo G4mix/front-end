@@ -1,5 +1,4 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -19,6 +18,7 @@ export const config = {
   matcher: [
     "/auth/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/posts/((?!api|_next/static|_next/image|favicon.ico).*)/comments",
+    "/posts/((?!api|_next/static|_next/image|favicon.ico).*)/update",
     "/", "/posts/create"
   ]
-}
+};

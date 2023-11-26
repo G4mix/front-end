@@ -8,10 +8,10 @@ export class CookieManagerServer {
   }
 
   public static delete(name: "accessToken" | "refreshToken"): void {
-    deleteCookieServer(name);
+    return deleteCookieServer(name);
   }
 
   public static set(cookie: string): void {
-    setCookieServer(cookie);
+    return setCookieServer(cookie);
   }
 }

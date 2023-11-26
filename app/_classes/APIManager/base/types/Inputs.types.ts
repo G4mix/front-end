@@ -5,3 +5,5 @@ export type CreatePostInput = {
   links?: string[];
   tags?: string[];
 };
+
+export type UpdatePostInput = { id: number; } & CreatePostInput;

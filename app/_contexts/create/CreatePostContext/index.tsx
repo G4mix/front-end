@@ -1,10 +1,9 @@
 "use client";
 
+import type { CreatePostInput, UpdatePostInput } from "@classes/APIManager/base/types/Inputs.types";
 import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { CreatePostPosting } from "@/app/(routes)/posts/create/_components/CreatePostPosting";
-import { CreatePostInput } from "@classes/APIManager/base/types/Inputs.types";
-import { getFileFromURL } from "@functions/getFileFromURL";
 import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/base/types/Models.types";
 import React, { createContext, useState, useContext, useCallback, useRef, useEffect } from "react";
@@ -37,7 +36,7 @@ type CreatePostProviderProps = {
   children: React.ReactNode;
 };
 
-export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePostProviderProps) => {
+export const CreatePostProvider = ({ children, defaultPost }: CreatePostProviderProps) => {
   const { handleShowMessage } = useMessagesContext();
   const [tryingToPost, setTryingToPost] = useState(false);
   const [openAddLink, setOpenAddLink] = useState(false);
@@ -54,19 +53,21 @@ export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePo
     const defaultLinks = defaultPost!.links!.map((link) => link.link!);
     if (defaultLinks) setLinks(defaultLinks);
 
-    async function getFilesFromURLs() {
-      console.log(defaultPost!);
+    async function getDefaultImages() {
       if (!defaultPost!.images) return;
-      const filePromises = defaultPost!.images!.map(async (img) => {
-        const image = await getFileFromURL(img!.src!, img!.name!);
+      const imagesPromises = defaultPost!.images!.map(async (img) => {
+        const blob = new Blob([""], { type: "text/plain" });
+        const file = new File([blob], img!.name!, { type: "text/plain" });
+
         return {
-          link: img!.src!, image,
+          link: `${process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]}${img!.src!}`,
+          image: file
         };
       });
-      return Promise.all(filePromises);
+      return Promise.all(imagesPromises);
     }
 
-    const defaultImages = await getFilesFromURLs();
+    const defaultImages = await getDefaultImages();
     console.log(defaultImages);
     if (defaultImages) setImages(defaultImages);
   };
@@ -98,12 +99,14 @@ export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePo
   const handleUnselectImage = useCallback((link: string) => {
     setImages((prevImages) => {
       const filteredImages = prevImages.filter(
-        (prevImage: { link: string; image: File | undefined }) => prevImage.link !== link
+        (prevImage: { link: string; image: File }) => prevImage.link !== link
       );
       const imageToRevoke = prevImages.find(
-        (prevImage: { link: string; image: File | undefined }) => prevImage.link === link
+        (prevImage: { link: string; image: File }) => prevImage.link === link
       );
-      if (imageToRevoke) URL.revokeObjectURL(imageToRevoke.link);
+      if (!link.includes(process.env["NEXT_PUBLIC_BACK_END_BASE_URL"]!) && imageToRevoke) {
+        URL.revokeObjectURL(imageToRevoke.link);
+      }
       return filteredImages;
     });
   }, []);
@@ -153,11 +156,11 @@ export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePo
     };
 
     const postData = defaultPost
-      ? await PostMutationManager.createPost(post as CreatePostInput) 
+      ? await PostMutationManager.updatePost({ id: defaultPost!.id!, ...post } as UpdatePostInput)
       : await PostMutationManager.createPost(post as CreatePostInput);
 
     if(postData!.error) {
-      handleShowMessage("Falha ao criar o post...");
+      handleShowMessage(`Falha ao ${ defaultPost ? "atualizar" : "criar" } o post...`);
       return setTryingToPost(false);
     }
 
@@ -173,7 +176,7 @@ export const CreatePostProvider = ({ children, defaultPost=undefined }: CreatePo
         openAddLink, handleToggleAddLink
       }}
     >
-      <CreatePostPosting tryingToPost={tryingToPost} />
+      <CreatePostPosting tryingToPost={tryingToPost} mode={defaultPost ? "update" : "create"} />
       {
         !tryingToPost && (
           <form onSubmit={handleSubmit} ref={formRef} className={styles.form}>
