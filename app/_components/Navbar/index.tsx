@@ -1,5 +1,6 @@
 import { NavbarUserProfile } from "./NavbarUserProfile";
 import { Icon } from "@components/Icon";
+import { Text } from "@components/Text";
 import styles from "./Navbar.module.css";
 import React from "react";
 import Image from "next/image";
@@ -13,12 +14,19 @@ export const Navbar = ({ position="bottom" }: NavbarProps) => {
   return (
     <nav className={`${styles.nav} ${position === "top" ? styles.navTop : ""}`}>
       <div className={styles.navItems}>
-        <Link href="/">
+        <Link href="/" className={styles.navItem}>
           <Icon icon="house" className={styles.navbarIcon} />
+          <Text size="sm" className={styles.navText}>Início</Text>
         </Link>
-        <Icon icon="search" className={styles.navbarIcon} disabled />
+        <div className={styles.navItem}>
+          <Icon icon="search" className={styles.navbarIcon} disabled />
+          <Text size="sm" className={styles.navText}>Pesquisar</Text>
+        </div>
         <div className={styles.centerContainer} />
-        <Icon icon="users" className={styles.navbarIcon} disabled />
+        <div className={styles.navItem}>
+          <Icon icon="users" className={styles.navbarIcon} disabled />
+          <Text size="sm" className={styles.navText}>Equipes</Text>
+        </div>
         <NavbarUserProfile />
       </div>
       <Link

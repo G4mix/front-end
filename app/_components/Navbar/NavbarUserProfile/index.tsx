@@ -4,14 +4,16 @@ import { NavbarUserProfileDropdown } from "./NavbarUserProfileDropdown";
 import { NavbarUserProfileIcon } from "./NavbarUserProfileIcon";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { useSession } from "@contexts/global/SessionContext";
+import { Text } from "@components/Text";
+import navStyles from "../Navbar.module.css";
 import styles from "./NavbarUserProfile.module.css";
 import React from "react";
 import Link from "next/link";
 
 export const NavbarUserProfile = () => {
-  const { session, status } = useSession();
+  const { session } = useSession();
 
-  if (status !== "authenticated") {
+  if (!session) {
     return (
       <Link href="/auth/signin" aria-label="Conecte-se ao Gamix!">
         <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
@@ -24,7 +26,10 @@ export const NavbarUserProfile = () => {
 
   return (
     <NavbarUserProfileDropdown>
-      <NavbarUserProfileIcon session={session!} />
+      <div className={navStyles.navItem}>
+        <NavbarUserProfileIcon session={session!} />
+        <Text size="sm" className={navStyles.navText}>{session.username}</Text>
+      </div>
     </NavbarUserProfileDropdown>
   );
 };
