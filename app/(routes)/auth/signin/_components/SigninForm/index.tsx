@@ -27,12 +27,12 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const login = async (signInBody: LoginProps) => {
-    const errorMessage = await UserAuthManager.signIn(signInBody);
+    const response = await UserAuthManager.signIn(signInBody);
     
-    if (errorMessage) {
+    if (response) {
       setTryingToLogIn(false);
-      if (apiErrors.includes(errorMessage)) {
-        handleShowMessage(errorMessage);
+      if (apiErrors.includes(response.error!)) {
+        handleShowMessage(response.message!);
         return;
       }
       handleShowMessage("Erro ao fazer o login");

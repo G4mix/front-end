@@ -12,7 +12,7 @@ export default function CreatePage() {
         <Link href="/" aria-label="Voltar para o feed">
           <div className={styles.closeCreate}></div>
         </Link>
-        <CreateHeader />
+        <CreateHeader mode="create" />
         <CreatePost />
       </main>
     </CreatePostProvider>

@@ -68,12 +68,6 @@ export class PostMutationManager extends APIManager {
       formData.append("map", JSON.stringify(map));
     }
 
-    console.log(query);
-    for (const [key, value] of formData) {
-      console.log("key "+key);
-      console.log("value "+value);
-    }
-
     const response = await APIManager.request("/graphql", formData, headers, useServer);
     console.log(response);
     const data: GenericMutationResponse<"updatePost"> = await response.json();

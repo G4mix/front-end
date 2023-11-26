@@ -4,6 +4,7 @@ import type { CreatePostInput, UpdatePostInput } from "@classes/APIManager/base/
 import { PostMutationManager } from "@classes/APIManager/posts/PostMutationManager";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { CreatePostPosting } from "@/app/(routes)/posts/create/_components/CreatePostPosting";
+import { apiErrors } from "@constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { PostType } from "@classes/APIManager/base/types/Models.types";
 import React, { createContext, useState, useContext, useCallback, useRef, useEffect } from "react";
@@ -160,6 +161,7 @@ export const CreatePostProvider = ({ children, defaultPost }: CreatePostProvider
       : await PostMutationManager.createPost(post as CreatePostInput);
 
     if(postData!.error) {
+      if (apiErrors.includes(postData!.error!)) return handleShowMessage(postData!.message!);
       handleShowMessage(`Falha ao ${ defaultPost ? "atualizar" : "criar" } o post...`);
       return setTryingToPost(false);
     }

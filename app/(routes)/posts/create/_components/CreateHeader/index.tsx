@@ -5,10 +5,10 @@ import styles from "./CreateHeader.module.css";
 import React from "react";
 
 type CreateHeaderProps = {
-  mode?: "create" | "update";
+  mode: "create" | "update";
 };
 
-export const CreateHeader = ({ mode }: CreateHeaderProps = { mode: "create" }) => {
+export const CreateHeader = ({ mode }: CreateHeaderProps) => {
   return (
     <div className={styles.createHeader}>
       <Heading weight="bold">{ mode === "create" ? "Nova" : "Atualizar"} postagem</Heading>

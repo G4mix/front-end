@@ -38,12 +38,12 @@ export const RegisterForm = () => {
   const router = useRouter();
 
   const register = async (signUpBody: RegisterProps) => {
-    const errorMessage = await UserAuthManager.signUp(signUpBody);
+    const response = await UserAuthManager.signUp(signUpBody);
 
-    if (errorMessage) {
+    if (response) {
       setTryingToRegister(false);
-      if (apiErrors.includes(errorMessage)) {
-        handleShowMessage(errorMessage);
+      if (apiErrors.includes(response.error!)) {
+        handleShowMessage(response.message!);
         return;
       }
       handleShowMessage("Erro ao fazer o login");
