@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 :root {
---white: #ffffff;
+  --white: #ffffff;
   --black: #000000;
   --ultra-violet: #68589d;
   --veronica: #9747FF;
@@ -11,6 +11,8 @@
   --carolina-blue: #89bddf;
   --delft-blue: #343a5b;
   --delft-blue-bg: #1C2034;
+  --asparagus: #6DA256;
+  --penn-red: #990000;
 
   --font-3xl: 2.488125rem;
   --font-2xl: 2.07375rem;

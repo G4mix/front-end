@@ -1,9 +1,11 @@
 "use client";
 
 import { formatNumberWithSuffix } from "@functions/formatNumberWithSuffix";
+import { LikeMutationManager } from "@classes/APIManager/like/LikeMutationManager";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
+import { apiErrors } from "@constants/apiErrors";
 import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
@@ -19,9 +21,17 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
   const { status } = useSession();
   const router = useRouter();
   
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (status === "unauthenticated") router.push("/auth/signin");
-    !isLiked ? post.likesCount!++ : post.likesCount!--;
+    isLiked ? post.likesCount!-- : post.likesCount!++;
+    const like = isLiked 
+      ? await LikeMutationManager.unlikePost(post!.id!) 
+      : await LikeMutationManager.likePost(post!.id!);
+    
+    if (like && like!.error) {
+      if (apiErrors.includes(like!.error!)) handleShowMessage(like!.message!);
+      handleShowMessage(`Erro ao executar um ${ isLiked ? "deslike" : "like"}`);
+    }
     setIsLiked(prevValue => !prevValue);
   };
 

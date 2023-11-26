@@ -78,9 +78,9 @@
 }
 
 .confirmButton {
-  background-color: #6DA256;
+  background-color: var(--asparagus);
 }
 
 .cancelButton {
-  background-color: #990000;
+  background-color: var(--penn-red);
 }

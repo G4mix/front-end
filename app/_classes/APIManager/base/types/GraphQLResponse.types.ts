@@ -14,6 +14,8 @@ export type QueryResponseTypes = {
 };
 
 export type MutationResponseTypes = {
+  likePost: boolean;
+  unlikePost: boolean;
   createPost: PostType;
   updatePost: PostType;
   deletePost: boolean;
