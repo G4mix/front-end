@@ -1,6 +1,7 @@
 "use client";
 
 import type { OwnerPostState } from "@contexts/post/PostOptionsContext";
+import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState } from "react";
@@ -26,6 +27,10 @@ export const MoreOptionsOwnerDropdown = ({ ownerPostDropdown, open, setOpen, cla
     setDeletingPost(false);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Dialog.Root modal={false} open={open} onOpenChange={setOpen}>
       <Dialog.Content className={`${styles.dropdownContent} ${className}`}>
@@ -33,10 +38,26 @@ export const MoreOptionsOwnerDropdown = ({ ownerPostDropdown, open, setOpen, cla
           <Icon icon="pen-to-square" className={styles.dropdownContentItemIcon} />
           <Text size="md">Atualizar</Text>
         </Link>
-        <div className={styles.dropdownContentItem} onClick={handleClick}>
-          <Icon icon="trash-can" className={styles.dropdownContentItemIcon} />
-          <Text size="md">Deletar</Text>
-        </div>
+        
+        <Dialog.Root modal>
+          <Dialog.Trigger>
+            <div className={styles.dropdownContentItem}>
+              <Icon icon="trash-can" className={styles.dropdownContentItemIcon} />
+              <Text size="md">Deletar</Text>
+            </div>
+          </Dialog.Trigger>
+          <Dialog.Content className={styles.confirmDropdownContent}>
+            <Text size="xs">Você tem certeza de que quer deletar o Post?</Text>
+            <div className={styles.confirmOptions}>
+              <Button className={`${styles.button} ${styles.confirmButton}`}>
+                <Text size="xs" onClick={handleClick}>Confirmar</Text>
+              </Button>
+              <Button className={`${styles.button} ${styles.cancelButton}`}>
+                <Text size="xs" onClick={handleClose}>Cancelar</Text>
+              </Button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
       </Dialog.Content>
     </Dialog.Root>
   );

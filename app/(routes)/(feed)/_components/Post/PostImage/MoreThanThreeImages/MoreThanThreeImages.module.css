@@ -13,6 +13,12 @@
   opacity: 0.5;
 }
 
+.postBoxImageGrid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr) 40px;
+  grid-template-columns: 1fr 1fr;
+}
+
 .remainingImages {
   display: flex;
   flex-direction: row;

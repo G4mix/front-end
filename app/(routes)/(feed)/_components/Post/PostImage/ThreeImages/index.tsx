@@ -10,7 +10,7 @@ type ThreeImagesProps = {
 export const ThreeImages = ({ images, handleOpenModal }: ThreeImagesProps) => {
   return (
     <div className={styles.postBoxImage} style={{flexDirection: "column"}}>
-      <div className={styles.boxImage} style={{minHeight: "100%"}}>
+      <div className={styles.boxImage} style={{minHeight: "100%", minWidth: "100%"}}>
         {
           images!.slice(0, 2).map((img) => (
             <Image

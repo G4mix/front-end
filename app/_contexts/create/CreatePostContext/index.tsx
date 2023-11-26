@@ -77,6 +77,11 @@ export const CreatePostProvider = ({ children, defaultPost }: CreatePostProvider
     if (defaultPost) {
       loadDefaultPost();
     }
+    return () => {
+      setImages([]);
+      setLinks([]);
+      setTags([]);
+    };
   }, []);
 
   const handleSelectImage = useCallback((image: File) => {
