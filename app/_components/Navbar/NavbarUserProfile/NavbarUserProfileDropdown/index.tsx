@@ -6,7 +6,7 @@ import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { ReactNode } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import styles from "./Navbar.module.css";
+import styles from "./NavbarUserProfileDropdown.module.css";
 
 type NavbarUserProfileDropdownProps = {
   children: ReactNode;

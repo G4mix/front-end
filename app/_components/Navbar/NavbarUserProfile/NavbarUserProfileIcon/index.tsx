@@ -2,7 +2,7 @@
 
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { Session } from "@contexts/global/SessionContext/Session.types";
-import styles from "./Navbar.module.css";
+import styles from "../NavbarUserProfile.module.css";
 import Image from "next/image";
 import React from "react";
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { NavbarUserProfileDropdown } from "@components/Navbar/NavbarUserProfileDropdown";
-import { NavbarUserProfileIcon } from "@components/Navbar/NavbarUserProfileIcon";
+import { NavbarUserProfileDropdown } from "./NavbarUserProfileDropdown";
+import { NavbarUserProfileIcon } from "./NavbarUserProfileIcon";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { useSession } from "@contexts/global/SessionContext";
-import styles from "./Navbar.module.css";
+import styles from "./NavbarUserProfile.module.css";
 import React from "react";
 import Link from "next/link";
 

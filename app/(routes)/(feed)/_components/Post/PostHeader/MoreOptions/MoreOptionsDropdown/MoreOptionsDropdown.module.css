@@ -84,3 +84,20 @@
 .cancelButton {
   background-color: var(--penn-red);
 }
+
+@media (min-width: 1280px) {
+  .dropdownContent {
+    position: static;
+    translate: none;
+    box-shadow: none;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+  }
+  .confirmDropdownContent {
+    border-radius: 32px;
+    box-shadow: none;
+    justify-content: center;
+  }
+}

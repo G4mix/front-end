@@ -1,0 +1,30 @@
+.dropdownMenuContent {
+  min-width: 100px;
+  min-height: 24px;
+  background-color: white;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  align-items: center;
+
+  border-radius: 12px 12px 0px 12px;
+  background: linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%), #1C2034;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  z-index: 9999!important;
+}
+
+.dropdownMenuItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+
+  transition: opacity 0.3s;
+}
+.dropdownMenuItem:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

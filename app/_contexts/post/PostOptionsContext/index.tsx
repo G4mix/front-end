@@ -1,6 +1,7 @@
 "use client";
 
 import { MoreOptionsOwnerDropdown } from "@/app/(routes)/(feed)/_components/Post/PostHeader/MoreOptions/MoreOptionsDropdown";
+import { OptionsDiv } from "@components/OptionsDiv";
 import React, { createContext, useState, useContext, useCallback } from "react";
 
 type PostOptionsContextValuesProps = {
@@ -38,12 +39,14 @@ export const PostOptionsProvider = ({ children, className="" }: PostOptionsProvi
   return (
     <PostOptionsContext.Provider value={{ handleToggleOwnerPostDropdown }}>
       {children}
-      <MoreOptionsOwnerDropdown
-        ownerPostDropdown={ownerPostDropdown}
-        setOpen={setIsOpen}
-        className={className}
-        open={isOpen}
-      />
+      <OptionsDiv isShowingOption={isOpen}>
+        <MoreOptionsOwnerDropdown
+          ownerPostDropdown={ownerPostDropdown}
+          setOpen={setIsOpen}
+          className={className}
+          open={isOpen}
+        />
+      </OptionsDiv>
     </PostOptionsContext.Provider>
   );
 };
