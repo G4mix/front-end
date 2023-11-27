@@ -2,6 +2,7 @@
 
 import type { PostType } from "@classes/APIManager/base/types/Models.types";
 import { PostQueryManager } from "@classes/APIManager/posts/PostQueryManager";
+import { mergeArray } from "@functions/mergeArray";
 import { Post } from "../Post";
 import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Posts.module.css";
@@ -29,7 +30,7 @@ export const Posts = () => {
 
     if (allPosts.length < 10) setAllPostsLoaded(true);
     setSearching(false);
-    setPosts(prevPosts => [...prevPosts, ...allPosts]);
+    setPosts(prevPosts => (mergeArray(prevPosts, allPosts) as PostType[]));
   };
 
   const handleGlobalScroll = useCallback(() => {

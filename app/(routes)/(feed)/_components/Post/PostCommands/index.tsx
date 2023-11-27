@@ -33,7 +33,6 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
   const debouncedSendLike = useCallback(debounce(sendLike, 5000), []);
 
   const handleLikeClick = async () => {
-    console.log(post);
     if (status === "unauthenticated") router.push("/auth/signin");
     isLiked ? post.likesCount!-- : post.likesCount!++;
     setIsLiked(prevValue => !prevValue);

@@ -56,32 +56,30 @@ export const Comments = ({ comments, className="" }: CommentsProps) => {
   const handleUnmarkToReply = useCallback(() => {
     setMarkedToReply(null);
   }, []);
-
-  if (!comments || comments.length === 0) {
-    return (
-      <div className={`${styles.withoutComments} ${className}`}>
-        <Text size="xs" weight="medium">Ninguém comentou ainda...</Text>
-      </div>
-    );
-  }
-
+  
   return (
     <>
       <div className={`${styles.comments} ${className}`}>
         {
-          filteredComments.map((comment: CommentType) =>
-            <div className={styles.commentZone} key={`commentZone:comment:${comment.id}`}>
-              <Comment
-                handleWantToRespond={handleWantToRespond}
-                comment={comment}
-                marked={markedToReply !== null && markedToReply.id === comment.id}
-              />
-              <Replies
-                comment={comment}
-                markedToReply={markedToReply!}
-                handleWantToRespond={handleWantToRespond}
-              />
+          !comments || comments.length === 0 ? (
+            <div className={`${styles.withoutComments} ${className}`}>
+              <Text size="xs" weight="medium">Ninguém comentou ainda...</Text>
             </div>
+          ) : (
+            filteredComments.map((comment: CommentType) =>
+              <div className={styles.commentZone} key={`commentZone:comment:${comment.id}`}>
+                <Comment
+                  handleWantToRespond={handleWantToRespond}
+                  comment={comment}
+                  marked={markedToReply !== null && markedToReply.id === comment.id}
+                />
+                <Replies
+                  comment={comment}
+                  markedToReply={markedToReply!}
+                  handleWantToRespond={handleWantToRespond}
+                />
+              </div>
+            )
           )
         }
       </div>

@@ -32,7 +32,7 @@ export const Navbar = ({ position="bottom" }: NavbarProps) => {
       <Link
         href="/posts/create"
         aria-label="Página de criação de posts, projetos, etc..."
-        className={styles.createImagePosition}
+        className={`${styles.createImagePosition} ${position === "top" ? styles.createImageTop : ""}`}
       >
         <Image
           src={"/android-chrome-512x512.png"}
@@ -40,7 +40,7 @@ export const Navbar = ({ position="bottom" }: NavbarProps) => {
           height={300}
           quality={100}
           alt="Gamix logo image"
-          className={`${styles.createImage} ${position === "top" ? styles.createImageTop : ""}`}
+          className={styles.createImage}
           priority
         />
       </Link>
