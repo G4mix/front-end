@@ -1,10 +1,11 @@
-import { PostType, UserType } from "./Models.types";
+import { CommentType, PostType, UserType } from "./Models.types";
 
 export type GenericGraphQLResponse<T> = {
   data: T;
 };
 
 export type QueryResponseTypes = {
+  findAllCommentsOfAPost: CommentType[];
   findAllUsers: UserType[];
   findAllPosts: PostType[];
   findUserByUsername: UserType;
@@ -14,6 +15,7 @@ export type QueryResponseTypes = {
 };
 
 export type MutationResponseTypes = {
+  commentPost: CommentType;
   likePost: boolean;
   unlikePost: boolean;
   createPost: PostType;

@@ -47,6 +47,7 @@ export type PostType = {
   content?: string;
   isLiked?: boolean;
   viewsCount?: number;
+  comments?: CommentType[];
   likesCount?: number;
   commentsCount?: number;
   categories?: CategoryType[];
@@ -69,4 +70,5 @@ export type CommentType = {
   createdAt?: string;
   updatedAt?: string;
   content?: string;
+  isLiked?: boolean;
 };

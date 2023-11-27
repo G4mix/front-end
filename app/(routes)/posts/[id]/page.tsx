@@ -1,7 +1,6 @@
 import { PostOptionsProvider } from "@contexts/post/PostOptionsContext";
 import { notFound, redirect } from "next/navigation";
 import { PostQueryManager } from "@classes/APIManager/posts/PostQueryManager";
-import { exampleComments } from "@constants/exampleComments";
 import { Comments } from "./comments/_components/Comments";
 import { Heading } from "@components/Heading";
 import { Navbar } from "@components/Navbar";
@@ -9,8 +8,8 @@ import { Post } from "../../(feed)/_components/Post";
 import styles from "./page.module.css";
 import React from "react";
 
-const findData = async (id: string) => {
-  return await PostQueryManager.findPostById(parseInt(id), { useServer: true });
+const findData = async (id: number) => {
+  return await PostQueryManager.findPostById(id, { useServer: true });
 };
 
 const handleDeletePost = async () => {
@@ -19,8 +18,8 @@ const handleDeletePost = async () => {
 };
 
 export default async function SinglePostPage({ params }: { params: { id: string } }) {
-  const comments = exampleComments();
-  const post = await findData(params.id);
+  const postId = parseInt(params.id);
+  const post = await findData(postId);
   if (!post || post.error) {
     notFound();
   }
@@ -38,7 +37,7 @@ export default async function SinglePostPage({ params }: { params: { id: string 
               Comentários
             </Heading>
           </div>
-          <Comments comments={comments} />
+          <Comments postId={postId} />
         </div>
       </PostOptionsProvider>
     </main>

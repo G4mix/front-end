@@ -1,5 +1,5 @@
-export type QueryType = "findAllUsers" | "findUserByUsername" | "findUserByEmail" | "findUserByToken"  | "findAllPosts" | "findPostById";
-export type MutationType = "updateUser" | "deleteAccount" | "createPost" | "updatePost" | "deletePost";
+export type QueryType = "findAllCommentsOfAPost" | "findAllUsers" | "findUserByUsername" | "findUserByEmail" | "findUserByToken"  | "findAllPosts" | "findPostById";
+export type MutationType = "updateUser" | "deleteAccount" | "createPost" | "updatePost" | "deletePost" | "commentPost";
 
 export type GenericQueryRequest<Query extends QueryType> = 
   { query: `query { ${Query} { ${string} } }` } 

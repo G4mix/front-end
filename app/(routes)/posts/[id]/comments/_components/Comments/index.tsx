@@ -7,18 +7,70 @@ import { MarkedToReply } from "../MarkedToReply";
 import { Comment } from "../Comment";
 import { Replies } from "../Replies";
 import { Text } from "@components/Text";
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import styles from "./Comments.module.css";
+import { CommentQueryManager } from "@/app/_classes/APIManager/comment/CommentQueryManager";
+import { mergeArray } from "@/app/_functions/mergeArray";
 
 type CommentsProps = {
   className?: React.HtmlHTMLAttributes<HTMLDivElement>["className"];
-  comments: CommentType[];
+  postId: number;
 };
 
-export const Comments = ({ comments, className="" }: CommentsProps) => {
+export const Comments = ({ postId, className="" }: CommentsProps) => {
+  const [comments, setComments] = useState<CommentType[]>([]);
+  const [allPostsLoaded, setAllPostsLoaded] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [page, setPage] = useState(0);
+
   const [markedToReply, setMarkedToReply] = useState<CommentType | null>(null);
   const { filterBy } = useCommentsContext();
   const answerRef = useRef<AnswerMethods>(null);
+
+  const getComments = async () => {
+    if (searching) return;
+    setSearching(true);
+    const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
+
+    if (!allComments || allComments.error || allComments.length === 0) {
+      setSearching(false);
+      return setAllPostsLoaded(true);
+    }
+
+    if (page === 0) {
+      console.log("Salve");
+      setSearching(false);
+      return setComments(allComments);
+    }
+
+    if (allComments.length < 10) setAllPostsLoaded(true);
+    setSearching(false);
+    setComments(prevComments => (mergeArray(prevComments, allComments) as CommentType[]));
+  };
+
+  const handleGlobalScroll = useCallback(() => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    if (
+      scrollHeight - scrollTop === clientHeight && !searching && !allPostsLoaded
+    ) {
+      setPage(prevPage => prevPage + 1);
+    }
+  }, [searching, allPostsLoaded]);
+  
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleGlobalScroll);
+    return () => {
+      window.removeEventListener("scroll", handleGlobalScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (page !== 0 && !allPostsLoaded) getComments();
+  }, [page, allPostsLoaded]);
 
   const filterComments = useCallback(() => {
     if (filterBy === "recent") {
@@ -33,7 +85,7 @@ export const Comments = ({ comments, className="" }: CommentsProps) => {
     }
 
     return comments.sort(() => Math.random() - 0.5);
-  }, [filterBy]);
+  }, [filterBy, comments]);
 
   const filteredComments = filterComments();
 
@@ -90,6 +142,7 @@ export const Comments = ({ comments, className="" }: CommentsProps) => {
         />
         <Answer
           ref={answerRef}
+          postId={postId}
         />
       </div>
     </>
