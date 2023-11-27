@@ -45,6 +45,7 @@ export type PostType = {
   tags?: TagType[];
   links?: LinkType[];
   content?: string;
+  isLiked?: boolean;
   viewsCount?: number;
   likesCount?: number;
   commentsCount?: number;

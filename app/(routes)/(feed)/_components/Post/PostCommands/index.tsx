@@ -7,6 +7,7 @@ import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
 import { PostType } from "@classes/APIManager/base/types/Models.types";
+import { debounce } from "@functions/debounce";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState, useCallback } from "react";
@@ -16,23 +17,27 @@ import Link from "next/link";
 type PostCommandsProps = { post: PostType };
 
 export const PostCommands = ({ post }: PostCommandsProps) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(post!.isLiked! || false);
   const { handleShowMessage } = useMessagesContext();
   const { status } = useSession();
   const router = useRouter();
   
+  const sendLike = useCallback(async (postId: number, isLiked: boolean) => {
+    console.log("Enviando o like para o back-end");
+    const like = await LikeMutationManager.likePost(postId, isLiked);
+    if (like && like.error) {
+      if (apiErrors.includes(like.error)) handleShowMessage(like!.message!);
+      handleShowMessage(`Erro ao executar um ${isLiked ? "deslike" : "like"}`);
+    }
+  }, []);
+  const debouncedSendLike = useCallback(debounce(sendLike, 5000), []);
+
   const handleLikeClick = async () => {
+    console.log(post);
     if (status === "unauthenticated") router.push("/auth/signin");
     isLiked ? post.likesCount!-- : post.likesCount!++;
-    const like = isLiked 
-      ? await LikeMutationManager.unlikePost(post!.id!) 
-      : await LikeMutationManager.likePost(post!.id!);
-    
-    if (like && like!.error) {
-      if (apiErrors.includes(like!.error!)) handleShowMessage(like!.message!);
-      handleShowMessage(`Erro ao executar um ${ isLiked ? "deslike" : "like"}`);
-    }
     setIsLiked(prevValue => !prevValue);
+    debouncedSendLike(post!.id!, isLiked);
   };
 
   const handleShareClick = useCallback(() => {

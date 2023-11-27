@@ -89,11 +89,7 @@
   height: 24px;
 }
 
-@media (min-width: 1280px) {
-  .navbarIcon {
-    width: 44px;
-    height: 44px;
-  }
+@media (min-width: 640px) {
   .createImage {
     border-radius: 0;
     background-color: transparent; 
@@ -107,13 +103,12 @@
     display: flex;
     flex-direction: column;
     gap: 75px;
-    width: 20%;
+    width: 15%;
     position: fixed;
-    top: 65px;
-    bottom: 65px;
-    left: 60px;
+    top: 30px;
+    bottom: 30px;
+    left: 30px;
     flex-shrink: 0;
-    padding: 40px 60px;
     height: auto;
     border-radius: 32px;
     filter: drop-shadow(0px -3px 4px rgba(0, 0, 0, 0.25));
@@ -123,16 +118,37 @@
 
   .navItems {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 75px;
   }
 
   .createImagePosition {
-    width: 212px;
-    height: 212px;
+    width: 80px;
+    height: 80px;
     position: static;
     transform: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navbarIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .nav {
+    gap: 75px;
+    width: 20%;
+    position: fixed;
+    top: 65px;
+    bottom: 65px;
+    left: 60px;
+  }
+
+  .createImagePosition {
+    width: 212px;
+    height: 212px;
   }
 
   .navText {
