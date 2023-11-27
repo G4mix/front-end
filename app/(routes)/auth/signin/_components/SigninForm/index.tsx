@@ -75,7 +75,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} >
+    <form onSubmit={onSubmit} className={signinStyles.formRoot}>
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input
