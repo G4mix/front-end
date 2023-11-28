@@ -6,8 +6,8 @@ import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { useSession } from "@contexts/global/SessionContext";
 import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
-import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { debounce } from "@functions/debounce";
+import { PostType } from "@classes/APIManager/base/types/Models.types";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
 import React, { useState, useCallback } from "react";
@@ -29,7 +29,7 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
       handleShowMessage(`Erro ao executar um ${isLiked ? "deslike" : "like"}`);
     }
   }, []);
-  const debouncedSendLike = useCallback(debounce(sendLike, 5000), []);
+  const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 5000), []);
 
   const handleLikeClick = async () => {
     if (status === "unauthenticated") router.push("/auth/signin");

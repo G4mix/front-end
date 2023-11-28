@@ -23,7 +23,7 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
   const [searching, setSearching] = useState(false);
   const [page, setPage] = useState(0);
 
-  const [markedToReply, setMarkedToReply] = useState<CommentType | null>(null);
+  const [markedToReply, setMarkedToReply] = useState<{ commentToRes: CommentType; commentToMark: CommentType; } | null>(null);
   const { filterBy } = useCommentsContext();
   const answerRef = useRef<AnswerMethods>(null);
 
@@ -31,6 +31,7 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     if (searching) return;
     setSearching(true);
     const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
+    console.log(allComments);
     if (!allComments || (allComments && allComments.error || allComments.length === 0)) {
       setSearching(false);
       return setAllPostsLoaded(true);
@@ -96,17 +97,15 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
   }, []);
 
   const handleWantToRespond = ({ comment, isReply }: { comment: CommentType; isReply?: boolean; }) => {
-    setMarkedToReply(comment);
+    setMarkedToReply({
+      commentToMark: comment, 
+      commentToRes: comment.parentComment ? comment.parentComment! : comment 
+    });
+    console.log(markedToReply);
     if (isReply) {
       handleUserToMark(comment.author!.user!.username!);
     }
     handleAnswerFocus();
-  };
-
-  const handleUnmarkToReply = () => {
-    console.log("Chamou");
-    setMarkedToReply(null);
-    console.log(markedToReply);
   };
   
   return (
@@ -123,7 +122,7 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
                 <Comment
                   handleWantToRespond={handleWantToRespond}
                   comment={comment}
-                  marked={markedToReply !== null && markedToReply.id === comment.id}
+                  marked={markedToReply !== null && markedToReply.commentToMark.id === comment.id}
                 />
                 <Replies
                   comment={comment}
@@ -137,11 +136,11 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
       </div>
       <div className={styles.answerZone}>
         <MarkedToReply
-          handleUnmarkToReply={handleUnmarkToReply}
+          handleUnmarkToReply={() => setMarkedToReply(null)}
           markedToReply={markedToReply!}
         />
         <Answer
-          handleUnmarkToReply={handleUnmarkToReply}
+          handleUnmarkToReply={() => setMarkedToReply(null)}
           markedToReply={markedToReply!}
           ref={answerRef}
           postId={postId}

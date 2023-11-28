@@ -10,7 +10,9 @@ export class CommentMutationManager extends APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-    const dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
+
     const query  = {
       query: `mutation commentPost($postId: Int!, $content: String!) { commentPost(postId: $postId, content: $content) { ${dataToGet} } }`,
       variables: {
@@ -18,7 +20,7 @@ export class CommentMutationManager extends APIManager {
         content: content
       }
     };
-
+    
     const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
     
     const data: GenericMutationResponse<"commentPost"> = await response.json();
@@ -33,7 +35,9 @@ export class CommentMutationManager extends APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-    const dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
+    
     const query  = {
       query: `mutation replyComment($commentId: Int!, $content: String!) { replyComment(commentId: $commentId, content: $content) { ${dataToGet} } }`,
       variables: {

@@ -1,12 +1,16 @@
-export const debounce = (func: (id: number, isLiked: boolean) => void, delay: number) => {
+export const debounce = <F extends (...args: unknown[]) => unknown>(
+  func: F,
+  delay: number
+) => {
   let timeoutId: NodeJS.Timeout;
-  return (id: number, isLiked: boolean) => {
+
+  return (...args: Parameters<F>) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
 
     timeoutId = setTimeout(() => {
-      func(id, isLiked);
+      func(...args);
     }, delay);
   };
 };

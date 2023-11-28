@@ -17,6 +17,7 @@ export type QueryResponseTypes = {
 export type MutationResponseTypes = {
   commentPost: CommentType;
   replyComment: CommentType;
+  likeComment: boolean;
   likePost: boolean;
   unlikePost: boolean;
   createPost: PostType;

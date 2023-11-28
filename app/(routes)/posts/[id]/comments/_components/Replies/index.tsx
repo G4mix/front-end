@@ -7,7 +7,7 @@ import styles from "./Replies.module.css";
 
 type RepliesProps = {
   handleWantToRespond: ({ comment, isReply }: { comment: CommentType; isReply?: boolean; }) => void;
-  markedToReply: CommentType;
+  markedToReply: { commentToRes: CommentType; commentToMark: CommentType; };
   comment: CommentType;
 };
 
@@ -21,7 +21,7 @@ export const Replies = ({ comment, handleWantToRespond, markedToReply }: Replies
           <Comment
             key={`commentZone:number:${comment.id}reply:number:${reply.id}`}
             handleWantToRespond={handleWantToRespond}
-            marked={markedToReply !== null && markedToReply.id === reply.id}
+            marked={markedToReply !== null && markedToReply.commentToMark.id === reply.id}
             comment={reply}
             isReply
           />

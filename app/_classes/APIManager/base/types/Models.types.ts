@@ -65,6 +65,7 @@ export type CommentType = {
   id?: number;
   post?: PostType;
   author?: UserProfileType;
+  parentComment?: CommentType;
   replies?: CommentType[];
   likesCount?: number;
   createdAt?: string;

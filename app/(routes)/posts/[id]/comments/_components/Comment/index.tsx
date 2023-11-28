@@ -22,7 +22,7 @@ export const Comment = ({ isReply=false, comment, marked, handleWantToRespond }:
       />
       <CommentMain>{comment.content}</CommentMain>
       <CommentCommands
-        likesCount={comment.likesCount}
+        comment={comment}
         handleWantToRespond={() => handleWantToRespond({ comment, isReply })}
       />
     </CommentRoot>

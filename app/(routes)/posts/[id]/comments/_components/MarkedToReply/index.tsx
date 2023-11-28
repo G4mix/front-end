@@ -8,13 +8,13 @@ import React from "react";
 
 type MarkedToReplyProps = {
   handleUnmarkToReply: () => void;
-  markedToReply: CommentType;
+  markedToReply: { commentToRes: CommentType; commentToMark: CommentType; };
 };
 
 export const MarkedToReply = ({ markedToReply, handleUnmarkToReply }: MarkedToReplyProps) => {
   if (markedToReply === null) return null;
 
-  const { author } = markedToReply!;
+  const { author } = markedToReply!.commentToMark;
 
   return (
     <div className={styles.markedToReply}>

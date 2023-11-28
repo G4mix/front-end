@@ -12,7 +12,7 @@ export class CommentQueryManager extends APIManager {
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
 
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
-    dataToGet = `${dataToGet} replies { ${dataToGet} }`;
+    dataToGet = `${dataToGet} parentComment { ${dataToGet} } replies { ${dataToGet} parentComment { ${dataToGet} } }`;
 
     const query  = {
       query: `query findAllCommentsOfAPost($postId: Int!, $skip: Int, $limit: Int) { findAllCommentsOfAPost(postId: $postId, skip: $skip, limit: $limit) { ${dataToGet} } }`,
