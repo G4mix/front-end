@@ -23,7 +23,6 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
   const router = useRouter();
   
   const sendLike = useCallback(async (postId: number, isLiked: boolean) => {
-    console.log("Enviando o like para o back-end");
     const like = await LikeMutationManager.likePost(postId, isLiked);
     if (like && like.error) {
       if (apiErrors.includes(like.error)) handleShowMessage(like!.message!);

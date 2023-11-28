@@ -16,7 +16,6 @@ export const MoreOptions = ({ id, author, handleDeletePost }: MoreOptionsProps) 
   const { session } = useSession();
 
   const handleDeletePostOption = async () => {
-    console.log("deletando");
     await PostMutationManager.deletePost(id!);
     if (handleDeletePost) handleDeletePost();
   };

@@ -69,7 +69,6 @@ export const CreatePostProvider = ({ children, defaultPost }: CreatePostProvider
     }
 
     const defaultImages = await getDefaultImages();
-    console.log(defaultImages);
     if (defaultImages) setImages(defaultImages);
   };
 

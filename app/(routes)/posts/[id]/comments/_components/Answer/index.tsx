@@ -4,11 +4,12 @@ import { CommentMutationManager } from "@/app/_classes/APIManager/comment/Commen
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { EmojiPicker } from "@components/EmojiPicker";
 import { useSession } from "@contexts/global/SessionContext";
+import { CommentType } from "@classes/APIManager/base/types/Models.types";
 import { apiErrors } from "@/app/_constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { TextArea } from "@components/TextArea";
 import { Icon } from "@components/Icon";
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import styles from "./Answer.module.css";
 
 export type AnswerMethods = {
@@ -17,10 +18,13 @@ export type AnswerMethods = {
 };
 
 type AnswerProps = {
+  handleUnmarkToReply: () => void;
+  markedToReply: CommentType;
   postId: number;
 };
 
-const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId }, ref) => {
+const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId, handleUnmarkToReply, markedToReply }, ref) => {
+  const [isCommenting, setIsCommenting] = useState(false);
   const { handleShowMessage } = useMessagesContext();
   const { status } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -52,6 +56,8 @@ const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId }, ref) => {
 
   const handlePostComment = useCallback(async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
+    if (isCommenting) return;
+    setIsCommenting(true);
     if (!textAreaRef.current) {
       return;
     }
@@ -62,18 +68,27 @@ const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId }, ref) => {
     
     const content = textAreaRef.current.value;
 
-    const comment = await CommentMutationManager.commentPost(postId, content);
+    let comment: (CommentType & { error?: string | undefined; message?: string | undefined; }) | undefined;
+    console.log(markedToReply);
+    if (markedToReply) {
+      comment = await CommentMutationManager.replyComment(markedToReply!.id!, content);
+      if (comment) handleUnmarkToReply();
+    } else {
+      comment = await CommentMutationManager.commentPost(postId, content);
+    }
+
     if (!comment || comment["error"]) {
       if (comment && comment["error"] && apiErrors.includes(comment!.error!)) {
         handleShowMessage(comment!.message!);
       }
-      handleShowMessage("Ocorreu um erro ao tentar comentar!");
+      handleShowMessage(`Ocorreu um erro ao tentar ${ markedToReply ? "responder um comentário" : "comentar" }!`);
     }
-    console.log(comment);
 
     textAreaRef.current.value = "";
     textAreaRef.current.style.height = "auto";
     textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+
+    setIsCommenting(false);
   }, [status]);
 
   useEffect(() => {

@@ -16,9 +16,9 @@ export class PostQueryManager extends APIManager {
         id: id
       }
     };
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
-    
-    const data: GenericQueryResponse<"findPostById"> = await response.json();    
+
+    const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
+    const data: GenericQueryResponse<"findPostById"> = await response.json();
     return data["data"]["findPostById"];
   }
 

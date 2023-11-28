@@ -6,13 +6,13 @@ import { CommentRoot } from "./CommentRoot";
 import React from "react";
 
 type CommentProps = {
-  handleWantToRespond: ({ comment, isReply }: { comment: CommentType, isReply: boolean }) => void;
+  handleWantToRespond: ({ comment, isReply }: { comment: CommentType, isReply?: boolean }) => void;
   isReply?: boolean;
   comment: CommentType;
   marked: boolean;
 };
 
-export const Comment = ({ isReply, comment, marked, handleWantToRespond }: CommentProps) => {
+export const Comment = ({ isReply=false, comment, marked, handleWantToRespond }: CommentProps) => {
   return (
     <CommentRoot isReply={isReply} marked={marked}>
       <CommentHeader
@@ -23,7 +23,7 @@ export const Comment = ({ isReply, comment, marked, handleWantToRespond }: Comme
       <CommentMain>{comment.content}</CommentMain>
       <CommentCommands
         likesCount={comment.likesCount}
-        handleWantToRespond={() => handleWantToRespond({ comment, isReply: !!isReply })}
+        handleWantToRespond={() => handleWantToRespond({ comment, isReply })}
       />
     </CommentRoot>
   );

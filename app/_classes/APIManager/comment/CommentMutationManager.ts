@@ -24,4 +24,27 @@ export class CommentMutationManager extends APIManager {
     const data: GenericMutationResponse<"commentPost"> = await response.json();
     return data["data"]["commentPost"];
   }
+
+  public static async replyComment(
+    id: number, content: string,
+    useServer: { useServer: boolean } = { useServer: false }
+  ): Promise<GenericMutationResponse<"replyComment">["data"]["replyComment"] | undefined> {
+    const accessToken = APIManager.getCookie("accessToken", useServer);
+    if (!accessToken) return;
+
+    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
+    const dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    const query  = {
+      query: `mutation replyComment($commentId: Int!, $content: String!) { replyComment(commentId: $commentId, content: $content) { ${dataToGet} } }`,
+      variables: {
+        commentId: id,
+        content: content
+      }
+    };
+
+    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
+    
+    const data: GenericMutationResponse<"replyComment"> = await response.json();
+    return data["data"]["replyComment"];
+  }
 }

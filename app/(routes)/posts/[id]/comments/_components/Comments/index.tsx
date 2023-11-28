@@ -31,14 +31,12 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     if (searching) return;
     setSearching(true);
     const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
-
-    if (!allComments || allComments.error || allComments.length === 0) {
+    if (!allComments || (allComments && allComments.error || allComments.length === 0)) {
       setSearching(false);
       return setAllPostsLoaded(true);
     }
 
     if (page === 0) {
-      console.log("Salve");
       setSearching(false);
       return setComments(allComments);
     }
@@ -97,17 +95,19 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     answerRef.current?.handleUserToMark(username);
   }, []);
 
-  const handleWantToRespond = useCallback(({ comment, isReply }: { comment: CommentType; isReply: boolean; }) => {
+  const handleWantToRespond = ({ comment, isReply }: { comment: CommentType; isReply?: boolean; }) => {
     setMarkedToReply(comment);
     if (isReply) {
       handleUserToMark(comment.author!.user!.username!);
     }
     handleAnswerFocus();
-  }, []);
+  };
 
-  const handleUnmarkToReply = useCallback(() => {
+  const handleUnmarkToReply = () => {
+    console.log("Chamou");
     setMarkedToReply(null);
-  }, []);
+    console.log(markedToReply);
+  };
   
   return (
     <>
@@ -141,6 +141,8 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
           markedToReply={markedToReply!}
         />
         <Answer
+          handleUnmarkToReply={handleUnmarkToReply}
+          markedToReply={markedToReply!}
           ref={answerRef}
           postId={postId}
         />

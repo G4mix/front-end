@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import styles from "./Replies.module.css";
 
 type RepliesProps = {
-  handleWantToRespond: ({ comment, isReply }: { comment: CommentType; isReply: boolean; }) => void;
+  handleWantToRespond: ({ comment, isReply }: { comment: CommentType; isReply?: boolean; }) => void;
   markedToReply: CommentType;
   comment: CommentType;
 };

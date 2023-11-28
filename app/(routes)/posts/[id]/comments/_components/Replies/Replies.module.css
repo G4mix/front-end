@@ -2,6 +2,7 @@
   flex-direction: column;
   padding-bottom: 1rem;
   align-items: center;
+  width: 100%;
   display: flex;
   gap: 10px;
 }
