@@ -31,7 +31,7 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     if (searching) return;
     setSearching(true);
     const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
-    console.log(allComments);
+    
     if (!allComments || (allComments && allComments.error || allComments.length === 0)) {
       setSearching(false);
       return setAllPostsLoaded(true);
