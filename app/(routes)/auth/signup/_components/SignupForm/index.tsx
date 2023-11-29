@@ -40,9 +40,9 @@ export const RegisterForm = () => {
   const register = async (signUpBody: RegisterProps) => {
     const response = await UserAuthManager.signUp(signUpBody);
     console.log(response);
-    if (response) {
+    if (!response || response!.error!) {
       setTryingToRegister(false);
-      if (apiErrors.includes(response.error!)) {
+      if (response && apiErrors.includes(response.error!)) {
         handleShowMessage(response.message!);
         return;
       }
