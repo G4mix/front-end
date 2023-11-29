@@ -31,7 +31,7 @@ export const CommentCommands = ({ comment, handleWantToRespond }: CommentCommand
       handleShowMessage(`Erro ao executar um ${isLikedComment ? "deslike" : "like"}`);
     }
   }, []);
-  const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 5000), []);
+  const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 3000), []);
 
   const handleLikeClick = async () => {
     if (status === "unauthenticated") router.push("/auth/signin");

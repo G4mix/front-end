@@ -29,7 +29,7 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
       handleShowMessage(`Erro ao executar um ${isLiked ? "deslike" : "like"}`);
     }
   }, []);
-  const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 5000), []);
+  const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 3000), []);
 
   const handleLikeClick = async () => {
     if (status === "unauthenticated") router.push("/auth/signin");

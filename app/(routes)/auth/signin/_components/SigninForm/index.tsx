@@ -29,9 +29,9 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const login = async (signInBody: LoginProps) => {
     const response = await UserAuthManager.signIn(signInBody);
     
-    if (response) {
+    if (response && response!.error!) {
       setTryingToLogIn(false);
-      if (apiErrors.includes(response.error!)) {
+      if (response && apiErrors.includes(response.error!)) {
         handleShowMessage(response.message!);
         return;
       }
