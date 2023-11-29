@@ -9,7 +9,7 @@ import { apiErrors } from "@/app/_constants/apiErrors";
 import { useRouter } from "next/navigation";
 import { TextArea } from "@components/TextArea";
 import { Icon } from "@components/Icon";
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import styles from "./Answer.module.css";
 
 export type AnswerMethods = {
@@ -19,11 +19,13 @@ export type AnswerMethods = {
 
 type AnswerProps = {
   handleUnmarkToReply: () => void;
+  handleRenderNewComment: (comment: CommentType) => void;
   markedToReply: { commentToRes: CommentType; commentToMark: CommentType; };
   postId: number;
 };
 
-const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId, handleUnmarkToReply, markedToReply }, ref) => {
+const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId, handleUnmarkToReply, markedToReply, handleRenderNewComment }, ref) => {
+  const [isCommenting, setIsCommenting] = useState(false);
   const { handleShowMessage } = useMessagesContext();
   const { status } = useSession();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -55,11 +57,20 @@ const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId, handleUnmarkToR
 
   const commentPost = async (content: string, isReply: boolean) => {
     let comment: (CommentType & { error?: string | undefined; message?: string | undefined }) | undefined;
+
     if (isReply) {
       comment = await CommentMutationManager.replyComment(markedToReply!.commentToRes.id!, content);
+      if (!comment || comment.error) {
+        handleShowMessage("Erro ao comentar!");
+      }
+      handleRenderNewComment(comment!);
       handleUnmarkToReply();
     } else {
       comment = await CommentMutationManager.commentPost(postId, content);
+      if (!comment || comment.error) {
+        handleShowMessage("Erro ao comentar!");
+      }
+      handleRenderNewComment(comment!);
     }
 
     if (!comment || comment["error"]) {
@@ -76,19 +87,21 @@ const Answer = forwardRef<AnswerMethods, AnswerProps>(({ postId, handleUnmarkToR
     textAreaRef.current!.style.height = `${textAreaRef.current?.scrollHeight}px`;
   };
 
-  const handlePostComment = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handlePostComment = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     if (!textAreaRef.current) {
       return;
     }
-
+    
     if (status === "unauthenticated") {
       return router.push("/auth/signin");
     }
-
+    
+    if (isCommenting) return;
+    setIsCommenting(true);
     const content = textAreaRef.current.value;
-
-    commentPost(content, !!markedToReply);
+    await commentPost(content, !!markedToReply);
+    setIsCommenting(false);
   };
 
   useEffect(() => {

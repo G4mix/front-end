@@ -2,6 +2,7 @@ import { CommentType, PostType, UserType } from "./Models.types";
 
 export type GenericGraphQLResponse<T> = {
   data: T;
+  errors?: { error?: string; message?: string; };
 };
 
 export type QueryResponseTypes = {

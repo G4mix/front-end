@@ -1,4 +1,5 @@
 import type { GenericMutationResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
+import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class CommentMutationManager extends APIManager {
@@ -6,7 +7,7 @@ export class CommentMutationManager extends APIManager {
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"commentPost">["data"]["commentPost"] | undefined> {
-    const accessToken = APIManager.getCookie("accessToken", useServer);
+    const accessToken = CookieManager.get("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -21,17 +22,15 @@ export class CommentMutationManager extends APIManager {
       }
     };
     
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
-    
-    const data: GenericMutationResponse<"commentPost"> = await response.json();
-    return data["data"]["commentPost"];
+    const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
+    return await this.handleResponse<GenericMutationResponse<"commentPost">>(response, "commentPost", useServer) as GenericMutationResponse<"commentPost">["data"]["commentPost"];
   }
 
   public static async replyComment(
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"replyComment">["data"]["replyComment"] | undefined> {
-    const accessToken = APIManager.getCookie("accessToken", useServer);
+    const accessToken = CookieManager.get("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -46,9 +45,7 @@ export class CommentMutationManager extends APIManager {
       }
     };
 
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
-    
-    const data: GenericMutationResponse<"replyComment"> = await response.json();
-    return data["data"]["replyComment"];
+    const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
+    return await this.handleResponse<GenericMutationResponse<"replyComment">>(response, "replyComment", useServer) as GenericMutationResponse<"replyComment">["data"]["replyComment"];
   }
 }

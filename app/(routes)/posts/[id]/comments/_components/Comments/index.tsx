@@ -96,12 +96,27 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     answerRef.current?.handleUserToMark(username);
   }, []);
 
+  const handleRenderNewComment = (comment: CommentType) => {
+    comment.replies = [];
+    if (comment.parentComment) {
+      const parentComment = comments.find(commentToFind => commentToFind.id === comment!.parentComment!.id);
+      if (parentComment) {
+        if (!parentComment.replies) {
+          parentComment.replies = [];
+        }
+        parentComment.replies.push(comment);
+        setComments([...comments]);
+      }
+    } else {
+      setComments([...comments, comment]);
+    }
+  };
+  
   const handleWantToRespond = ({ comment, isReply }: { comment: CommentType; isReply?: boolean; }) => {
     setMarkedToReply({
-      commentToMark: comment, 
+      commentToMark: comment,
       commentToRes: comment.parentComment ? comment.parentComment! : comment 
     });
-    console.log(markedToReply);
     if (isReply) {
       handleUserToMark(comment.author!.user!.username!);
     }
@@ -141,6 +156,7 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
         />
         <Answer
           handleUnmarkToReply={() => setMarkedToReply(null)}
+          handleRenderNewComment={handleRenderNewComment}
           markedToReply={markedToReply!}
           ref={answerRef}
           postId={postId}

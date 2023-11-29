@@ -1,4 +1,5 @@
 import type { GenericQueryResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
+import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class CommentQueryManager extends APIManager {
@@ -6,7 +7,7 @@ export class CommentQueryManager extends APIManager {
     id: number, skip: number,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericQueryResponse<"findAllCommentsOfAPost">["data"]["findAllCommentsOfAPost"] | undefined> {
-    const accessToken = APIManager.getCookie("accessToken", useServer);
+    const accessToken = CookieManager.get("accessToken", useServer);
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
@@ -23,9 +24,7 @@ export class CommentQueryManager extends APIManager {
       }
     };
     
-    const response = await APIManager.request("/graphql", JSON.stringify(query), headers, useServer);
-    
-    const data: GenericQueryResponse<"findAllCommentsOfAPost"> = await response.json();
-    return data["data"]["findAllCommentsOfAPost"];
+    const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
+    return await this.handleResponse<GenericQueryResponse<"findAllCommentsOfAPost">>(response, "findAllCommentsOfAPost", useServer) as unknown as GenericQueryResponse<"findAllCommentsOfAPost">["data"]["findAllCommentsOfAPost"];
   }
 }

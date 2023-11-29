@@ -1,8 +1,7 @@
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
-import { CookieManagerClient } from "@classes/CookieManager/CookieManagerClient";
-import { CookieManagerServer } from "@classes/CookieManager/CookieManagerServer";
-import { apiErrors } from "@constants/apiErrors";
+import { redirectServer } from "@/app/_functions/redirectServer";
+import { CookieManager } from "@classes/CookieManager";
 
 export class APIManager {
   protected static async request<U extends BackendRoutes>(
@@ -18,53 +17,31 @@ export class APIManager {
     });
 
     if (response.status === 401 && url !== "/auth/refreshtoken") {
-      const { accessToken, error, message } = await APIManager.refreshTokens(useServer);
-      if (apiErrors.includes(error!)) {
-        return new Response(
-          JSON.stringify(message), 
-          { status: 401, headers: { "Content-Type": "application/json; charset=utf-8" } }
-        );
-      }
-      const newHeaders = { ...headers, Authorization: `Bearer ${accessToken}` };
+      const res = await APIManager.refreshTokens(useServer);
+      if (res instanceof Response && !res.ok) return res;
+      
+      const { accessToken } = res as { accessToken: string };
+      const newHeaders = { ...headers, Authorization: `Bearer ${accessToken! as string}` };
       return await APIManager.request(url, body, newHeaders, useServer);
     }
 
     return response;
   }
 
-  protected static deleteCookie(
-    name: "accessToken" | "refreshToken",
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) return CookieManagerClient.delete(name!);
-    CookieManagerServer.delete(name!);
-  }
-
-  public static getCookie(
-    name: "accessToken" | "refreshToken",
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) return CookieManagerClient.get(name!);
-    return CookieManagerServer.get(name!);
-  }
-
-  protected static setCookies(
-    { accessToken, refreshToken }: JwtTokens,
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) {
-      CookieManagerClient.set(accessToken!);
-      CookieManagerClient.set(refreshToken!);
-      return;
+  protected static async handleResponse<T>(response: Response, field: string, useServer: { useServer: boolean }): Promise<void | T> {
+    if (!response.ok) {
+      return this.signOut(useServer);
     }
-    CookieManagerServer.set(accessToken!);
-    CookieManagerServer.set(refreshToken!);
+    const data = await response.json();
+    if (data["errors"]) return data["errors"];
+    return data["data"][field];
   }
+
 
   private static async refreshTokens(
     useServer: { useServer: boolean }
-  ): Promise<{ accessToken?: string; error?: string; message?: string; }> {
-    const cookieRefreshToken = APIManager.getCookie("refreshToken", useServer);
+  ): Promise<{ accessToken?: string; } | Response> {
+    const cookieRefreshToken = CookieManager.get("refreshToken", useServer);
     
     const response = await APIManager.request(
       "/auth/refreshtoken", 
@@ -73,12 +50,22 @@ export class APIManager {
       useServer
     );
   
-    const { accessToken, refreshToken, error, message }: JwtTokens = await response.json();
-    if (apiErrors.includes(error!)) {
-      return { error, message  };
-    }
-
-    await APIManager.setCookies({ accessToken, refreshToken }, useServer);
+    const { accessToken, refreshToken, error }: JwtTokens = await response.json();
+    if (error!) return response;
+    
+    CookieManager.set({ accessToken, refreshToken }, useServer);
     return { accessToken };
+  }
+
+  public static async signOut({ useServer }: { useServer: boolean } = { useServer: false }): Promise<void> {
+    const accessToken = CookieManager.get("accessToken", { useServer });
+    const refreshToken = CookieManager.get("refreshToken", { useServer });
+    if (accessToken) CookieManager.delete("accessToken", { useServer });
+    if (refreshToken) CookieManager.delete("refreshToken", { useServer });
+    if (!useServer) {
+      if (window) window.location.href = "/auth/signin";
+      return;
+    }
+    return redirectServer("/auth/signin");
   }
 }
