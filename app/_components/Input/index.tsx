@@ -1,5 +1,3 @@
-"use client";
-
 import React, { type ChangeEvent } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";

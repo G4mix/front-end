@@ -1,3 +1,5 @@
+"use client";
+
 import React, { type ChangeEvent } from "react";
 import styles from "./InputInput.module.css";
 

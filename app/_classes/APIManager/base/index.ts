@@ -1,6 +1,5 @@
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import type { JwtTokens } from "./types/JwtTokens.types";
-import { redirectServer } from "@/app/_functions/redirectServer";
 import { CookieManager } from "@classes/CookieManager";
 
 export class APIManager {
@@ -28,12 +27,14 @@ export class APIManager {
     return response;
   }
 
-  protected static async handleResponse<T>(response: Response, field: string, useServer: { useServer: boolean }): Promise<void | T> {
-    if (!response.ok) {
-      return this.signOut(useServer);
+  protected static async handleResponse<T>(response: Response, field: string, useServer: { useServer: boolean }): Promise<void | T | { error: string; message: string; }> {
+    if (response.status === 401) {
+      this.signOut(useServer);
+      if (window) window.location.href = "/auth/signin";
+      return;
     }
     const data = await response.json();
-    if (data["errors"]) return data["errors"];
+    if (data["errors"]) return { error: data["errors"][0]["extensions"]["classification"] as string, message: data["errors"][0]["message"] as string};
     return data["data"][field];
   }
 
@@ -57,16 +58,10 @@ export class APIManager {
     return { accessToken };
   }
 
-  public static async signOut({ redirect, useServer }: { redirect?: boolean; useServer: boolean } = { redirect: false, useServer: false }): Promise<void> {
+  public static async signOut({ useServer }: { useServer: boolean } = { useServer: false }): Promise<void> {
     const accessToken = CookieManager.get("accessToken", { useServer });
     const refreshToken = CookieManager.get("refreshToken", { useServer });
     if (accessToken) CookieManager.delete("accessToken", { useServer });
     if (refreshToken) CookieManager.delete("refreshToken", { useServer });
-    if (!redirect) return;
-    if (!useServer) {
-      if (window) window.location.href = "/auth/signin";
-      return;
-    }
-    return redirectServer("/auth/signin");
   }
 }

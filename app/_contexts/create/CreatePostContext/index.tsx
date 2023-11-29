@@ -165,9 +165,11 @@ export const CreatePostProvider = ({ children, defaultPost }: CreatePostProvider
       : await PostMutationManager.createPost(post as CreatePostInput);
 
     if(postData!.error) {
-      if (apiErrors.includes(postData!.error!)) return handleShowMessage(postData!.message!);
-      handleShowMessage(`Falha ao ${ defaultPost ? "atualizar" : "criar" } o post...`);
-      return setTryingToPost(false);
+      setTryingToPost(false);
+      if (apiErrors.includes(postData!.error!)) {
+        return handleShowMessage(postData!.message!);
+      }
+      return handleShowMessage(`Falha ao ${ defaultPost ? "atualizar" : "criar" } o post...`);
     }
 
     router.push("/");

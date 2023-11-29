@@ -1,5 +1,3 @@
-"use client";
-
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { Session } from "@contexts/global/SessionContext/Session.types";
 import styles from "../NavbarUserProfile.module.css";

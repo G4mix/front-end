@@ -33,10 +33,10 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     );
   }, []);
 
-  const setUnauthenticated = useCallback((redirect: boolean = false) => {
+  const setUnauthenticated = useCallback(() => {
     setSession(null);
     setStatus("unauthenticated");
-    APIManager.signOut({ redirect, useServer: false });
+    APIManager.signOut({ useServer: false });
   }, []);
   
   async function fetchData() {
