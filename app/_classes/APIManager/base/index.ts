@@ -57,11 +57,12 @@ export class APIManager {
     return { accessToken };
   }
 
-  public static async signOut({ useServer }: { useServer: boolean } = { useServer: false }): Promise<void> {
+  public static async signOut({ redirect, useServer }: { redirect?: boolean; useServer: boolean } = { redirect: false, useServer: false }): Promise<void> {
     const accessToken = CookieManager.get("accessToken", { useServer });
     const refreshToken = CookieManager.get("refreshToken", { useServer });
     if (accessToken) CookieManager.delete("accessToken", { useServer });
     if (refreshToken) CookieManager.delete("refreshToken", { useServer });
+    if (!redirect) return;
     if (!useServer) {
       if (window) window.location.href = "/auth/signin";
       return;

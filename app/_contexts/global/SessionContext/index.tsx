@@ -4,8 +4,8 @@ import type { Session, SessionContextProps } from "./Session.types";
 import { CookieManagerClient } from "@classes/CookieManager/CookieManagerClient";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { UserQueryManager } from "@classes/APIManager/user/UserQueryManager";
-import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { usePathname } from "next/navigation";
+import { APIManager } from "@classes/APIManager/base";
 import { apiErrors } from "@constants/apiErrors";
 import React, { useState, useEffect, createContext, useCallback } from "react";
 
@@ -33,10 +33,10 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     );
   }, []);
 
-  const setUnauthenticated = useCallback(() => {
+  const setUnauthenticated = useCallback((redirect: boolean = false) => {
     setSession(null);
     setStatus("unauthenticated");
-    UserAuthManager.signOut();
+    APIManager.signOut({ redirect, useServer: false });
   }, []);
   
   async function fetchData() {
