@@ -1,0 +1,51 @@
+.answer {
+  width: 100%;
+  min-height: 50px;
+
+  background: var(--delft-blue-bg, linear-gradient(0deg, #1C2034 0%, #1C2034 100%), linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%));
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+
+  transition: height 0.3s ease-in-out;
+}
+
+.answerArea {
+  flex: 1;
+  resize: none;
+}
+
+.emojisSide {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 6px;
+  padding-right: 5px;
+}
+
+.sendIconBox {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(180deg, rgba(28, 32, 52, 0.8) 0%, rgba(52, 58, 91, 0.4) 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+.sendIconBox:hover {
+  opacity: 0.5;
+}
+.sendIconBox:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

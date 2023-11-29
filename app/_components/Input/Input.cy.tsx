@@ -6,13 +6,13 @@ import { InputInput } from "./InputInput";
 import { InputField } from "./InputField";
 import { InputRoot } from "./InputRoot";
 
-interface ExampleVariations {
+type ExampleVariations = {
   placeholder: string;
   label?: string;
   icon?: "user" | "lock" | "envelope";
   type: "text" | "password" | "email";
   name: "username" | "password" | "email";
-}
+};
 
 const variations: ExampleVariations[] = [
   {

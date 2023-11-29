@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "@components/SessionProvider";
+import { MessagesProvider } from "@contexts/global/MessagesContext";
+import { SessionProvider } from "@contexts/global/SessionContext";
 import React from "react";
 import "@styles/globals.css";
 
@@ -14,10 +15,14 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <SessionProvider>
-      <html lang="pt-BR">
-        <body>{children}</body>
-      </html>
-    </SessionProvider>
+    <html lang="pt-BR">
+      <body>
+        <MessagesProvider>
+          <SessionProvider>
+            {children}
+          </SessionProvider>
+        </MessagesProvider>
+      </body>
+    </html>
   );
 }

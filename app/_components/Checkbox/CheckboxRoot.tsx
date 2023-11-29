@@ -1,14 +1,14 @@
 import styles from "./Checkbox.module.css";
 import React from "react";
 
-interface CheckboxRootProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+type CheckboxRootProps = {
   disabled?: boolean;
-}
+} & React.LabelHTMLAttributes<HTMLLabelElement>;
 
-export function CheckboxRoot({ children, disabled=false, ...props }: CheckboxRootProps) {
+export const CheckboxRoot = ({ children, disabled=false, ...props }: CheckboxRootProps) => {
   return (
     <label {...props} className={`${styles.root} ${disabled ? styles["checkbox-disabled"] : ""}`}>
       {children}
     </label>
   );
-}
+};

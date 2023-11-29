@@ -1,12 +1,12 @@
 import styles from "./InputRoot.module.css";
 import React from "react";
 
-interface InputRootProps extends React.HTMLAttributes<HTMLDivElement> {
+type InputRootProps = {
   children: React.ReactNode;
-}
+} & React.HTMLAttributes<HTMLDivElement>;
 
-export function InputRoot({ children, ...props }: InputRootProps) {
+export const InputRoot = ({ children, ...props }: InputRootProps) => {
   return (
     <div {...props} className={styles.root}>{children}</div>
   );
-}
+};

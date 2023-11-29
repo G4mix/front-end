@@ -1,0 +1,44 @@
+.postAuthor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.userIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+}
+
+.duotoneRoot {
+  width: 20px;
+  height: 20px;
+}
+.duotoneCircle {
+  width: 18px;
+  height: 18px;
+}
+.duotoneUserCircle {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 640px) {
+  .duotoneRoot {
+    width: 30px;
+    height: 30px;
+  }
+  .duotoneCircle {
+    width: 27px;
+    height: 27px;
+  }
+  .duotoneUserCircle {
+    width: 30px;
+    height: 30px;
+  }
+  .userIcon {
+    width: 30px;
+    height: 30px;
+  }  
+}

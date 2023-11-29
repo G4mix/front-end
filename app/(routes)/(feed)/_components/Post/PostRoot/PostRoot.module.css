@@ -1,0 +1,13 @@
+.postRoot {
+  width: 100%;
+  min-height: max-content;
+  background: linear-gradient(to bottom, var(--delft-blue), rgba(52, 58, 91, 0.10) 100%);
+  border-radius: 12px;
+  border: 3px solid var(--delft-blue);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+
+  padding: 0.76rem 1.25rem;
+}

@@ -1,0 +1,8 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding: 0 18px 1.5rem 18px;
+  gap: 10px;
+}

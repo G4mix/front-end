@@ -33,7 +33,7 @@ declare global {
       mount: typeof mount
     }
   }
-}
+};
 
 Cypress.Commands.add("mount", mount);
 

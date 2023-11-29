@@ -1,16 +1,35 @@
+import { JwtTokens } from "../APIManager/base/types/JwtTokens.types";
+import { CookieManagerClient } from "./CookieManagerClient";
+import { CookieManagerServer } from "./CookieManagerServer";
+
 export class CookieManager {
-  public static get(name: "accessToken" | "refreshToken"): string | undefined {
-    const allCookies = document.cookie.split(";").map((cookie) => cookie.trim());
-    const targetCookie = allCookies.find((cookie) => cookie.startsWith(name + "="));
-
-    return targetCookie ? targetCookie.substring(name.length + 1) : undefined;
+  public static set(
+    { accessToken, refreshToken }: JwtTokens,
+    { useServer }: { useServer: boolean }
+  ) {
+    if (!useServer) {
+      CookieManagerClient.set(accessToken!);
+      CookieManagerClient.set(refreshToken!);
+      return;
+    }
+    CookieManagerServer.set(accessToken!);
+    CookieManagerServer.set(refreshToken!);
+  }
+  
+  public static delete(
+    name: "accessToken" | "refreshToken",
+    { useServer }: { useServer: boolean }
+  ) {
+    if (!useServer) return CookieManagerClient.delete(name!);
+    return CookieManagerServer.delete(name!);
   }
 
-  public static delete(name: "accessToken" | "refreshToken"): void {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  public static get(
+    name: "accessToken" | "refreshToken",
+    { useServer }: { useServer: boolean }
+  ) {
+    if (!useServer) return CookieManagerClient.get(name!);
+    return CookieManagerServer.get(name!);
   }
 
-  public static set(cookie: string): void {
-    document.cookie = cookie;
-  }
 }

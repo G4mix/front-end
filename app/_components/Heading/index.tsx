@@ -2,15 +2,15 @@ import { Slot } from "@radix-ui/react-slot";
 import styles from "./Heading.module.css";
 import React from "react";
 
-interface HeadingProps extends React.HTMLAttributes<HTMLParagraphElement> {
+type HeadingProps = {
   children: React.ReactNode;
   className?: string;
   asChild?: boolean;
   weight?: "thin" | "light" | "regular" | "medium" | "bold" | "black";
   size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
-}
+} & React.HTMLAttributes<HTMLParagraphElement>;
 
-export function Heading({ children, asChild=false, size="default", weight="regular", className, ...props }: HeadingProps) {
+export const Heading = ({ children, asChild=false, size="default", weight="regular", className, ...props }: HeadingProps) => {
   const Component = asChild ? Slot : "h2";
 
   return (
@@ -21,4 +21,4 @@ export function Heading({ children, asChild=false, size="default", weight="regul
       {children}
     </Component>
   );
-}
+};

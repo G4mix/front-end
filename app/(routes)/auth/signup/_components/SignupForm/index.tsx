@@ -5,97 +5,92 @@ import Link from "next/link";
 import signupFormStyles from "./signupForm.module.css";
 import textStyles from "@components/Text/Text.module.css";
 
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Collapsable } from "@components/Collapsable";
-import { ErrorsToast } from "@components/ErrorsToast";
-import { APIManager } from "@classes/APIManager";
-import { useRouter } from "next/navigation";
+import React, { ChangeEvent, useState, useRef } from "react";
+import {
+  hasEightOrMoreChars, hasNumber,
+  hasOneUppercaseChar, hasSpecialChar
+} from "@functions/formValidations";
+import { Collapsable, CollapsableHandlers } from "../Collapsable";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
+import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { apiErrors } from "@constants/apiErrors";
+import { useRouter } from "next/navigation";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 
+type RegisterProps = {
+  username: string;
+  email: string;
+  password: string;
+};
+
 export const RegisterForm = () => {
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfimPassword] = useState("");
-  const [acceptedTerms, setAcceptedTerms] = useState<boolean>(false);
+  const { handleShowMessage } = useMessagesContext();
 
-  const [isCollapsableOpen, setIsCollapsableOpen] = useState<boolean>(false);
-  const [readyToRegister, setReadyToRegister] = useState<boolean>(false);
+  const collapsableRef = useRef<CollapsableHandlers>(null);
+  const registerForm = useRef<HTMLFormElement>(null);
 
+  const [passwordState, setPasswordState] = useState("");
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
-  const [error, setError] = useState<keyof typeof apiErrors | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
-  
   const router = useRouter();
 
-  const hasOneUppercaseChar = (text: string) => /[A-Z]/.test(text);
-
-  const hasNumber = (text: string) => /\d/.test(text);
-
-  const hasSpecialChar = (text: string) => /[^A-Za-z0-9_]/.test(text);
-
-  const hasEightOrMoreChars = (text: string) => text.length >= 8;
-
-  const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
-
-  const isReadyToRegister = () => {
-    if (
-      hasEightOrMoreChars(password) &&
-      hasNumber(password) &&
-      hasSpecialChar(password) &&
-      hasOneUppercaseChar(password) &&
-      !hasSpecialChar(username) &&
-      username.length > 2 && 
-      hasGmailDomain(email) &&
-      password === confirmPassword &&
-      acceptedTerms
-    ) {
-      setReadyToRegister(true);
-    } else {
-      setReadyToRegister(false);
-    }
-  };
-
-  async function register(e?: React.FormEvent<HTMLFormElement>) {
-    e?.preventDefault();
-    if (tryingToRegister) return;
-    setTryingToRegister(true);
-
-    const result = await APIManager.signUp({ username, email, password });
-    if (apiErrors[result!]) {
+  const register = async (signUpBody: RegisterProps) => {
+    const response = await UserAuthManager.signUp(signUpBody);
+    
+    if (response && response!.error!) {
       setTryingToRegister(false);
-      setError(result!);
-      setOpen(true);
+      if (response && apiErrors.includes(response.error!)) {
+        handleShowMessage(response.message!);
+        return;
+      }
+      handleShowMessage("Erro ao se registrar");
       return;
     }
 
     router.push("/");
-  }
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (tryingToRegister) return;
+    setTryingToRegister(true);
+
+    const formData = new FormData(registerForm.current || e.currentTarget);
+
+    const username = formData.get("username")?.valueOf() as string;
+    const email = formData.get("email")?.valueOf() as string;
+    const password = formData.get("password")?.valueOf() as string;
+    const confirmPassword = formData.get("confirm_password")?.valueOf() as string;
+    const acceptedTerms = formData.get("accepted_terms")?.valueOf() as string | undefined | null;
+
+    if (password !== confirmPassword) {
+      setTryingToRegister(false);
+      handleShowMessage("É necessário que a senha e a senha de confirmação sejam iguais.");
+      return;
+    } else if (!acceptedTerms) {
+      setTryingToRegister(false);
+      handleShowMessage("Você precisa aceitar os termos se quiser fazer parte do Gamix!");
+      return;
+    }
+
+    register({
+      username,
+      email,
+      password
+    });
+  };
   
-  useEffect(() => {
-    isReadyToRegister();
-    return () => {};
-  }, [password, username, email, confirmPassword, acceptedTerms]);
-
-
   return (
-    <form className={signupFormStyles.form} onSubmit={readyToRegister ? (e) => register(e) : () => null}>
-      <ErrorsToast error={error!} open={open} setOpen={setOpen}/>
+    <form className={signupFormStyles.form} onSubmit={onSubmit} ref={registerForm}>
       <div className={signupFormStyles.fields}>
         <Input
           icon="user"
           label="Username"
           name="username"
           placeholder="Digite um nome de usuário válido"
-          value={username}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUserName(e.target.value)
-          }
           type="text"
         />
         <Input
@@ -103,10 +98,6 @@ export const RegisterForm = () => {
           label="E-mail"
           name="email"
           placeholder="Digite seu e-mail"
-          value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
           type="email"
         />
         <Input
@@ -114,50 +105,45 @@ export const RegisterForm = () => {
           label="Senha"
           name="password"
           placeholder="Digite uma senha"
-          value={password}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+            setPasswordState(e.target.value)
           }
-          onFocus={() => setIsCollapsableOpen(true)}
-          onBlur={() => setIsCollapsableOpen(false)}
+          onFocus={() => collapsableRef.current?.collapse()}
+          onBlur={() => collapsableRef.current?.uncollapse()}
           type="password"
         />
-        {isCollapsableOpen && (
-          <Collapsable
-            open
-            items={[
-              {
-                icon: hasOneUppercaseChar(password) ? "check" : "x",
-                text: "Contém pelo menos um caractere maiúsculo",
-              },
-              {
-                icon: hasNumber(password) ? "check" : "x",
-                text: "Contém pelo menos um número",
-              },
-              {
-                icon: hasSpecialChar(password) ? "check" : "x",
-                text: "Contem pelo menos um caractere especial",
-              },
-              {
-                icon: hasEightOrMoreChars(password) ? "check" : "x",
-                text: "Contém no mínimo 8 caracteres",
-              },
-            ]}
-          />
-        )}
+        <Collapsable
+          ref={collapsableRef}
+          items={[
+            {
+              icon: hasOneUppercaseChar(passwordState) ? "check" : "x",
+              text: "Contém pelo menos um caractere maiúsculo",
+            },
+            {
+              icon: hasNumber(passwordState) ? "check" : "x",
+              text: "Contém pelo menos um número",
+            },
+            {
+              icon: hasSpecialChar(passwordState) ? "check" : "x",
+              text: "Contem pelo menos um caractere especial",
+            },
+            {
+              icon: hasEightOrMoreChars(passwordState) ? "check" : "x",
+              text: "Contém no mínimo 8 caracteres",
+            },
+          ]}
+        />
         <Input
           icon="lock"
           label="Confirme sua senha"
-          name="password"
+          name="confirm_password"
           placeholder="Digite sua senha novamente"
-          value={confirmPassword}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setConfimPassword(e.target.value)}
           type="password"
         />
       </div>
 
       <div className={signupFormStyles.rememberMe}>
-        <Checkbox defaultChecked={acceptedTerms} onChange={(e: ChangeEvent<HTMLInputElement>) => setAcceptedTerms(e.target.checked)} />
+        <Checkbox defaultChecked={false} name="accepted_terms" />
         <Text size="xs">
           Eu li e concordo com os{" "}
           <Link className={textStyles.xs} href={"/terms"}>termos e políticas de privacidade</Link>
@@ -171,7 +157,6 @@ export const RegisterForm = () => {
           marginBottom: "0.1rem",
         }}
         type="submit"
-        disabled={!readyToRegister}
       >
         Registrar-se
       </Button>

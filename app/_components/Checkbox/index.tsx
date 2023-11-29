@@ -4,18 +4,17 @@ import { CheckboxInput } from "./CheckboxInput";
 import { CheckboxRoot } from "./CheckboxRoot";
 
 import { Icon } from "@components/Icon";
-import React from "react";
+import React, { forwardRef } from "react";
 
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type CheckboxProps = {
   disabled?: boolean;
-  default?: boolean;
-  onChange?: React.InputHTMLAttributes<HTMLInputElement>["onChange"];
-}
+  defaultChecked?: boolean;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Checkbox({disabled=false, defaultChecked=false, onChange }: CheckboxProps) {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ disabled=false, defaultChecked=false, ...props }, ref) => {
   return (
     <CheckboxRoot disabled={disabled}>
-      <CheckboxInput onChange={onChange} defaultChecked={defaultChecked} />
+      <CheckboxInput defaultChecked={defaultChecked} ref={ref} {...props} />
       <CheckboxIndicatorContainer>
         <CheckboxIndicator>
           <Icon icon="check" height={16} />
@@ -23,4 +22,8 @@ export function Checkbox({disabled=false, defaultChecked=false, onChange }: Chec
       </CheckboxIndicatorContainer>
     </CheckboxRoot>
   );
-}
+});
+
+Checkbox.displayName = "Checkbox";
+
+export { Checkbox };

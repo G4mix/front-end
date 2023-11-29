@@ -1,0 +1,48 @@
+.postCommands {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postCommand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.125rem;
+}
+.postCommand:hover {
+  opacity: 0.6;
+}
+
+.postCommandIcon {
+  opacity: 1!important;
+  width: 18px;
+  height: 18px;
+}
+
+.postCommandView {
+  cursor: default;
+  opacity: 1!important;
+}
+.postCommandView > .postCommandIcon {
+  cursor: default;
+}
+
+.shareIcon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 640px) {
+  .postCommandIcon {
+    width: 27px;
+    height: 27px;
+  }
+  
+  .shareIcon {
+    width: 27px;
+    height: 27px;
+  }
+}

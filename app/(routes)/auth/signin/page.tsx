@@ -7,7 +7,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 
-export default function SignIn() {
+export default function SignInPage() {
   return (
     <main className={loginStyles.wrapper}>
       <div className={loginStyles.logoWrap}>
@@ -15,6 +15,7 @@ export default function SignIn() {
           src={"/logo.svg"}
           width={150}
           height={150}
+          priority
           alt="Gamix logo image"
         />
 

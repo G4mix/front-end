@@ -1,0 +1,66 @@
+.filter {
+  width: 100px;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%), #1C2034;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12.5px);
+
+  gap: 5px;
+  padding: 12px 8px;
+
+  cursor: pointer;
+}
+.filter:hover {
+  opacity: 0.5;
+}
+
+.dropdownIcon {
+  opacity: 1;
+  width: 16px;
+  height: 16px;
+}
+
+.postFilterTrigger[data-state='open'] > .filter {
+  border-radius: 12px 12px 0 0;
+}
+.postFilterTrigger[data-state='open'] > .filter > .dropdownIcon {
+  animation: rotateIcon 0.5s ease-in-out;
+  transform: rotate(180deg);
+}
+.postFilterTrigger[data-state='closed'] > .filter > .dropdownIcon {
+  animation: rotateIconReverse 0.5s ease-in-out;
+  transform: rotate(0deg);
+}
+
+@media (min-width: 640px) {
+  .dropdownIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .filter {
+    width: 130px;
+  }
+}
+
+@keyframes rotateIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@keyframes rotateIconReverse {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

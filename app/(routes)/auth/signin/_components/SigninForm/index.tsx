@@ -1,83 +1,89 @@
 "use client";
 
-import React, { ChangeEvent, useState, useEffect } from "react";
-import { ErrorsToast } from "@components/ErrorsToast";
-import { APIManager } from "@classes/APIManager";
+import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
+import { useMessagesContext } from "@contexts/global/MessagesContext";
+import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { useRouter } from "next/navigation";
+import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
-import Link from "next/link";
+import React, { useState, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
-import { apiErrors } from "@constants/apiErrors";
+import Link from "next/link";
 
-export function LoginForm({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  const [usernameOrEmail, setUsernameOrEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+type LoginProps = {
+  password: string;
+  rememberMe: boolean;
+  username?: string;
+  email?: string;
+};
+
+export const LoginForm = ({ children }: { children: React.ReactNode }) => {
+  const { handleShowMessage } = useMessagesContext();
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
+  const registerForm = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
-  const [readyToLogin, setReadyToLogin] = useState<boolean>(false);
-
-  const [error, setError] = useState<keyof typeof apiErrors | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const hasGmailDomain = (email: string) => /@gmail\.com$/.test(email);
-  const isValidUsername = (username: string) => /^[A-Za-z0-9_]+$/.test(username);
-
-  const isReadyToLogin = () => {
-    if (
-      (isValidUsername(usernameOrEmail) || hasGmailDomain(usernameOrEmail)) &&
-      usernameOrEmail.length > 2 &&
-      password
-    ) {
-      setReadyToLogin(true);
-    } else {
-      setReadyToLogin(false);
-    }
-  };
-
-  async function login(e?: React.FormEvent<HTMLFormElement>) {
-    e?.preventDefault();
-    if (tryingToLogIn) return;
-    setTryingToLogIn(true);
-
-    const signInBody: { password: string; rememberMe: boolean; username?: string; email?: string; } = { password, rememberMe };
-
-    signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
+  const login = async (signInBody: LoginProps) => {
+    const response = await UserAuthManager.signIn(signInBody);
     
-    const result = await APIManager.signIn(signInBody);
-    
-    if (apiErrors[result!]) {
+    if (response && response!.error!) {
       setTryingToLogIn(false);
-      setError(result!);
-      setOpen(true);
+      if (response && apiErrors.includes(response.error!)) {
+        handleShowMessage(response.message!);
+        return;
+      }
+      handleShowMessage("Erro ao fazer o login");
       return;
     }
 
     router.push("/");
-  }
+  };
 
-  useEffect(() => {
-    isReadyToLogin();
-    return () => {};
-  }, [password, usernameOrEmail]);
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (tryingToLogIn) return;
+    setTryingToLogIn(true);
+
+    const formData = new FormData(registerForm.current || e.currentTarget);
+
+    const usernameOrEmail = formData.get("username_or_email")?.valueOf() as string;
+    const password = formData.get("password")?.valueOf() as string;
+    const rememberMe = formData.get("remember_me")?.valueOf() as string;
+
+    const signInBody: LoginProps = { password, rememberMe: !!rememberMe };
+    signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
+
+    if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
+      setTryingToLogIn(false);
+      handleShowMessage("Nome de usuário ou e-mail inválido.");
+      return;
+    } else if (usernameOrEmail.length < 3) {
+      setTryingToLogIn(false);
+      handleShowMessage("Nome de usuário ou e-mail muito curto.");
+      return;
+    } else if (password.length < 7) {
+      setTryingToLogIn(false);
+      handleShowMessage("Senha muito curta.");
+      return;
+    }
+
+    login(signInBody);
+  };
 
   return (
-    <form onSubmit={readyToLogin ? (e) => login(e) : () => null}>
-      <ErrorsToast error={error!} open={open} setOpen={setOpen}/>
+    <form onSubmit={onSubmit} className={signinStyles.formRoot}>
       <div className={signinStyles.form}>
         <div className={signinStyles.fields}>
           <Input
             icon="user"
             label="Username"
-            name="username"
-            placeholder="Digite um nome de usuário válido"
+            name="username_or_email"
+            placeholder="Digite seu nome de usuário ou e-mail"
             type="text"
-            value={usernameOrEmail}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setUsernameOrEmail(e.target.value)}
           />
           <Input
             icon="lock"
@@ -85,8 +91,6 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
             name="password"
             placeholder="Digite uma senha"
             type="password"
-            value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
         </div>
         <Text size="xs" asChild className={signinStyles.forgotPassword}>
@@ -95,7 +99,7 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
       </div>
       {children}
       <div className={signinStyles.rememberMe}>
-        <Checkbox defaultChecked={rememberMe} onChange={(e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.target.checked)} />
+        <Checkbox defaultChecked={false} name="remember_me" />
         <Text size="xs">Lembrar de mim por 30 dias</Text>
       </div>
       <Button
@@ -104,11 +108,10 @@ export function LoginForm({ children }: { children: React.ReactNode }) {
           marginTop: "1rem",
           marginBottom: "0.1rem",
         }}
-        disabled={!readyToLogin} 
         type="submit"
       >
         Conectar-se
       </Button>
     </form>
   );
-}
+};

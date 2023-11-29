@@ -1,10 +1,14 @@
+import React, { forwardRef } from "react";
 import styles from "./Checkbox.module.css";
-import React from "react";
 
 interface CheckboxInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   defaultChecked?: boolean;
 }
 
-export function CheckboxInput({ defaultChecked=false, ...props }: CheckboxInputProps) {
-  return <input type="checkbox" className={styles.input} defaultChecked={defaultChecked} {...props} />;
-}
+const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>(({ defaultChecked=false, ...props }, ref) => {
+  return <input type="checkbox" className={styles.input} defaultChecked={defaultChecked} ref={ref} {...props} />;
+});
+
+CheckboxInput.displayName = "CheckboxInput";
+
+export { CheckboxInput };

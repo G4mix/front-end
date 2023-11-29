@@ -26,86 +26,47 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const GoogleIcon: Story = {
-  args: {
-    icon: "google",
-    size: "2xl"
-  }
-}
+const buildIconStory = (name: keyof typeof icons): Story => {
+  return ({
+    args: {
+      icon: name,
+      size: "2xl"
+    }
+  });
+};
 
-export const GithubIcon: Story = {
-  args: {
-    icon: "github",
-    size: "2xl"
-  }
-}
-
-export const LinkedinIcon: Story = {
-  args: {
-    icon: "linkedin",
-    size: "2xl"
-  }
-}
-
-export const LockIcon: Story = {
-  args: {
-    icon: "lock",
-    size: "2xl"
-  }
-}
-
-export const UserIcon: Story = {
-  args: {
-    icon: "user",
-    size: "2xl"
-  }
-}
-
-export const CheckIcon: Story = {
-  args: {
-    icon: "check",
-    size: "2xl"
-  }
-}
-
-export const UsersIcon: Story = {
-  args: {
-    icon: "users",
-    size: "2xl"
-  }
-}
-
-export const PlusIcon: Story = {
-  args: {
-    icon: "plus",
-    size: "2xl"
-  }
-}
-
-export const HouseIcon: Story = {
-  args: {
-    icon: "house",
-    size: "2xl"
-  }
-}
-
-export const SearchIcon: Story = {
-  args: {
-    icon: "search",
-    size: "2xl"
-  }
-}
-
-export const EnvelopeIcon: Story = {
-  args: {
-    icon: "envelope",
-    size: "2xl"
-  }
-}
-
-export const XIcon: Story = {
-  args: {
-    icon: "x",
-    size: "2xl"
-  }
-}
+export const ArrowLeftIcon: Story = buildIconStory("arrow-left");
+export const BoltLightningIcon: Story = buildIconStory("bolt-lightning"); 
+export const ChartIcon: Story = buildIconStory("chart");
+export const CheckIcon: Story = buildIconStory("check");
+export const CircleIcon: Story = buildIconStory("circle");
+export const CirclePlusIcon: Story = buildIconStory("circle-plus");
+export const ClockIcon: Story = buildIconStory("clock");
+export const CloudArrowUpIcon: Story = buildIconStory("cloud-arrow-up");
+export const CodeIcon: Story = buildIconStory("code");
+export const CommentIcon: Story = buildIconStory("comments");
+export const DownIcon: Story = buildIconStory("down");
+export const EllipsisHIcon: Story = buildIconStory("ellipsis-h");
+export const EnvelopeIcon: Story = buildIconStory("envelope");
+export const GithubIcon: Story = buildIconStory("github");
+export const GoogleIcon: Story = buildIconStory("google");
+export const HouseIcon: Story = buildIconStory("house");
+export const LikeIcon: Story = buildIconStory("like");
+export const LinkIcon: Story = buildIconStory("link");
+export const LinkedinIcon: Story = buildIconStory("linkedin");
+export const LockIcon: Story = buildIconStory("lock");
+export const LogoutIcon: Story = buildIconStory("logout");
+export const MinusIcon: Story = buildIconStory("minus");
+export const PaperPlaneIcon: Story = buildIconStory("paper-plane");
+export const PenToSquareIcon: Story = buildIconStory("pen-to-square");
+export const PlusIcon: Story = buildIconStory("plus");
+export const SadIcon: Story = buildIconStory("sad");
+export const SearchIcon: Story = buildIconStory("search");
+export const ShareIcon: Story = buildIconStory("share");
+export const SmileIcon: Story = buildIconStory("smile");
+export const TrashCanIcon: Story = buildIconStory("trash-can");
+export const UserIcon: Story = buildIconStory("user");
+export const UserCircleIcon: Story = buildIconStory("user-circle");
+export const UserGroupIcon: Story = buildIconStory("user-group");
+export const UsersIcon: Story = buildIconStory("users");
+export const XIcon: Story = buildIconStory("x");

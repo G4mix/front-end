@@ -2,16 +2,16 @@ import { Slot } from "@radix-ui/react-slot";
 import styles from "./Text.module.css";
 import React from "react";
 
-interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+type TextProps = {
   children: React.ReactNode;
   className?: string;
   asChild?: boolean;
   align?: "left" | "center" | "justify";
   weight?: "thin" | "light" | "regular" | "medium" | "bold" | "black";
   size?: "xxs" | "xs" | "sm" | "default" | "md" | "lg";
-}
+} & React.HTMLAttributes<HTMLParagraphElement>;
 
-export function Text({ children, asChild=false, size="default", weight="regular", align="left", className, ...props }: TextProps) {
+export const Text = ({ children, asChild=false, size="default", weight="regular", align="left", className="", ...props }: TextProps) => {
   const Component = asChild ? Slot : "p";
 
   return (
@@ -24,4 +24,4 @@ export function Text({ children, asChild=false, size="default", weight="regular"
       {children}
     </Component>
   );
-}
+};

@@ -3,9 +3,18 @@ const nextConfig = {
   typescript: {
     tsconfigPath: "./tsconfig.next.json"
   },
-  experimental: {
-    serverActions: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**"
+      },
+      {
+        protocol: "http",
+        hostname: "**"
+      }
+    ],
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

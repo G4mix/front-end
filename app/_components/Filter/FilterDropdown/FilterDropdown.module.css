@@ -1,0 +1,54 @@
+.dropdownFilters {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 6px;
+
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%), linear-gradient(180deg, #1C2034 0%, rgba(28, 32, 52, 0.60) 100%), #000;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dropdownItem {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.dropdownItem:hover {
+  opacity: 0.5;
+}
+
+.dropdownCircleIcon {
+  color: transparent;
+  border: 3px solid var(--delft-blue);
+  border-radius: 9999px;
+  width: 14px;
+  height: 14px;
+}
+
+.dropdownSelectedCircleIcon {
+  color: var(--savoy-blue);
+  border: 3px solid var(--delft-blue);
+  border-radius: 9999px;
+  width: 14px;
+  height: 14px;
+}
+
+.disabledOption {
+  cursor: default!important;
+  opacity: 0.7!important;
+}
+
+@media (min-width: 640px) {
+  .dropdownCircleIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .dropdownSelectedCircleIcon {
+    width: 20px;
+    height: 20px;
+  }  
+}

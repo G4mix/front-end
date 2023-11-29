@@ -1,0 +1,15 @@
+
+.removeLink {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 10px;
+  height: 10px;
+}
+
+@media (min-width: 640px) {
+  .removeLink {
+    width: 15px;
+    height: 15px;
+  }  
+}

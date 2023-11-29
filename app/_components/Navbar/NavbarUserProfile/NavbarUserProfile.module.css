@@ -1,0 +1,27 @@
+.duotoneUserIcon {
+  width: 24px;
+  height: 24px;
+}
+.circle {
+  width: 21.6px;
+  height: 21.6px;
+}
+.userCircle {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 1280px) {
+  .duotoneUserIcon {
+    width: 44px;
+    height: 44px;
+  }
+  .circle {
+    width: 39.6px;
+    height: 39.6px;
+  }
+  .userCircle {
+    width: 44px;
+    height: 44px;
+  }
+}

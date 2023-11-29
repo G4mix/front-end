@@ -1,0 +1,51 @@
+.postContentAddLink {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(51, 51, 51, 0.35);
+}
+
+.linkInput {
+  background-color: transparent;
+  color: var(--white);
+  width: auto;
+  flex-grow: 1;
+  height: var(--font-xs);
+  font-size: var(--font-xs);
+}
+.linkInput::placeholder {
+  font-size: var(--font-xs);
+}
+
+.cancelAddLink {
+  width: 12px;
+  height: 12px;
+}
+
+@media (min-width: 640px) {
+  .cancelAddLink {
+    width: 18px;
+    height: 18px;
+  }
+  .linkInput {
+    line-height: var(--font-sm);
+    font-size: var(--font-sm);
+  }
+  .linkInput::placeholder {
+    font-size: var(--font-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .linkInput {
+    line-height: var(--font-default);
+    font-size: var(--font-default);
+  }
+  .linkInput::placeholder {
+    font-size: var(--font-default);
+  }
+}

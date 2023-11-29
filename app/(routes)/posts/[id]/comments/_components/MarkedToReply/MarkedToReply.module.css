@@ -1,0 +1,32 @@
+.markedToReply {
+  width: 100%;
+  min-height: 50px;
+
+  background: var(--delft-blue-bg, linear-gradient(0deg, #1C2034 0%, #1C2034 100%), linear-gradient(180deg, rgba(28, 32, 52, 0.80) 0%, rgba(52, 58, 91, 0.30) 100%));
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+
+.userZone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.userIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+}
+
+@media (min-width: 640px) {
+  .userIcon {
+    width: 36px;
+    height: 36px;
+  }
+}

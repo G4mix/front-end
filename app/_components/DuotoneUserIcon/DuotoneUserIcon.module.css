@@ -1,0 +1,43 @@
+.duotoneUserIcon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circleIcon {
+  opacity: 1!important;
+  color: var(--white)!important;
+  width: 21.6px;
+  height: 21.6px;
+}
+
+.userCircleIcon {
+  opacity: 1!important;
+  color: var(--jet)!important;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (min-width: 640px) {
+  .duotoneUserIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .circleIcon {
+    width: 32.4px;
+    height: 32.4px;
+  }
+
+  .userCircleIcon {
+    width: 36px;
+    height: 36px;
+  }
+}

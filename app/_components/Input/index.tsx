@@ -1,12 +1,11 @@
-import React, { ChangeEvent } from "react";
+import React, { type ChangeEvent } from "react";
 import { InputField } from "./InputField";
 import { InputInput } from "./InputInput";
 import { InputRoot } from "./InputRoot";
-
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 
-interface InputProps {
+type InputProps = {
   placeholder: string;
   label?: string;
   icon?: "envelope" | "lock" | "user";
@@ -16,19 +15,15 @@ interface InputProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-}
+};
 
-export function Input({
-  label,
-  icon,
-  type,
-  placeholder,
-  name,
-  value,
-  onChange,
-  onBlur,
-  onFocus,
-}: InputProps) {
+export const Input = (props: InputProps) => {
+  const {
+    label, icon, type,
+    placeholder, name, value,
+    onChange, onBlur, onFocus
+  } = props;
+
   return (
     <InputRoot>
       {label && <Text size="sm">{label}</Text>}
@@ -46,4 +41,4 @@ export function Input({
       </InputField>
     </InputRoot>
   );
-}
+};
