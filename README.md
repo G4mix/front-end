@@ -18,6 +18,11 @@ A plataforma Gamix é um ambiente colaborativo que une pessoas com paixão por j
 
 Se você deseja contribuir com o desenvolvimento do Front-end da plataforma Gamix, fique à vontade para explorar o código, enviar pull requests e colaborar com ideias e melhorias. Consulte as [diretrizes de contribuição](docs/CONTRIBUTING.md) para obter mais informações sobre como se envolver.
 
+## Rodando a aplicação
+1. Faça um clone do repositório e entre na pasta: `git clone https://github.com/G4mix/front-end.git`
+2. Instale o Docker Desktop: https://www.docker.com/products/docker-desktop
+3. Inicie o Docker e digite: `docker compose up`
+
 ## Contato
 
 Para qualquer dúvida ou sugestão relacionada ao Front-end Gamix, entre em contato com nosso time de desenvolvimento:
