@@ -1,34 +1,47 @@
 services:
+  database:
+    image: lordluch/gamix-database
+    container_name: database
+    volumes:
+      - pg_data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    networks:
+      - gamix_network
+  backend:
+    image: lordluch/gamix-back-end
+    container_name: backend
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - JWT_SIGNING_KEY_SECRET=Graphql
+      - FRONT_END_BASE_URL=http://localhost:3000
+    networks:
+      - gamix_network
+    depends_on:
+      - database
+    links:
+      - database
   frontend:
-    image: node:18.18.2-bullseye
+    build: .
+    image: lordluch/gamix-front-end
     container_name: frontend
     restart: always
     environment:
       - NEXT_PUBLIC_BACK_END_BASE_URL=http://localhost:8080
-    volumes:
-      - ./app:/app/app
-      - ./docker/development:/app/scripts
-      - ./public/:/app/public
-      - ./.eslintrc.json:/app/.eslintrc.json
-      - ./middleware.ts:/app/middleware.ts
-      - ./next-env.d.ts:/app/next-env.d.ts
-      - ./next.config.js:/app/next.config.js
-      - ./package.json:/app/package.json
-      - ./tsconfig.json:/app/tsconfig.json
-      - ./tsconfig.base.json:/app/tsconfig.base.json
-      - ./tsconfig.next.json:/app/tsconfig.next.json
-      - ./.next:/app/.next
-      - ./node_modules:/app/node_modules
-    command: >
-      /bin/sh -c '\
-        apt-get update && \
-        apt-get install -y findutils wget openssl inotify-tools dos2unix && \
-        if [ ! -e /bin/dockerize ]; then \
-          wget -O - https://github.com/jwilder/dockerize/releases/download/v0.7.0/dockerize-linux-amd64-v0.7.0.tar.gz | tar xzf - -C /bin; \
-        fi && \
-        find /app/scripts -type f -name "*.sh" -exec dos2unix {} \; && \
-        chmod +x /app/scripts/*.sh && \
-        /app/scripts/config_dev_env.sh && \
-        /app/scripts/dev.sh'
     ports:
       - 3000:3000
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
+
+networks:
+  gamix_network:
+    driver: bridge
