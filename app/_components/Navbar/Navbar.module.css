@@ -88,7 +88,7 @@
   height: 24px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   .createImage {
     border-radius: 0;
     background-color: transparent; 

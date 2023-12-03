@@ -40,6 +40,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
     }
 
     router.push("/");
+    setTryingToLogIn(false);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

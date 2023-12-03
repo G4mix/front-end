@@ -51,6 +51,7 @@ export const RegisterForm = () => {
     }
 
     router.push("/");
+    setTryingToRegister(false);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
