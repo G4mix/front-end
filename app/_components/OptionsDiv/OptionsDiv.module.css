@@ -1,17 +1,17 @@
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .options {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 75px;
-    width: 20%;
-    position: fixed;
-    top: 65px;
-    bottom: 65px;
-    right: 60px;
+    width: 18%;
+    position: sticky;
+    top: 30px;
+    bottom: 30px;
+    right: 25px;
     flex-shrink: 0;
-    padding: 40px 60px;
-    height: auto;
+    padding: 20px 0;
+    height: 87vh;
     border-radius: 32px;
     filter: drop-shadow(0px -3px 4px rgba(0, 0, 0, 0.25));
     border: 3px solid #343A5B;
@@ -21,4 +21,15 @@
   .showingOption {
     height: max-content;
   }
+}
+
+@media (min-width: 1280px) {
+  .options {
+    width: 20%;
+    position: sticky;
+    top: 65px;
+    bottom: 65px;
+    right: 60px;
+  }
+
 }

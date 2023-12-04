@@ -85,7 +85,7 @@
   background-color: var(--penn-red);
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .dropdownContent {
     position: static;
     translate: none;
@@ -94,10 +94,18 @@
     backdrop-filter: none;
     border: none;
     padding: 0;
+    width: auto;
   }
   .confirmDropdownContent {
     border-radius: 32px;
     box-shadow: none;
     justify-content: center;
+    padding: 0;
+    height: auto;
+  }
+  .confirmOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
   }
 }
