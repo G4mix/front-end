@@ -11,9 +11,9 @@ type CreateHeaderProps = {
 export const CreateHeader = ({ mode }: CreateHeaderProps) => {
   return (
     <div className={styles.createHeader}>
-      <Heading weight="bold">{ mode === "create" ? "Nova" : "Atualizar"} postagem</Heading>
+      <Heading weight="bold" fixeSize>{ mode === "create" ? "Nova" : "Atualizar"} postagem</Heading>
       <Button className={styles.postButton} type="submit">
-        <Text weight="medium">{ mode === "create" ? "Publicar" : "Atualizar"}</Text>
+        <Text weight="medium" fixeSize>{ mode === "create" ? "Publicar" : "Atualizar"}</Text>
       </Button>
     </div>
   );

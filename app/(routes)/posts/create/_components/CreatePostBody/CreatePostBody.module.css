@@ -52,10 +52,6 @@
 }
 
 @media (min-width: 640px) {
-  .postCommandIcon {
-    width: 30px;
-    height: 30px;
-  }
   .postContentArea {
     line-height: var(--font-sm);
     font-size: var(--font-sm);

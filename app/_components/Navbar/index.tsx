@@ -7,12 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 type NavbarProps = {
+  withoutMobile?: boolean;
   position?: "bottom" | "top";
 };
 
-export const Navbar = ({ position="bottom" }: NavbarProps) => {
+export const Navbar = ({ position="bottom", withoutMobile=false }: NavbarProps) => {
   return (
-    <nav className={`${styles.nav} ${position === "top" ? styles.navTop : ""}`}>
+    <nav className={`${styles.nav} ${position === "top" ? styles.navTop : ""} ${withoutMobile ? styles.withoutMobile : ""}`}>
       <div className={styles.navItems}>
         <Link href="/" className={styles.navItem}>
           <Icon icon="house" className={styles.navbarIcon} />

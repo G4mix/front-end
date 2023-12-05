@@ -28,16 +28,18 @@ export default async function SinglePostPage({ params }: { params: { id: string 
     <main className={styles.main}>
       <Navbar position="top" />
       <PostOptionsProvider className={styles.postDropdownContent}>
-        <div className={styles.postZone}>
-          <Post handleDeletePost={handleDeletePost} post={post!} />
-        </div>
-        <div className={styles.commentsArea}>
-          <div className={styles.commentsHeading}>
-            <Heading size="default">
-              Comentários
-            </Heading>
+        <div className={styles.post}>
+          <div className={styles.postZone}>
+            <Post handleDeletePost={handleDeletePost} post={post!} />
           </div>
-          <Comments postId={postId} />
+          <div className={styles.commentsArea}>
+            <div className={styles.commentsHeading}>
+              <Heading size="default">
+                Comentários
+              </Heading>
+            </div>
+            <Comments postId={postId} />
+          </div>
         </div>
       </PostOptionsProvider>
     </main>

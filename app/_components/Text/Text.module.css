@@ -17,6 +17,30 @@
   color: var(--white);
 }
 
+.fixed_lg {
+  font-size: var(--font-lg)!important;
+}
+
+.fixed_md {
+  font-size: var(--font-md)!important;
+}
+
+.fixed_default {
+  font-size: var(--font-default)!important;
+}
+
+.fixed_sm {
+  font-size: var(--font-sm)!important;
+}
+
+.fixed_xs {
+  font-size: var(--font-xs)!important;
+}
+
+.fixed_xxs {
+  font-size: var(--font-2xs)!important;
+}
+
 .lg {
   font-size: var(--font-lg);
 }

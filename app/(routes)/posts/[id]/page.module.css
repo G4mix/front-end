@@ -6,15 +6,21 @@
   align-items: center;
 }
 
-.postZone {
+.post {
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  margin-top: 35px;
-  margin-bottom: 35px;
-  padding: 0 18px;
+  height: 100%;
   gap: 26px;
+}
+
+.postZone {
+  padding: 32px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .commentsArea {
@@ -41,8 +47,25 @@
   padding: 1rem 1rem 0 1rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
+  .main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 3.8vh 3.8vh 0 3.8vh;
+  }
   .postZone {
-    width: 50vw;
+    padding: 0;
+  }
+  .post {
+    width: 40vw;
+    border-radius: 32px;
+    padding: 35px 16px;
+    border: 3px solid #343A5B;
+    background: #1C2034;
+  }
+  .closeCommentsLink {
+    display: none;
   }
 }
