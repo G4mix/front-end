@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import "./animations/animations.css";
 
 :root {
   --white: #ffffff;
@@ -6,6 +7,7 @@
   --ultra-violet: #68589d;
   --veronica: #9747FF;
   --jet: #333333;
+  --charcoal: #374151;
   --saffron: #f9c536;
   --savoy-blue: #626ca7;
   --carolina-blue: #89bddf;

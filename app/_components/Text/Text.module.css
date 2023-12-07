@@ -17,6 +17,13 @@
   color: var(--white);
 }
 
+.loading :global {
+  color: transparent;
+  background: linear-gradient(270deg, var(--charcoal) 0%, rgba(55, 65, 81, 0.5) 50%, var(--charcoal) 100%);
+  background-size: 500% 350%;
+  animation: pulseBackground 1.5s ease-in-out reverse infinite;
+}
+
 .fixed_lg {
   font-size: var(--font-lg)!important;
 }

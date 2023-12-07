@@ -9,6 +9,6 @@ export default defineConfig({
       framework: "next",
       bundler: "webpack"
     },
-    specPattern: "app/_components/**/*.cy.{js,jsx,ts,tsx}"
+    specPattern: "app/**/*.cy.{js,jsx,ts,tsx}"
   }
 });

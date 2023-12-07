@@ -14,11 +14,11 @@
   color: var(--white);
   gap: 10px;
 }
-.root[data-state="open"] .content {
-  animation: slideDown 300ms ease-in-out;
+.root[data-state="open"] .content :global {
+  animation: slideDownHeight 300ms ease-in-out;
 }
-.root[data-state="closed"] .content {
-  animation: slideUp 300ms ease-in-out;
+.root[data-state="closed"] .content :global {
+  animation: slideUpHeight 300ms ease-in-out;
 }
 
 .item {
@@ -31,22 +31,4 @@
 
 .collapsableIcon {
   color: var(--carolina-blue);
-}
-
-@keyframes slideDown {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-collapsible-content-height);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    height: var(--radix-collapsible-content-height);
-  }
-  to {
-    height: 0;
-  }
 }

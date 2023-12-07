@@ -8,11 +8,11 @@
   backdrop-filter: blur(12px);
   list-style-type: none;
 }
-.ToastRoot[data-state="open"] {
-  animation: slideDown 300ms cubic-bezier(0.16, 1, 0.3, 1);
+.ToastRoot[data-state="open"] :global {
+  animation: slideDownFullY 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ToastRoot[data-state="closed"] {
-  animation: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+.ToastRoot[data-state="closed"] :global {
+  animation: overlayHide 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ToastDescription {
@@ -51,23 +51,5 @@
 @media (min-width: 1024px) {
   .ToastRoot {
     max-width: 380px;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes opacity {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }

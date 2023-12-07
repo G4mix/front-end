@@ -8,7 +8,7 @@ type RootProps = {
   children: React.ReactNode;
 };
 
-const Root = ({ children, className=" " }: RootProps) => {
+const Root = ({ children, className="" }: RootProps) => {
   return (
     <div className={`${styles.duotoneUserIcon} ${className}`}>
       {children}
@@ -20,19 +20,20 @@ type CircleProps = {
   className?: FontAwesomeIconProps["className"];
 };
 
-const Circle = ({ className=" " }: CircleProps) => {
+const Circle = ({ className="" }: CircleProps) => {
   return (
     <Icon icon="circle" className={`${styles.circleIcon} ${className}`} />
   );
 };
 
 type UserCircleProps = {
+  loading?: boolean;
   className?: FontAwesomeIconProps["className"];
 };
 
-const UserCircle = ({ className=" " }: UserCircleProps) => {
+const UserCircle = ({ className="", loading=false }: UserCircleProps) => {
   return (
-    <Icon icon="user-circle" className={`${styles.userCircleIcon} ${className}`} />
+    <Icon icon="user-circle" className={`${styles.userCircleIcon} ${className}`} loading={loading} />
   );
 };
 

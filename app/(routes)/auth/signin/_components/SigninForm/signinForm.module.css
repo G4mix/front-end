@@ -1,5 +1,5 @@
 .formRoot {
-  width: 80%;
+  width: 87%;
 }
 
 .form {
@@ -7,7 +7,6 @@
 }
 
 .form p a {
-  font-size: var(--font-sm);
   font-weight: lighter;
   opacity: 80%;
 }
