@@ -1,0 +1,10 @@
+.lines {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lines > p {
+  width: 100%;
+}

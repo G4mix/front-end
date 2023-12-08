@@ -10,7 +10,7 @@ export const PostHeaderLoading = () => {
     <div className={headerStyles.postHeader}>
       <div className={headerStyles.postUser}>
         <DuotoneUserIcon.Root>
-          <DuotoneUserIcon.Circle />
+          <DuotoneUserIcon.Circle loading />
           <DuotoneUserIcon.UserCircle />
         </DuotoneUserIcon.Root>
         <Heading size="sm" loading asChild>
