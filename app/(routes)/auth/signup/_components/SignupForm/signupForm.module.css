@@ -2,7 +2,7 @@
   width: 87%;
 }
 
-.form p a {
+.form a span {
   font-weight: lighter;
   opacity: 80%;
 }
@@ -13,25 +13,19 @@
   gap: 1rem;
 }
 
-.rememberMe {
+.accept {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 
-  font-size: var(--font-xs);
-
   margin-top: 1.125rem;
 }
 
-.rememberMe p {
-  font-size: var(--font-xs);
-
-  font-weight: lighter;
-}
-
-.rememberMe a {
+.accept span {
+  font-size: inherit;
   color: var(--carolina-blue);
   text-decoration: underline;
+  font-weight: lighter;
 }
 
 @media (min-width: 640px) {
@@ -46,6 +40,6 @@
 }
 @media (min-width: 1024px) {
   .form {
-    width: 30%;
+    width: 30.5%;
   }
 }

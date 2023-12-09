@@ -11,6 +11,7 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 import React, { useState, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
+import signupFormStyle from "../../../signup/_components/SignupForm/signupForm.module.css";
 import Link from "next/link";
 
 type LoginProps = {
@@ -76,9 +77,9 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className={signinStyles.formRoot}>
+    <form onSubmit={onSubmit} className={signupFormStyle.form}>
       <div className={signinStyles.form}>
-        <div className={signinStyles.fields}>
+        <div className={signupFormStyle.fields}>
           <Input
             icon="user"
             label="Username"
@@ -99,7 +100,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
         </Text>
       </div>
       {children}
-      <div className={signinStyles.rememberMe}>
+      <div className={signupFormStyle.accept}>
         <Checkbox defaultChecked={false} name="remember_me" />
         <Text size="xs">Lembrar de mim por 30 dias</Text>
       </div>

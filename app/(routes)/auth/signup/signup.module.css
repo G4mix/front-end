@@ -1,8 +1,4 @@
 .wrapper {
-  width: 100%;
-  min-height: 100vh;
-  margin-bottom: 10px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,14 +14,9 @@
   margin-bottom: 1.2rem;
 }
 
-.logoWrap h1 {
-  font-size: var(--font-xl);
-}
-
-.haveAccount {
-  font-size: var(--font-sm);
+.redirectBelowButton {
   opacity: 0.8;
 }
-.haveAccount:hover {
+.redirectBelowButton:hover {
   opacity: 0.6;
 }

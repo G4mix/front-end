@@ -1,27 +1,5 @@
-.formRoot {
-  width: 87%;
-}
-
 .form {
   width: 100%;
-}
-
-.form p a {
-  font-weight: lighter;
-  opacity: 80%;
-}
-
-.fields {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.rememberMe {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 10px;
 }
 
 .forgotPassword {
@@ -29,20 +7,4 @@
 }
 .forgotPassword:hover {
   opacity: 0.6;
-}
-
-@media (min-width: 640px) {
-  .formRoot {
-    width: 60%;
-  }
-}
-@media (min-width: 768px) {
-  .formRoot {
-    width: 40%;
-  }
-}
-@media (min-width: 1024px) {
-  .formRoot {
-    width: 30%;
-  }
 }

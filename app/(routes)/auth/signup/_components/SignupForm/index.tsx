@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import signupFormStyles from "./signupForm.module.css";
-import textStyles from "@components/Text/Text.module.css";
 
 import React, { ChangeEvent, useState, useRef } from "react";
 import {
@@ -143,11 +142,13 @@ export const RegisterForm = () => {
         />
       </div>
 
-      <div className={signupFormStyles.rememberMe}>
+      <div className={signupFormStyles.accept}>
         <Checkbox defaultChecked={false} name="accepted_terms" />
-        <Text size="xs">
-          Eu li e concordo com os{" "}
-          <Link className={textStyles.xs} href={"/terms"}>termos e políticas de privacidade</Link>
+        <Text size="xs" fixeSize asChild>
+          <Link href={"/terms"}>
+            Eu li e concordo com os{" "}
+            <span>termos e políticas de privacidade</span>
+          </Link>
         </Text>
       </div>
 
