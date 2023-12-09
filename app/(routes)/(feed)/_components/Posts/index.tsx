@@ -37,10 +37,9 @@ export const Posts = () => {
   const handleGlobalScroll = useCallback(() => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
     const scrollThreshold = 100;
-  
-    if (!searching && !allPostsLoaded && scrollHeight - scrollTop <= clientHeight + scrollThreshold) {
-      setPage(prevPage => prevPage + 1);
-    }
+    const needToRenderMore = scrollHeight - scrollTop <= clientHeight + scrollThreshold;
+    if (!needToRenderMore || searching || allPostsLoaded) return;
+    setPage(prevPage => prevPage + 1);
   }, [searching, allPostsLoaded]);
 
   const handleDeletePost = async (id: number) => {

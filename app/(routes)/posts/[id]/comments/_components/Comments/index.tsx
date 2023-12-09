@@ -18,58 +18,13 @@ type CommentsProps = {
 };
 
 export const Comments = ({ postId, className="" }: CommentsProps) => {
-  const [comments, setComments] = useState<CommentType[]>([]);
-  const [allPostsLoaded, setAllPostsLoaded] = useState(false);
-  const [searching, setSearching] = useState(false);
-  const [page, setPage] = useState(0);
-
+  const [allCommentsLoaded, setAllCommentsLoaded] = useState(false);
   const [markedToReply, setMarkedToReply] = useState<{ commentToRes: CommentType; commentToMark: CommentType; } | null>(null);
+  const [searching, setSearching] = useState(false);
+  const [comments, setComments] = useState<CommentType[]>([]);
+  const [page, setPage] = useState(0);
   const { filterBy } = useCommentsContext();
   const answerRef = useRef<AnswerMethods>(null);
-
-  const getComments = async () => {
-    if (searching) return;
-    setSearching(true);
-    const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
-    
-    if (!allComments || (allComments && allComments.error || allComments.length === 0)) {
-      setSearching(false);
-      return setAllPostsLoaded(true);
-    }
-
-    if (page === 0) {
-      setSearching(false);
-      return setComments(allComments);
-    }
-
-    if (allComments.length < 10) setAllPostsLoaded(true);
-    setSearching(false);
-    setComments(prevComments => (mergeArray(prevComments, allComments) as CommentType[]));
-  };
-
-  const handleGlobalScroll = useCallback(() => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (
-      scrollHeight - scrollTop === clientHeight && !searching && !allPostsLoaded
-    ) {
-      setPage(prevPage => prevPage + 1);
-    }
-  }, [searching, allPostsLoaded]);
-  
-  useEffect(() => {
-    getComments();
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleGlobalScroll);
-    return () => {
-      window.removeEventListener("scroll", handleGlobalScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (page !== 0 && !allPostsLoaded) getComments();
-  }, [page, allPostsLoaded]);
 
   const filterComments = useCallback(() => {
     if (filterBy === "recent") {
@@ -100,13 +55,10 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     comment.replies = [];
     if (comment.parentComment) {
       const parentComment = comments.find(commentToFind => commentToFind.id === comment!.parentComment!.id);
-      if (parentComment) {
-        if (!parentComment.replies) {
-          parentComment.replies = [];
-        }
-        parentComment.replies.push(comment);
-        setComments([...comments]);
-      }
+      if (!parentComment) return;
+      if (!parentComment.replies) parentComment.replies = [];
+      parentComment.replies.push(comment);
+      setComments([...comments]);
     } else {
       setComments([...comments, comment]);
     }
@@ -122,6 +74,49 @@ export const Comments = ({ postId, className="" }: CommentsProps) => {
     }
     handleAnswerFocus();
   };
+
+  const getComments = async () => {
+    if (searching) return;
+    setSearching(true);
+    const allComments = await CommentQueryManager.findAllCommentsOfAPost(postId, page);
+    
+    if (!allComments || (allComments && allComments.error || allComments.length === 0)) {
+      setSearching(false);
+      return setAllCommentsLoaded(true);
+    }
+
+    if (page === 0) {
+      setSearching(false);
+      return setComments(allComments);
+    }
+
+    if (allComments.length < 10) setAllCommentsLoaded(true);
+    setSearching(false);
+    setComments(prevComments => (mergeArray(prevComments, allComments) as CommentType[]));
+  };
+
+  const handleGlobalScroll = useCallback(() => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+    const scrollThreshold = 100;
+    const needToRenderMore = scrollHeight - scrollTop <= clientHeight + scrollThreshold;
+    if (!needToRenderMore || searching || allCommentsLoaded) return;
+    setPage(prevPage => prevPage + 1);
+  }, [searching, allCommentsLoaded]);
+
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  useEffect(() => {
+    if (page !== 0 && !allCommentsLoaded) getComments();
+  }, [page, allCommentsLoaded]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleGlobalScroll);
+    return () => {
+      window.removeEventListener("scroll", handleGlobalScroll);
+    };
+  }, []);
   
   return (
     <>
