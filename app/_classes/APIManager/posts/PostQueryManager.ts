@@ -12,7 +12,7 @@ export class PostQueryManager extends APIManager {
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
     const query: GenericQueryRequest<"findPostById"> = {
-      query: "query findPostById($id: Int!) { findPostById(id: $id) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount tags { id name } links { id link } images { id name src width height } }}",
+      query: "query findPostById($id: Int!) { findPostById(id: $id) { id author { id displayName icon user { id, username, email } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount tags { id name } links { id link } images { id name src width height } }}",
       variables: {
         id: id
       }
@@ -31,7 +31,7 @@ export class PostQueryManager extends APIManager {
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
     const query: GenericQueryRequest<"findAllPosts"> = {
-      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName user { id, username, email, icon } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount tags { id name } links { id link } images { id name src width height } }}",
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName icon user { id, username, email } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount tags { id name } links { id link } images { id name src width height } }}",
       variables: {
         skip: skip,
         limit: 10

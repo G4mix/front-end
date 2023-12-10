@@ -55,13 +55,13 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
       
       return setUnauthenticated();
     }
-    const { username, email, icon } = data;
+    const { username, email, userProfile } = data;
     const accessToken = CookieManagerClient.get("accessToken")! as string | null;
     setSession({
       accessToken,
       username: username!,
       email: email!,
-      icon: icon!
+      icon: userProfile!.icon!
     });
 
     setStatus("authenticated");

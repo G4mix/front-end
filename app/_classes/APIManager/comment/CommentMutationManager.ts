@@ -11,7 +11,7 @@ export class CommentMutationManager extends APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
 
     const query  = {
@@ -34,7 +34,7 @@ export class CommentMutationManager extends APIManager {
     if (!accessToken) return;
 
     const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName user { username email icon } }";
+    let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
     
     const query  = {

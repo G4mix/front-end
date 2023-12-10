@@ -22,9 +22,9 @@ export const PostHeader = ({ id, author, createdAt, updatedAt, handleDeletePost 
         className={styles.postUser}
       >
         {
-          author!.user!.icon ? (
+          author && author.user && author.user.userProfile && author.user.userProfile.icon ? (
             <Image
-              src={author!.user!.icon}
+              src={author.user.userProfile.icon}
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
               width={24}

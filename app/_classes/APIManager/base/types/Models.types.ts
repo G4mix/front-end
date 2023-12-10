@@ -2,7 +2,6 @@ export type UserType = {
   id?: number;
   username?: string;
   email?: string;
-  icon?: string;
   passwordUser?: PasswordUserType;
   userProfile?: UserProfileType;
 };
@@ -17,6 +16,7 @@ export type UserProfileType = {
   id?: number;
   displayName?: string;
   user?: UserType;
+  icon?: string;
   posts?: PostType[];
 };
 

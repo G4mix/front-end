@@ -19,9 +19,9 @@ export const CommentHeader = ({ author, createdAt, updatedAt }: CommentHeaderPro
       >
         <div className={styles.userZone}>
           {
-            author!.user!.icon ?
+            author && author.user && author.user.userProfile && author.user.userProfile.icon ?
               <Image
-                src={author!.user!.icon }
+                src={author.user.userProfile.icon }
                 alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
                 className={styles.userIcon}
                 width={16}
