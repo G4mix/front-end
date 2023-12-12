@@ -1,5 +1,4 @@
 import { LoginForm } from "./_components/SigninForm";
-import { Heading } from "@components/Heading";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 import registerStyles from "../signup/signup.module.css";
@@ -20,12 +19,12 @@ export default function SignInPage() {
           alt="Gamix logo image"
         />
 
-        <Heading size="md">Acesse sua conta</Heading>
+        <Text size="md" asChild><h2>Acesse sua conta</h2></Text>
       </div>
 
       <LoginForm>
         <div className={loginStyles.loginOptions}>
-          <Heading size="xs" asChild><h3>Você também pode entrar com:</h3></Heading>
+          <Text size="xs" asChild><h3>Você também pode entrar com:</h3></Text>
           <div className={loginStyles.options}>
             <Icon icon="google" size="2xl" disabled />
             <Icon icon="linkedin" size="2xl" disabled />

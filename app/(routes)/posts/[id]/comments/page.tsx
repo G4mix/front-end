@@ -1,8 +1,8 @@
 import { FilterComments } from "./_components/FilterComments";
 import { OptionsDiv } from "@components/OptionsDiv";
 import { Comments } from "./_components/Comments";
-import { Heading } from "@components/Heading";
 import { Navbar } from "@components/Navbar";
+import { Text } from "@components/Text";
 import styles from "./page.module.css";
 import React from "react";
 import Link from "next/link";
@@ -16,9 +16,9 @@ export default async function CommentsPage({ params }: { params: { id: string } 
           <div className={styles.closeComments} />
         </Link>
         <div className={styles.filtersDiv}>
-          <Heading size="default">
-            Comentários
-          </Heading>
+          <Text size="default" asChild>
+            <h2>Comentários</h2>
+          </Text>
           <FilterComments />
         </div>
         <Comments postId={parseInt(params.id)} />
