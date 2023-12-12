@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useCommentsContext } from "@contexts/post/CommentsContext";
-import { Filter } from "@components/Filter";
+import { Filter } from "@/app/_components/Filter/FilterDropdown";
 
 export const FilterComments = () => {
   const { filterBy, handleFilterBy } = useCommentsContext();

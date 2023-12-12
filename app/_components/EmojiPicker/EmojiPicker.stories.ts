@@ -1,18 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Toast } from "@components/Toast";
+import { EmojiPicker } from "@components/EmojiPicker";
 
 const meta = {
-  title: "components/Toast",
-  component: Toast,
+  title: "components/EmojiPicker",
+  component: EmojiPicker,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"]
-} satisfies Meta<typeof Toast>;
+} satisfies Meta<typeof EmojiPicker>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const USERNAME_INVALID_FORMATError: Story = {
+export const EmojiPickerStory: Story = {
+
 };
