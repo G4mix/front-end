@@ -30,7 +30,7 @@ export const ExtraSmall: Story = {
     weight: "regular",
     size: "xs"
   }
-}
+};
 
 export const Small: Story = {
   args: {
@@ -38,7 +38,7 @@ export const Small: Story = {
     weight: "regular",
     size: "sm"
   }
-}
+};
 
 export const Default: Story = {
   args: {
@@ -46,7 +46,7 @@ export const Default: Story = {
     weight: "regular",
     size: "default"
   }
-}
+};
 
 export const Medium: Story = {
   args: {
@@ -54,7 +54,7 @@ export const Medium: Story = {
     weight: "regular",
     size: "md"
   }
-}
+};
 
 export const Large: Story = {
   args: {
@@ -62,4 +62,4 @@ export const Large: Story = {
     weight: "regular",
     size: "lg"
   }
-}
+};
