@@ -8,21 +8,17 @@ import { Post } from "../../(feed)/_components/Post";
 import styles from "./page.module.css";
 import React from "react";
 
-const findData = async (id: number) => {
-  return await PostQueryManager.findPostById(id, { useServer: true });
-};
-
-const handleDeletePost = async () => {
-  "use server";
-  redirect("/");
-};
 
 export default async function SinglePostPage({ params }: { params: { id: string } }) {
   const postId = parseInt(params.id);
-  const post = await findData(postId);
+  const post = await PostQueryManager.findPostById(postId, { useServer: true });
   if (!post || post.error) {
     notFound();
   }
+  const handleDeletePost = async () => {
+    "use server";
+    redirect("/");
+  };
 
   return (
     <main className={styles.main}>

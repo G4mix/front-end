@@ -2,7 +2,7 @@ import { PostOptionsProvider } from "@/app/_contexts/post/PostOptionsContext";
 import { PostsProvider } from "@/app/_contexts/feed/PostsContext";
 import { PostFilter } from "./_components/PostFilter";
 import { Navbar } from "@components/Navbar";
-import { Filter } from "@/app/_components/Filter/FilterDropdown";
+import { Filter } from "@components/Filter";
 import { Posts } from "./_components/Posts";
 import styles from "./page.module.css";
 import React from "react";

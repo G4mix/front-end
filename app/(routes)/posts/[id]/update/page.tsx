@@ -10,21 +10,13 @@ import styles from "@/app/(routes)/posts/create/page.module.css";
 import React from "react";
 import Link from "next/link";
 
-const findUser = async () => {
-  return await UserQueryManager.findUserByToken({ useServer: true });
-};
-
-const findData = async (id: string) => {
-  return await PostQueryManager.findPostById(parseInt(id), { useServer: true });
-};
-
 export default async function PostUpdatePage({ params }: { params: { id: string } }) {
-  const user = await findUser();
+  const user = await UserQueryManager.findUserByToken({ useServer: true });
   if (!user || user.error) {
     redirect("/");
   }
 
-  const post = await findData(params.id);
+  const post = await PostQueryManager.findPostById(parseInt(params.id), { useServer: true });
   if (!post || post.error) {
     notFound();
   }
