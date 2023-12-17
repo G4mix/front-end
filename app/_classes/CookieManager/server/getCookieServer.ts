@@ -2,8 +2,6 @@
 
 import { cookies } from "next/headers";
 
-export const getCookieServer = (name: "accessToken" | "refreshToken") => {
-  const cookiesStore = cookies();
-  const namedCookie = cookiesStore.get(name);
-  return namedCookie ? namedCookie.value! : undefined;
-};
+export async function getCookieServer() {
+  return cookies().get("accessToken")?.value;
+}

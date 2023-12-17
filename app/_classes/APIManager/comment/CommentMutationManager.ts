@@ -1,5 +1,4 @@
 import type { GenericMutationResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
-import { CookieManager } from "@classes/CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class CommentMutationManager extends APIManager {
@@ -7,10 +6,7 @@ export class CommentMutationManager extends APIManager {
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"commentPost">["data"]["commentPost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken", useServer);
-    if (!accessToken) return;
-
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
+    const headers: HeadersInit = { "Content-Type": "application/json" };
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
 
@@ -23,17 +19,14 @@ export class CommentMutationManager extends APIManager {
     };
     
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return await this.handleResponse<GenericMutationResponse<"commentPost">>(response, "commentPost", useServer) as GenericMutationResponse<"commentPost">["data"]["commentPost"];
+    return (await this.handleResponse(response, useServer))["commentPost"] as GenericMutationResponse<"commentPost">["data"]["commentPost"];
   }
 
   public static async replyComment(
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"replyComment">["data"]["replyComment"] | undefined> {
-    const accessToken = CookieManager.get("accessToken", useServer);
-    if (!accessToken) return;
-
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
+    const headers: HeadersInit = { "Content-Type": "application/json" };
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
     
@@ -46,6 +39,6 @@ export class CommentMutationManager extends APIManager {
     };
 
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return await this.handleResponse<GenericMutationResponse<"replyComment">>(response, "replyComment", useServer) as GenericMutationResponse<"replyComment">["data"]["replyComment"];
+    return (await this.handleResponse(response, useServer))["replyComment"] as GenericMutationResponse<"replyComment">["data"]["replyComment"];
   }
 }

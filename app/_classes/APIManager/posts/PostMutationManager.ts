@@ -1,6 +1,5 @@
 import type { CreatePostInput, UpdatePostInput } from "@classes/APIManager/base/types/Inputs.types";
 import type { GenericMutationResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
-import { CookieManager } from "../../CookieManager";
 import { APIManager } from "@classes/APIManager/base";
 
 export class PostMutationManager extends APIManager {
@@ -8,11 +7,6 @@ export class PostMutationManager extends APIManager {
     { images, ...postInput }: CreatePostInput,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"createPost">["data"]["createPost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken", useServer);
-    if (!accessToken) return;
-
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
-
     const query  = {
       query: "mutation createPost($input: PartialPostInput!, $images: [Upload]) { createPost(input: $input, images: $images) { id }}",
       variables: {
@@ -33,19 +27,14 @@ export class PostMutationManager extends APIManager {
       formData.append("map", JSON.stringify(map));
     }
 
-    const response = await this.request("/graphql", formData, headers, useServer);
-    return await this.handleResponse<GenericMutationResponse<"createPost">>(response, "createPost", useServer) as GenericMutationResponse<"createPost">["data"]["createPost"];
+    const response = await this.request("/graphql", formData, {}, useServer);
+    return (await this.handleResponse(response, useServer))["createPost"] as GenericMutationResponse<"createPost">["data"]["createPost"];
   }
 
   public static async updatePost(
     { id, images, ...postInput }: UpdatePostInput,
     useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"updatePost">["data"]["updatePost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken", useServer);
-    if (!accessToken) return;
-
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}` };
-
     const query  = {
       query: "mutation updatePost($postId: Int!, $input: PartialPostInput!, $images: [Upload]) { updatePost(postId: $postId, input: $input, images: $images) { id }}",
       variables: {
@@ -67,18 +56,14 @@ export class PostMutationManager extends APIManager {
       formData.append("map", JSON.stringify(map));
     }
 
-    const response = await this.request("/graphql", formData, headers, useServer);
-    return await this.handleResponse<GenericMutationResponse<"updatePost">>(response, "updatePost", useServer) as GenericMutationResponse<"updatePost">["data"]["updatePost"];
+    const response = await this.request("/graphql", formData, {}, useServer);
+    return (await this.handleResponse(response, useServer))["updatePost"] as GenericMutationResponse<"updatePost">["data"]["updatePost"];
   }
 
   public static async deletePost(
     id: number, useServer: { useServer: boolean } = { useServer: false }
   ): Promise<GenericMutationResponse<"deletePost">["data"]["deletePost"] | undefined> {
-    const accessToken = CookieManager.get("accessToken", useServer);
-    if (!accessToken) return;
-
-    const headers: HeadersInit = { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" };
-
+    const headers: HeadersInit = { "Content-Type": "application/json" };
     const query  = {
       query: "mutation deletePost($postId: Int!) { deletePost(postId: $postId) }",
       variables: {
@@ -87,6 +72,6 @@ export class PostMutationManager extends APIManager {
     };
 
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return await this.handleResponse<GenericMutationResponse<"deletePost">>(response, "deletePost", useServer) as unknown as GenericMutationResponse<"deletePost">["data"]["deletePost"];
+    return (await this.handleResponse(response, useServer))["deletePost"] as GenericMutationResponse<"deletePost">["data"]["deletePost"];
   }
 }
