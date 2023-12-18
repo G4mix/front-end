@@ -1,11 +1,11 @@
-import type { GenericQueryResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
+import type { HandleResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
 import { APIManager } from "@classes/APIManager/base";
 
 export class CommentQueryManager extends APIManager {
   public static async findAllCommentsOfAPost(
     id: number, skip: number,
     useServer: { useServer: boolean } = { useServer: false }
-  ): Promise<GenericQueryResponse<"findAllCommentsOfAPost">["data"]["findAllCommentsOfAPost"] | undefined> {
+  ): Promise<HandleResponse<"findAllCommentsOfAPost">> {
     const headers: HeadersInit = { "Content-Type": "application/json" };
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} } replies { ${dataToGet} parentComment { ${dataToGet} } }`;
@@ -20,6 +20,6 @@ export class CommentQueryManager extends APIManager {
     };
 
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return (await this.handleResponse(response, useServer))["findAllCommentsOfAPost"] as GenericQueryResponse<"findAllCommentsOfAPost">["data"]["findAllCommentsOfAPost"];
+    return await this.handleResponse<"findAllCommentsOfAPost">(response, "findAllCommentsOfAPost", useServer);
   }
 }

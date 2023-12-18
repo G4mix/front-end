@@ -1,11 +1,11 @@
-import type { GenericMutationResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
+import type { HandleResponse } from "@classes/APIManager/base/types/GraphQLResponse.types";
 import { APIManager } from "@classes/APIManager/base";
 
 export class CommentMutationManager extends APIManager {
   public static async commentPost(
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
-  ): Promise<GenericMutationResponse<"commentPost">["data"]["commentPost"] | undefined> {
+  ): Promise<HandleResponse<"commentPost">> {
     const headers: HeadersInit = { "Content-Type": "application/json" };
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
@@ -19,13 +19,13 @@ export class CommentMutationManager extends APIManager {
     };
     
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return (await this.handleResponse(response, useServer))["commentPost"] as GenericMutationResponse<"commentPost">["data"]["commentPost"];
+    return await this.handleResponse<"commentPost">(response, "commentPost", useServer);
   }
 
   public static async replyComment(
     id: number, content: string,
     useServer: { useServer: boolean } = { useServer: false }
-  ): Promise<GenericMutationResponse<"replyComment">["data"]["replyComment"] | undefined> {
+  ): Promise<HandleResponse<"commentPost">> {
     const headers: HeadersInit = { "Content-Type": "application/json" };
     let dataToGet = "id content likesCount createdAt updatedAt isLiked author { id displayName icon user { username email } }";
     dataToGet = `${dataToGet} parentComment { ${dataToGet} }`;
@@ -39,6 +39,6 @@ export class CommentMutationManager extends APIManager {
     };
 
     const response = await this.request("/graphql", JSON.stringify(query), headers, useServer);
-    return (await this.handleResponse(response, useServer))["replyComment"] as GenericMutationResponse<"replyComment">["data"]["replyComment"];
+    return await this.handleResponse<"replyComment">(response, "replyComment", useServer)!;
   }
 }

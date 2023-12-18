@@ -1,3 +1,4 @@
+import type { GraphQLResponse, ResponseTypes } from "./types/GraphQLResponse.types";
 import type { BackendRoutes } from "./types/BackendRoutes.types";
 import { CookieManager } from "@classes/CookieManager";
 
@@ -25,23 +26,21 @@ export class APIManager {
 
     return response;
   }
-
-  protected static async handleResponse(response: Response, useServer: { useServer: boolean; } = { useServer: false }) {
+  
+  protected static async handleResponse<T extends keyof ResponseTypes>(
+    response: Response, field: keyof ResponseTypes, useServer: { useServer: boolean; } = { useServer: false }
+  ): Promise<GraphQLResponse<T>["data"][T] | undefined | { error?: string; message?: string; }> {
     if (response.status === 401 || response.status === 403) {
-      return await CookieManager.delete(useServer);
+      return await CookieManager.delete(useServer) as undefined;
     }
 
-    try {
-      const data = await response.json();
-      if (data["errors"]) {
-        return { 
-          error: data["errors"][0]["extensions"]["classification"] as string,
-          message: data["errors"][0]["message"] as string
-        };
-      }
-      return data;
-    } catch {
-      return undefined;
+    const data = await response.json();
+    if (data && data["errors"]) {
+      return {
+        error: data["errors"][0]["extensions"]["classification"],
+        message: data["errors"][0]["message"]
+      };
     }
+    return data["data"][field];
   }
 }
