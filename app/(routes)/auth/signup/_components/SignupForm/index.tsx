@@ -18,6 +18,7 @@ import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { Text } from "@components/Text";
+import { useSession } from "@/app/_contexts/global/SessionContext";
 
 type RegisterProps = {
   username: string;
@@ -33,6 +34,7 @@ export const RegisterForm = () => {
 
   const [passwordState, setPasswordState] = useState("");
   const [tryingToRegister, setTryingToRegister] = useState(false);
+  const { update } = useSession();
 
   const router = useRouter();
 
@@ -49,6 +51,7 @@ export const RegisterForm = () => {
       return;
     }
 
+    update({ username: response.username, icon: response.icon });
     router.push("/");
     setTryingToRegister(false);
   };

@@ -1,13 +1,10 @@
 export type SessionContextProps = {
   session: Session | null;
-  status: "unauthenticated" | "authenticated" | "loading";
-  update: () => void;
+  update: (newData: Session) => void;
   setUnauthenticated: () => void;
 };
 
 export type Session = {
-  accessToken: string | null;
-  username: string | null;
-  email: string | null;
-  icon: string | null;
+  username?: string;
+  icon?: string;
 };

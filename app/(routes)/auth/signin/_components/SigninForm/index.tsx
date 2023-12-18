@@ -13,6 +13,7 @@ import React, { useState, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
 import signupFormStyle from "../../../signup/_components/SignupForm/signupForm.module.css";
 import Link from "next/link";
+import { useSession } from "@contexts/global/SessionContext";
 
 type LoginProps = {
   password: string;
@@ -24,6 +25,7 @@ type LoginProps = {
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const { handleShowMessage } = useMessagesContext();
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
+  const { update } = useSession();
   const registerForm = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -40,6 +42,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
+    update({ username: response.username, icon: response.icon });
     router.push("/");
     setTryingToLogIn(false);
   };
