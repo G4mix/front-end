@@ -24,7 +24,7 @@ export class PostQueryManager extends APIManager {
   ): Promise<GenericQueryResponse<"findAllPosts">["data"]["findAllPosts"] | undefined> {
     const headers: HeadersInit = { "Content-Type": "application/json" };
     const query: GenericQueryRequest<"findAllPosts"> = {
-      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName icon user { id, username, email } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount tags { id name } links { id link } images { id name src width height } }}",
+      query: "query findAllPosts($skip: Int, $limit: Int) { findAllPosts(skip: $skip, limit: $limit) { id author { id displayName icon user { id, username } } title content createdAt updatedAt isLiked likesCount commentsCount viewsCount links { id link } images { id name src width height } }}",
       variables: {
         skip: skip,
         limit: 10
