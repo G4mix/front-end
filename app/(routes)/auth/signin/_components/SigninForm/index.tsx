@@ -105,7 +105,7 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       {children}
       <div className={signupFormStyle.accept}>
         <Checkbox defaultChecked={false} name="remember_me" />
-        <Text size="xs">Lembrar de mim por 30 dias</Text>
+        <Text size="xs">Lembrar de mim por 3 dias</Text>
       </div>
       <Button
         style={{
