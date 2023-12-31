@@ -18,8 +18,11 @@ const preview: Preview = {
           value: "#1C2034",
         }
       ],
+    },
+    nextjs: {
+      appDirectory: true,
     }
-  },
+  }
 };
 
 export default preview;
