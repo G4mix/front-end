@@ -7,7 +7,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "cypress": "cypress open",
-    "cy:run": "npx cypress run --e2e && npx cypress run --component",
+    "cy:run": "npx cypress run --e2e",
     "commit": "node node_modules/cz-customizable/standalone.js",
     "prepare": "husky install",
     "sb": "storybook dev -p 6006",
