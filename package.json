@@ -10,8 +10,8 @@
     "cy:run": "npx cypress run --e2e && npx cypress run --component",
     "commit": "node node_modules/cz-customizable/standalone.js",
     "prepare": "husky install",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "sb": "storybook dev -p 6006",
+    "sb:build": "storybook build"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
