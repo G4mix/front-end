@@ -15,7 +15,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install packages
-      run: npm ci
+      run: npm i
     - name: Checking styles
       run: npm run lint
   tests:
@@ -32,6 +32,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install packages
-      run: npm ci
+      run: npm i
     - name: Run all tests
       run: npm run cy:run
