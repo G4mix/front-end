@@ -18,6 +18,10 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  staticDirs: ["../public"]
+  staticDirs: ["../public"],
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_BACK_END_BASE_URL: ""
+  }),
 };
 export default config;
