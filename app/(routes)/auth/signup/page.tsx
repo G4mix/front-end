@@ -1,4 +1,4 @@
-import { RegisterForm } from "./_components/SignupForm";
+import { RegisterForm } from "./_SignupForm";
 import { Text } from "@components/Text";
 import registerStyles from "./signup.module.css";
 import Image from "next/image";

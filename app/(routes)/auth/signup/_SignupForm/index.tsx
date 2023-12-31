@@ -9,7 +9,7 @@ import {
   hasEightOrMoreChars, hasNumber,
   hasOneUppercaseChar, hasSpecialChar
 } from "@functions/formValidations";
-import { Collapsable, CollapsableHandlers } from "../Collapsable";
+import { Collapsable, CollapsableHandlers } from "@components/Collapsable";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
 import { apiErrors } from "@constants/apiErrors";
