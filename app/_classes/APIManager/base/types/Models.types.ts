@@ -50,15 +50,8 @@ export type PostType = {
   comments?: CommentType[];
   likesCount?: number;
   commentsCount?: number;
-  categories?: CategoryType[];
   createdAt?: string;
   updatedAt?: string;
-};
-
-export type CategoryType = {
-  id?: number;
-  post?: PostType;
-  name: string;
 };
 
 export type CommentType = {
