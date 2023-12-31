@@ -19,8 +19,8 @@ export type ResponseTypes = {
   // Mutations
   commentPost: CommentType;
   replyComment: CommentType;
-  likeComment: boolean;
-  likePost: boolean;
+  likeComment: null;
+  likePost: null;
   unlikePost: boolean;
   createPost: PostType;
   updatePost: PostType;
