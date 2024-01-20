@@ -1,4 +1,4 @@
-import { LoginForm } from "./_SigninForm";
+import { LoginForm } from "@components/Forms/SigninForm";
 import { Text } from "@components/Text";
 import { Icon } from "@components/Icon";
 import registerStyles from "../signup/signup.module.css";
