@@ -24,13 +24,13 @@ export class APIManager {
   }
   
   protected static async handleResponse<T extends keyof ResponseTypes>(
-    response: Response, field: keyof ResponseTypes, useServer: { useServer: boolean; } = { useServer: false }
+    res: Response, field: keyof ResponseTypes, useServer: { useServer: boolean; } = { useServer: false }
   ): Promise<GraphQLResponse<T>["data"][T] | undefined | { error?: string; message?: string; }> {
-    if (response.status === 401 || response.status === 403) {
+    if (res.status === 401 || res.status === 403) {
       return await CookieManager.delete(useServer) as undefined;
     }
 
-    const data = await response.json();
+    const data = await res.json();
     if (data && data["errors"]) {
       return {
         error: data["errors"][0]["extensions"]["classification"],

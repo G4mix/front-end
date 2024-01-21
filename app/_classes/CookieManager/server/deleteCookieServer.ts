@@ -5,6 +5,6 @@ import { redirect } from "next/navigation";
 
 export async function deleteCookieServer() {
   const cookiesStore = cookies();
-  if (cookiesStore.get("accessToken")) cookiesStore.delete("accessToken");
+  if (cookiesStore.get("token")) cookiesStore.delete("token");
   redirect("/auth/signin");
 }
