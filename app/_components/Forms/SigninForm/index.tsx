@@ -11,7 +11,7 @@ import { Input } from "@components/Input";
 import { Text } from "@components/Text";
 import React, { useState, useRef } from "react";
 import signinStyles from "./signinForm.module.css";
-import signupFormStyle from "../../../signup/_components/SignupForm/signupForm.module.css";
+import signupFormStyle from "@components/Forms/SignupForm/signupForm.module.css";
 import Link from "next/link";
 import { useSession } from "@contexts/global/SessionContext";
 

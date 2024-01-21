@@ -21,7 +21,6 @@ export const CreatePostPosting = ({ tryingToPost, mode }: CreatePostPostingProps
           width={192}
           height={192}
           quality={100}
-          className={styles.createPostPostingImage}
         />
         <Text size="lg" weight="bold" asChild>
           <h2>{ mode === "update" ? "Atualizando" : "Publicando"}...</h2>

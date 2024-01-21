@@ -17,12 +17,8 @@ export class APIManager {
       method: "POST",
       headers: headers,
       body: body,
+      credentials: "include"
     });
-
-    const accessToken = response.headers.get("Authorization");
-    if (accessToken && accessToken.startsWith("Bearer ")) {
-      await CookieManager.set(accessToken, useServer);
-    }
 
     return response;
   }
