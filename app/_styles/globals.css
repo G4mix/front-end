@@ -46,8 +46,8 @@ body {
   background-color: #000000;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  max-width: 100vw;
+  min-height: 100dvh;
+  max-width: 100dvw;
   display: flex;
 }
 
@@ -55,7 +55,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   align-items: center;
 }
 

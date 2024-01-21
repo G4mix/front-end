@@ -5,8 +5,8 @@
 .commentsZone {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  min-height: 100vh;
+  width: 100dvw;
+  min-height: 100dvh;
   align-items: center;
 }
 
@@ -43,19 +43,19 @@
   .commentsZone {
     display: flex;
     flex-direction: column;
-    width: 50vw;
-    min-height: 100vh;
+    width: 50dvw;
+    min-height: 100dvh;
     align-items: center;
   }  
 }
 
 @media (min-width: 1024px) {
   .main {
-    padding: 3.8vh 3.8vh 0 3.8vh;
+    padding: 3.8dvh 3.8dvh 0 3.8dvh;
     justify-content: space-between;
   }
   .commentsZone {
-    width: 30vw;
+    width: 30dvw;
     border-radius: 32px;
     border: 3px solid #343A5B;
     background: #1C2034;

@@ -6,9 +6,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100vw;
+  max-width: 100dvw;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   gap: 26px;
   padding-bottom: 70px;
 }
@@ -31,7 +31,7 @@
 
 @media (min-width: 1024px) {
   .main {
-    padding: 3.8vh 3.8vh 0 3.8vh;
+    padding: 3.8dvh 3.8dvh 0 3.8dvh;
     gap: 90px;
   }
   .postZone {
@@ -41,7 +41,7 @@
 
 @media (min-width: 1280px) {
   .main {
-    padding: 5vh 5vh 0 5vh;
+    padding: 5dvh 5dvh 0 5dvh;
   }
   .postZone {
     width: 45%;

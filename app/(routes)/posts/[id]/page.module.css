@@ -42,20 +42,20 @@
 
 @media (min-width: 1024px) {
   .main {
-    padding: 3.8vh 3.8vh 0 3.8vh;
+    padding: 3.8dvh 3.8dvh 0 3.8dvh;
     justify-content: space-between;
   }
   .postZone {
     padding: 0;
   }
   .post {
-    width: 40vw;
+    width: 40dvw;
     border-radius: 32px;
     padding: 35px 16px;
     border: 3px solid #343A5B;
     background: #1C2034;
     flex-grow: 0;
-    min-height: 90vh;
+    min-height: 90dvh;
   }
   .closeCommentsLink {
     display: none;
