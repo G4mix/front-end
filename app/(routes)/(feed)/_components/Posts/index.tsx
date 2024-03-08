@@ -2,6 +2,7 @@
 
 import type { PostType } from "@classes/APIManager/base/types/Models.types";
 import { PostQueryManager } from "@classes/APIManager/posts/PostQueryManager";
+import { PostLoading } from "../Post/PostLoading";
 import { mergeArray } from "@functions/mergeArray";
 import { Post } from "../Post";
 import React, { useEffect, useState, useCallback } from "react";
@@ -35,11 +36,10 @@ export const Posts = () => {
 
   const handleGlobalScroll = useCallback(() => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (
-      scrollHeight - scrollTop === clientHeight && !searching && !allPostsLoaded
-    ) {
-      setPage(prevPage => prevPage + 1);
-    }
+    const scrollThreshold = 100;
+    const needToRenderMore = scrollHeight - scrollTop <= clientHeight + scrollThreshold;
+    if (!needToRenderMore || searching || allPostsLoaded) return;
+    setPage(prevPage => prevPage + 1);
   }, [searching, allPostsLoaded]);
 
   const handleDeletePost = async (id: number) => {
@@ -72,6 +72,11 @@ export const Posts = () => {
               handleDeletePost={() => handleDeletePost(post!.id!)}
             />
           )
+        )
+      }
+      {
+        searching && (
+          [1, 2, 3].map((value) => <PostLoading key={`postloading:${value}`} />)
         )
       }
     </div>

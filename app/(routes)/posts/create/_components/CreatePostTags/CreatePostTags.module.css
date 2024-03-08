@@ -56,21 +56,3 @@
   gap: 6px;
   flex-wrap: wrap;
 }
-
-@media (min-width: 640px) {
-  .circlePlusIcon {
-    width: 30px;
-    height: 30px;
-  }
-  .tagInput {
-    height: var(--font-sm);
-    font-size: var(--font-sm);
-  }
-}
-
-@media (min-width: 1024px) {
-  .tagInput {
-    height: var(--font-default);
-    font-size: var(--font-default);
-  }
-}

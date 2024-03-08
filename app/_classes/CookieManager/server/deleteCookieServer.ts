@@ -1,8 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const deleteCookieServer = (name: "accessToken" | "refreshToken") => {
+export async function deleteCookieServer() {
   const cookiesStore = cookies();
-  cookiesStore.delete(name);
-};
+  if (cookiesStore.get("token")) cookiesStore.delete("token");
+  redirect("/auth/signin");
+}

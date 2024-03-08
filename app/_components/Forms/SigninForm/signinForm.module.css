@@ -1,0 +1,10 @@
+.form {
+  width: 100%;
+}
+
+.forgotPassword {
+  opacity: 0.8;
+}
+.forgotPassword:hover {
+  opacity: 0.6;
+}

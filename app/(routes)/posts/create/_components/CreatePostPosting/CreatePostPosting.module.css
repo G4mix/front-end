@@ -9,7 +9,7 @@
   z-index: 9999;
 
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   gap: 50px;
 
   background: linear-gradient(180deg, #1C2034 0%, rgba(28, 32, 52, 0.60) 100%);
@@ -22,8 +22,4 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.createPostPostingImage {
-
 }

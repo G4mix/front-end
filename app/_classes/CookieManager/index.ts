@@ -1,35 +1,15 @@
-import { JwtTokens } from "../APIManager/base/types/JwtTokens.types";
-import { CookieManagerClient } from "./CookieManagerClient";
-import { CookieManagerServer } from "./CookieManagerServer";
+import { deleteCookieClient } from "./client/deleteCookieClient";
+import { deleteCookieServer } from "./server/deleteCookieServer";
+import { getCookieClient } from "./client/getCookieClient";
+import { getCookieServer } from "./server/getCookieServer";
 
-export class CookieManager {
-  public static set(
-    { accessToken, refreshToken }: JwtTokens,
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) {
-      CookieManagerClient.set(accessToken!);
-      CookieManagerClient.set(refreshToken!);
-      return;
-    }
-    CookieManagerServer.set(accessToken!);
-    CookieManagerServer.set(refreshToken!);
+export const CookieManager = {
+  delete: async ({ useServer }: { useServer: boolean; }) => {
+    if (!useServer) return deleteCookieClient();
+    return await deleteCookieServer();
+  },
+  get: async ({ useServer }: { useServer: boolean }) => {
+    if (!useServer) return getCookieClient();
+    return await getCookieServer();
   }
-  
-  public static delete(
-    name: "accessToken" | "refreshToken",
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) return CookieManagerClient.delete(name!);
-    return CookieManagerServer.delete(name!);
-  }
-
-  public static get(
-    name: "accessToken" | "refreshToken",
-    { useServer }: { useServer: boolean }
-  ) {
-    if (!useServer) return CookieManagerClient.get(name!);
-    return CookieManagerServer.get(name!);
-  }
-
-}
+};

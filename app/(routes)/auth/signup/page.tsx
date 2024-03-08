@@ -1,5 +1,4 @@
-import { RegisterForm } from "./_components/SignupForm";
-import { Heading } from "@components/Heading";
+import { RegisterForm } from "@components/Forms/SignupForm";
 import { Text } from "@components/Text";
 import registerStyles from "./signup.module.css";
 import Image from "next/image";
@@ -18,7 +17,7 @@ export default function SignUpPage() {
           alt="Gamix logo image"
         />
 
-        <Heading size="md">Criar uma conta</Heading>
+        <Text size="md" asChild><h2>Criar uma conta</h2></Text>
       </div>
 
       <RegisterForm />

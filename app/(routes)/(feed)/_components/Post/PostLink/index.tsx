@@ -1,5 +1,6 @@
 "use client";
 
+import { PostLinkLoading } from "./PostLinkLoading";
 import { Text } from "@components/Text";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./PostLinks.module.css";
@@ -49,7 +50,7 @@ export const PostLink = ({ url="", handleError, children }: PostLinkProps) => {
     fetchData();
   }, []);
 
-  if (!data || !data.icon.url) return null;
+  if (!data || !data.icon.url) return <PostLinkLoading />;
 
   return (
     <Link className={styles.link} href={url} aria-label={`Link para o site: ${data.title}`} target="_blank">

@@ -1,11 +1,13 @@
 import { CommentType, PostType, UserType } from "./Models.types";
 
-export type GenericGraphQLResponse<T> = {
-  data: T;
-  errors?: { error?: string; message?: string; };
+export type HandleResponse<T extends keyof ResponseTypes> = GraphQLResponse<T>["data"][T] | { error?: string; message?: string; } | undefined;
+
+export type GraphQLResponse<T extends keyof ResponseTypes> = {
+  data: { [key in T]: ResponseTypes[T] };
 };
 
-export type QueryResponseTypes = {
+export type ResponseTypes = {
+  // Queries
   findAllCommentsOfAPost: CommentType[];
   findAllUsers: UserType[];
   findAllPosts: PostType[];
@@ -13,13 +15,12 @@ export type QueryResponseTypes = {
   findUserByEmail: UserType;
   findUserByToken: UserType;
   findPostById: PostType;
-};
 
-export type MutationResponseTypes = {
+  // Mutations
   commentPost: CommentType;
   replyComment: CommentType;
-  likeComment: boolean;
-  likePost: boolean;
+  likeComment: null;
+  likePost: null;
   unlikePost: boolean;
   createPost: PostType;
   updatePost: PostType;
@@ -27,11 +28,3 @@ export type MutationResponseTypes = {
   updateUser: UserType;
   deleteAccount: boolean;
 };
-
-export type GenericQueryResponse<T extends keyof QueryResponseTypes> = GenericGraphQLResponse<
-  { [key in T]: QueryResponseTypes[T] & { error?: string; message?: string; } }
-> ;
-
-export type GenericMutationResponse<T extends keyof MutationResponseTypes> = GenericGraphQLResponse<
-  { [key in T]: MutationResponseTypes[T] & { error?: string; message?: string; } }
->;

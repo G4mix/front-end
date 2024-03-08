@@ -28,7 +28,7 @@ export const CreatePostAuthor = () => {
           </DuotoneUserIcon.Root>
         )
       }
-      <Text size="xs">{session ? session.username : ""}</Text>
+      <Text size="xs" fixeSize>{session ? session.username : ""}</Text>
     </div>
   );
 };

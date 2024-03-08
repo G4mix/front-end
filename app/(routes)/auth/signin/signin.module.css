@@ -1,27 +1,3 @@
-.wrapper {
-  width: 100%;
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.logoWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-
-  margin-bottom: 1.2rem;
-}
-.logoWrap h1 {
-  font-size: var(--font-xl);
-}
-
-
 .loginOptions {
   display: flex;
   align-items: center;
@@ -31,25 +7,8 @@
   margin-block: 1.25rem;
 }
 
-.loginOptions h3 {
-  font-weight: 300;
-  font-size: var(--font-default);
-}
-
-.loginOptions ul {
-  list-style: none;
-
+.options {
   display: flex;
   align-items: center;
   gap: 2rem;
-}
-.loginOptions ul li {
-  cursor: pointer;
-}
-
-.createAccount {
-  opacity: 0.8;
-}
-.createAccount:hover {
-  opacity: 0.6;
 }

@@ -1,17 +1,13 @@
 "use client";
 
 import type { Session, SessionContextProps } from "./Session.types";
-import { CookieManagerClient } from "@classes/CookieManager/CookieManagerClient";
-import { useMessagesContext } from "@contexts/global/MessagesContext";
-import { UserQueryManager } from "@classes/APIManager/user/UserQueryManager";
+import React, { useState, createContext, useCallback, useEffect } from "react";
+import { UserQueryManager } from "@/app/_classes/APIManager/user/UserQueryManager";
+import { CookieManager } from "@/app/_classes/CookieManager";
 import { usePathname } from "next/navigation";
-import { APIManager } from "@classes/APIManager/base";
-import { apiErrors } from "@constants/apiErrors";
-import React, { useState, useEffect, createContext, useCallback } from "react";
 
 export const SessionContext = createContext<SessionContextProps>({
   session: null, 
-  status: "loading",
   update: () => null,
   setUnauthenticated: () => null
 });
@@ -21,58 +17,33 @@ type SessionProviderProps = {
 };
 
 export const SessionProvider = ({ children }: SessionProviderProps) => {
-  const { handleShowMessage } = useMessagesContext();
   const [session, setSession] = useState<SessionContextProps["session"]>(null);
-  const [status, setStatus] = useState<SessionContextProps["status"]>("loading");
   const pathname = usePathname();
-  const toIgnoreRoutes = ["/auth/signin", "/auth/signup"];
 
-  const update = useCallback((newData?: Partial<Session>) => {
+  const update = useCallback((newData: Session) => {
     setSession((prevSession) => 
-      prevSession ? { ...prevSession, ...newData } : null
+      prevSession ? { ...prevSession, ...newData } : newData
     );
   }, []);
 
-  const setUnauthenticated = useCallback(() => {
+  const setUnauthenticated = useCallback(async () => {
     setSession(null);
-    setStatus("unauthenticated");
-    APIManager.signOut({ useServer: false });
+    await CookieManager.delete({ useServer: false });
   }, []);
-  
-  async function fetchData() {
-    if (toIgnoreRoutes.includes(pathname)) {
-      setUnauthenticated();
-      return <>{children}</>;
-    }
 
-    setStatus("loading");
-
-    const data = await UserQueryManager.findUserByToken()!;
-    if (!data || data.error) {
-      if (data && apiErrors.includes(data!.error!)) {
-        handleShowMessage(data!.message!);
-      }
-      
-      return setUnauthenticated();
-    }
-    const { username, email, icon } = data;
-    const accessToken = CookieManagerClient.get("accessToken")! as string | null;
-    setSession({
-      accessToken,
-      username: username!,
-      email: email!,
-      icon: icon!
-    });
-
-    setStatus("authenticated");
-  }
+  const fetchData = async () => {
+    if (["/auth/signup", "/auth/signin"].includes(pathname)) return;
+    const data = await UserQueryManager.findUserByToken({ useServer: false })!;
+    if (!data || (data && data.error)) return CookieManager.delete({ useServer: false });
+    setSession({ username: data.username, icon: data.userProfile!.icon });
+  };
 
   useEffect(() => {
     fetchData();
-  }, [pathname]);
+  }, []);
 
   return (
-    <SessionContext.Provider value={{ session, status, update, setUnauthenticated }}>
+    <SessionContext.Provider value={{ session, update, setUnauthenticated }}>
       {children}
     </SessionContext.Provider>
   );

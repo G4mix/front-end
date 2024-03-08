@@ -2,7 +2,6 @@ import type { PostType } from "@classes/APIManager/base/types/Models.types";
 import { DuotoneUserIcon } from "@components/DuotoneUserIcon";
 import { MoreOptions } from "./MoreOptions";
 import { formatDate } from "@functions/formatDate";
-import { Heading } from "@components/Heading";
 import { Text } from "@components/Text";
 import styles from "./PostHeader.module.css";
 import Image from "next/image";
@@ -22,9 +21,9 @@ export const PostHeader = ({ id, author, createdAt, updatedAt, handleDeletePost 
         className={styles.postUser}
       >
         {
-          author!.user!.icon ? (
+          author && author.user && author.user.userProfile && author.user.userProfile.icon ? (
             <Image
-              src={author!.user!.icon}
+              src={author.user.userProfile.icon}
               alt={`Imagem do usuário ${author!.displayName || author!.user!.username}`}
               className={styles.userIcon}
               width={24}
@@ -37,9 +36,9 @@ export const PostHeader = ({ id, author, createdAt, updatedAt, handleDeletePost 
             </DuotoneUserIcon.Root>
           )
         }
-        <Heading size="sm" asChild>
+        <Text size="sm" asChild>
           <h5>{author!.displayName || author!.user!.username}</h5>
-        </Heading>
+        </Text>
         <Text size="xs" weight="thin">· {updatedAt ? `Atualizado ${formatDate(new Date(updatedAt!))}` : formatDate(new Date(createdAt!))}</Text>
       </Link>
       <MoreOptions id={id} author={author} handleDeletePost={handleDeletePost} />

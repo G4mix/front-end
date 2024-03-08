@@ -1,5 +1,5 @@
-import { Heading } from "@components/Heading";
 import { Loader } from "@components/Loader";
+import { Text } from "@components/Text";
 import React from "react";
 import styles from "./CreatePostPosting.module.css";
 import Image from "next/image";
@@ -21,9 +21,10 @@ export const CreatePostPosting = ({ tryingToPost, mode }: CreatePostPostingProps
           width={192}
           height={192}
           quality={100}
-          className={styles.createPostPostingImage}
         />
-        <Heading size="lg" weight="bold">{ mode === "update" ? "Atualizando" : "Publicando"}...</Heading>
+        <Text size="lg" weight="bold" asChild>
+          <h2>{ mode === "update" ? "Atualizando" : "Publicando"}...</h2>
+        </Text>
       </div>
       <Loader />
     </div>

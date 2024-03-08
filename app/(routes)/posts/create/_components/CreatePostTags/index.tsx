@@ -20,7 +20,7 @@ export const CreatePostTags = () => {
 
   return (
     <div className={styles.postTags}>
-      <Text size="xs">Tags</Text>
+      <Text size="xs" fixeSize>Tags</Text>
       <div className={styles.selectedTags}>
         <Icon icon="circle-plus" className={styles.circlePlusIcon} withoutClick />
         {
@@ -30,6 +30,7 @@ export const CreatePostTags = () => {
               size="xs"
               key={`selectedTag:${tag}`}
               onClick={() => handleUnselectTag(tag)}
+              fixeSize
             >
               {tag}
             </Text>
@@ -42,7 +43,7 @@ export const CreatePostTags = () => {
           popularTags.filter(tag => !tags.includes(tag)).map((popularTag: string) => 
             <Text
               className={styles.tag} size="xs" key={`popularTag:${popularTag}`}
-              onClick={() => handleSelectTag(popularTag)}
+              onClick={() => handleSelectTag(popularTag)} fixeSize
             >
               {popularTag}
             </Text>

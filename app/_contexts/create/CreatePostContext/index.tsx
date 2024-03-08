@@ -164,10 +164,10 @@ export const CreatePostProvider = ({ children, defaultPost }: CreatePostProvider
       ? await PostMutationManager.updatePost({ id: defaultPost!.id!, ...post } as UpdatePostInput)
       : await PostMutationManager.createPost(post as CreatePostInput);
 
-    if(postData!.error) {
+    if(postData && postData.error) {
       setTryingToPost(false);
-      if (apiErrors.includes(postData!.error!)) {
-        return handleShowMessage(postData!.message!);
+      if (apiErrors.includes(postData.error)) {
+        return handleShowMessage(postData.message!);
       }
       return handleShowMessage(`Falha ao ${ defaultPost ? "atualizar" : "criar" } o post...`);
     }

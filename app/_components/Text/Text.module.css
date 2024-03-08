@@ -17,6 +17,37 @@
   color: var(--white);
 }
 
+.loading :global {
+  color: transparent;
+  background: linear-gradient(270deg, var(--charcoal) 0%, rgba(55, 65, 81, 0.5) 50%, var(--charcoal) 100%);
+  background-size: 500% 350%;
+  animation: pulseBackground 1.5s ease-in-out reverse infinite;
+}
+
+.fixed_lg {
+  font-size: var(--font-lg)!important;
+}
+
+.fixed_md {
+  font-size: var(--font-md)!important;
+}
+
+.fixed_default {
+  font-size: var(--font-default)!important;
+}
+
+.fixed_sm {
+  font-size: var(--font-sm)!important;
+}
+
+.fixed_xs {
+  font-size: var(--font-xs)!important;
+}
+
+.fixed_xxs {
+  font-size: var(--font-2xs)!important;
+}
+
 .lg {
   font-size: var(--font-lg);
 }

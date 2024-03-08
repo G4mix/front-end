@@ -19,7 +19,7 @@ type PostCommandsProps = { post: PostType };
 export const PostCommands = ({ post }: PostCommandsProps) => {
   const [isLiked, setIsLiked] = useState(post!.isLiked! || false);
   const { handleShowMessage } = useMessagesContext();
-  const { status } = useSession();
+  const { session } = useSession();
   const router = useRouter();
   
   const sendLike = useCallback(async (postId: number, isLiked: boolean) => {
@@ -32,7 +32,7 @@ export const PostCommands = ({ post }: PostCommandsProps) => {
   const debouncedSendLike = useCallback(debounce(sendLike as (...args: unknown[]) => unknown, 3000), []);
 
   const handleLikeClick = async () => {
-    if (status === "unauthenticated") router.push("/auth/signin");
+    if (!session) router.push("/auth/signin");
     isLiked ? post.likesCount!-- : post.likesCount!++;
     debouncedSendLike(post!.id!, !isLiked);
     setIsLiked(!isLiked);

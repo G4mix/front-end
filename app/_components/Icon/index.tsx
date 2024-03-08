@@ -7,19 +7,20 @@ type IconProps = {
   className?: FontAwesomeIconProps["className"];
   disabled?: boolean;
   withoutClick?: boolean;
+  loading?: boolean;
   icon: keyof typeof icons;
 };
 
 const Icon = memo(({
-  icon, disabled=false, style,
-  withoutClick=false, className=undefined, ...props
+  icon, disabled=false, style, loading=false,
+  withoutClick=false, className="", ...props
 }: Omit<FontAwesomeIconProps, "icon"> & IconProps) => {
   const IconToRender = icons[icon as keyof typeof icons];
   return (
     <FontAwesomeIcon
       {...props}
       icon={IconToRender}
-      className={`${styles.icon} ${disabled ? styles.disabled : ""} ${withoutClick ? styles.withoutClick : ""} ${className ? className : ""}`}
+      className={`${styles.icon} ${disabled ? styles.disabled : ""} ${withoutClick ? styles.withoutClick : ""} ${className} ${loading ? styles.loading : ""}`}
       style={style}
     />
   );

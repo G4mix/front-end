@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import "./animations/animations.css";
 
 :root {
   --white: #ffffff;
@@ -6,6 +7,7 @@
   --ultra-violet: #68589d;
   --veronica: #9747FF;
   --jet: #333333;
+  --charcoal: #374151;
   --saffron: #f9c536;
   --savoy-blue: #626ca7;
   --carolina-blue: #89bddf;
@@ -44,9 +46,17 @@ body {
   background-color: #000000;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  max-width: 100vw;
+  min-height: 100dvh;
+  max-width: 100dvw;
   display: flex;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100dvh;
+  align-items: center;
 }
 
 button {
@@ -56,10 +66,13 @@ button {
   cursor: pointer;
 }
 
-input[type="password"]::-ms-reveal,
-input[type="password"]::-webkit-reveal,
-input[type="password"]::-webkit-eye {
-    color: var(--white);
+@media (min-width: 1024px) {
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
