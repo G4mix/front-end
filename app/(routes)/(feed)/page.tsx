@@ -12,6 +12,7 @@ export default async function FeedPage() {
     <PostsProvider>
       <main className={styles.main}>
         <Navbar />
+
         <PostOptionsProvider>
           <div className={styles.postZone}>
             <div className={styles.header}>
@@ -19,12 +20,12 @@ export default async function FeedPage() {
                 options={{
                   recent: {
                     name: "Recentes",
-                    icon: "clock"
+                    icon: "clock",
                   },
                   discover: {
                     name: "Descubra",
-                    icon: "search"
-                  }
+                    icon: "search",
+                  },
                 }}
               />
               <Filter
@@ -32,10 +33,11 @@ export default async function FeedPage() {
                 options={{
                   posts: "Postagens",
                   projects: "Projetos",
-                  teams: "Equipes"
+                  teams: "Equipes",
                 }}
               />
             </div>
+
             <Posts />
           </div>
         </PostOptionsProvider>

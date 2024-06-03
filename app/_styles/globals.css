@@ -68,10 +68,10 @@ button {
 
 @media (min-width: 1024px) {
   main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 360px 1fr 360px;
     align-items: flex-start;
+    gap: 4rem;
   }
 }
 

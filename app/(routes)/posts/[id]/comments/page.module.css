@@ -50,12 +50,11 @@
 }
 
 @media (min-width: 1024px) {
-  .main {
-    padding: 3.8dvh 3.8dvh 0 3.8dvh;
-    justify-content: space-between;
-  }
   .commentsZone {
-    width: 30dvw;
+    width: 100%;
+    max-width: 850px;
+    margin-inline: auto;
+
     border-radius: 32px;
     border: 3px solid #343A5B;
     background: #1C2034;
