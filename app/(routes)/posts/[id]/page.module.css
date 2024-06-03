@@ -41,10 +41,6 @@
 }
 
 @media (min-width: 1024px) {
-  .main {
-    padding: 3.8dvh 3.8dvh 0 3.8dvh;
-    justify-content: space-between;
-  }
   .postZone {
     padding: 0;
   }
