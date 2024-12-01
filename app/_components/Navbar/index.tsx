@@ -11,29 +11,47 @@ type NavbarProps = {
   position?: "bottom" | "top";
 };
 
-export const Navbar = ({ position="bottom", withoutMobile=false }: NavbarProps) => {
+export const Navbar = ({
+  position = "bottom",
+  withoutMobile = false,
+}: NavbarProps) => {
   return (
-    <nav className={`${styles.nav} ${position === "top" ? styles.navTop : ""} ${withoutMobile ? styles.withoutMobile : ""}`}>
+    <nav
+      className={`${styles.nav} ${position === "top" ? styles.navTop : ""} ${
+        withoutMobile ? styles.withoutMobile : ""
+      }`}
+    >
+      <NavbarUserProfile className={styles.nonMobile} />
       <div className={styles.navItems}>
         <Link href="/" className={styles.navItem}>
           <Icon icon="house" className={styles.navbarIcon} />
-          <Text size="sm" className={styles.navText}>Início</Text>
+          <Text size="sm" className={styles.navText}>
+            Início
+          </Text>
         </Link>
         <div className={styles.navItem}>
           <Icon icon="search" className={styles.navbarIcon} disabled />
-          <Text size="sm" className={styles.navText}>Pesquisar</Text>
+          <Text size="sm" className={styles.navText}>
+            Pesquisar
+          </Text>
         </div>
         <div className={styles.centerContainer} />
+        <div className={styles.onMobile}>
+          <NavbarUserProfile />
+        </div>
         <div className={styles.navItem}>
           <Icon icon="users" className={styles.navbarIcon} disabled />
-          <Text size="sm" className={styles.navText}>Equipes</Text>
+          <Text size="sm" className={styles.navText}>
+            Equipes
+          </Text>
         </div>
-        <NavbarUserProfile />
       </div>
       <Link
         href="/posts/create"
         aria-label="Página de criação de posts, projetos, etc..."
-        className={`${styles.createImagePosition} ${position === "top" ? styles.createImageTop : ""}`}
+        className={`${styles.createImagePosition} ${
+          position === "top" ? styles.createImageTop : ""
+        }`}
       >
         <Image
           src={"/android-chrome-512x512.png"}

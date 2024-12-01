@@ -69,7 +69,7 @@ button {
 @media (min-width: 1024px) {
   main {
     display: grid;
-    grid-template-columns: 360px 1fr 360px;
+    grid-template-columns: 300px 1fr 100px;
     align-items: flex-start;
     gap: 4rem;
   }

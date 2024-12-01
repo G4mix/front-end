@@ -1,3 +1,11 @@
+.userProfileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .duotoneUserIcon {
   width: 24px;
   height: 24px;
@@ -11,17 +19,44 @@
   height: 24px;
 }
 
-@media (min-width: 1280px) {
+.imgRounded {
+  border-radius: 50%;
+
+  width: 24px;
+  height: 24px;
+}
+
+.fixedDuotoneUserIcon {
+  width: 80px;
+  height: 80px;
+}
+.fixedCircle {
+  width: 72px;
+  height: 72px;
+}
+.fixedUserCircle {
+  width: 80px;
+  height: 80px;
+}
+
+@media (min-width: 1024px) {
   .duotoneUserIcon {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
   }
   .circle {
-    width: 39.6px;
-    height: 39.6px;
+    width: 48px;
+    height: 48px;
   }
   .userCircle {
-    width: 44px;
-    height: 44px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .imgRounded {
+    border-radius: 50%;
+  
+    width: 64px;
+    height: 64px;
   }
 }

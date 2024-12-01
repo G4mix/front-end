@@ -1,0 +1,92 @@
+.userProfileContainer {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.coverPhoto {
+  background: #626ca7;
+
+  width: 100%;
+  height: 100px;
+}
+
+.profileActions {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding-inline: 1.125rem;
+
+  margin-block: 0.75rem 2rem;
+}
+
+.profileInfo {
+  position: absolute;
+
+  top: calc(-40px - 0.75rem);
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba(28, 32, 52, 0.8) 0%,
+    rgba(52, 58, 91, 0.4) 100%
+  );
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 8px;
+
+  color: #fff;
+
+  padding: 0.5rem 0.75rem;
+
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(-90deg);
+
+  padding: 0.5rem 0.75rem;
+
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.postsContainer {
+  padding-inline: 1.125rem;
+  margin-bottom: 5rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .main {
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+  }
+
+  .profileActions,
+  .postsContainer {
+    padding-inline: 3rem;
+  }
+
+  .coverPhoto {
+    height: 150px;
+  }
+}

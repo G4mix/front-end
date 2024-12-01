@@ -6,27 +6,29 @@ import React from "react";
 
 type NavbarUserProfileIconProps = {
   session: Session;
+  sizeFixed?: boolean;
 };
 
-export const NavbarUserProfileIcon = ({ session }: NavbarUserProfileIconProps) => {
+export const NavbarUserProfileIcon = ({
+  session,
+  sizeFixed,
+}: NavbarUserProfileIconProps) => {
   return (
     <>
-      {
-        session && session!.icon ? (
-          <Image
-            src={session!.icon || ""}
-            width={24}
-            height={24}
-            alt={`Imagem do ${session!.username}`}
-            className={styles.imgRounded}
-          />
-        ) : (
-          <DuotoneUserIcon.Root className={styles.duotoneUserIcon}>
-            <DuotoneUserIcon.Circle className={styles.circle} />
-            <DuotoneUserIcon.UserCircle className={styles.userCircle} />
-          </DuotoneUserIcon.Root>
-        )
-      }
+      {session && session!.icon ? (
+        <Image
+          src={session!.icon || ""}
+          width={sizeFixed ? 80 : undefined}
+          height={sizeFixed ? 80 : undefined}
+          alt={`Imagem do ${session!.username}`}
+          className={styles.imgRounded}
+        />
+      ) : (
+        <DuotoneUserIcon.Root className={sizeFixed ? styles.fixedDuotoneUserIcon : styles.duotoneUserIcon}>
+          <DuotoneUserIcon.Circle className={sizeFixed ? styles.fixedCircle : styles.circle} />
+          <DuotoneUserIcon.UserCircle className={sizeFixed ? styles.fixedUserCircle : styles.userCircle} />
+        </DuotoneUserIcon.Root>
+      )}
     </>
   );
 };
