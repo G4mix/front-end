@@ -1,26 +1,13 @@
-import type { SignInBody, SignUpBody } from "@classes/APIManager/base/types/RequestBody.types";
+import type { RequestBody } from "@classes/APIManager/base/types/request";
+import type { ApiResponse } from "@classes/APIManager/base/types/response";
 import { APIManager } from "@classes/APIManager/base";
-import { apiErrors } from "@constants/apiErrors";
 
 export class UserAuthManager extends APIManager {
-  public static async signUp(signUpBody: SignUpBody): Promise<{ username?: string, icon?: string; error?: string; message?: string; }> {
-    const response = await APIManager.request(
-      "/auth/signup", JSON.stringify(signUpBody),
-      { "Content-Type": "application/json" },
-      { useServer: false }
-    );
-    const { error, message, username, icon } = await response.json();
-    if (apiErrors.includes(error!)) return { error, message };
-    return { username, icon };
-  }
-
-  public static async signIn(signInBody: SignInBody): Promise<{ username?: string, icon?: string; error?: string; message?: string; }> {
-    const response = await APIManager.request(
-      "/auth/signin", JSON.stringify(signInBody),
-      { "Content-Type": "application/json" }, { useServer: false }
-    );
-    const { error, message, username, icon } = await response.json();
-    if (apiErrors.includes(error!)) return { error, message };
-    return { username, icon };
+  public static async signIn(signInBody: RequestBody<"auth-signin:post">): Promise<ApiResponse<"auth-signin:post"> | void> {
+    return await APIManager.request<"auth-signin:post">({
+      url: "/auth/signin",
+      body: JSON.stringify(signInBody),
+      headers: { "Content-Type": "application/json" }
+    });
   }
 }

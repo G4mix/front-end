@@ -13,11 +13,11 @@ type NavbarUserProfileDropdownProps = {
 };
 
 export const NavbarUserProfileDropdown = ({ children }: NavbarUserProfileDropdownProps) => {
-  const { setUnauthenticated } = useSession();
+  const { makeLogout } = useSession();
   const router = useRouter();
 
   const handleSignout = () => {
-    setUnauthenticated();
+    makeLogout();
     router.push("/auth/signin");
   };
 

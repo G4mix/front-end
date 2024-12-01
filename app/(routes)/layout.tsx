@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { MessagesProvider } from "@contexts/global/MessagesContext";
-import { SessionProvider } from "@contexts/global/SessionContext";
+import { SessionContextProvider } from "@contexts/global/SessionContext";
 import React from "react";
 import "@styles/globals.css";
 
@@ -18,9 +18,9 @@ export default function Layout({
     <html lang="pt-BR">
       <body>
         <MessagesProvider>
-          <SessionProvider>
+          <SessionContextProvider>
             {children}
-          </SessionProvider>
+          </SessionContextProvider>
         </MessagesProvider>
       </body>
     </html>

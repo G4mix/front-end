@@ -1,9 +1,8 @@
 "use client";
 
-import { hasGmailDomain, isValidUsername } from "@functions/formValidations";
 import { useMessagesContext } from "@contexts/global/MessagesContext";
 import { UserAuthManager } from "@classes/APIManager/user/UserAuthManager";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { apiErrors } from "@constants/apiErrors";
 import { Checkbox } from "@components/Checkbox";
 import { Button } from "@components/Button";
@@ -17,17 +16,15 @@ import { useSession } from "@contexts/global/SessionContext";
 
 type LoginProps = {
   password: string;
-  rememberMe: boolean;
-  username?: string;
-  email?: string;
+  email: string;
 };
 
 export const LoginForm = ({ children }: { children: React.ReactNode }) => {
   const { handleShowMessage } = useMessagesContext();
   const [tryingToLogIn, setTryingToLogIn] = useState(false);
-  const { update } = useSession();
+  const { updateSession } = useSession();
   const registerForm = useRef<HTMLFormElement>(null);
-  const router = useRouter();
+  // const router = useRouter();
 
   const login = async (signInBody: LoginProps) => {
     const response = await UserAuthManager.signIn(signInBody);
@@ -42,8 +39,8 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    update({ username: response.username, icon: response.icon });
-    router.push("/");
+    updateSession();
+    // router.push("/");
     setTryingToLogIn(false);
   };
 
@@ -57,24 +54,8 @@ export const LoginForm = ({ children }: { children: React.ReactNode }) => {
 
     const usernameOrEmail = formData.get("username_or_email")?.valueOf() as string;
     const password = formData.get("password")?.valueOf() as string;
-    const rememberMe = formData.get("remember_me")?.valueOf() as string;
 
-    const signInBody: LoginProps = { password, rememberMe: !!rememberMe };
-    signInBody[hasGmailDomain(usernameOrEmail) ? "email" : "username"] = usernameOrEmail;
-
-    if (!isValidUsername(usernameOrEmail) && !hasGmailDomain(usernameOrEmail)) {
-      setTryingToLogIn(false);
-      handleShowMessage("Nome de usuário ou e-mail inválido.");
-      return;
-    } else if (usernameOrEmail.length < 3) {
-      setTryingToLogIn(false);
-      handleShowMessage("Nome de usuário ou e-mail muito curto.");
-      return;
-    } else if (password.length < 7) {
-      setTryingToLogIn(false);
-      handleShowMessage("Senha muito curta.");
-      return;
-    }
+    const signInBody: LoginProps = { password, email: usernameOrEmail };
 
     login(signInBody);
   };

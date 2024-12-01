@@ -1,54 +1,88 @@
 "use client";
 
-import type { Session, SessionContextProps } from "./Session.types";
-import React, { useState, createContext, useCallback, useEffect } from "react";
-import { UserQueryManager } from "@/app/_classes/APIManager/user/UserQueryManager";
-import { CookieManager } from "@/app/_classes/CookieManager";
-import { usePathname } from "next/navigation";
+import React, { createContext, useState, useEffect } from "react";
+import { clearCookies, getCookie, setCookie } from "@functions/cookies";
+// import { useRouter } from "next/router";
 
-export const SessionContext = createContext<SessionContextProps>({
-  session: null, 
-  update: () => null,
-  setUnauthenticated: () => null
-});
+export type UserI = {
+	id: string;
+	email: string;
+	verified: boolean;
+	username: string;
+	userProfile: { icon: string; }
+}
 
-type SessionProviderProps = {
-  children: React.ReactNode;
-};
+export interface Session {
+	user: UserI | null;
+}
 
-export const SessionProvider = ({ children }: SessionProviderProps) => {
-  const [session, setSession] = useState<SessionContextProps["session"]>(null);
-  const pathname = usePathname();
+interface SessionContextProps {
+	session: Session;
+	isAuthenticated: boolean;
+	// eslint-disable-next-line no-unused-vars
+	updateSession: (data?: Partial<Session>) => Session;
+	makeLogout: () => void;
+}
 
-  const update = useCallback((newData: Session) => {
-    setSession((prevSession) => 
-      prevSession ? { ...prevSession, ...newData } : newData
-    );
-  }, []);
+const SessionContext = createContext({} as SessionContextProps);
 
-  const setUnauthenticated = useCallback(async () => {
-    setSession(null);
-    await CookieManager.delete({ useServer: false });
-  }, []);
+const SessionContextProvider = ({
+  children,
+}: {
+	children: React.ReactNode
+}) => {
+  const [session, setSession] = useState<Session>({
+    user: null
+  });
 
-  const fetchData = async () => {
-    if (["/auth/signup", "/auth/signin"].includes(pathname)) return;
-    const data = await UserQueryManager.findUserByToken({ useServer: false })!;
-    if (!data || (data && data.error)) return CookieManager.delete({ useServer: false });
-    setSession({ username: data.username, icon: data.userProfile!.icon });
-  };
+  // const router = useRouter();
 
   useEffect(() => {
-    fetchData();
+    const user = getCookie("user");
+    const userData = (user && JSON.parse(user) || {}) as Session["user"];
+
+    if (!["user"].some(field => !!session[field as keyof typeof session])) {
+      if (Object.keys(userData!).length === 0) return;
+      setSession(({
+        user: userData
+      }));
+    }
   }, []);
 
+  const updateSession = ({ user }: Partial<Session> | undefined = {}) => {
+    const userData = JSON.parse(getCookie("user") ?? "{}");
+    if (Object.keys(userData).length === 0) {
+      return { user: userData };
+    }
+    if (!user || (user && Object.keys(user).length === 0)) user = userData as UserI;
+
+    setCookie("user", JSON.stringify(user));
+    setSession({ user });
+    return { user };
+  };
+
+  const makeLogout = () => {
+    clearCookies();
+    // router.push("/auth/signin");
+  };
+
   return (
-    <SessionContext.Provider value={{ session, update, setUnauthenticated }}>
+    <SessionContext.Provider
+      value={{
+        session,
+        updateSession,
+        makeLogout,
+        isAuthenticated: !!session?.user,
+      }}
+    >
       {children}
     </SessionContext.Provider>
   );
 };
 
-export const useSession = () => {
+
+export { SessionContextProvider, SessionContext };
+
+export const useSession = (): SessionContextProps => {
   return React.useContext(SessionContext);
 };
