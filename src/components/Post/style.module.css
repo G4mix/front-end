@@ -1,0 +1,101 @@
+.postContainer {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+
+  padding: 1rem;
+  border-bottom: 1px solid var(--secondary-light);
+
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  color: var(--black);
+}
+
+.postHeader button {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.postHeaderDotsIcon {
+  width: 1rem;
+  height: 1rem;
+
+  color: var(--text-primary);
+}
+
+.postHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.postHeaderInfo h2 {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.postHeaderInfo span {
+  font-weight: 400;
+}
+
+.userImage {
+  width: 1.125rem;
+  height: 1.125rem;
+
+  border-radius: 50%;
+}
+
+.postBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+
+  color: var(--text-primary);
+}
+
+.postBody h3 {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.postActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}
+
+.postAction {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.postActionIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+
+  color: var(--text-primary);
+}
+
+.postActionIcon span {
+  margin-left: 0.375rem;
+}

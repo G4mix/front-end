@@ -1,0 +1,19 @@
+.feedContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.feedHeader {
+  width: 100%;
+  padding: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.5rem;
+
+  border-bottom: 1px solid var(--primary);
+}

@@ -1,0 +1,17 @@
+
+.authWrapper {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar {
+    display: none;
+}

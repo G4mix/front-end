@@ -1,0 +1,23 @@
+.imgContainer {
+  width: 100%;
+  height: 150px;
+
+  border-radius: 8px;
+  border: 2px solid var(--secondary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+.imgIcon {
+  width: 5.25rem;
+  height: 5.25rem;
+
+  color: var(--primary);
+}
