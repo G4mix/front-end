@@ -11,7 +11,6 @@ export default function Login() {
   return (
     <>
       <AuthScreenLogo screen="login" />
-
       <LoginForm />
     </>
   );

@@ -4,6 +4,7 @@ import { Roboto } from "next/font/google";
 import "@/styles/forms.css";
 import "@/styles/globals.css";
 import { Navbar } from "@/components/Navbar";
+import { AuthProvider } from "@/contexts/AuthContext/AuthProvider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${roboto.variable} ${roboto.variable}`}>
-        {children}
+        <AuthProvider>
+          {children}
 
-        <Navbar />
+          <Navbar />
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,0 +1,46 @@
+.dotLoadingContainer {
+  width: 1px;
+  margin-inline: auto;
+  height: 19px;
+  position: relative;
+}
+.dotLoading {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: flex-end;
+  height: 19px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.dotLoading span {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite ease-in-out;
+}
+
+.dotLoading span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.dotLoading span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}

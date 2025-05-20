@@ -8,6 +8,11 @@ import {
   PasswordValidationState,
   validationsReducer,
 } from "./validationsReducer";
+import { IRegister } from "@/interfaces/auth";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/useAuth";
+import { emailRegex } from "@/utils/email";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 const initialValidationsState: PasswordValidationState = {
   hasPassword: false,
@@ -18,8 +23,29 @@ const initialValidationsState: PasswordValidationState = {
 };
 
 export const RegisterForm = () => {
+  const { signup } = useAuth();
+
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IRegister & { confirm_password?: string; terms?: boolean }>();
+
+  const onSubmit = async (
+    body: IRegister & { confirm_password?: string; terms?: boolean }
+  ) => {
+    setIsLoading(true);
+
+    delete body.terms;
+    delete body.confirm_password;
+    await signup(body);
+
+    setIsLoading(false);
+  };
 
   const [isValidationBoxVisible, setIsValidationBoxVisible] = useState(false);
 
@@ -27,10 +53,6 @@ export const RegisterForm = () => {
     { hasNumber, hasSixChar, hasSpecialChar, hasUppercaseChar, hasPassword },
     dispatch,
   ] = useReducer(validationsReducer, initialValidationsState);
-
-  useEffect(() => {
-    dispatch({ type: "VALIDATE", payload: password });
-  }, [password]);
 
   const renderValidationIcons = (isValid: boolean) => {
     return isValid ? (
@@ -43,7 +65,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form action="" className="form">
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="field">
         <label className="label" htmlFor="username">
           Nome de Usuario
@@ -52,13 +74,18 @@ export const RegisterForm = () => {
         <div className="inputBox">
           <FiMail className="inputIcon" />
           <input
-            name="username"
-            id="username"
             type="text"
+            id="username"
+            className={`input ${errors.username && "error"}`}
             placeholder="Digite o seu e-mail"
-            className="input"
+            {...register("username", {
+              required: { value: true, message: "Este campo é obrigatório!" },
+            })}
           />
         </div>
+        {errors.username && (
+          <span className="errorMessage">{errors.username.message}</span>
+        )}
       </div>
 
       <div className="field">
@@ -69,13 +96,22 @@ export const RegisterForm = () => {
         <div className="inputBox">
           <FiMail className="inputIcon" />
           <input
-            name="email"
             id="email"
             type="text"
+            className={`input ${errors.email && "error"}`}
             placeholder="Digite o seu e-mail"
-            className="input"
+            {...register("email", {
+              required: { value: true, message: "Este campo é obrigatório!" },
+              pattern: {
+                value: emailRegex,
+                message: "Insira um email valído!",
+              },
+            })}
           />
         </div>
+        {errors.email && (
+          <span className="errorMessage">{errors.email.message}</span>
+        )}
       </div>
 
       <div className="field">
@@ -88,55 +124,67 @@ export const RegisterForm = () => {
           <input
             type="text"
             id="password"
-            name="password"
-            value={password}
-            onFocus={() => setIsValidationBoxVisible(true)}
-            onBlur={() => !hasPassword && setIsValidationBoxVisible(false)}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            className={`input ${errors.password && "error"}`}
             placeholder="Digite sua senha"
-            className="input"
+            onFocus={() => setIsValidationBoxVisible(true)}
+            {...register("password", {
+              required: { value: true, message: "Este campo é obrigatório!" },
+              onChange: (e) => {
+                const value = e.target.value;
+
+                setPassword(value);
+
+                dispatch({ type: "VALIDATE", payload: value });
+              },
+              onBlur: () => {
+                if (!hasPassword) {
+                  setIsValidationBoxVisible(false);
+                }
+              },
+            })}
           />
         </div>
+        {errors.password && (
+          <span className="errorMessage">{errors.password.message}</span>
+        )}
       </div>
 
-      {
-        isValidationBoxVisible && <div className="passwordValidation">
-        <p>A senha deve conter no mínimo:</p>
+      {isValidationBoxVisible && (
+        <div className="passwordValidation">
+          <p>A senha deve conter no mínimo:</p>
 
-        <div className="validityItems">
-          <span
-            className={`validityItem ${hasSixChar && hasPassword && "valid"} ${
-              !hasSixChar && hasPassword && "nonValid"
-            }`}
-          >
-            {renderValidationIcons(hasSixChar)} 6 caracteres
-          </span>
-          <span
-            className={`validityItem ${
-              hasSpecialChar && hasPassword && "valid"
-            } ${!hasSpecialChar && hasPassword && "nonValid"}`}
-          >
-            {renderValidationIcons(hasSpecialChar)} 1 caractere especial
-          </span>
-          <span
-            className={`validityItem ${hasNumber && hasPassword && "valid"} ${
-              !hasNumber && hasPassword && "nonValid"
-            }`}
-          >
-            {renderValidationIcons(hasNumber)} 1 número
-          </span>
-          <span
-            className={`validityItem ${
-              hasUppercaseChar && hasPassword && "valid"
-            } ${!hasUppercaseChar && hasPassword && "nonValid"}`}
-          >
-            {renderValidationIcons(hasUppercaseChar)} 1 caractere maiúsculo
-          </span>
+          <div className="validityItems">
+            <span
+              className={`validityItem ${
+                hasSixChar && hasPassword && "valid"
+              } ${!hasSixChar && hasPassword && "nonValid"}`}
+            >
+              {renderValidationIcons(hasSixChar)} 6 caracteres
+            </span>
+            <span
+              className={`validityItem ${
+                hasSpecialChar && hasPassword && "valid"
+              } ${!hasSpecialChar && hasPassword && "nonValid"}`}
+            >
+              {renderValidationIcons(hasSpecialChar)} 1 caractere especial
+            </span>
+            <span
+              className={`validityItem ${hasNumber && hasPassword && "valid"} ${
+                !hasNumber && hasPassword && "nonValid"
+              }`}
+            >
+              {renderValidationIcons(hasNumber)} 1 número
+            </span>
+            <span
+              className={`validityItem ${
+                hasUppercaseChar && hasPassword && "valid"
+              } ${!hasUppercaseChar && hasPassword && "nonValid"}`}
+            >
+              {renderValidationIcons(hasUppercaseChar)} 1 caractere maiúsculo
+            </span>
+          </div>
         </div>
-      </div>
-      }
+      )}
 
       <div className="field">
         <label className="label" htmlFor="confirm_password">
@@ -147,21 +195,34 @@ export const RegisterForm = () => {
           <FaLock className="inputIcon" />
           <input
             type="text"
-            value={confirmPassword}
             id="confirm_password"
-            name="confirm_password"
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
+            className={`input ${errors.confirm_password && "error"}`}
             placeholder="Digite sua senha"
-            className="input"
+            {...register("confirm_password", {
+              required: { value: true, message: "Este campo é obrigatório!" },
+              validate: (value) =>
+                value === password || "As senhas não coincidem!",
+            })}
           />
         </div>
+        {errors.confirm_password && (
+          <span className="errorMessage">
+            {errors.confirm_password.message}
+          </span>
+        )}
       </div>
 
       <label htmlFor="terms" className="termsAgreement">
-        <input type="checkbox" id="terms" name="terms" />
-        <span className="checkmark" />
+        <input
+          type="checkbox"
+          id="terms"
+          {...register("terms", {
+            validate: (value) => {
+              return value === true || "Aceite para prosseguir";
+            },
+          })}
+        />
+        <span className={`checkmark ${errors.terms && "error"}`} />
         <span>
           Eu li e concordo com os{" "}
           <Link href={"/auth/forgot-password"}>
@@ -169,9 +230,12 @@ export const RegisterForm = () => {
           </Link>
         </span>
       </label>
+      {errors.terms && (
+        <span className="errorMessage">{errors.terms.message}</span>
+      )}
 
       <button type="submit" className="submitButton">
-        Criar Conta
+        {isLoading ? <SpinnerLoading /> : "Criar Conta"}
       </button>
 
       <p className="actionLink">
