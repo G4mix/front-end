@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 
 import "@/styles/forms.css";
 import "@/styles/globals.css";
+import { Navbar } from "@/components/Navbar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -23,6 +24,8 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${roboto.variable} ${roboto.variable}`}>
         {children}
+
+        <Navbar />
       </body>
     </html>
   );
