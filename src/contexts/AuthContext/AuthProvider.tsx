@@ -13,7 +13,7 @@ import {
 } from "@/interfaces/auth";
 import { deleteCookie } from "cookies-next/client";
 import { defaultHeaders, setAuthTokens } from "@/api/utils";
-import { getUserData } from "@/api/user";
+import { getUserData } from "@/api/queries/user";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

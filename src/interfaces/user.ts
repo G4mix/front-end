@@ -12,3 +12,7 @@ export interface IUserProfile {
   icon: string | null;
   displayName: string | null;
 }
+
+export interface IAuthor extends IUserProfile {
+  user: Omit<IUser, "userProfile">;
+}

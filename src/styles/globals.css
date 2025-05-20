@@ -68,3 +68,7 @@ button:disabled {
   filter: brightness(0.7);
   cursor: not-allowed;
 }
+
+.w100 {
+  width: 100%;
+}

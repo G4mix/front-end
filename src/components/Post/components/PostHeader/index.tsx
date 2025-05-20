@@ -2,29 +2,31 @@ import Image from "next/image";
 import styles from "../../style.module.css";
 import { FaUserCircle } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
+import { IAuthor } from "@/interfaces/user";
 
 interface IPostHeader {
-  userImage?: string;
+  author: IAuthor;
+  date: string;
 }
 
-export const PostHeader = ({ userImage }: IPostHeader) => {
+export const PostHeader = ({ author, date }: IPostHeader) => {
   return (
     <header className={styles.postHeader}>
       <div className={styles.postHeaderInfo}>
-        {userImage ? (
+        {author?.icon ? (
           <Image
-            src={userImage}
+            src={author.icon}
             alt=""
-            className={styles.userImage}
+            className={styles.author}
             width={18}
             height={18}
           />
         ) : (
-          <FaUserCircle className={styles.userImage} />
+          <FaUserCircle className={styles.author} />
         )}
 
         <h2>
-          Lorem Ipsum &bull; <span>05 mar. 25</span>
+          {author.user.username} &bull; <span>{date}</span>
         </h2>
       </div>
 
