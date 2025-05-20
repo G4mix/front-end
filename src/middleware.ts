@@ -6,13 +6,13 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const isAuthRoute = pathname.startsWith("/auth");
 
-  const hasAccessToken = request.cookies.has("accessToken");
+  const hasAuthTokens = request.cookies.has("accessToken") || request.cookies.has("refreshToken");
 
-  if (!hasAccessToken && !isAuthRoute) {
+  if (!hasAuthTokens && !isAuthRoute) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  if (hasAccessToken && isAuthRoute) {
+  if (hasAuthTokens && isAuthRoute) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 }

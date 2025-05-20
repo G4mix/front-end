@@ -90,7 +90,7 @@ export const refreshTokenRequest = async (refreshToken: string) => {
   const res = await fetch(`${API_URL}/auth/refresh-token`, {
     method: "POST",
     body: JSON.stringify({ token: refreshToken }),
-    ...getHeaderOptions(),
+    headers: defaultHeaders,
   });
 
   const {
