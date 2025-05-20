@@ -12,21 +12,26 @@ export const Navbar = () => {
         <li className={styles.item}>
           <Link href="/">
             <MdHome className={`${styles.icon} ${styles.active}`} />
+            <span className={styles.navCaption}>Feed</span>
           </Link>
         </li>
         <li className={styles.item}>
           <FaSearch className={`${styles.icon} ${styles.disabled}`} />
+          <span className={styles.navCaption}>Pesquisar</span>
         </li>
         <li className={styles.item}>
           <Link href="/post/create">
             <FiPlusCircle className={styles.icon} />
+            <span className={styles.navCaption}>Criar postagem</span>
           </Link>
         </li>
         <li className={styles.item}>
           <FaUsers className={`${styles.icon} ${styles.disabled}`} />
+          <span className={styles.navCaption}>Usuarios</span>
         </li>
         <li className={styles.item}>
           <FaUserCircle className={`${styles.icon} ${styles.disabled}`} />
+          <span className={styles.navCaption}>Meu perfil</span>
         </li>
       </ul>
     </nav>

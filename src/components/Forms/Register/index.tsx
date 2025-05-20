@@ -122,8 +122,8 @@ export const RegisterForm = () => {
         <div className="inputBox">
           <FaLock className="inputIcon" />
           <input
-            type="text"
             id="password"
+            type="password"
             className={`input ${errors.password && "error"}`}
             placeholder="Digite sua senha"
             onFocus={() => setIsValidationBoxVisible(true)}
@@ -194,7 +194,7 @@ export const RegisterForm = () => {
         <div className="inputBox">
           <FaLock className="inputIcon" />
           <input
-            type="text"
+            type="password"
             id="confirm_password"
             className={`input ${errors.confirm_password && "error"}`}
             placeholder="Digite sua senha"

@@ -6,10 +6,13 @@
   gap: 0.625rem;
 
   padding: 1rem;
-  border-bottom: 1px solid var(--secondary-light);
 
   font-weight: 400;
   font-size: 0.875rem;
+}
+
+.postContainer + .postContainer {
+  border-top: 1px solid var(--secondary-light);
 }
 
 .postHeader {

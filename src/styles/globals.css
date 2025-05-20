@@ -72,3 +72,30 @@ button:disabled {
 .w100 {
   width: 100%;
 }
+
+@media only screen and (min-width: 800px) {
+  body {
+    max-width: 800px;
+    height: calc(100vh - 4rem);
+    width: calc(100% - 282px - 32px);
+
+    padding: 2rem 1.5rem;
+
+    margin-block: 2rem;
+    margin-inline: 282px auto;
+
+    border: 2px solid var(--secondary-light);
+    border-radius: 20px;
+
+    position: relative;
+  }
+
+  body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
