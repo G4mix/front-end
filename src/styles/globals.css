@@ -3,7 +3,7 @@
 
   --primary: #603dfa;
   --secondary: #967ffa;
-  --secondary-light: #D8CEFA;
+  --secondary-light: #d8cefa;
 
   --text-primary: #1d134d;
   --text-secondary: #353535;
@@ -54,4 +54,17 @@ button {
   font-size: 1rem;
   font-weight: 500;
   color: var(--white);
+
+  cursor: pointer;
+
+  transition: filter 0.2s;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:disabled {
+  filter: brightness(0.7);
+  cursor: not-allowed;
 }
