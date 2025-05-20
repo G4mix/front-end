@@ -18,7 +18,6 @@ export class UnauthorizedError extends Error {
   }
 }
 
-const EXPIRATION_TIME_ACCESS_TOKEN = 86400;
 const EXPIRATION_TIME_REFRESH_TOKEN = 1209600;
 
 export const clearCookieAndRedirect = (redirect = "/auth/login") => {
@@ -63,10 +62,7 @@ export const setAuthTokens = ({
     path: "/",
   };
 
-  setCookie("accessToken", accessToken, {
-    ...tokenOptions,
-    maxAge: EXPIRATION_TIME_ACCESS_TOKEN,
-  });
+  setCookie("accessToken", accessToken, tokenOptions);
   setCookie("refreshToken", refreshToken, {
     ...tokenOptions,
     maxAge: EXPIRATION_TIME_REFRESH_TOKEN,
