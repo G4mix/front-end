@@ -11,8 +11,8 @@ import {
   IRegister,
   IRegisterResponse,
 } from "@/interfaces/auth";
-import { deleteCookie, setCookie } from "cookies-next/client";
-import { defaultHeaders } from "@/api/utils";
+import { deleteCookie } from "cookies-next/client";
+import { defaultHeaders, setAuthTokens } from "@/api/utils";
 import { getUserData } from "@/api/user";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -41,17 +41,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signin = async (body: ILogin) => {
     try {
-      const data: ILoginResponse = await fetch(`${API_URL}/auth/signin`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: defaultHeaders,
-      }).then((data) => data.json());
+      const { accessToken, refreshToken, user }: ILoginResponse = await fetch(
+        `${API_URL}/auth/signin`,
+        {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: defaultHeaders,
+        }
+      ).then((data) => data.json());
 
-      setCookie("accessToken", data.accessToken);
-      setCookie("refreshToken", data.refreshToken);
+      setAuthTokens({ accessToken, refreshToken });
 
       setIsAuthenticated(true);
-      setUser(data.user);
+      setUser(user);
 
       router.push("/");
     } catch (error) {
@@ -61,17 +63,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signup = async (body: IRegister) => {
     try {
-      const data: IRegisterResponse = await fetch(`${API_URL}/auth/signup`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: defaultHeaders,
-      }).then((data) => data.json());
+      const { accessToken, refreshToken, user }: IRegisterResponse =
+        await fetch(`${API_URL}/auth/signup`, {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: defaultHeaders,
+        }).then((data) => data.json());
 
-      setCookie("accessToken", data.accessToken);
-      setCookie("refreshToken", data.refreshToken);
+      setAuthTokens({ accessToken, refreshToken });
 
       setIsAuthenticated(true);
-      setUser(data.user);
+      setUser(user);
 
       router.push("/");
     } catch (error) {

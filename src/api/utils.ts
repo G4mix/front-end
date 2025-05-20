@@ -1,6 +1,6 @@
 import { API_URL } from "@/config";
 import { IRefreshTokenRequestResponse } from "@/interfaces/auth";
-import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import { deleteCookie, getCookie, OptionsType, setCookie } from "cookies-next";
 
 export const defaultHeaders = {
   "Content-Type": "application/json",
@@ -17,6 +17,9 @@ export class UnauthorizedError extends Error {
     super("Unauthorized");
   }
 }
+
+const EXPIRATION_TIME_ACCESS_TOKEN = 86400;
+const EXPIRATION_TIME_REFRESH_TOKEN = 1209600;
 
 export const clearCookieAndRedirect = (redirect = "/auth/login") => {
   deleteCookie("refreshToken");
@@ -48,6 +51,28 @@ const identifyAccessDenied = async (res: Response, noRetry = false) => {
   }
 };
 
+export const setAuthTokens = ({
+  accessToken,
+  refreshToken,
+}: {
+  accessToken: string;
+  refreshToken: string;
+}) => {
+  const tokenOptions: OptionsType = {
+    sameSite: "strict",
+    path: "/",
+  };
+
+  setCookie("accessToken", accessToken, {
+    ...tokenOptions,
+    maxAge: EXPIRATION_TIME_ACCESS_TOKEN,
+  });
+  setCookie("refreshToken", refreshToken, {
+    ...tokenOptions,
+    maxAge: EXPIRATION_TIME_REFRESH_TOKEN,
+  });
+};
+
 export const getHeaderOptions = (
   { emptyContentType } = { emptyContentType: false }
 ) => {
@@ -72,12 +97,14 @@ export const refreshTokenRequest = async (refreshToken: string) => {
     ...getHeaderOptions(),
   });
 
-  const data: IRefreshTokenRequestResponse = await res.json();
+  const {
+    accessToken,
+    refreshToken: refreshTokenRes,
+  }: IRefreshTokenRequestResponse = await res.json();
 
   await handleError(res, true);
 
-  setCookie("accessToken", data.accessToken);
-  setCookie("refreshToken", data.refreshToken);
+  setAuthTokens({ accessToken, refreshToken: refreshTokenRes });
 
   window.location.reload();
 };
