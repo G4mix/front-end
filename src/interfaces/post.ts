@@ -27,9 +27,35 @@ export interface IPost {
   commentsCount: number;
 }
 
-export type Image = {
+export interface Image {
   src: string;
   alt: string;
   width: number;
   height: number;
+}
+
+export interface ICreatePost {
+  userProfileId: string;
+  title: string;
+  content: string;
+  links?: string[];
+  images?: FileList;
+  tags?: string[];
+  event?: EventInput;
+}
+
+export interface EventInput {
+  subject: string;
+  startDate: string;
+  endDate: string;
+  description?: string;
+  location?: string;
+  frequency?: EventFrequency;
+}
+
+export enum EventFrequency {
+  DAILY = "DAILY",
+  MONTHLY = "MONTHLY",
+  WEEKLY = "WEEKLY",
+  YEARLY = "YEARLY",
 }

@@ -1,11 +1,15 @@
 import styles from "../../style.module.css";
 
-export const CreatePostHeader = () => {
+interface IProps {
+  submitForm: () => void;
+}
+
+export const CreatePostHeader = ({ submitForm }: IProps) => {
   return (
     <header className={styles.header}>
       <h2>Nova postagem</h2>
 
-      <button>Publicar</button>
+      <button onClick={submitForm}>Publicar</button>
     </header>
   );
 };

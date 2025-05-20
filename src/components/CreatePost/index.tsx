@@ -9,6 +9,11 @@ import { FaCalendar, FaCamera, FaCode, FaLink, FaXmark } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import { ImageDisplay } from "../ImageDisplay";
 import { BsBarChartFill } from "react-icons/bs";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/useAuth";
+import { ICreatePost } from "@/interfaces/post";
+import { createPost } from "@/api/mutations/posts";
+import { useRouter } from "next/navigation";
 
 interface ImagePreview {
   file: File;
@@ -16,9 +21,15 @@ interface ImagePreview {
 }
 
 export const CreatePostScreen = () => {
+  const { user } = useAuth();
+
+  const router = useRouter();
+
   const [images, setImages] = useState<ImagePreview[] | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const { register, handleSubmit } = useForm<ICreatePost>();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -39,14 +50,39 @@ export const CreatePostScreen = () => {
     setImages(null);
   };
 
+  const onSubmit = async (body: ICreatePost) => {
+    const formData = new FormData();
+
+    formData.append("userProfileId", user?.userProfile.id ?? "");
+
+    if (body.title) formData.append("title", body.title);
+    if (body.content) formData.append("content", body.content);
+
+    if (body.images && body.images?.length > 0) {
+      Array.from(body.images).forEach((file) => {
+        formData.append("images", file);
+      });
+    }
+
+    try {
+      await createPost(formData);
+
+      router.push("/");
+    } catch (err) {
+      console.error("Erro:", err);
+    }
+  };
+
+  const { ref, ...rest } = register("images");
+
   return (
-    <main className={styles.container}>
-      <CreatePostHeader />
+    <div className={styles.container}>
+      <CreatePostHeader submitForm={handleSubmit(onSubmit)} />
 
       <div className={styles.avatar}>
-        {false ? (
+        {user?.userProfile.icon ? (
           <Image
-            src={""}
+            src={user?.userProfile.icon}
             alt=""
             className={styles.userImage}
             width={18}
@@ -56,23 +92,27 @@ export const CreatePostScreen = () => {
           <FaUserCircle className={styles.userImage} />
         )}
 
-        <h2>Lorem Ipsum</h2>
+        <h2>{user?.username}</h2>
       </div>
 
-      <form className={styles.formContainer}>
+      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
-          name="title"
-          placeholder="Qual é o título de sua ideia?"
           className={styles.titleInput}
+          placeholder="Qual é o título de sua ideia?"
+          {...register("title", {
+            required: true,
+          })}
         />
 
         <div className={styles.descriptionContainer}>
           <textarea
-            name="description"
             id="description"
             placeholder="O que você está desenvolvendo? Conte-nos mais!"
             maxLength={700}
+            {...register("content", {
+              required: true,
+            })}
           ></textarea>
 
           {images?.[0] && (
@@ -96,11 +136,17 @@ export const CreatePostScreen = () => {
               <input
                 type="file"
                 id="images"
-                name="images"
                 accept="image/*"
-                ref={fileInputRef}
                 style={{ display: "none" }}
-                onChange={handleImageChange}
+                ref={(el) => {
+                  ref(el);
+                  fileInputRef.current = el;
+                }}
+                {...rest}
+                onChange={(e) => {
+                  rest.onChange(e);
+                  handleImageChange(e);
+                }}
               />
             </li>
             <li>
@@ -122,6 +168,6 @@ export const CreatePostScreen = () => {
           </ul>
         </div>
       </form>
-    </main>
+    </div>
   );
 };

@@ -1,7 +1,6 @@
 import { FaImage } from "react-icons/fa6";
 import styles from "./style.module.css";
 import Image from "next/image";
-import Link from "next/link";
 
 interface IImageDisplay {
   image?: {
