@@ -13,8 +13,8 @@ export interface IComment {
   ideaId: string;
   parentCommentId: string | null;
   author: IAuthor;
-  repliesCount: number;
-  likesCount: number;
+  replies: number;
+  likes: number;
   isLiked: boolean;
   createdAt: string;
   updatedAt: string;

@@ -2,24 +2,28 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import { MdHome } from "react-icons/md";
-import { FaSearch, FaUsers, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
 import styles from "./styles.module.css";
-import { FaPuzzlePiece } from "react-icons/fa6";
+import { FaHouse, FaPuzzlePiece } from "react-icons/fa6";
+import { useAuth } from "@/hooks/useAuth";
 
 const menuItems = [
-  { href: "/", icon: MdHome, label: "Início" },
+  { href: "/", icon: FaHouse, label: "Início" },
   { href: "/search", icon: FaSearch, label: "Pesquisar" },
   { href: "/idea/create", icon: FiPlusCircle, label: "Criar Ideia" },
-  { href: "/projects", icon: FaPuzzlePiece , label: "Projetos" },
+  { href: "/projects", icon: FaPuzzlePiece, label: "Projetos" },
   { href: "/profile", icon: FaUserCircle, label: "Minha Conta" },
 ];
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <>
@@ -43,9 +47,13 @@ export const Sidebar = () => {
             );
           })}
         </nav>
+
+        <button onClick={handleLogout} className={styles.logoutButton}>
+          <BiLogOut className={styles.icon} />
+          <span>Sair</span>
+        </button>
       </aside>
 
-      {/* Mobile Bottom Navigation */}
       <nav className={styles.mobileNav}>
         {menuItems.slice(0, 5).map((item) => {
           const Icon = item.icon;
@@ -60,7 +68,6 @@ export const Sidebar = () => {
               }`}
             >
               <Icon className={styles.icon} />
-              <span>{item.label}</span>
             </Link>
           );
         })}

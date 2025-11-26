@@ -24,14 +24,14 @@ export const Feed = () => {
   }, []);
 
   return (
-    <main className={styles.feedContainer}>
+    <div className={styles.feedContainer}>
       <FeedHeader />
 
-      <div className="w100">
+      <div className={styles.ideasContainer}>
         {ideas.map((idea) => (
           <Idea key={idea.id} idea={idea} />
         ))}
       </div>
-    </main>
+    </div>
   );
 };

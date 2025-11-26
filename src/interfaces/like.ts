@@ -1,5 +1,5 @@
 export interface IToggleLike {
   targetLikeId: string;
-  likeType: "IDEA" | "COMMENT";
+  likeType: "Idea" | "Comment";
 }
 

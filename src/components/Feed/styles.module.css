@@ -2,8 +2,21 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .feedHeader {
   display: none;
+}
+
+.ideasContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (max-width: 460px) {
+  .ideasContainer {
+    gap: 0.5rem;
+  }
 }

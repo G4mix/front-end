@@ -4,6 +4,7 @@ import { Roboto } from "next/font/google";
 import "@/styles/forms.css";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext/AuthProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${roboto.variable}`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -5,6 +5,8 @@ import { Sidebar } from "../Sidebar";
 import { NotificationsPanel } from "../NotificationsPanel";
 import styles from "./styles.module.css";
 import { Messages } from "../Messages";
+import { BiChat } from "react-icons/bi";
+import { FaBell } from "react-icons/fa6";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -17,14 +19,28 @@ export const MainLayout = ({
 }: MainLayoutProps) => {
   return (
     <div
-      className={styles.layoutContainer}
-      style={{
-        gridTemplateColumns: rightColumn ? "320px 1fr 436px" : "320px 1fr",
-        paddingRight: rightColumn ? "0" : "2rem",
-      }}
+      className={
+        styles.layoutContainer +
+        " " +
+        (rightColumn ? styles.hasRightColumn : "")
+      }
     >
-      <div>
+      <div className={styles.sidebarContainerWrapper}>
         <div className={styles.sidebarContainer}>
+          <div className={styles.mobileMenuBar}>
+            <img src="/logo_name_mobile.png" alt="Gamix" />
+
+            <div className={styles.mobileMenuBarButtons}>
+              <button>
+                <BiChat />
+              </button>
+
+              <button>
+                <FaBell />
+              </button>
+            </div>
+          </div>
+
           <Sidebar />
         </div>
       </div>
@@ -34,7 +50,7 @@ export const MainLayout = ({
       </main>
 
       {rightColumn && (
-        <div>
+        <div className={styles.rightColumnContainer}>
           <div className={styles.rightContainer}>
             <NotificationsPanel />
             <Messages />

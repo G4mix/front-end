@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getIdeas } from "@/api/queries/idea";
 import { IIdea } from "@/interfaces/idea";
-import { Post } from "@/components/Idea";
+import { Idea } from "@/components/Idea";
 import styles from "./styles.module.css";
 
 interface ProfileIdeasProps {
@@ -42,7 +42,7 @@ export const ProfileIdeas = ({ userProfileId }: ProfileIdeasProps) => {
       <h2 className={styles.title}>Minhas Ideias</h2>
       <div className={styles.ideasList}>
         {ideas.map((idea) => (
-          <Post key={idea.id} post={idea} />
+          <Idea key={idea.id} idea={idea} />
         ))}
       </div>
 

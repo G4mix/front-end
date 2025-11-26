@@ -1,6 +1,7 @@
 .layoutContainer {
   display: grid;
-  grid-template-columns: 320px 1fr 436px;
+  grid-template-columns: 320px 1fr;
+  padding-right: 2rem;
   gap: 2rem;
 
   min-height: 100vh;
@@ -8,12 +9,19 @@
   background: #f5f5f5;
 
   position: relative;
+
+  &.hasRightColumn {
+    grid-template-columns: 320px 1fr 436px;
+    padding-right: 0;
+  }
 }
 
 .mainContent {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
 }
 
 .contentWrapper {
@@ -40,22 +48,111 @@
   height: 100vh;
 }
 
-@media (max-width: 768px) {
+.mobileMenuBar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  gap: 1rem;
+
+  width: 100%;
+  background: var(--white);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.mobileMenuBar img {
+  width: 90px;
+}
+
+.mobileMenuBarButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobileMenuBarButtons button {
+  background: none;
+  padding: 0;
+
+  font-size: 1.5rem;
+  line-height: 0.5;
+  color: var(--text-primary);
+}
+
+
+@media (max-width: 1280px) {
   .layoutContainer {
-    padding-left: 250px;
+    &.hasRightColumn {
+      grid-template-columns: 320px 1fr;
+      padding-right: 2rem;
+    }
+  }
+
+  .rightColumnContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .layoutContainer {
+    grid-template-columns: calc(320px - 32px) 1fr;
+
+    &.hasRightColumn {
+      grid-template-columns: calc(320px - 32px) 1fr;
+      padding-right: 2rem;
+    }
+  }
+
+  .sidebarContainer {
+    width: calc(320px - 32px);
+    height: 100vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileMenuBar {
+    display: flex;
+  }
+
+  .layoutContainer {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 0;
+
+    &.hasRightColumn {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+    }
   }
 
   .mainContent {
     padding-bottom: 0;
   }
 
+  .sidebarContainer {
+    position: relative;
+    height: 68px;
+    width: 100%;
+    z-index: 1;
+  }
+
   .contentWrapper {
-    padding: 2rem;
+    padding: 0;
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 460px) {
   .layoutContainer {
-    padding-right: 360px;
+    padding-top: 0 !important;
+    padding-inline: 0;
+
+    &.hasRightColumn {
+      padding-inline: 0;
+    }
   }
 }

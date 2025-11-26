@@ -23,6 +23,7 @@ export interface IIdea {
   likes: number;
   views: number;
   isLiked: boolean;
+  isViewed: boolean;
   createdAt: string;
   updatedAt: string;
 }
