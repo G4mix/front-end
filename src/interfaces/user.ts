@@ -2,17 +2,26 @@ export interface IUser {
   id: string;
   username: string;
   email: string;
-  verified: boolean;
-  created_at: string;
-  userProfile: IUserProfile;
+  verified?: boolean;
 }
 
 export interface IUserProfile {
   id: string;
+  displayName: string;
   icon: string | null;
-  displayName: string | null;
+  backgroundImage: string | null;
+  autobiography: string | null;
+  links: string[];
+  followers: number;
+  following: number;
+  isFollowing: boolean;
+  user?: IUser;
 }
 
-export interface IAuthor extends IUserProfile {
-  user: Omit<IUser, "userProfile">;
+export interface IAuthor {
+  displayName: string;
+  icon: string | null;
+  id: string;
+  followers: number;
+  following: number;
 }

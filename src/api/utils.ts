@@ -18,7 +18,7 @@ export class UnauthorizedError extends Error {
   }
 }
 
-const EXPIRATION_TIME_REFRESH_TOKEN = 1209600;
+const EXPIRATION_TIME_REFRESH_TOKEN = 60 * 60 * 24 * 14; // 2 weeks
 
 export const clearCookieAndRedirect = (redirect = "/auth/login") => {
   deleteCookie("refreshToken");
@@ -89,7 +89,7 @@ export const getHeaderOptions = (
 export const refreshTokenRequest = async (refreshToken: string) => {
   const res = await fetch(`${API_URL}/auth/refresh-token`, {
     method: "POST",
-    body: JSON.stringify({ token: refreshToken }),
+    body: JSON.stringify({ refreshToken }),
     headers: defaultHeaders,
   });
 
@@ -108,8 +108,10 @@ export const refreshTokenRequest = async (refreshToken: string) => {
 export const handleError = async (res: Response, noRetry = false) => {
   await identifyAccessDenied(res, noRetry);
 
-  if (res.ok === false || res.status >= 400) {
-    const isNotFounded = res.status === 404;
+  const status = res.status;
+
+  if (res.ok === false || status >= 400) {
+    const isNotFounded = status === 404;
     const message = await getBodyMessage(res);
 
     if (isNotFounded) {

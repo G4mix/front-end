@@ -23,7 +23,7 @@ export function validationsReducer(
         hasPassword: password.length > 0,
         hasSixChar: password.length >= 6,
         hasNumber: /\d/.test(password),
-        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;/']/g.test(password),
+        hasSpecialChar: /[!@#$%^&*(),.?":|<>_\-+=~`[\]\\;/']/g.test(password),
         hasUppercaseChar: /[A-Z]/.test(password),
       };
     default:

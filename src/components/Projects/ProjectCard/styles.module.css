@@ -1,0 +1,107 @@
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.banner {
+  width: 100%;
+  height: 120px;
+  position: relative;
+}
+
+.bannerImage {
+  object-fit: cover;
+}
+
+.defaultBanner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.content {
+  padding: 1.5rem;
+  position: relative;
+}
+
+.projectIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: var(--white);
+  border: 3px solid var(--white);
+  margin-top: -48px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.defaultIcon {
+  font-size: 1.75rem;
+  color: var(--primary);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.owner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.ownerAvatar {
+  border-radius: 50%;
+}
+
+.ownerIcon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.stats {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+

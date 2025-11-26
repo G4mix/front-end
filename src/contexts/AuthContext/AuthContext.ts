@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-import { IUser } from "@/interfaces/user";
+import { IUserProfile } from "@/interfaces/user";
 import { ILogin, IRegister } from "@/interfaces/auth";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: IUser | null;
+  userProfile: IUserProfile | null;
   signin: (body: ILogin) => Promise<void>;
   signup: (body: IRegister) => Promise<void>;
   logout: () => void;
@@ -13,7 +13,7 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  user: null,
+  userProfile: null,
   signin: async (_body: ILogin) => {
     throw new Error("useAuth: signin chamado fora do AuthProvider");
   },

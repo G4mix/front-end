@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { IUser } from "@/interfaces/user";
+import { IUserProfile } from "@/interfaces/user";
 import { usePathname, useRouter } from "next/navigation";
 import { API_URL } from "@/config";
 import {
@@ -12,13 +12,13 @@ import {
   IRegisterResponse,
 } from "@/interfaces/auth";
 import { deleteCookie } from "cookies-next/client";
-import { defaultHeaders, setAuthTokens } from "@/api/utils";
-import { getUserData } from "@/api/queries/user";
+import { defaultHeaders, handleError, setAuthTokens } from "@/api/utils";
+import { getUserProfile } from "@/api/queries/user";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [userProfile, setUserProfile] = useState<IUserProfile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const router = useRouter();
@@ -27,33 +27,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const isAuthRoute = pathname.startsWith("/auth");
 
   const authenticate = async () => {
-    const data = await getUserData();
+    const data = await getUserProfile();
 
     setIsAuthenticated(true);
-    setUser(data);
+    setUserProfile(data);
   };
 
   useEffect(() => {
-    if (!user && !isAuthenticated && !isAuthRoute) {
+    if (!userProfile && !isAuthenticated && !isAuthRoute) {
       authenticate();
     }
-  }, [user, isAuthenticated, isAuthRoute]);
+  }, [userProfile, isAuthenticated, isAuthRoute]);
 
   const signin = async (body: ILogin) => {
     try {
-      const { accessToken, refreshToken, user }: ILoginResponse = await fetch(
-        `${API_URL}/auth/signin`,
-        {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: defaultHeaders,
-        }
-      ).then((data) => data.json());
+      const res = await fetch(`${API_URL}/auth/signin`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: defaultHeaders,
+      });
 
-      setAuthTokens({ accessToken, refreshToken });
+      await handleError(res);
+
+      const data: ILoginResponse = await res.json();
+
+      setAuthTokens({
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      });
 
       setIsAuthenticated(true);
-      setUser(user);
+      setUserProfile(data.userProfile);
 
       router.push("/");
     } catch (error) {
@@ -63,17 +67,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signup = async (body: IRegister) => {
     try {
-      const { accessToken, refreshToken, user }: IRegisterResponse =
-        await fetch(`${API_URL}/auth/signup`, {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: defaultHeaders,
-        }).then((data) => data.json());
+      const res = await fetch(`${API_URL}/auth/signup`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: defaultHeaders,
+      });
 
-      setAuthTokens({ accessToken, refreshToken });
+      await handleError(res);
+
+      const data: IRegisterResponse = await res.json();
+
+      setAuthTokens({
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      });
 
       setIsAuthenticated(true);
-      setUser(user);
+      setUserProfile(data.userProfile);
 
       router.push("/");
     } catch (error) {
@@ -86,14 +96,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     deleteCookie("refreshToken");
 
     setIsAuthenticated(false);
-    setUser(null);
+    setUserProfile(null);
 
     router.push("/auth/login");
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, signin, signup, logout }}
+      value={{ isAuthenticated, userProfile, signin, signup, logout }}
     >
       {children}
     </AuthContext.Provider>

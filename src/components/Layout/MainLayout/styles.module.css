@@ -1,0 +1,61 @@
+.layoutContainer {
+  display: grid;
+  grid-template-columns: 320px 1fr 436px;
+  gap: 2rem;
+
+  min-height: 100vh;
+
+  background: #f5f5f5;
+
+  position: relative;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contentWrapper {
+  flex: 1;
+  padding-top: 2rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.sidebarContainer {
+  position: fixed;
+  width: 320px;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+.rightContainer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 436px;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .layoutContainer {
+    padding-left: 250px;
+  }
+
+  .mainContent {
+    padding-bottom: 0;
+  }
+
+  .contentWrapper {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .layoutContainer {
+    padding-right: 360px;
+  }
+}

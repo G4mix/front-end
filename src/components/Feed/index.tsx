@@ -1,28 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Post } from "../Post";
+import { Idea } from "../Idea";
 import { FeedHeader } from "./components";
 import styles from "./styles.module.css";
-import { getPosts } from "@/api/queries/posts";
-import { IPost } from "@/interfaces/post";
+import { getIdeas } from "@/api/queries/idea";
+import { IIdea } from "@/interfaces/idea";
 
 export const Feed = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [ideas, setIdeas] = useState<IIdea[]>([]);
 
-  const getAllPosts = async () => {
-    const data = await getPosts({
-      tab: "recommendations",
-      since: new Date().toISOString(),
+  const getAllIdeas = async () => {
+    const data = await getIdeas({
       page: 0,
       quantity: 8,
     });
 
-    setPosts(data.data);
+    setIdeas(data.data);
   };
 
   useEffect(() => {
-    getAllPosts();
+    getAllIdeas();
   }, []);
 
   return (
@@ -30,8 +28,8 @@ export const Feed = () => {
       <FeedHeader />
 
       <div className="w100">
-        {posts.map((post) => (
-          <Post key={post.id} post={post}/>
+        {ideas.map((idea) => (
+          <Idea key={idea.id} idea={idea} />
         ))}
       </div>
     </main>

@@ -1,14 +1,14 @@
-import { IUser } from "./user";
+import { IUserProfile } from "./user";
 
 export interface ILogin {
   email: string;
   password: string;
 }
 
-export interface ILoginResponse {
+export interface ILoginResponse extends Response{
   accessToken: string;
   refreshToken: string;
-  user: IUser;
+  userProfile: IUserProfile;
 }
 
 export interface IRegister {
@@ -19,5 +19,7 @@ export interface IRegister {
 
 export interface IRegisterResponse extends ILoginResponse {}
 
-export interface IRefreshTokenRequestResponse
-  extends Omit<ILoginResponse, "user"> {}
+export interface IRefreshTokenRequestResponse {
+  accessToken: string;
+  refreshToken: string;
+}

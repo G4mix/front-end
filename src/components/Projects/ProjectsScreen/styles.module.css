@@ -1,0 +1,43 @@
+.projectsScreen {
+  max-width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.icon {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  background: var(--white);
+  border-radius: 16px;
+}
+
+@media (max-width: 767px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
