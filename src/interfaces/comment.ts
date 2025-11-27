@@ -8,16 +8,14 @@ export interface IGetCommentsReqBody extends IPagination {
 
 export interface IComment {
   id: string;
-  content: string;
-  authorId: string;
   ideaId: string;
+  content: string;
   parentCommentId: string | null;
   author: IAuthor;
   replies: number;
   likes: number;
   isLiked: boolean;
   createdAt: string;
-  updatedAt: string;
 }
 
 export interface ICreateComment {

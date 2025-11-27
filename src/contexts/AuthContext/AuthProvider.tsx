@@ -13,7 +13,7 @@ import {
 } from "@/interfaces/auth";
 import { deleteCookie } from "cookies-next/client";
 import { defaultHeaders, handleError, setAuthTokens } from "@/api/utils";
-import { getUserProfile } from "@/api/queries/user";
+import { getMyUserProfile } from "@/api/queries/user";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const isAuthRoute = pathname.startsWith("/auth");
 
   const authenticate = async () => {
-    const data = await getUserProfile();
+    const data = await getMyUserProfile();
 
     setIsAuthenticated(true);
     setUserProfile(data);

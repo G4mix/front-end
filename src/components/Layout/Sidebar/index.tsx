@@ -11,7 +11,6 @@ import { useAuth } from "@/hooks/useAuth";
 
 const menuItems = [
   { href: "/", icon: FaHouse, label: "Início" },
-  { href: "/search", icon: FaSearch, label: "Pesquisar" },
   { href: "/idea/create", icon: FiPlusCircle, label: "Criar Ideia" },
   { href: "/projects", icon: FaPuzzlePiece, label: "Projetos" },
   { href: "/profile", icon: FaUserCircle, label: "Minha Conta" },

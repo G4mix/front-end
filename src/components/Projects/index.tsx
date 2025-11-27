@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { getProjects } from "@/api/queries/project";
 import { IProject } from "@/interfaces/project";
-import { ProjectCard } from "../ProjectCard";
-import { RiProjectorFill } from "react-icons/ri";
-import styles from "./styles.module.css";
+import { ProjectCard } from "./components/ProjectCard";
 import { FaPuzzlePiece } from "react-icons/fa6";
+
+import styles from "./styles.module.css";
+import { SpinnerLoading } from "../SpinnerLoading";
 
 export const ProjectsScreen = () => {
   const [projects, setProjects] = useState<IProject[]>([]);
@@ -28,7 +29,7 @@ export const ProjectsScreen = () => {
   }, []);
 
   if (loading) {
-    return <div className={styles.loading}>Carregando projetos...</div>;
+    return <SpinnerLoading isPrimary={true} />;
   }
 
   return (

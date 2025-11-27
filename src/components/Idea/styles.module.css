@@ -13,12 +13,42 @@
   color: var(--white);
 }
 
+.minifiedIdea {
+  border-radius: 24px;
+
+  width: 100%;
+  min-height: 286px;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  align-items: flex-end;
+
+  color: var(--white);
+
+  cursor: pointer;
+
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.01);
+    filter: brightness(1.1);
+  }
+}
+
 .ideaContent {
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 5%,
+    rgba(0, 0, 0, 0.7) 30%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
   border-radius: 0 0 24px 24px;
   padding: 1.5rem 1rem;
-
 
   display: flex;
   flex-direction: column;
@@ -61,6 +91,8 @@
   padding: 1rem;
   background: var(--white);
   border-radius: 16px;
+
+  cursor: pointer;
 }
 
 .footer {
@@ -78,7 +110,7 @@
   align-items: center;
   gap: 0.75rem;
 
-  & button{
+  & button {
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -232,9 +264,23 @@
   cursor: not-allowed;
 }
 
-
 @media (max-width: 460px) {
   .idea {
     border-radius: 0;
+  }
+
+  .modal {
+    padding: 0;
+  }
+
+  .modalContent {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
   }
 }

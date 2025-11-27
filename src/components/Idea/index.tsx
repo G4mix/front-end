@@ -1,18 +1,17 @@
 "use client";
 
 import { IIdea } from "@/interfaces/idea";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import Link from "next/link";
 import { FaCommentDots, FaRegThumbsUp, FaThumbsUp } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { toggleLike } from "@/api/mutations/like";
 import { recordView } from "@/api/mutations/idea";
-import { createCollaborationRequest } from "@/api/mutations/collaboration";
-import { CommentsSection } from "./components/CommentsSection";
 import { toast } from "@/utils/toast";
 import { useMutation } from "@tanstack/react-query";
 import { IToggleLike } from "@/interfaces/like";
-import { ICreateCollaborationRequest } from "@/interfaces";
+import { CollaborationModal } from "./components/CollaborationModal";
+import { useRouter } from "next/navigation";
 
 interface IIdeaProps {
   idea: IIdea;
@@ -20,11 +19,10 @@ interface IIdeaProps {
 
 export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
   const [idea, setIdea] = useState(initialIdea);
-  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const [isLiking, setIsLiking] = useState(false);
-  const [isCollaborating, setIsCollaborating] = useState(false);
+
   const [showCollaborationModal, setShowCollaborationModal] = useState(false);
-  const [collaborationMessage, setCollaborationMessage] = useState("");
+
+  const router = useRouter();
 
   const hasTags = idea.tags.length > 0;
   const imageUrl = idea.images[0] || "/card.png";
@@ -38,7 +36,7 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
 
   const { mutate: toggleLikeMutation, isPending: isLoadingLike } = useMutation({
     mutationFn: (body: IToggleLike) => toggleLike(body),
-    onSuccess: (data) => {
+    onSuccess: () => {
       setIdea((prev) => ({
         ...prev,
         isLiked: !prev.isLiked,
@@ -48,23 +46,6 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
     onError: (error) => {
       toast.error("Erro ao curtir ideia");
       console.error("Erro ao dar like:", error);
-    },
-  });
-
-  const {
-    mutate: createCollaborationRequestMutation,
-    isPending: isLoadingCollaboration,
-  } = useMutation({
-    mutationFn: (body: ICreateCollaborationRequest) =>
-      createCollaborationRequest(body),
-    onSuccess: () => {
-      toast.success("Solicitação de colaboração enviada!");
-      setShowCollaborationModal(false);
-      setCollaborationMessage("");
-    },
-    onError: (error) => {
-      toast.error("Erro ao enviar solicitação");
-      console.error("Erro ao solicitar colaboração:", error);
     },
   });
 
@@ -88,16 +69,8 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
     setShowCollaborationModal(true);
   };
 
-  const handleSendCollaboration = async () => {
-    if (!collaborationMessage.trim()) {
-      toast.error("Por favor, escreva uma mensagem");
-      return;
-    }
-
-    createCollaborationRequestMutation({
-      ideaId: idea.id,
-      message: collaborationMessage,
-    });
+  const pushToIdeaScreen = () => {
+    router.push(`/idea/${idea.id}`);
   };
 
   return (
@@ -108,7 +81,7 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
       >
         <div className={styles.ideaContent}>
           <h2 className={styles.title}>{idea.title}</h2>
-          <Link href={`/profiles/${idea.author.id}`} className={styles.owner}>
+          <Link href={`/profile/${idea.author.id}`} className={styles.owner}>
             @{idea.author.displayName}
           </Link>
 
@@ -122,7 +95,7 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
             </div>
           )}
 
-          <div className={styles.content}>
+          <div className={styles.content} onClick={pushToIdeaScreen}>
             <p>{idea.content}</p>
           </div>
 
@@ -130,7 +103,7 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
             <div className={styles.likesComments}>
               <button
                 onClick={handleLike}
-                disabled={isLiking}
+                disabled={isLoadingLike}
                 className={idea.isLiked ? styles.liked : ""}
               >
                 {idea.isLiked ? (
@@ -141,7 +114,7 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
                 {idea.likes}
               </button>
 
-              <button onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
+              <button onClick={pushToIdeaScreen}>
                 <FaCommentDots className={styles.icon} />
                 {idea.comments}
               </button>
@@ -154,54 +127,11 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
         </div>
       </section>
 
-      {showCollaborationModal && (
-        <div
-          className={styles.modal}
-          onClick={() => setShowCollaborationModal(false)}
-        >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3>Solicitar Colaboração</h3>
-            <p>Conte ao autor por que você quer colaborar nesta ideia:</p>
-            <textarea
-              value={collaborationMessage}
-              onChange={(e) => setCollaborationMessage(e.target.value)}
-              placeholder="Ex: Tenho experiência em backend e adoraria ajudar..."
-              rows={5}
-            />
-            <div className={styles.modalActions}>
-              <button
-                onClick={() => setShowCollaborationModal(false)}
-                className={styles.cancelButton}
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={handleSendCollaboration}
-                disabled={isCollaborating}
-                className={styles.sendButton}
-              >
-                {isCollaborating ? "Enviando..." : "Enviar Solicitação"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isCommentsOpen && (
-        <CommentsSection
-          ideaId={idea.id}
-          onClose={() => setIsCommentsOpen(false)}
-          onCommentCreated={() => {
-            setIdea((prev) => ({
-              ...prev,
-              comments: prev.comments + 1,
-            }));
-          }}
-        />
-      )}
+      <CollaborationModal
+        isOpen={showCollaborationModal}
+        onClose={() => setShowCollaborationModal(false)}
+        ideaId={idea.id}
+      />
     </>
   );
 };

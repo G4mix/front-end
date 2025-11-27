@@ -1,8 +1,8 @@
-import { ProfileScreen } from "@/components/Profile/ProfileScreen";
+import { ProfileScreen } from "@/components/Profile/";
 
-export default function ProfilePage() {
+export default function MyProfilePage() {
   return (
-      <ProfileScreen />
+      <ProfileScreen profileId={null}/>
   );
 }
 

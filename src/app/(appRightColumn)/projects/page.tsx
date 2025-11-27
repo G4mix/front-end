@@ -1,8 +1,5 @@
-import { ProjectsScreen } from "@/components/Projects/ProjectsScreen";
+import { ProjectsScreen } from "@/components/Projects";
 
 export default function ProjectsPage() {
-  return (
-      <ProjectsScreen />
-  );  
+  return <ProjectsScreen />;
 }
-

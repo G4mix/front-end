@@ -1,0 +1,11 @@
+.profileScreen {
+  max-width: 100%;
+
+  background: var(--white);
+  border-radius: 24px;
+}
+
+.profileContent {
+
+  padding: 0.75rem 2rem 2rem 2rem;
+}

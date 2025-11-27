@@ -7,6 +7,7 @@ import styles from "./styles.module.css";
 import { Messages } from "../Messages";
 import { BiChat } from "react-icons/bi";
 import { FaBell } from "react-icons/fa6";
+import { usePathname, useRouter } from "next/navigation";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -17,6 +18,10 @@ export const MainLayout = ({
   children,
   rightColumn = true,
 }: MainLayoutProps) => {
+  const pathname = usePathname();
+
+  const isNotificationsPage = pathname.includes("/notifications");
+
   return (
     <div
       className={
@@ -52,7 +57,7 @@ export const MainLayout = ({
       {rightColumn && (
         <div className={styles.rightColumnContainer}>
           <div className={styles.rightContainer}>
-            <NotificationsPanel />
+            {!isNotificationsPage && <NotificationsPanel />}
             <Messages />
           </div>
         </div>

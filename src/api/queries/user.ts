@@ -5,6 +5,14 @@ import { Paginated } from "@/interfaces/pagination";
 
 const userUrl = `${API_URL}/user`;
 
+export const getMyUserProfile = async (): Promise<IUserProfile> => {
+  const res = await fetch(`${userUrl}/my-user`, getHeaderOptions());
+
+  await handleError(res);
+
+  return await res.json();
+};
+
 export const getUserProfile = async (): Promise<IUserProfile> => {
   const res = await fetch(userUrl, getHeaderOptions());
 

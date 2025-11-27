@@ -5,6 +5,8 @@ import { getIdeas } from "@/api/queries/idea";
 import { IIdea } from "@/interfaces/idea";
 import { Idea } from "@/components/Idea";
 import styles from "./styles.module.css";
+import { MinifiedIdea } from "@/components/Idea/components/MinifiedIdea";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 interface ProfileIdeasProps {
   userProfileId: string;
@@ -34,15 +36,18 @@ export const ProfileIdeas = ({ userProfileId }: ProfileIdeasProps) => {
   }, [userProfileId]);
 
   if (loading) {
-    return <div className={styles.loading}>Carregando ideias...</div>;
+    return <SpinnerLoading isPrimary={true} />;
   }
 
   return (
     <div className={styles.ideas}>
-      <h2 className={styles.title}>Minhas Ideias</h2>
+      <div className={styles.ideasHeader}>
+        <h2 className={styles.title}>Minhas Ideias</h2>
+      </div>
+
       <div className={styles.ideasList}>
         {ideas.map((idea) => (
-          <Idea key={idea.id} idea={idea} />
+          <MinifiedIdea key={idea.id} idea={idea} />
         ))}
       </div>
 
@@ -54,4 +59,3 @@ export const ProfileIdeas = ({ userProfileId }: ProfileIdeasProps) => {
     </div>
   );
 };
-

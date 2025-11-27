@@ -7,6 +7,10 @@
   --text-secondary: #6b7280;
   --text-gray: #353535;
 
+  --border-primary: #b2b2b2;
+
+  --background-light: #f5f5f5;
+
   --black: #000000;
   --white: #ffffff;
   --success: #56d22c;
@@ -92,4 +96,23 @@ button:disabled {
 * {
   scrollbar-width: thin;
   scrollbar-color: #d1d5db #f5f5f7;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 100%;
+  
+  padding: 1rem;
+  background: var(--white);
+  
+  border-radius: 8px;
+  border: 1px solid var(--secondary-light);
+  
+  
+  font-size: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
 }

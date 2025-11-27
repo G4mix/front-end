@@ -5,6 +5,7 @@ import { FaBell } from "react-icons/fa";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { Notification } from "./components/Notification";
+import { useRouter } from "next/navigation";
 
 interface Notification {
   id: string;
@@ -19,9 +20,14 @@ interface Notification {
   createdAt: string;
 }
 
-export const NotificationsPanel = () => {
+export const NotificationsPanel = ({
+  showAll = false,
+}: {
+  showAll?: boolean;
+}) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [showAll, setShowAll] = useState(false);
+
+  const router = useRouter();
 
   // Mock data - substituir pela API real
   const mockNotifications: Notification[] = [
@@ -68,7 +74,7 @@ export const NotificationsPanel = () => {
   }, []);
 
   return (
-    <aside className={styles.panel}>
+    <aside className={`${styles.panel} ${showAll ? styles.showAll : ""}`}>
       <div className={styles.header}>
         <div className={styles.headerTitle}>
           <div className={styles.bellIcon}>
@@ -83,7 +89,7 @@ export const NotificationsPanel = () => {
 
       <div className={styles.notifications}>
         {notifications.length === 0 ? (
-          <div className={styles.emptyState}>
+          <div className="emptyState">
             <p>Nenhuma notificação pendente</p>
           </div>
         ) : (
@@ -94,10 +100,19 @@ export const NotificationsPanel = () => {
       </div>
 
       <div className={styles.footer}>
-        <button onClick={() => {}} className={styles.viewAllBtn}>
-          Exibir todas notificações
+        {!showAll && (
+          <button
+            onClick={() => {
+              router.push("/notifications");
+            }}
+            className={styles.viewAllBtn}
+          >
+            Exibir todas notificações
+          </button>
+        )}
+        <button className={styles.clearAllBtn} title="Marcar todas como lidas">
+          {showAll ? "Marcar todas como lidas" : "Limpar tudo"}
         </button>
-        <button className={styles.clearAllBtn}>Limpar tudo</button>
       </div>
     </aside>
   );
