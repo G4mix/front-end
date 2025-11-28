@@ -3,18 +3,24 @@
 import { useEffect, useState } from "react";
 import { ChatList } from "./components/ChatList";
 import { ChatWindow } from "./components/ChatWindow";
-import { EmptyChatState } from "./components/EmptyChatState";
 import styles from "./styles.module.css";
 import { useSearchParams, useRouter } from "next/navigation";
+import { ChatPresentation } from "./components/ChatPresentation";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export const ChatScreen = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const chatIdParam = searchParams.get("chatId");
-  
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(chatIdParam);
+  const searchParams = useSearchParams();
 
-  // Sync selectedChatId with URL params
+  const chatIdParam = searchParams.get("chatId");
+
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(
+    chatIdParam
+  );
+
+  const isMobile = useMediaQuery("(max-width: 1024px)");
+
   useEffect(() => {
     if (chatIdParam) {
       setSelectedChatId(chatIdParam);
@@ -24,6 +30,10 @@ export const ChatScreen = () => {
   const handleSelectChat = (chatId: string) => {
     setSelectedChatId(chatId);
     router.push(`/chat?chatId=${chatId}`);
+
+    if (isMobile) {
+      setIsChatOpen(true);
+    }
   };
 
   return (
@@ -34,11 +44,15 @@ export const ChatScreen = () => {
       />
 
       {selectedChatId ? (
-        <ChatWindow chatId={selectedChatId} />
+        <ChatWindow
+          chatId={selectedChatId}
+          isMobile={isMobile}
+          isChatOpen={isChatOpen}
+          setIsChatOpen={setIsChatOpen}
+        />
       ) : (
-        <EmptyChatState />
+        <ChatPresentation />
       )}
     </div>
   );
 };
-

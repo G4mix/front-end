@@ -91,31 +91,19 @@
 }
 
 @media (max-width: 1280px) {
-  .layoutContainer {
-    &.hasRightColumn {
-      grid-template-columns: 320px 1fr;
-      padding-right: 2rem;
-    }
+  .layoutContainer,
+  .layoutContainer.hasRightColumn {
+    grid-template-columns: 260px 1fr;
+    padding-right: 2rem;
+  }
+
+  .sidebarContainer {
+    width: 260px;
+    height: 100vh;
   }
 
   .rightColumnContainer {
     display: none;
-  }
-}
-
-@media (max-width: 1024px) {
-  .layoutContainer {
-    grid-template-columns: calc(320px - 32px) 1fr;
-
-    &.hasRightColumn {
-      grid-template-columns: calc(320px - 32px) 1fr;
-      padding-right: 2rem;
-    }
-  }
-
-  .sidebarContainer {
-    width: calc(320px - 32px);
-    height: 100vh;
   }
 }
 

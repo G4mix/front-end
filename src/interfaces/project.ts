@@ -9,6 +9,17 @@ export interface IProjectOwner {
   icon: string | null;
 }
 
+export interface IProjectMember {
+  autobiography: string | null;
+  backgroundImage: string | null;
+  displayName: string;
+  followers: number;
+  following: number;
+  icon: string | null;
+  id: string;
+  links: string[];
+}
+
 export interface ITopFollower {
   name: string;
   icon: string | null;
@@ -22,8 +33,15 @@ export interface IProject {
   backgroundImage: string | null;
   chatId: string;
   owner: IProjectOwner;
+
   topFollowers: ITopFollower[];
-  postsCount: number;
+  followersCount: number;
+  isFollowing: boolean;
+  isMember: boolean;
+  isOwner: boolean;
+
+  ideasCount: number;
+  members: IProjectMember[];
 }
 
 export interface ICreateProject {
@@ -39,4 +57,3 @@ export interface IUpdateProject {
   icon?: File;
   backgroundImage?: File;
 }
-

@@ -1,11 +1,16 @@
 .projectsScreen {
-  max-width: 100%;
+  width: 100%;
+  
+  padding: 2rem;
+  background: var(--white);
+  border-radius: 24px;
 }
 
 .header {
   display: flex;
   align-items: center;
   gap: 1rem;
+  
   margin-bottom: 2rem;
 }
 

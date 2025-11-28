@@ -8,27 +8,25 @@ import { FaPuzzlePiece } from "react-icons/fa6";
 
 import styles from "./styles.module.css";
 import { SpinnerLoading } from "../SpinnerLoading";
+import { QUERY_KEYS } from "@/api/keys";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "@/utils/toast";
 
 export const ProjectsScreen = () => {
-  const [projects, setProjects] = useState<IProject[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [QUERY_KEYS.GET_PROJECTS],
+    queryFn: () => getProjects({ page: 0, quantity: 20 }),
+  });
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await getProjects({ page: 0, quantity: 20 });
-        setProjects(data.data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (isError) {
+      toast.error("Erro ao carregar projetos");
+    }
+  }, [isError]);
 
-    fetchProjects();
-  }, []);
+  const projects = data?.data ?? [];
 
-  if (loading) {
+  if (isLoading) {
     return <SpinnerLoading isPrimary={true} />;
   }
 

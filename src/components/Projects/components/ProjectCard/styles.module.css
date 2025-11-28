@@ -14,7 +14,7 @@
 
 .banner {
   width: 100%;
-  height: 120px;
+  height: 140px;
   position: relative;
 }
 
@@ -29,22 +29,22 @@
 }
 
 .content {
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;
   position: relative;
 }
 
 .projectIcon {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 12px;
   background: var(--white);
   border: 3px solid var(--white);
-  margin-top: -48px;
+  margin-top: calc(72px / 2 * -1 - 1.5rem);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .defaultIcon {
@@ -56,22 +56,27 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 0.75rem;
 }
 
 .description {
   font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
+  color: var(--text-gray);
+  line-height: 1.25;
   margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+}
+
+.members {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.members span {
+  font-size: 0.75rem;
+  color: var(--border-primary);
+  font-weight: 500;
 }
 
 .footer {
@@ -79,29 +84,21 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
-}
-
-.owner {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
-
-.ownerAvatar {
-  border-radius: 50%;
-}
-
-.ownerIcon {
-  font-size: 1.5rem;
-  color: var(--text-secondary);
+  border-top: 1px solid var(--border-primary);
 }
 
 .stats {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-gray);
+}

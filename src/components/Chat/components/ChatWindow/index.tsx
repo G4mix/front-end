@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
-import { FaReply } from "react-icons/fa6";
+import { FaArrowLeft, FaReply } from "react-icons/fa6";
 import styles from "./styles.module.css";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getChatById } from "@/api/queries/chat";
@@ -16,24 +16,33 @@ import { CollaborationResponseModal } from "@/components/CollaborationResponseMo
 
 interface ChatWindowProps {
   chatId: string;
+  isMobile: boolean;
+  isChatOpen: boolean;
+  setIsChatOpen: (isChatOpen: boolean) => void;
 }
 
-export const ChatWindow = ({ chatId }: ChatWindowProps) => {
+export const ChatWindow = ({
+  chatId,
+  isMobile,
+  isChatOpen,
+  setIsChatOpen,
+}: ChatWindowProps) => {
   const { userProfile } = useAuth();
+
   const queryClient = useQueryClient();
+
   const [message, setMessage] = useState("");
   const [showCollaborationModal, setShowCollaborationModal] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Fetch chat with polling every 5 seconds
   const { data: chat, isLoading } = useQuery({
     queryKey: [QUERY_KEYS.GET_CHATS, chatId],
     queryFn: () => getChatById(chatId),
-    refetchInterval: 5000, // Poll every 5 seconds
+    refetchInterval: 5000,
     enabled: !!chatId,
   });
 
-  // Send message mutation
   const sendMessageMutation = useMutation({
     mutationFn: sendMessage,
     onSuccess: () => {
@@ -48,7 +57,6 @@ export const ChatWindow = ({ chatId }: ChatWindowProps) => {
     },
   });
 
-  // Auto scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat?.messages]);
@@ -85,7 +93,6 @@ export const ChatWindow = ({ chatId }: ChatWindowProps) => {
 
   const messages = chat.messages || [];
 
-  // Check if this chat is related to a collaboration request and if current user is the owner
   const hasCollaborationRequest =
     chat.collaborationRequestId && chat.ownerId === userProfile?.id;
 
@@ -97,10 +104,20 @@ export const ChatWindow = ({ chatId }: ChatWindowProps) => {
     setShowCollaborationModal(false);
   };
 
+  if (!isChatOpen && isMobile) {
+    return null;
+  }
+
   return (
     <div className={styles.chatWindow}>
       <div className={styles.header}>
         <div className={styles.headerInfo}>
+          {isMobile && (
+            <button onClick={() => setIsChatOpen(false)} className={styles.backButton}>
+              <FaArrowLeft />
+            </button>
+          )}
+
           <UserIcon
             displayName={chat.title}
             icon={chat.image}

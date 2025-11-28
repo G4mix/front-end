@@ -1,4 +1,6 @@
 export const QUERY_KEYS = {
+  GET_PROJECTS: "@projects/getAll",
+  GET_PROJECT_BY_ID: "@projects/getById",
   GET_IDEAS: "@ideas/getAll",
   GET_IDEA_BY_ID: "@ideas/getById",
   GET_COMMENTS: "@comments/getAll",

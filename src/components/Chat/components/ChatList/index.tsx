@@ -8,6 +8,7 @@ import { QUERY_KEYS } from "@/api/keys";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { UserIcon } from "@/components/Users";
 import { formatRelativeTime } from "@/utils/dateFormatter";
+import { ChatPresentation } from "../ChatPresentation";
 
 interface ChatListProps {
   selectedChatId: string | null;
@@ -59,9 +60,7 @@ export const ChatList = ({ selectedChatId, onSelectChat }: ChatListProps) => {
 
                 <div className={styles.chatInfo}>
                   <div className={styles.chatHeader}>
-                    <span className={styles.name}>
-                      {chat.title}
-                    </span>
+                    <span className={styles.name}>{chat.title}</span>
                     {chat.messages?.[0] && (
                       <span className={styles.time}>
                         {formatRelativeTime(chat.messages[0].timestamp)}

@@ -8,7 +8,7 @@
 
 .header {
   padding: 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
+
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -31,26 +31,38 @@
 }
 
 .chatItem {
+  width: 100%;
+
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+
+  padding: 0.75rem 1.5rem;
+
   border: none;
-  background: transparent;
-  width: 100%;
+  border-radius: 0;
+
+  background: var(--white);
+
   text-align: left;
+
   cursor: pointer;
   transition: background 0.2s;
-  border-bottom: 1px solid #f5f5f7;
 }
 
 .chatItem:hover {
+  filter: none;
   background: #f5f5f7;
 }
 
 .chatItem.selected {
   background: #f0edff;
   border-left: 3px solid var(--primary);
+}
+
+.chatItem.selected:hover {
+  filter: none;
+  background: #f0edff;
 }
 
 .avatar {
@@ -130,3 +142,11 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .chatItem.selected,
+  .chatItem.selected:hover {
+    filter: none;
+    border-left: none;
+    background: var(--white);
+  }
+}

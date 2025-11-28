@@ -108,18 +108,18 @@
 
 @media (min-width: 768px) {
   .sidebar {
-    width: calc(100% - 32px);
-    height: calc(100vh - 64px);
+    width: 100%;
+    height: 100vh;
 
     display: flex;
     flex-direction: column;
     background: var(--white);
-    border-radius: 24px;
+    border-radius: 0;
     padding: 2rem;
 
     position: absolute;
-    left: 32px;
-    top: 32px;
+    left: 0;
+    top: 0;
     z-index: 100;
   }
 
@@ -130,5 +130,17 @@
   .logoutButton {
     display: flex;
     margin-top: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .sidebar {
+    width: calc(100% - 32px);
+    height: calc(100vh - 64px);
+
+    left: 32px;
+    top: 32px;
+
+    border-radius: 24px;
   }
 }

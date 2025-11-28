@@ -5,5 +5,9 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="authWrapper">{children}</div>;
+  return (
+    <div className="authBody">
+      <div className="authWrapper">{children}</div>
+    </div>
+  );
 }

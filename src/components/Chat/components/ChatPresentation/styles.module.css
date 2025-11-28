@@ -1,0 +1,33 @@
+.presentation {
+  max-width: 340px;
+  margin: 0 auto;
+
+  padding: 1.25rem 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  text-align: center;
+
+  border-radius: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+}
+
+.presentation p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
