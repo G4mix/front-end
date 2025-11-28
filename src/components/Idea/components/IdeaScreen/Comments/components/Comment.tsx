@@ -29,9 +29,15 @@ export const Comment = ({
   const toggleLikeMutation = useMutation({
     mutationFn: toggleLike,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_COMMENTS, ideaId],
-      });
+      if (isReply) {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_COMMENTS_REPLIES, comment.parentCommentId],
+        });
+      } else {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_COMMENTS, ideaId],
+        });
+      }
     },
     onError: () => {
       toast.error("Erro ao curtir comentário");
@@ -44,6 +50,10 @@ export const Comment = ({
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_COMMENTS, ideaId],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_COMMENTS_REPLIES, comment.parentCommentId],
+      });
+
       setReplyContent("");
       setIsReplying(false);
       toast.success("Resposta enviada com sucesso!");

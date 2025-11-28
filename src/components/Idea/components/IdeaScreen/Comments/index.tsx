@@ -7,7 +7,7 @@ import { createComment, getComments } from "@/api";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { HiMiniPaperAirplane } from "react-icons/hi2";
 import { useAuth } from "@/hooks/useAuth";
-import { Comment } from "./components/Comment";
+import { CommentWithReplies } from "./components/CommentWithReplies";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { toast } from "@/utils/toast";
 
@@ -16,6 +16,7 @@ export const Comments = ({ ideaId }: { ideaId: string }) => {
   const queryClient = useQueryClient();
   const [commentContent, setCommentContent] = useState("");
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
 
   const {
     data,
@@ -88,10 +89,16 @@ export const Comments = ({ ideaId }: { ideaId: string }) => {
     (comment) => !comment.parentCommentId
   );
 
-  const getReplies = (commentId: string) => {
-    return allComments.filter(
-      (comment) => comment.parentCommentId === commentId
-    );
+  const toggleReplies = (commentId: string) => {
+    setExpandedComments((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(commentId)) {
+        newSet.delete(commentId);
+      } else {
+        newSet.add(commentId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -125,33 +132,19 @@ export const Comments = ({ ideaId }: { ideaId: string }) => {
             {topLevelComments.map((comment) => {
               if (!userProfile) return null;
 
-              const isOwnComment = comment.author.id === userProfile?.id;
-              const replies = getReplies(comment.id);
+              const isOwnComment = comment.author.id === userProfile.id;
+              const isExpanded = expandedComments.has(comment.id);
 
               return (
-                <div key={comment.id}>
-                  <Comment
-                    comment={comment}
-                    isOwnComment={isOwnComment}
-                    ideaId={ideaId}
-                  />
-                  {replies && replies.length > 0 && (
-                    <div className={styles.repliesContainer}>
-                      {replies.map((reply) => {
-                        const isOwnReply = reply.author.id === userProfile?.id;
-                        return (
-                          <Comment
-                            key={reply.id}
-                            comment={reply}
-                            isOwnComment={isOwnReply}
-                            ideaId={ideaId}
-                            isReply
-                          />
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+                <CommentWithReplies
+                  key={comment.id}
+                  comment={comment}
+                  isOwnComment={isOwnComment}
+                  ideaId={ideaId}
+                  userProfileId={userProfile.id}
+                  isExpanded={isExpanded}
+                  onToggleReplies={() => toggleReplies(comment.id)}
+                />
               );
             })}
 

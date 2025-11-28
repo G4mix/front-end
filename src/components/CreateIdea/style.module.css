@@ -1,5 +1,8 @@
 .container {
-  padding: 1.25rem 1.125rem;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: 24px;
+  /* min-height: calc(100vh - 64px); */
 }
 
 .header {
@@ -146,4 +149,10 @@
 .removeImgIcon {
   width: 0.875rem;
   height: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    /* min-height: calc(100vh - 64px - 68px - 57px); */
+  }
 }

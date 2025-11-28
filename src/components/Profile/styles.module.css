@@ -6,6 +6,11 @@
 }
 
 .profileContent {
-
   padding: 0.75rem 2rem 2rem 2rem;
+}
+
+@media (max-width: 460px) {
+  .profileScreen {
+    border-radius: 0;
+  }
 }

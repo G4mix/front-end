@@ -265,7 +265,7 @@
 }
 
 @media (max-width: 460px) {
-  .idea {
+  .idea, .ideaContent {
     border-radius: 0;
   }
 

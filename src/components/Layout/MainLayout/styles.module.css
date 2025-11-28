@@ -124,9 +124,15 @@
     display: flex;
   }
 
+  .layoutContainer {
+    background: var(--white);
+  }
+
   .layoutContainer,
   .layoutContainer.hasRightColumn {
     grid-template-columns: 1fr;
+    grid-template-rows: 68px 1fr;
+
     gap: 0;
 
     padding: 1.5rem;
