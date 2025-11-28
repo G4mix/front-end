@@ -6,10 +6,6 @@ export interface IGetIdeasReqBody extends IPagination {
   projectId?: string;
 }
 
-export interface ITag {
-  id: string;
-  name: string;
-}
 export interface IIdea {
   id: string;
   title: string;
@@ -18,7 +14,7 @@ export interface IIdea {
   links: string[];
   projectId: string | null;
   author: IAuthor;
-  tags: ITag[];
+  tags: string[];
   comments: number;
   likes: number;
   views: number;

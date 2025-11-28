@@ -34,9 +34,9 @@ export const MinifiedIdea = ({ idea }: IMinifiedIdeaProps) => {
 
         {hasTags && (
           <div className={styles.tags}>
-            {idea.tags.map((tag) => (
-              <span key={tag.id} className={styles.tag}>
-                {tag.name}
+            {idea.tags.map((tag, index) => (
+              <span key={tag + index} className={styles.tag}>
+                {tag}
               </span>
             ))}
           </div>

@@ -59,9 +59,9 @@ export const IdeaScreen = ({ ideaId }: { ideaId: string }) => {
 
         {hasTags && (
           <div className={styles.tags}>
-            {tags.map((tag) => (
-              <span key={tag.id} className={styles.tag}>
-                {tag.name}
+            {tags.map((tag, index) => (
+              <span key={tag + index} className={styles.tag}>
+                {tag}
               </span>
             ))}
           </div>
