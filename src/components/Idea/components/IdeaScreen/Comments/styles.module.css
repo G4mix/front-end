@@ -186,3 +186,10 @@
   padding: 1rem;
   min-height: 3rem;
 }
+
+@media (max-width: 460px) {
+  .comments {
+    padding-inline: 1rem;
+    padding-bottom: 1.5rem;
+  }
+}

@@ -126,6 +126,16 @@
 
 @media (max-width: 460px) {
   .ideaScreen {
+    padding: 0;
     border-radius: 0;
+  }
+
+  .imageContainer {
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .content {
+    padding-inline: 1rem;
   }
 }
