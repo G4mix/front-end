@@ -1,6 +1,6 @@
 import { IPagination } from "./pagination";
 
-export interface IGetChatsReqBody extends IPagination {}
+export type IGetChatsReqBody = IPagination;
 
 export interface IChatMember {
   id: string;

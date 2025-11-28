@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getComments } from "@/api";
 import { QUERY_KEYS } from "@/api/keys";

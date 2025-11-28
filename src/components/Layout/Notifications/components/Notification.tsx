@@ -4,7 +4,6 @@ import { INotification } from "@/interfaces";
 import styles from "../styles.module.css";
 import { formatRelativeTime } from "@/utils/dateFormatter";
 import { UserIcon } from "@/components/Users";
-import { FaReply } from "react-icons/fa6";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { startChat } from "@/api/mutations/chat";

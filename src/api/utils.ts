@@ -76,7 +76,7 @@ export const getHeaderOptions = (
 
   const headers = emptyContentType ? {} : defaultHeaders;
 
-  return !!token
+  return token
     ? {
         headers: {
           ...headers,

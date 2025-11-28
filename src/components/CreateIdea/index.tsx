@@ -4,7 +4,7 @@ import { Header } from "./components/CreatePostHeader";
 
 import styles from "./style.module.css";
 import { FaCamera, FaCirclePlus, FaLink, FaXmark } from "react-icons/fa6";
-import { FormEvent, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ImageDisplay } from "../ImageDisplay";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/hooks/useAuth";
@@ -84,24 +84,24 @@ export const CreateIdeaScreen = () => {
   const handleTagKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      
+
       const trimmedTag = tagInput.trim();
-      
+
       if (!trimmedTag) {
         toast.error("Digite uma tag válida");
         return;
       }
-      
+
       if (tags.includes(trimmedTag)) {
         toast.error("Esta tag já foi adicionada");
         return;
       }
-      
+
       if (trimmedTag.length < 2 || trimmedTag.length > 20) {
         toast.error("A tag deve ter entre 2 e 20 caracteres");
         return;
       }
-      
+
       setTags((prev) => [...prev, trimmedTag]);
       setTagInput("");
     }
@@ -303,7 +303,11 @@ export const CreateIdeaScreen = () => {
             <FaCirclePlus className={styles.tagsInputIcon} />
             <div className={styles.tagsList}>
               {tags.map((tag, index) => (
-                <span key={tag + index} className={styles.tag} onClick={() => handleRemoveTag(index)}>
+                <span
+                  key={tag + index}
+                  className={styles.tag}
+                  onClick={() => handleRemoveTag(index)}
+                >
                   {tag}
                 </span>
               ))}

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FaLock } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 
 export const ForgotPasswordForm = () => {

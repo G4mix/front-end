@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { getIdeas } from "@/api/queries/idea";
 import { IIdea } from "@/interfaces/idea";
-import { Idea } from "@/components/Idea";
 import styles from "./styles.module.css";
 import { MinifiedIdea } from "@/components/Idea/components/MinifiedIdea";
 import { SpinnerLoading } from "@/components/SpinnerLoading";

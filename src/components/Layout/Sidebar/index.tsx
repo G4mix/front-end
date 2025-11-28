@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import { BiLogOut } from "react-icons/bi";
 import styles from "./styles.module.css";
 import { FaHouse, FaPuzzlePiece } from "react-icons/fa6";
 import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
 
 const menuItems = [
   { href: "/", icon: FaHouse, label: "Início" },
@@ -27,7 +28,7 @@ export const Sidebar = () => {
   return (
     <>
       <aside className={styles.sidebar}>
-        <img className={styles.logo} src="/logo_name.svg" alt="GAMIX" />
+        <Image className={styles.logo} src="/logo_name.svg" alt="GAMIX" width={160} height={160} />
 
         <nav className={styles.nav}>
           {menuItems.map((item) => {

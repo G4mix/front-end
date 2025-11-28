@@ -8,6 +8,7 @@ import { Messages } from "../Messages";
 import { BiChat } from "react-icons/bi";
 import { FaBell } from "react-icons/fa6";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -34,7 +35,9 @@ export const MainLayout = ({
       <div className={styles.sidebarContainerWrapper}>
         <div className={styles.sidebarContainer}>
           <div className={styles.mobileMenuBar}>
-            <img
+            <Image
+              width={90}
+              height={28}
               src="/logo_name_mobile.png"
               alt="Gamix"
               onClick={() => router.push("/")}

@@ -17,7 +17,7 @@ export interface IRegister {
   username: string;
 }
 
-export interface IRegisterResponse extends ILoginResponse {}
+export type IRegisterResponse = ILoginResponse;
 
 export interface IRefreshTokenRequestResponse {
   accessToken: string;

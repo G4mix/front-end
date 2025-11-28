@@ -14,10 +14,10 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   userProfile: null,
-  signin: async (_body: ILogin) => {
+  signin: async () => {
     throw new Error("useAuth: signin chamado fora do AuthProvider");
   },
-  signup: async (_body: IRegister) => {
+  signup: async () => {
     throw new Error("useAuth: signup chamado fora do AuthProvider");
   },
   logout: () => {

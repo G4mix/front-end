@@ -6,10 +6,8 @@ import { FaLock } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { emailRegex } from "@/utils/email";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
-import { useRouter } from "next/navigation";
-import { AuthContext } from "@/contexts/AuthContext/AuthContext";
 import { useAuth } from "@/hooks/useAuth";
 import { ILogin } from "@/interfaces/auth";
 

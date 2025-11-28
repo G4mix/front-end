@@ -5,11 +5,9 @@ import { IChat } from "@/interfaces";
 import { formatRelativeTime } from "@/utils/dateFormatter";
 import { UserIcon } from "@/components/Users";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 export const Message = ({ chat }: { chat: IChat }) => {
   const router = useRouter();
-  const { userProfile } = useAuth();
   
   const lastMessage = chat.messages?.[0];
   

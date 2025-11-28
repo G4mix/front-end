@@ -19,10 +19,16 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-icons": "^3.0.0",
-    "typescript": "^5"
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.5",
+    "globals": "^16.5.0",
+    "jiti": "^2.6.1",
+    "typescript": "^5",
+    "typescript-eslint": "^8.48.0"
   }
 }

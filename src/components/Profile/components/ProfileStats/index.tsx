@@ -1,6 +1,5 @@
 import { IUserProfile } from "@/interfaces/user";
-import { FaUserFriends, FaHeart } from "react-icons/fa";
-import { BsFillLightningChargeFill } from "react-icons/bs";
+import { FaUserFriends } from "react-icons/fa";
 import styles from "./styles.module.css";
 
 interface ProfileStatsProps {

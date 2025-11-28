@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { FaCheck, FaLock, FaXmark } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 import {
