@@ -1,24 +1,37 @@
-import Image from "next/image";
+"use client";
+
 import styles from "../styles.module.css";
 import { IChat } from "@/interfaces";
 import { formatRelativeTime } from "@/utils/dateFormatter";
 import { UserIcon } from "@/components/Users";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
-export const Message = ({ message }: { message: IChat }) => {
-  const lastMessage = message.messages?.[0];
+export const Message = ({ chat }: { chat: IChat }) => {
+  const router = useRouter();
+  const { userProfile } = useAuth();
+  
+  const lastMessage = chat.messages?.[0];
+  
+  const handleClick = () => {
+    router.push(`/chat?chatId=${chat.id}`);
+  };
 
   return (
-    <div className={styles.messagesListItem}>
-      <UserIcon displayName={lastMessage?.senderName ?? ""} size={48} fontSize="1.25rem" />
+    <div className={styles.messagesListItem} onClick={handleClick}>
+      <UserIcon
+        displayName={chat.title}
+        icon={chat.image}
+        size={48}
+        fontSize="1.25rem"
+      />
 
       <div className={styles.messagesListItemContent}>
-        <div className={styles.h2eader}>
-          <strong>{lastMessage?.senderName}</strong>
-          <span>{formatRelativeTime(lastMessage?.timestamp ?? "")}</span>
+        <div className={styles.header}>
+          <strong>{chat.title}</strong>
+          {lastMessage && <span>{formatRelativeTime(lastMessage.timestamp)}</span>}
         </div>
-        <p className={styles.content}>
-          {lastMessage?.content}
-        </p>
+        {lastMessage && <p className={styles.content}>{lastMessage.content}</p>}
       </div>
     </div>
   );

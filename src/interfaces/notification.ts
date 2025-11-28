@@ -1,13 +1,9 @@
 import { IPagination } from "./pagination";
+import { IUserProfile } from "./user";
 
 export interface IGetNotificationsReqBody extends IPagination {
   isRead?: boolean;
   type?: string;
-}
-
-export interface IActorProfile {
-  displayName: string;
-  icon: string | null;
 }
 
 export interface INotification {
@@ -17,13 +13,14 @@ export interface INotification {
   message: string;
   readAt: string | null;
   createdAt: string;
-  actorProfile: IActorProfile;
+  actorProfile: IUserProfile;
   ideaTitle?: string;
   ideaId?: string;
   requesterId?: string;
+  relatedEntityId?: string;
+  relatedEntityType?: string;
 }
 
 export interface IMarkNotificationsAsRead {
   notificationIds?: string[];
 }
-

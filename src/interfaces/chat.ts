@@ -15,13 +15,22 @@ export interface IMessage {
   timestamp: string;
 }
 
+export interface ILastMessage {
+  senderId: string;
+  content: string;
+  timestamp: string;
+}
+
 export interface IChat {
   id: string;
   ownerId: string;
-  ideaId: string | null;
-  projectId: string | null;
-  members: IChatMember[];
+  collaborationRequestId?: string | null;
+
+  title: string;
+  image: string | null;
   messages?: IMessage[];
+  
+  createdAt: string;
 }
 
 export interface IStartChat {

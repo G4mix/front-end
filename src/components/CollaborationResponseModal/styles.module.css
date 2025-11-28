@@ -1,0 +1,650 @@
+.panel {
+  width: calc(100% - 32px);
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.375rem;
+
+  padding: 2rem;
+  background: var(--white);
+  border-radius: 24px;
+
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  z-index: 100;
+}
+
+.panel.showAll {
+  position: static;
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bellIcon {
+  font-size: 1.5rem;
+  line-height: 0.5;
+  color: var(--white);
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: var(--primary);
+}
+
+.header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.badge {
+  background: var(--error);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.notifications {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: 200px;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light) transparent;
+}
+
+.showAll .notifications {
+  max-height: none;
+  overflow-y: auto;
+}
+
+.notifications::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notifications::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notifications::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-light);
+  border-radius: 3px;
+}
+
+.notifications::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary);
+}
+
+.notification {
+  position: relative;
+  
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  padding: 0.75rem;
+
+  border-radius: 8px;
+  border: 1px solid var(--secondary-light);
+
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.notification:hover {
+  background: #f5f5f7;
+}
+
+.notification.unread {
+  background: #f0edff;
+}
+
+.notification.unread:hover {
+  background: #e6e1ff;
+}
+
+.notificationIcon {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+  background: var(--secondary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--white);
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.notificationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.notificationMessage {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.notificationMessage strong {
+  font-weight: 500;
+}
+
+.notificationMessage a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.notificationMessage a:hover {
+  text-decoration: underline;
+}
+
+.notificationTimestamp {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.notificationActions {
+  display: flex;
+  gap: 0.5rem;
+
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.notification:hover .notificationActions {
+  visibility: visible;
+  opacity: 1;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.actionBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.acceptBtn {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.acceptBtn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.rejectBtn {
+  background: #f5f5f7;
+  color: var(--text-secondary);
+  border: 1px solid var(--secondary-light);
+}
+
+.rejectBtn:hover:not(:disabled) {
+  background: #e8e8ea;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.viewAllBtn,
+.clearAllBtn {
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.viewAllBtn {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.viewAllBtn:hover {
+  filter: brightness(1.1);
+}
+
+.clearAllBtn {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.clearAllBtn:hover {
+  background: #f5f5f7;
+}
+
+.clearAllBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clearAllBtn:disabled:hover {
+  background: transparent;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--text-gray);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.loadMoreTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContent {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalContent h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modalContent p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.textareaWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modalContent textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--secondary-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.2s;
+}
+
+.modalContent textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.modalContent textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f5f5f7;
+}
+
+.textareaError {
+  border-color: var(--error) !important;
+}
+
+.feedbackInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.charCounter {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+}
+
+.charCounterError {
+  color: var(--error);
+  font-weight: 500;
+}
+
+.errorMessage {
+  font-size: 0.875rem;
+  color: var(--error);
+  font-weight: 500;
+}
+
+/* Collaboration Response Modal */
+.collaborationModal {
+  max-width: 600px;
+}
+
+.requesterInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f5f5f7;
+  border-radius: 8px;
+}
+
+.requesterDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.requesterDetails strong {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.ideaTitle {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+}
+
+.requestMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.messageLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.messageContent {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.75rem;
+  background: #f5f5f7;
+  border-radius: 8px;
+}
+
+.statusMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.approvedStatus,
+.rejectedStatus {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0;
+}
+
+.approvedStatus {
+  background: #e6f7e6;
+  color: #2d7a2d;
+}
+
+.rejectedStatus {
+  background: #ffe6e6;
+  color: #c62828;
+}
+
+.feedbackResponse {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.closeButton {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  background: var(--primary);
+  color: var(--white);
+}
+
+.closeButton:hover {
+  filter: brightness(1.1);
+}
+
+.responseButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5rem;
+  
+  border-radius: 6px;
+  border: none;
+  background: var(--primary);
+
+  font-size: 0.875rem;
+  color: var(--white);
+  
+  cursor: pointer;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.notification:hover .responseButton {
+  visibility: visible;
+  opacity: 1;
+}
+
+.responseButton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.responseButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancelButton,
+.approveButton,
+.rejectButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.cancelButton {
+  background: #f5f5f7;
+  color: var(--text-secondary);
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #e8e8ea;
+}
+
+.approveButton {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.approveButton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.rejectButton {
+  background: var(--error);
+  color: var(--white);
+}
+
+.rejectButton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.cancelButton:disabled,
+.approveButton:disabled,
+.rejectButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 460px) {
+  .modal {
+    padding: 0;
+  }
+
+  .modalContent {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 1.5rem;
+    justify-content: flex-start;
+  }
+
+  .collaborationModal {
+    gap: 1rem;
+  }
+
+  .modalContent h3 {
+    font-size: 1.25rem;
+  }
+
+  .modalContent p {
+    font-size: 0.875rem;
+  }
+
+  .modalContent textarea {
+    min-height: 150px;
+    font-size: 1rem;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .cancelButton,
+  .approveButton,
+  .rejectButton,
+  .closeButton {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .requesterInfo {
+    padding: 0.75rem;
+  }
+
+  .messageLabel {
+    font-size: 0.75rem;
+  }
+
+  .messageContent {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+
+  .responseButton {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .panel:not(.showAll) {
+    display: none;
+  }
+}

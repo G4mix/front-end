@@ -102,6 +102,27 @@
   margin: 0;
 }
 
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.emptyList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.emptyList p {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  margin: 0;
+}
+
 @media (min-width: 768px) {
   .chatList {
     width: 340px;

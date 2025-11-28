@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { Sidebar } from "../Sidebar";
-import { NotificationsPanel } from "../NotificationsPanel";
+import { Notifications } from "../Notifications";
 import styles from "./styles.module.css";
 import { Messages } from "../Messages";
 import { BiChat } from "react-icons/bi";
@@ -18,6 +18,7 @@ export const MainLayout = ({
   children,
   rightColumn = true,
 }: MainLayoutProps) => {
+  const router = useRouter();
   const pathname = usePathname();
 
   const isNotificationsPage = pathname.includes("/notifications");
@@ -33,14 +34,18 @@ export const MainLayout = ({
       <div className={styles.sidebarContainerWrapper}>
         <div className={styles.sidebarContainer}>
           <div className={styles.mobileMenuBar}>
-            <img src="/logo_name_mobile.png" alt="Gamix" />
+            <img
+              src="/logo_name_mobile.png"
+              alt="Gamix"
+              onClick={() => router.push("/")}
+            />
 
             <div className={styles.mobileMenuBarButtons}>
-              <button>
+              <button onClick={() => router.push("/chat")}>
                 <BiChat />
               </button>
 
-              <button>
+              <button onClick={() => router.push("/notifications")}>
                 <FaBell />
               </button>
             </div>
@@ -57,7 +62,7 @@ export const MainLayout = ({
       {rightColumn && (
         <div className={styles.rightColumnContainer}>
           <div className={styles.rightContainer}>
-            {!isNotificationsPage && <NotificationsPanel />}
+            {!isNotificationsPage && <Notifications />}
             <Messages />
           </div>
         </div>

@@ -1,7 +1,7 @@
-import { NotificationsPanel } from "@/components/Layout";
+import { Notifications } from "@/components/Layout";
 
 export default function NotificationsPage() {
   return (
-    <NotificationsPanel showAll={true} />
+    <Notifications showAll={true} />
   );
 }

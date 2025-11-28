@@ -3,7 +3,7 @@ export interface ICollaborationRequest {
   ideaId: string;
   requesterId: string;
   message: string;
-  status: "PENDING" | "APPROVED" | "REJECTED";
+  status: "Pending" | "Approved" | "Rejected";
   chatId: string | null;
   feedback: string | null;
   createdAt: string;
@@ -24,7 +24,7 @@ export interface ICreateCollaborationRequest {
 
 export interface IApproveCollaborationRequest {
   collaborationRequestId: string;
-  status: "APPROVED" | "REJECTED";
+  status: "Approved" | "Rejected";
   feedback?: string;
 }
 
