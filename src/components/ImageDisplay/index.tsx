@@ -16,8 +16,8 @@ export const ImageDisplay = ({ image }: IImageDisplay) => {
         <Image
           src={image.src}
           alt={image.alt ?? ""}
-          width={350}
-          height={150}
+          fill
+          objectFit="cover"
           className={styles.img}
         />
       ) : (

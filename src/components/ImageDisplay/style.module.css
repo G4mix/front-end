@@ -3,12 +3,13 @@
   height: 150px;
 
   border-radius: 8px;
-  border: 2px solid var(--secondary);
+  border: 1px solid var(--primary);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  position: relative;
   overflow: hidden;
 }
 

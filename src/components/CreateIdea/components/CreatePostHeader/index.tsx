@@ -7,7 +7,7 @@ interface IProps {
 export const Header = ({ submitForm }: IProps) => {
   return (
     <header className={styles.header}>
-      <h2>Nova postagem</h2>
+      <h2>Nova ideia</h2>
 
       <button onClick={submitForm}>Publicar</button>
     </header>

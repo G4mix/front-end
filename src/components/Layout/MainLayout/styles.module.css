@@ -124,10 +124,6 @@
     display: flex;
   }
 
-  .layoutContainer {
-    background: var(--white);
-  }
-
   .layoutContainer,
   .layoutContainer.hasRightColumn {
     grid-template-columns: 1fr;
@@ -156,6 +152,10 @@
 }
 
 @media (max-width: 460px) {
+  .layoutContainer {
+    background: var(--white);
+  }
+
   .layoutContainer,
   .layoutContainer.hasRightColumn {
     padding-top: 0 !important;

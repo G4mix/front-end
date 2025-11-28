@@ -1,19 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { Header } from "./components/CreatePostHeader";
 
 import styles from "./style.module.css";
-import { FaUserCircle } from "react-icons/fa";
-import { FaCalendar, FaCamera, FaCode, FaLink, FaXmark } from "react-icons/fa6";
-import { useRef, useState } from "react";
+import { FaCamera, FaCirclePlus, FaLink, FaXmark } from "react-icons/fa6";
+import { FormEvent, useRef, useState } from "react";
 import { ImageDisplay } from "../ImageDisplay";
-import { BsBarChartFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/hooks/useAuth";
 import { ICreateIdea } from "@/interfaces/idea";
 import { createIdea } from "@/api/mutations/idea";
 import { useRouter } from "next/navigation";
+import { toast } from "@/utils/toast";
+import { UserIcon } from "../Users/UserIcon";
+import { SpinnerLoading } from "../SpinnerLoading";
 
 interface ImagePreview {
   file: File;
@@ -25,7 +25,14 @@ export const CreateIdeaScreen = () => {
 
   const router = useRouter();
 
+  const [linkInput, setLinkInput] = useState("");
+  const [links, setLinks] = useState<string[]>([]);
+  const [showLinkInput, setShowLinkInput] = useState(false);
+
   const [images, setImages] = useState<ImagePreview[] | null>(null);
+
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -50,11 +57,81 @@ export const CreateIdeaScreen = () => {
     setImages(null);
   };
 
+  const handleAddLink = () => {
+    if (!linkInput.trim()) return;
+
+    try {
+      new URL(linkInput);
+      setLinks((prev) => [...prev, linkInput.trim()]);
+      setLinkInput("");
+      setShowLinkInput(false);
+    } catch {
+      toast.error("Por favor, insira um link válido");
+    }
+  };
+
+  const handleRemoveLink = (indexToRemove: number) => {
+    setLinks((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleLinkKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddLink();
+    }
+  };
+
+  const handleTagKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      
+      const trimmedTag = tagInput.trim();
+      
+      if (!trimmedTag) {
+        toast.error("Digite uma tag válida");
+        return;
+      }
+      
+      if (tags.includes(trimmedTag)) {
+        toast.error("Esta tag já foi adicionada");
+        return;
+      }
+      
+      if (trimmedTag.length < 2 || trimmedTag.length > 20) {
+        toast.error("A tag deve ter entre 2 e 20 caracteres");
+        return;
+      }
+      
+      setTags((prev) => [...prev, trimmedTag]);
+      setTagInput("");
+    }
+  };
+
+  const handleRemoveTag = (indexToRemove: number) => {
+    setTags((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
   const onSubmit = async (body: ICreateIdea) => {
+    // Validações
+    if (!body.title || !body.title.trim()) {
+      toast.error("O título é obrigatório");
+      return;
+    }
+
+    if (!body.content || !body.content.trim()) {
+      toast.error("A descrição é obrigatória");
+      return;
+    }
+
+    if (!images || images.length === 0) {
+      toast.error("Selecione ao menos uma imagem");
+      return;
+    }
+
     const formData = new FormData();
 
-    if (body.title) formData.append("title", body.title);
-    if (body.content) formData.append("content", body.content);
+    formData.append("title", body.title.trim());
+    formData.append("content", body.content.trim());
 
     if (body.images && body.images?.length > 0) {
       Array.from(body.images).forEach((file) => {
@@ -62,33 +139,44 @@ export const CreateIdeaScreen = () => {
       });
     }
 
+    if (links.length > 0) {
+      links.forEach((link) => {
+        formData.append("links", link);
+      });
+    }
+
+    if (tags.length > 0) {
+      tags.forEach((tag) => {
+        formData.append("tags", tag);
+      });
+    }
+
     try {
       await createIdea(formData);
 
+      toast.success("Ideia criada com sucesso!");
       router.push("/");
     } catch (err) {
       console.error("Erro:", err);
+      toast.error("Erro ao criar ideia. Tente novamente.");
     }
   };
 
   const { ref, ...rest } = register("images");
+
+  if (!userProfile) return <SpinnerLoading />;
 
   return (
     <div className={styles.container}>
       <Header submitForm={handleSubmit(onSubmit)} />
 
       <div className={styles.avatar}>
-        {userProfile?.icon ? (
-          <Image
-            src={userProfile.icon}
-            alt=""
-            className={styles.userImage}
-            width={18}
-            height={18}
-          />
-        ) : (
-          <FaUserCircle className={styles.userImage} />
-        )}
+        <UserIcon
+          displayName={userProfile?.displayName}
+          icon={userProfile?.icon}
+          size={32}
+          fontSize="1rem"
+        />
 
         <h2>{userProfile?.displayName}</h2>
       </div>
@@ -126,6 +214,56 @@ export const CreateIdeaScreen = () => {
             </div>
           )}
 
+          {links.length > 0 && (
+            <div className={styles.linksContainer}>
+              {links.map((link, index) => (
+                <div key={index} className={styles.linkBox}>
+                  <FaLink size={14} />
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    {link}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveLink(index)}
+                    className={styles.removeLinkBtn}
+                  >
+                    <FaXmark size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {showLinkInput && (
+            <div className={styles.linkInputContainer}>
+              <input
+                type="text"
+                placeholder="Cole o link aqui..."
+                value={linkInput}
+                onChange={(e) => setLinkInput(e.target.value)}
+                onKeyPress={handleLinkKeyPress}
+                className={styles.linkInput}
+              />
+              <button
+                type="button"
+                onClick={handleAddLink}
+                className={styles.addLinkBtn}
+              >
+                Adicionar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowLinkInput(false);
+                  setLinkInput("");
+                }}
+                className={styles.cancelLinkBtn}
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
+
           <ul className={styles.actions}>
             <li>
               <label htmlFor="images">
@@ -148,22 +286,37 @@ export const CreateIdeaScreen = () => {
               />
             </li>
             <li>
-              <BsBarChartFill
-                className={`${styles.actionIcon} ${styles.disabled}`}
-              />
-            </li>
-            <li>
-              <FaLink className={`${styles.actionIcon} ${styles.disabled}`} />
-            </li>
-            <li>
-              <FaCode className={`${styles.actionIcon} ${styles.disabled}`} />
-            </li>
-            <li>
-              <FaCalendar
-                className={`${styles.actionIcon} ${styles.disabled}`}
-              />
+              <button
+                type="button"
+                onClick={() => setShowLinkInput(true)}
+                className={styles.actionButton}
+              >
+                <FaLink className={styles.actionIcon} />
+              </button>
             </li>
           </ul>
+        </div>
+
+        <div className={styles.tagsContainer}>
+          <h3>Tags</h3>
+          <div className={styles.tagsInputContainer}>
+            <FaCirclePlus className={styles.tagsInputIcon} />
+            <div className={styles.tagsList}>
+              {tags.map((tag, index) => (
+                <span key={tag + index} className={styles.tag} onClick={() => handleRemoveTag(index)}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <input
+              value={tagInput}
+              className={styles.tagsInput}
+              onChange={(e) => setTagInput(e.target.value)}
+              type="text"
+              placeholder="Digite as tags e pressione enter para adicionar"
+              onKeyDown={handleTagKeyPress}
+            />
+          </div>
         </div>
       </form>
     </div>
