@@ -4,11 +4,14 @@ import type { NextRequest } from "next/server";
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  const isPublicRoute = pathname.startsWith("/s");
   const isAuthRoute = pathname.startsWith("/auth");
 
-  const hasAuthTokens = request.cookies.has("accessToken") || request.cookies.has("refreshToken");
+  const hasAuthTokens =
+    request.cookies.has("accessToken") || request.cookies.has("refreshToken");
 
-  if (!hasAuthTokens && !isAuthRoute) {
+  if (!hasAuthTokens && !isAuthRoute && !isPublicRoute) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 

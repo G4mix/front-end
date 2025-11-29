@@ -1,0 +1,138 @@
+.container {
+  min-height: 100vh;
+  background: var(--background);
+  padding: 2rem 1rem;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--text-gray);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.paragraph {
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.sectionTitle {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.subsectionTitle {
+  color: var(--text-primary);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.list {
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.list li {
+  margin-bottom: 0.5rem;
+}
+
+.list li strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .content {
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .subsectionTitle {
+    font-size: 1.05rem;
+  }
+
+  .paragraph,
+  .list {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .list {
+    padding-left: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.15rem;
+  }
+}
+
