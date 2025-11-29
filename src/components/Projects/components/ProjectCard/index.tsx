@@ -33,13 +33,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.projectIcon}>
-          {project.icon ? (
-            <Image src={project.icon} alt="" width={48} height={48} />
-          ) : (
+        {project.icon ? (
+          <div className={styles.projectIconImg}>
+            <UserIcon displayName={project.title} icon={project.icon} size={72} rounded={false}/>
+          </div>
+        ) : (
+          <div className={styles.projectIcon}>
             <BsFillLightningChargeFill className={styles.defaultIcon} />
-          )}
-        </div>
+          </div>
+        )}
 
         <h3 className={styles.title}>{project.title}</h3>
         <p className={styles.description}>{project.description}</p>

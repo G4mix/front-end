@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "@/api/queries/user";
 import { toast } from "@/utils/toast";
 import { SpinnerLoading } from "../SpinnerLoading";
+import { QUERY_KEYS } from "@/api/keys";
 
 export const ProfileScreen = ({
   profileId = null,
@@ -28,7 +29,7 @@ export const ProfileScreen = ({
     isSuccess,
     isError,
   } = useQuery({
-    queryKey: ["profile", profileId],
+    queryKey: [QUERY_KEYS.GET_USER_PROFILE, profileId],
     queryFn: () => getUserById(profileId as string),
     enabled: !!profileId && !isPersonalProfile && !!userProfile,
   });

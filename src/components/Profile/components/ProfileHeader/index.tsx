@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toggleFollow } from "@/api/mutations/follow";
 import { toast } from "@/utils/toast";
 import { BiSolidUserCheck, BiSolidUserPlus } from "react-icons/bi";
+import Link from "next/link";
 
 interface ProfileHeaderProps {
   profile: IUserProfile;
@@ -67,9 +68,9 @@ export const ProfileHeader = ({
             <h1>{profile.displayName}</h1>
 
             {isPersonalProfile && (
-              <button className={styles.editBtn}>
+              <Link href="/profile/edit" className={styles.editBtn}>
                 <FaEdit />
-              </button>
+              </Link>
             )}
           </div>
 

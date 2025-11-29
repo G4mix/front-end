@@ -73,9 +73,9 @@ export const Header = ({ project }: HeaderProps) => {
             <h1>{project.title}</h1>
 
             {project.isOwner && (
-              <button className={styles.editBtn}>
+              <Link href={`/projects/${project.id}/edit`} className={styles.editBtn}>
                 <FaEdit />
-              </button>
+              </Link>
             )}
           </div>
 

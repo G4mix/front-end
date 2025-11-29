@@ -21,13 +21,25 @@ export const UserIcon = ({
   return (
     <>
       {hasIcon ? (
-        <Image
-          style={{ borderRadius: rounded ? "50%" : "8px" }}
-          src={icon ?? ""}
-          alt={displayName}
-          width={size}
-          height={size}
-        />
+        <div
+          style={{
+            width: size,
+            minWidth: size,
+            height: size,
+            minHeight: size,
+            position: "relative",
+          }}
+        >
+          <Image
+            style={{
+              borderRadius: rounded ? "50%" : "8px",
+              objectFit: "cover",
+            }}
+            src={icon ?? ""}
+            alt={displayName}
+            fill
+          />
+        </div>
       ) : (
         <div
           style={{

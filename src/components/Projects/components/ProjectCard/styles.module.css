@@ -47,6 +47,11 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+.projectIconImg {
+  margin-bottom: 1rem;
+  margin-top: calc(72px / 2 * -1 - 1.5rem);
+}
+
 .defaultIcon {
   font-size: 1.75rem;
   color: var(--primary);

@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
+import { usePathname, useRouter } from "next/navigation";
+import { FaBell, FaUserCircle } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
-import { BiLogOut } from "react-icons/bi";
+import { BiChat, BiLogOut } from "react-icons/bi";
 import styles from "./styles.module.css";
 import { FaHouse, FaPuzzlePiece } from "react-icons/fa6";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const menuItems = [
   { href: "/", icon: FaHouse, label: "Início" },
@@ -18,8 +19,12 @@ const menuItems = [
 ];
 
 export const Sidebar = () => {
-  const pathname = usePathname();
   const { logout } = useAuth();
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isOneColumn = useMediaQuery("(max-width: 1280px)");
 
   const handleLogout = () => {
     logout();
@@ -28,7 +33,25 @@ export const Sidebar = () => {
   return (
     <>
       <aside className={styles.sidebar}>
-        <Image className={styles.logo} src="/logo_name.svg" alt="GAMIX" width={160} height={160} />
+        {isOneColumn && (
+          <div className={styles.oneColumnActions}>
+            <button onClick={() => router.push("/chat")}>
+              <BiChat />
+            </button>
+
+            <button onClick={() => router.push("/notifications")}>
+              <FaBell />
+            </button>
+          </div>
+        )}
+
+        <Image
+          className={styles.logo}
+          src="/logo_name.svg"
+          alt="GAMIX"
+          width={160}
+          height={160}
+        />
 
         <nav className={styles.nav}>
           {menuItems.map((item) => {
