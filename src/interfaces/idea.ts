@@ -22,6 +22,7 @@ export interface IIdea {
   isViewed: boolean;
   createdAt: string;
   updatedAt: string;
+  hasPendingCollaborationRequest?: boolean;
 }
 
 export interface ICreateIdea {

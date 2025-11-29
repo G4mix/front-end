@@ -12,12 +12,14 @@ import { useMutation } from "@tanstack/react-query";
 import { IToggleLike } from "@/interfaces/like";
 import { CollaborationModal } from "./components/CollaborationModal";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 interface IIdeaProps {
   idea: IIdea;
 }
 
 export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
+  const { userProfile } = useAuth();
   const [idea, setIdea] = useState(initialIdea);
 
   const [showCollaborationModal, setShowCollaborationModal] = useState(false);
@@ -33,6 +35,9 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
       console.error("Erro ao registrar visualização:", error);
     },
   });
+  
+  const isAuthor = idea.author.id === userProfile?.id;
+  const hasCollaborationPendingRequest = !!idea.hasPendingCollaborationRequest;
 
   const { mutate: toggleLikeMutation, isPending: isLoadingLike } = useMutation({
     mutationFn: (body: IToggleLike) => toggleLike(body),
@@ -120,9 +125,11 @@ export const Idea = ({ idea: initialIdea }: IIdeaProps) => {
               </button>
             </div>
 
-            <button className={styles.colaborate} onClick={handleCollaborate}>
-              Quero colaborar
-            </button>
+            {!hasCollaborationPendingRequest && !isAuthor && (
+              <button className={styles.colaborate} onClick={handleCollaborate}>
+                Quero colaborar
+              </button>
+            )}
           </div>
         </div>
       </section>

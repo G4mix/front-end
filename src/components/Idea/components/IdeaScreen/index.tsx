@@ -12,8 +12,11 @@ import { Comments } from "./Comments";
 import { FaLink } from "react-icons/fa6";
 import { useState } from "react";
 import { CollaborationModal } from "../CollaborationModal";
+import { useAuth } from "@/hooks/useAuth";
 
 export const IdeaScreen = ({ ideaId }: { ideaId: string }) => {
+  const { userProfile } = useAuth();
+
   const [showCollaborationModal, setShowCollaborationModal] = useState(false);
 
   const { data: idea, isLoading } = useQuery({
@@ -29,6 +32,8 @@ export const IdeaScreen = ({ ideaId }: { ideaId: string }) => {
   if (isLoading) {
     return <SpinnerLoading isPrimary={true} />;
   }
+
+  const isAuthor = idea?.author.id === userProfile?.id;
 
   const { title, author, tags, images, content, links } = idea;
   const imageUrl = images[0] || "/card.png";
@@ -67,13 +72,27 @@ export const IdeaScreen = ({ ideaId }: { ideaId: string }) => {
           </div>
         )}
 
-        <div className={styles.description}>
+        <div
+          className={styles.description}
+          style={{
+            marginBottom:
+              isAuthor || (idea.hasPendingCollaborationRequest && !hasLinks)
+                ? "2rem"
+                : 0,
+          }}
+        >
           <h3>Descrição</h3>
           <p>{content}</p>
         </div>
 
         {hasLinks && (
-          <div className={styles.links}>
+          <div
+            className={styles.links}
+            style={{
+              marginBottom:
+                isAuthor || idea.hasPendingCollaborationRequest ? "2rem" : 0,
+            }}
+          >
             {links.map((link) => (
               <Link key={link} href={link} className={styles.link}>
                 <FaLink size={16} />
@@ -83,12 +102,14 @@ export const IdeaScreen = ({ ideaId }: { ideaId: string }) => {
           </div>
         )}
 
-        <button
-          className={styles.collaborateBtn}
-          onClick={() => setShowCollaborationModal(true)}
-        >
-          Quero colaborar
-        </button>
+        {!idea.hasPendingCollaborationRequest && !isAuthor && (
+          <button
+            className={styles.collaborateBtn}
+            onClick={() => setShowCollaborationModal(true)}
+          >
+            Quero colaborar
+          </button>
+        )}
       </div>
 
       <Comments ideaId={ideaId} />
