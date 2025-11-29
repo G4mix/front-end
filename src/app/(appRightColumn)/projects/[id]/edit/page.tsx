@@ -6,22 +6,23 @@ import { ProjectEdit } from "@/components/Projects/components/ProjectEdit";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { QUERY_KEYS } from "@/api/keys";
 import { toast } from "@/utils/toast";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function ProjectEditPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const router = useRouter();
   const { userProfile } = useAuth();
+  const { id } = use(params);
   
   const { data: project, isLoading, isError } = useQuery({
-    queryKey: [QUERY_KEYS.GET_PROJECT_BY_ID, params.id],
-    queryFn: () => getProjectById(params.id),
-    enabled: !!params.id,
+    queryKey: [QUERY_KEYS.GET_PROJECT_BY_ID, id],
+    queryFn: () => getProjectById(id),
+    enabled: !!id,
   });
 
   useEffect(() => {
@@ -34,9 +35,9 @@ export default function ProjectEditPage({
   useEffect(() => {
     if (project && !project.isOwner) {
       toast.error("Você não tem permissão para editar este projeto");
-      router.push(`/projects/${params.id}`);
+      router.push(`/projects/${id}`);
     }
-  }, [project, params.id, router]);
+  }, [project, id, router]);
 
   if (isLoading || !project || !userProfile) {
     return <SpinnerLoading isPrimary />;
