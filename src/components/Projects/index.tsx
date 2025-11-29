@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getProjects } from "@/api/queries/project";
-import { IProject } from "@/interfaces/project";
 import { ProjectCard } from "./components/ProjectCard";
 import { FaPuzzlePiece } from "react-icons/fa6";
 

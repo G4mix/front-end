@@ -1,6 +1,5 @@
 import { IProject } from "@/interfaces/project";
 import Image from "next/image";
-import { FaUserCircle } from "react-icons/fa";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import styles from "./styles.module.css";
 import { UserIcon } from "@/components/Users/UserIcon";

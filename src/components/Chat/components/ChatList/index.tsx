@@ -8,7 +8,6 @@ import { QUERY_KEYS } from "@/api/keys";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { UserIcon } from "@/components/Users";
 import { formatRelativeTime } from "@/utils/dateFormatter";
-import { ChatPresentation } from "../ChatPresentation";
 
 interface ChatListProps {
   selectedChatId: string | null;
