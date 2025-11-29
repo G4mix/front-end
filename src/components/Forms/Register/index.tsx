@@ -223,12 +223,7 @@ export const RegisterForm = () => {
           })}
         />
         <span className={`checkmark ${errors.terms && "error"}`} />
-        <span>
-          Eu li e concordo com os{" "}
-          <Link href={"/auth/forgot-password"}>
-            termos e politicas de privacidade
-          </Link>
-        </span>
+        <span>Eu li e concordo com os termos e politicas de privacidade</span>
       </label>
       {errors.terms && (
         <span className="errorMessage">{errors.terms.message}</span>

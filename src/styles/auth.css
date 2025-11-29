@@ -3,12 +3,18 @@
   min-height: 100vh;
 
   padding: 2rem;
+  background: var(--white);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+}
+
+.authWrapper a {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 .navbar {
@@ -40,7 +46,6 @@
   .authWrapper {
     height: auto;
     min-height: auto;
-    border: 2px solid var(--secondary-light);
     border-radius: 20px;
     padding: 3rem 3rem;
   }
