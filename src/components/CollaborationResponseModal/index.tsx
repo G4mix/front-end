@@ -26,7 +26,7 @@ export const CollaborationResponseModal = ({
 }: CollaborationResponseModalProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  
+
   const [feedback, setFeedback] = useState("");
   const [showError, setShowError] = useState(false);
   const [pendingAction, setPendingAction] = useState<
