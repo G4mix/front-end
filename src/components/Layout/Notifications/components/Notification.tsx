@@ -27,6 +27,7 @@ export const Notification = ({
   const startChatMutation = useMutation({
     mutationFn: startChat,
     onSuccess: (data) => {
+      onMarkAsRead?.(notification.id);
       router.push(`/chat?chatId=${data.id}`);
     },
     onError: () => {
@@ -49,7 +50,7 @@ export const Notification = ({
   };
 
   const handleClick = () => {
-    if (!notification.readAt && onMarkAsRead) {
+    if (!notification.readAt && onMarkAsRead && !isCollaborationInvite) {
       onMarkAsRead(notification.id);
     }
   };

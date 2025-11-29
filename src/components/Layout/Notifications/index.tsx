@@ -23,7 +23,7 @@ export const Notifications = ({ showAll = false }: { showAll?: boolean }) => {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const quantity = showAll ? 10 : 3;
-  const isReadFilter = showAll ? undefined : false;
+  const isReadFilter = false;
 
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useInfiniteQuery({

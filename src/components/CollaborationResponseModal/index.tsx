@@ -9,6 +9,7 @@ import { QUERY_KEYS } from "@/api/keys";
 import { toast } from "@/utils/toast";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { UserIcon } from "@/components/Users";
+import { useRouter } from "next/navigation";
 
 interface CollaborationResponseModalProps {
   isOpen: boolean;
@@ -23,7 +24,9 @@ export const CollaborationResponseModal = ({
   onClose,
   collaborationRequestId,
 }: CollaborationResponseModalProps) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
+  
   const [feedback, setFeedback] = useState("");
   const [showError, setShowError] = useState(false);
   const [pendingAction, setPendingAction] = useState<
@@ -64,6 +67,7 @@ export const CollaborationResponseModal = ({
           ? "Solicitação de colaboração aceita!"
           : "Solicitação de colaboração recusada"
       );
+      router.push(`/projects`);
       handleClose();
     },
     onError: () => {
