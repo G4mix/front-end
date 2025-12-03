@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useReducer, useState } from "react";
-import { FaCheck, FaLock, FaXmark } from "react-icons/fa6";
+import { FaCheck, FaLock, FaUser, FaXmark } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 import {
   PasswordValidationState,
@@ -72,12 +72,12 @@ export const RegisterForm = () => {
         </label>
 
         <div className="inputBox">
-          <FiMail className="inputIcon" />
+          <FaUser className="inputIcon" />
           <input
             type="text"
             id="username"
             className={`input ${errors.username && "error"}`}
-            placeholder="Digite o seu e-mail"
+            placeholder="Digite o seu nome de usuário"
             {...register("username", {
               required: { value: true, message: "Este campo é obrigatório!" },
             })}
