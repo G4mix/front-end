@@ -5,6 +5,7 @@ export interface IPagination {
 
 export interface Paginated<T> {
   page: number;
+  quantity: number;
   nextPage: number | null;
   pages: number;
   total: number;
