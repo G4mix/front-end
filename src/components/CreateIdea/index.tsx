@@ -36,7 +36,24 @@ export const CreateIdeaScreen = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const { register, handleSubmit } = useForm<ICreateIdea>();
+  const { register, handleSubmit, watch } = useForm<ICreateIdea>();
+  
+  const title = watch("title");
+  const content = watch("content");
+  
+  const isValidTitle = (value?: string) => {
+    if (!value) return false;
+    const trimmed = value.trim();
+    return trimmed.length >= 3 && trimmed.length <= 70 && /^[^{}]+$/.test(trimmed);
+  };
+  
+  const isValidContent = (value?: string) => {
+    if (!value) return false;
+    const trimmed = value.trim();
+    return trimmed.length >= 3 && trimmed.length <= 700 && /^[^{}]+$/.test(trimmed);
+  };
+  
+  const isFormValid = isValidTitle(title) && isValidContent(content) && images && images.length > 0;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -168,7 +185,7 @@ export const CreateIdeaScreen = () => {
 
   return (
     <div className={styles.container}>
-      <Header submitForm={handleSubmit(onSubmit)} />
+      <Header submitForm={handleSubmit(onSubmit)} isFormValid={isFormValid} />
 
       <div className={styles.avatar}>
         <UserIcon

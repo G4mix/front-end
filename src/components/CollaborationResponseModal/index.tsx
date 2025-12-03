@@ -17,7 +17,8 @@ interface CollaborationResponseModalProps {
   collaborationRequestId: string;
 }
 
-const MIN_FEEDBACK_LENGTH = 10;
+const MIN_FEEDBACK_LENGTH = 3;
+const MAX_FEEDBACK_LENGTH = 255;
 
 export const CollaborationResponseModal = ({
   isOpen,
@@ -76,18 +77,25 @@ export const CollaborationResponseModal = ({
     },
   });
 
-  const isValidFeedback = feedback.trim().length >= MIN_FEEDBACK_LENGTH;
-  const charactersRemaining = MIN_FEEDBACK_LENGTH - feedback.trim().length;
+  const isValidFeedback = (value: string) => {
+    const trimmed = value.trim();
+    return trimmed.length >= MIN_FEEDBACK_LENGTH && trimmed.length <= MAX_FEEDBACK_LENGTH;
+  };
+
+  const isFeedbackValid = isValidFeedback(feedback);
+  const feedbackLength = feedback.trim().length;
+  const charactersRemaining = MIN_FEEDBACK_LENGTH - feedbackLength;
 
   const handleFeedbackChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFeedback(e.target.value);
-    if (showError && e.target.value.trim().length >= MIN_FEEDBACK_LENGTH) {
+    const newValue = e.target.value.slice(0, MAX_FEEDBACK_LENGTH);
+    setFeedback(newValue);
+    if (showError && isValidFeedback(newValue)) {
       setShowError(false);
     }
   };
 
   const handleAction = (action: "Approved" | "Rejected") => {
-    if (!isValidFeedback) {
+    if (!isFeedbackValid) {
       setShowError(true);
       return;
     }
@@ -186,23 +194,22 @@ export const CollaborationResponseModal = ({
                     placeholder="Escreva seu feedback sobre a solicitação..."
                     rows={5}
                     disabled={approveCollaborationMutation.isPending}
+                    maxLength={MAX_FEEDBACK_LENGTH}
                     className={showError ? styles.textareaError : ""}
                   />
                   <div className={styles.feedbackInfo}>
                     <span
                       className={`${styles.charCounter} ${
-                        charactersRemaining > 0 ? styles.charCounterError : ""
+                        !isFeedbackValid ? styles.charCounterError : ""
                       }`}
                     >
-                      {charactersRemaining > 0
-                        ? `${charactersRemaining} caracteres restantes`
-                        : `${feedback.trim().length} caracteres`}
+                      {feedbackLength} / {MAX_FEEDBACK_LENGTH} caracteres
+                      {charactersRemaining > 0 && ` (mínimo ${MIN_FEEDBACK_LENGTH})`}
                     </span>
                   </div>
                   {showError && (
                     <span className={styles.errorMessage}>
-                      O feedback deve ter pelo menos {MIN_FEEDBACK_LENGTH}{" "}
-                      caracteres
+                      O feedback deve ter entre {MIN_FEEDBACK_LENGTH} e {MAX_FEEDBACK_LENGTH} caracteres
                     </span>
                   )}
                 </div>
@@ -223,7 +230,7 @@ export const CollaborationResponseModal = ({
                     onClick={() => handleAction("Rejected")}
                     disabled={
                       approveCollaborationMutation.isPending ||
-                      !isValidFeedback ||
+                      !isFeedbackValid ||
                       pendingAction === "Rejected"
                     }
                     className={styles.rejectButton}
@@ -234,7 +241,7 @@ export const CollaborationResponseModal = ({
                     onClick={() => handleAction("Approved")}
                     disabled={
                       approveCollaborationMutation.isPending ||
-                      !isValidFeedback ||
+                      !isFeedbackValid ||
                       pendingAction === "Approved"
                     }
                     className={styles.approveButton}

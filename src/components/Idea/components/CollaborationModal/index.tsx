@@ -35,15 +35,22 @@ export const CollaborationModal = ({
     },
   });
 
+  const isValidMessage = (value: string) => {
+    const trimmed = value.trim();
+    return trimmed.length >= 3 && trimmed.length <= 255 && /^[^{}]+$/.test(trimmed);
+  };
+
+  const isMessageValid = isValidMessage(collaborationMessage);
+
   const handleSendCollaboration = async () => {
-    if (!collaborationMessage.trim()) {
-      toast.error("Por favor, escreva uma mensagem");
+    if (!isMessageValid) {
+      toast.error("A mensagem deve ter entre 3 e 255 caracteres");
       return;
     }
 
     createCollaborationRequestMutation({
       ideaId: ideaId,
-      message: collaborationMessage,
+      message: collaborationMessage.trim(),
     });
   };
 
@@ -59,6 +66,7 @@ export const CollaborationModal = ({
           onChange={(e) => setCollaborationMessage(e.target.value)}
           placeholder="Ex: Tenho experiência em backend e adoraria ajudar..."
           rows={5}
+          maxLength={255}
         />
         <div className={styles.modalActions}>
           <button onClick={onClose} className={styles.cancelButton}>
@@ -66,7 +74,7 @@ export const CollaborationModal = ({
           </button>
           <button
             onClick={handleSendCollaboration}
-            disabled={isLoadingCollaboration}
+            disabled={isLoadingCollaboration || !isMessageValid}
             className={styles.sendButton}
           >
             {isLoadingCollaboration ? "Enviando..." : "Enviar Solicitação"}
