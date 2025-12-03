@@ -2,8 +2,15 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useMediaQuery } from '../useMediaQuery'
 
+interface MatchMediaMock {
+  matches: boolean
+  media: string
+  addEventListener: ReturnType<typeof vi.fn>
+  removeEventListener: ReturnType<typeof vi.fn>
+}
+
 describe('useMediaQuery', () => {
-  let matchMediaMock: any
+  let matchMediaMock: MatchMediaMock
 
   beforeEach(() => {
     matchMediaMock = {
@@ -94,7 +101,7 @@ describe('useMediaQuery', () => {
   })
 
   it('should update when query prop changes', () => {
-    const { result, rerender } = renderHook(
+    const { rerender } = renderHook(
       ({ query }) => useMediaQuery(query),
       { initialProps: { query: '(min-width: 768px)' } }
     )

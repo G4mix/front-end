@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { getIdeas, getIdeaById } from '../idea'
 import { server } from '@/__tests__/setup/msw'
 import { http, HttpResponse } from 'msw'
-import { mockIdea, mockIdeaLiked } from '@/__tests__/mocks/idea.mock'
+import { mockIdea } from '@/__tests__/mocks/idea.mock'
 
 const API_URL = 'http://localhost:3000/v1'
 
