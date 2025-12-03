@@ -53,7 +53,7 @@ export const CreateIdeaScreen = () => {
     return trimmed.length >= 3 && trimmed.length <= 700 && /^[^{}]+$/.test(trimmed);
   };
   
-  const isFormValid = isValidTitle(title) && isValidContent(content) && images && images.length > 0;
+  const isFormValid = (isValidTitle(title) && isValidContent(content) && images && images.length > 0) || false;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
