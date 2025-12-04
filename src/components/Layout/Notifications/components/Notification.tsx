@@ -22,7 +22,7 @@ export const Notification = ({
 
   const isCollaborationInvite =
     notification.type === "Invite" &&
-    notification.relatedEntityType === "COLLABORATION_REQUEST";
+    notification.title === "NEW_COLLABORATION_REQUEST";
 
   const startChatMutation = useMutation({
     mutationFn: startChat,
@@ -83,7 +83,11 @@ export const Notification = ({
               </Link>
             </>
           ) : (
-            notification.message
+            notification.title === "REQUEST_COLLABORATION_APPROVED" ?
+              "foi aprovado para participar da ideia" :
+              notification.title === "REQUEST_COLLABORATION_REJECTED" ?
+                "foi rejeitado para participar da ideia"
+                : notification.title
           )}
         </p>
 
